@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-no-constructed-context-values */
-import React, { useState, useEffect, useContext, useRef, useMemo } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import categories from "./Categories/categories";
 import Button from "./Components/Button";
 import CategoryPicker from "./Categories/CategoryPicker";
@@ -43,18 +43,6 @@ export default function Form({ colorStyle, setColorStyle }) {
       setIsSelectDateChecked(false);
     }
   }, [taskList.length]);
-
-  // const datePicker = useMemo(
-  //   () => (
-  //     <CustomDatePicker
-  //       colorStyle={colorStyle}
-  //       setTaskDeadline={setTaskDeadline}
-  //       isSelectDateChecked={isSelectDateChecked}
-  //       setIsSelectDateChecked={setIsSelectDateChecked}
-  //     />
-  //   ),
-  //   [taskDeadline]
-  // );
 
   const submitHandler = (e) => {
     e.preventDefault();

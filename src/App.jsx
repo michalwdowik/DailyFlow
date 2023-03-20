@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-constructed-context-values */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-unused-expressions */
@@ -17,6 +18,8 @@ export default function App() {
   const [isCategoryRemovedAlertVisible, setIsCategoryRemovedAlertVisible] =
     useState(false);
   const [isReachedMaxAlertVisible, setIsReachedMaxAlertVisible] =
+    useState(false);
+  const [isCantAddCategoryAlertVisible, setIsCantAddCategoryAlertVisible] =
     useState(false);
 
   const [taskList, setTaskList] = useState([]);
@@ -84,34 +87,40 @@ export default function App() {
       group[category].push(arr);
       return group;
     }, {});
-    let category = "all";
+    let categoryName = "all";
     let categoryLength = 0;
     let categoryIcon = "IoListOutline";
     let categoryColorStyle = "black";
-    const wholeList = [{ category, categoryLength, categoryIcon }];
+    let categoryUUID = 9532953502;
+    const wholeList = [
+      { categoryName, categoryLength, categoryIcon, categoryUUID },
+    ];
 
     for (const [key, value] of Object.entries(segregatedList)) {
-      category = key;
+      categoryName = key;
       categoryLength = value.length;
       categoryIcon = value[0].icon;
       categoryColorStyle = value[0].colorStyle;
+      categoryUUID = value[0].uuid;
 
       for (const property of Object.keys(wholeList)) {
-        if (!wholeList[property].category === category) {
+        if (!wholeList[property].category === categoryName) {
           wholeList.push({
-            category,
+            categoryName,
             categoryLength,
             categoryIcon,
             categoryColorStyle,
+            categoryUUID,
           });
         }
       }
 
       wholeList.push({
-        category,
+        categoryName,
         categoryLength,
         categoryIcon,
         categoryColorStyle,
+        categoryUUID,
       });
     }
     return wholeList;
@@ -121,22 +130,6 @@ export default function App() {
   const form = useMemo(
     () => <Form colorStyle={colorStyle} setColorStyle={setColorStyle} />,
     [colorStyle]
-  );
-
-  const values = useMemo(
-    () => ({
-      isRemovedAlertVisible,
-      setIsRemovedAlertVisible,
-      isNotRemovedAlertVisible,
-      setIsNotRemovedAlertVisible,
-      isCategoryAddedAlertVisible,
-      setIsCategoryAddedAlertVisible,
-      isCategoryRemovedAlertVisible,
-      setIsCategoryRemovedAlertVisible,
-      isReachedMaxAlertVisible,
-      setIsReachedMaxAlertVisible,
-    }),
-    [taskList]
   );
 
   return (
@@ -155,6 +148,8 @@ export default function App() {
           setIsCategoryRemovedAlertVisible,
           isReachedMaxAlertVisible,
           setIsReachedMaxAlertVisible,
+          isCantAddCategoryAlertVisible,
+          setIsCantAddCategoryAlertVisible,
         }}
       >
         <AlertHandler />

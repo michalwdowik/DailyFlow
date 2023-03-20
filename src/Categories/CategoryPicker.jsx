@@ -1,5 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/no-array-index-key */
 import React, { useContext } from "react";
 import { colorStyleBgHandler } from "../colorStyleClassHandler";
 import Category from "./Category";
@@ -24,10 +22,10 @@ export default function CategoryPicker() {
           {selectedCategoryName}
         </div>
         <div className="collapse-content mt-3 flex flex-row flex-wrap content-center justify-center gap-2 rounded-lg bg-transparent text-primary-content peer-checked:bg-transparent peer-checked:text-secondary-content">
-          {categories.map((category, index) => (
+          {categories.map((category) => (
             <Category
               onChange={() => setCategoryAndColor(category)}
-              key={index}
+              key={category.uuid}
               categoryName={category.name}
               color={category.colorStyle}
               isAddedByUser={category.isAddedByUser}

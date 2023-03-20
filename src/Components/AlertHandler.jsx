@@ -11,6 +11,7 @@ export default function Alert2() {
     isCategoryAddedAlertVisible,
     isReachedMaxAlertVisible,
     isCategoryRemovedAlertVisible,
+    isCantAddCategoryAlertVisible,
   } = useContext(AlertContext);
 
   return (
@@ -46,6 +47,12 @@ export default function Alert2() {
             type="error"
             backgroundGradient="bg-error"
             isShowed={isReachedMaxAlertVisible}
+          />
+          <Alert
+            title="You can't create a category with this name, try again!"
+            type="error"
+            backgroundGradient="bg-error"
+            isShowed={isCantAddCategoryAlertVisible}
           />
         </div>,
         portal

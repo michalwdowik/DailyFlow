@@ -14,13 +14,19 @@ export default function AddCategoryModal() {
   const [newCategoryIcon, setNewCategoryIcon] = useState("IoIosHappy");
   const [newCategoryColor, setNewCategoryColor] = useState("info");
   const [colorPickerColor, setColorPickerColor] = useState("#38bdf8");
-  const { setIsCategoryAddedAlertVisible } = useContext(AlertContext);
-  const [isCorrectTyped, setIsCorrectTyped] = useState(true);
+  const { setIsCategoryAddedAlertVisible, setIsCantAddCategoryAlertVisible } =
+    useContext(AlertContext);
 
+  const [isCorrectTyped, setIsCorrectTyped] = useState(true);
   const uniqueID = uuid();
   const portal = document.getElementById("portal");
 
   const [searchIcon, setSearchIcon] = useState("");
+
+  const isAlreadyAdded = () => {
+    const x = categories.filter((category) => category.name === inputValue);
+    return x.length !== 0;
+  };
 
   const onInput = (e) => {
     setInputValue(e.target.value);
@@ -28,7 +34,7 @@ export default function AddCategoryModal() {
   };
 
   const createNewCategory = () => {
-    if (inputValue !== "") {
+    if (inputValue !== "" && !isAlreadyAdded()) {
       categories.push({
         name: inputValue.toLowerCase(),
         icon: newCategoryIcon,
@@ -36,7 +42,6 @@ export default function AddCategoryModal() {
         isAddedByUser: true,
         uuid: uniqueID,
       });
-      setIsCorrectTyped(true);
       setInputValue("");
       setIsCategoryAddedAlertVisible(true);
       setTimeout(() => {
@@ -44,6 +49,10 @@ export default function AddCategoryModal() {
       }, 3000);
     } else {
       setIsCorrectTyped(false);
+      setIsCantAddCategoryAlertVisible(true);
+      setTimeout(() => {
+        setIsCantAddCategoryAlertVisible(false);
+      }, 3000);
     }
   };
 
@@ -123,12 +132,12 @@ export default function AddCategoryModal() {
                   onInput={onInput}
                   value={inputValue}
                   type="text"
-                  placeholder="Type here"
+                  placeholder="Type here..."
                   id="taskInput"
                   className={`input-bordered ${
-                    !isCorrectTyped ? "input-error" : "input"
+                    isCorrectTyped ? "input" : "input-error"
                   }  input w-full max-w-xs ${
-                    inputValue !== "" && "focus:input"
+                    isCorrectTyped && "focus:input"
                   } input mb-5 mr-5`}
                 />
                 <Button
