@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { colorStyleBgHandler } from "../colorStyleClassHandler";
+import { colorStyleBgHandler } from "../../colorStyleClassHandler";
 import Category from "./Category";
-import AddCategoryModal from "../Modals/AddCategoryModal";
-import { CategoryParamsContext } from "../Contexts/Contexts";
+import AddCategoryModal from "../CategoryCreationSection/AddCategoryModal";
+import { CategoryParamsContext } from "../../Contexts/Contexts";
 import categories from "./categories";
 
 export default function CategoryPicker() {

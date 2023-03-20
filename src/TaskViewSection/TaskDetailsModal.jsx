@@ -1,13 +1,9 @@
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable no-shadow */
-/* eslint-disable camelcase */
-/* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from "react";
 import { v4 as uuid } from "uuid";
 import { createPortal } from "react-dom";
-import DynamicIcon from "../IconPicker/DynamicIcon";
+import DynamicIcon from "../TaskCreationSection/CategoryCreationSection/IconPicker/DynamicIcon";
+
 import {
   colorStyleTextHandler,
   colorStyleBlobHandler,
@@ -18,9 +14,9 @@ export default function TaskDetailsModal({ task }) {
   const portal = document.getElementById("portal");
 
   const calculateDaysLeft = () => {
-    const date_1 = new Date(`${task.deadline}`);
-    const date_2 = new Date();
-    const difference = date_1.getTime() - date_2.getTime();
+    const deadlineDate = new Date(`${task.deadline}`);
+    const todayDate = new Date();
+    const difference = deadlineDate.getTime() - todayDate.getTime();
     const totalDays = Math.ceil(difference / (1000 * 3600 * 24));
     return totalDays;
   };

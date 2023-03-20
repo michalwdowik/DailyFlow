@@ -1,13 +1,9 @@
-/* eslint-disable react/jsx-no-constructed-context-values */
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-unused-expressions */
 import React, { useMemo, useState } from "react";
-import Form from "./Form";
+import Form from "./TaskCreationSection/TaskCreationSection";
 import { colorStyleBgHandler } from "./colorStyleClassHandler";
 import AlertHandler from "./Components/AlertHandler";
 import { AlertContext, TaskDetailsContext } from "./Contexts/Contexts";
-import TaskManager from "./Task/TaskManager";
+import TaskViewSection from "./TaskViewSection/TaskViewSection";
 
 export default function App() {
   const [isRemovedAlertVisible, setIsRemovedAlertVisible] = useState(false);
@@ -126,7 +122,7 @@ export default function App() {
     return wholeList;
   };
 
-  const taskManager = useMemo(() => <TaskManager />, [taskList]);
+  const taskManager = useMemo(() => <TaskViewSection />, [taskList]);
   const form = useMemo(
     () => <Form colorStyle={colorStyle} setColorStyle={setColorStyle} />,
     [colorStyle]

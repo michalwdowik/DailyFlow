@@ -3,11 +3,11 @@ import React, { useContext, useMemo, useState } from "react";
 import { CirclePicker } from "react-color";
 import { v4 as uuid } from "uuid";
 import { createPortal } from "react-dom";
-import IconPicker from "../IconPicker/IconPicker";
-import { colorStyleBgHandler } from "../colorStyleClassHandler";
-import Button from "../Components/Button";
-import categories from "../Categories/categories";
-import { AlertContext } from "../Contexts/Contexts";
+import IconPicker from "./IconPicker/IconPicker";
+import { colorStyleBgHandler } from "../../colorStyleClassHandler";
+import Button from "../../Components/Button";
+import categories from "../CategoryPicker/categories";
+import { AlertContext } from "../../Contexts/Contexts";
 
 export default function AddCategoryModal() {
   const [inputValue, setInputValue] = useState("");
@@ -145,7 +145,6 @@ export default function AddCategoryModal() {
                   className={`text-white ${colorStyleBgHandler(
                     newCategoryColor
                   )} btn-circle transition-all active:scale-90`}
-                  buttonType="button"
                   title={
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

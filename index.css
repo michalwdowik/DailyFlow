@@ -248,28 +248,6 @@ footer{
   }
 }
 
-.checkbox-red {
-  @include custom-checkbox(1 83% 50%);
-}
-
-.checkbox-green {
-  @include custom-checkbox(120 97% 34%);
-}
-
-.checkbox-pink {
-  @include custom-checkbox(311 100% 61%);
-}
-
-.checkbox-blue {
-  @include custom-checkbox(198 100% 42%);
-}
-
-.radio:checked,
-  .radio[aria-checked=true] {
-
-  box-shadow: 0 0 0 4px hsl(var(--b1)) inset, 0 0 0 4px hsl(var(--b1)) inset;
-}
-
 
 /* ------------------ BLOBS ------------------- */
 

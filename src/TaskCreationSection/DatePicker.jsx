@@ -1,7 +1,4 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
-/* eslint-disable no-console */
 import React, { useState } from "react";
 import Datepicker from "tailwind-datepicker-react";
 import { colorStyleTogglerHandler } from "../colorStyleClassHandler";
@@ -68,7 +65,7 @@ const options = {
   language: "en",
 };
 
-export default function CustomDatePicker({
+export default function DatePicker({
   setTaskDeadline,
   isSelectDateChecked,
   setIsSelectDateChecked,

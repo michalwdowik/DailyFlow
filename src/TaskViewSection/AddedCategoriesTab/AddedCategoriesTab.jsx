@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import CategoryTab from "./CategoryTab";
-import { TaskDetailsContext } from "../Contexts/Contexts";
+import { TaskDetailsContext } from "../../Contexts/Contexts";
 
 export default function AddedCategoriesTab() {
   const { groupTaskList } = useContext(TaskDetailsContext);

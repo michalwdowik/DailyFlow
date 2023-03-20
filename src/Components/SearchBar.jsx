@@ -1,12 +1,10 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useContext } from "react";
 import { colorStyleInputHandler } from "../colorStyleClassHandler";
 import Button from "./Button";
 import { TaskDetailsContext } from "../Contexts/Contexts";
 
-export default function SearchBar(props) {
+export default function SearchBar({ searchInput, onInput, colorStyle }) {
   const { removeTasksHandler, markAllAsDone, markAllAsUndone } =
     useContext(TaskDetailsContext);
 
@@ -28,24 +26,22 @@ export default function SearchBar(props) {
         </svg>
       </div>
       <input
-        value={props.searchInput}
-        onInput={props.onInput}
+        value={searchInput}
+        onInput={onInput}
         type="text"
         id="simple-search"
         className={` ${colorStyleInputHandler(
-          props.colorStyle
+          colorStyle
         )} customShadow input block w-full rounded-3xl border-0
        bg-base-300 pl-10 text-xs placeholder-transparent dark:text-white
              sm:text-sm sm:placeholder-gray-400  `}
         placeholder="Search task"
-        // required
       />
       <div className="flex gap-1 self-center ">
         <Button
           toolTipClass="hover:tooltip-error hover:tooltip hover:tooltip-open"
           toolTipText="Remove Done Tasks"
           action={removeTasksHandler}
-          buttonType="button"
           className="customShadow btn-error btn-sm btn-circle btn"
           title={
             <svg
@@ -68,7 +64,6 @@ export default function SearchBar(props) {
           toolTipClass="tooltip hover:tooltip hover:tooltip-open hover:tooltip-success"
           toolTipText="Mark all as done"
           action={markAllAsDone}
-          buttonType="button"
           className="customShadow btn-success btn-sm btn-circle btn"
           title={
             <svg
@@ -87,7 +82,6 @@ export default function SearchBar(props) {
           toolTipClass="tooltip hover:tooltip hover:tooltip-open hover:tooltip-primary"
           toolTipText="Mark all as undone"
           action={markAllAsUndone}
-          buttonType="button"
           className="customShadow btn-primary btn-sm btn-circle btn"
           title={
             <svg

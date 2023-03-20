@@ -1,8 +1,4 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
-/* eslint-disable no-param-reassign */
-/* eslint-disable react/no-array-index-key */
 import React, { useContext, useState } from "react";
 import { colorStyleTextHandler } from "../colorStyleClassHandler";
 import { CategoryParamsContext } from "../Contexts/Contexts";

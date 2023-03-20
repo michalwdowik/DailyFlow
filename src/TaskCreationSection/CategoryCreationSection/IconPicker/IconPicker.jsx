@@ -1,9 +1,8 @@
-/* eslint-disable react/jsx-no-constructed-context-values */
 /* eslint-disable react/prop-types */
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { IconContext } from "react-icons";
 import * as icons from "react-icons/io";
-import { colorStyleInputHandler } from "../colorStyleClassHandler";
+import { colorStyleInputHandler } from "../../../colorStyleClassHandler";
 import DynamicIcon from "./DynamicIcon";
 
 function IconPicker({
@@ -16,11 +15,6 @@ function IconPicker({
   const onInput = (e) => {
     setSearchIcon(e.target.value);
   };
-
-  // const xd = useMemo(() => {
-  //   return Object.entries(icons);
-  // }, []);
-
   const memoizedResult = useMemo(() => {
     return Object.entries(icons)
       .filter(([name]) => name.toLowerCase().includes(searchIcon.toLowerCase()))
@@ -44,7 +38,6 @@ function IconPicker({
 
   return (
     <div>
-      {console.log("does it")}
       <div>
         <IconContext.Provider
           value={{

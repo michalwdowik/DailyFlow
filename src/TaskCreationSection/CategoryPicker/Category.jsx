@@ -2,8 +2,8 @@
 import React, { useContext } from "react";
 import { IoIosRemoveCircle } from "react-icons/io";
 import { v4 as uuid2 } from "uuid";
-import { colorStyleRadioHandler } from "../colorStyleClassHandler";
-import { AlertContext, CategoryParamsContext } from "../Contexts/Contexts";
+import { colorStyleRadioHandler } from "../../colorStyleClassHandler";
+import { AlertContext, CategoryParamsContext } from "../../Contexts/Contexts";
 import categories, { removeCategory } from "./categories";
 
 export default function Category({

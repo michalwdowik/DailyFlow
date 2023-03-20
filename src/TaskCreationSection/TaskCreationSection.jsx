@@ -1,17 +1,17 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable react/jsx-no-constructed-context-values */
+
 import React, { useState, useEffect, useContext, useRef } from "react";
-import categories from "./Categories/categories";
-import Button from "./Components/Button";
-import CategoryPicker from "./Categories/CategoryPicker";
-import Importance from "./Components/Importance";
-import CustomDatePicker from "./Components/CustomDatePicker";
+import categories from "./CategoryPicker/categories";
+import Button from "../Components/Button";
+import CategoryPicker from "./CategoryPicker/CategoryPicker";
+import Importance from "./Importance";
+import CustomDatePicker from "./DatePicker";
 
 import {
   CategoryParamsContext,
   TaskDetailsContext,
   AlertContext,
-} from "./Contexts/Contexts";
+} from "../Contexts/Contexts";
 
 export default function Form({ colorStyle, setColorStyle }) {
   const { taskList, setTaskList, setSelectedTabCategory, groupTaskList } =
@@ -103,7 +103,6 @@ export default function Form({ colorStyle, setColorStyle }) {
           toolTipClass="tooltip hover:tooltip hover:tooltip-open hover:tooltip-success"
           toolTipText="Add Task"
           className="btn-m customShadow btn-success btn-circle btn"
-          buttonType="button"
           action={submitHandler}
           title={
             <svg
