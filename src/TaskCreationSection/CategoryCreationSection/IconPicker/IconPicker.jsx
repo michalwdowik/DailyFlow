@@ -2,7 +2,7 @@
 import React, { useMemo } from "react";
 import { IconContext } from "react-icons";
 import * as icons from "react-icons/io";
-import { colorStyleInputHandler } from "../../../colorStyleClassHandler";
+import { colorStyleInputHandler } from "../../../Components/colorStyleClassHandler";
 import DynamicIcon from "./DynamicIcon";
 
 function IconPicker({

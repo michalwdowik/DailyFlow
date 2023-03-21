@@ -4,10 +4,10 @@ import { CirclePicker } from "react-color";
 import { v4 as uuid } from "uuid";
 import { createPortal } from "react-dom";
 import IconPicker from "./IconPicker/IconPicker";
-import { colorStyleBgHandler } from "../../colorStyleClassHandler";
+import { colorStyleBgHandler } from "../../Components/colorStyleClassHandler";
 import Button from "../../Components/Button";
 import categories from "../CategoryPicker/categories";
-import { AlertContext } from "../../Contexts/Contexts";
+import { AlertContext } from "../../Components/Contexts";
 
 export default function AddCategoryModal() {
   const [inputValue, setInputValue] = useState("");

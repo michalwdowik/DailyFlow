@@ -27,6 +27,22 @@ body {
   }
 }
 
+.maxHTaskCreationSection {
+  height: auto;
+max-height: 500px;
+overflow-y: scroll;
+}
+
+.taskViewSection {
+  /* height: 350px; */
+  min-height: 350px;
+  max-height: 850px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  }
+
+
+
 .modalStyle {
   background: rgba( 0, 0, 0, 0.6 );
   box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
@@ -46,7 +62,6 @@ body {
   filter: drop-shadow(5px 5px 10px #000);
 }
 .customCard {
-
   background: rgba( 255, 255, 255, 0.6 );
   box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
   backdrop-filter: blur( 20px );

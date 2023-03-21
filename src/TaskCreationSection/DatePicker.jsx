@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import Datepicker from "tailwind-datepicker-react";
-import { colorStyleTogglerHandler } from "../colorStyleClassHandler";
+import { colorStyleTogglerHandler } from "../Components/colorStyleClassHandler";
 
 const today = new Date();
 const yesterday = new Date(today);

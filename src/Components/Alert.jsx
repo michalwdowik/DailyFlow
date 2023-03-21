@@ -13,6 +13,7 @@ export default function Alert({ title, type, backgroundGradient, isShowed }) {
       leaveFrom="opacity-100"
       leaveTo="opacity-0"
     >
+      {/* showAlert(tittle, type, backgroundGradient, true ) */}
       <div
         className={`alert absolute inset-x-0 top-0 w-4/6 ${backgroundGradient} shadow-lg transition`}
       >

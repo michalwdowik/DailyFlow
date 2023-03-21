@@ -1,15 +1,19 @@
 /* eslint-disable react/prop-types */
-
 import React, { useContext, useState } from "react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import Task from "./Task";
-import { TaskDetailsContext } from "../Contexts/Contexts";
+import { TaskDetailsContext } from "../Components/Contexts";
 import SearchBar from "../Components/SearchBar";
 
 export default function TaskList({ setTaskList }) {
   const { taskList, groupTaskList, selectedTabCategory } =
     useContext(TaskDetailsContext);
   const [searchInput, setSearchInput] = useState("");
-
+  const [animationParent] = useAutoAnimate({
+    duration: 100,
+    easing: "ease-in-out",
+    disrespectUserMotionPreference: false,
+  });
   const onInput = (e) => {
     setSearchInput(e.target.value);
   };
@@ -39,8 +43,13 @@ export default function TaskList({ setTaskList }) {
         colorStyle={getColor()}
       />
 
-      <div className="flow-root">
-        <ul className="p-0">
+      <div className="flow-root ">
+        <ul
+          ref={animationParent}
+          className={`mt-3 max-h-[550px]  ${
+            taskList.length > 8 && "overflow-y-scroll"
+          } p-0`}
+        >
           {taskList.map((task, index) => (
             <Task
               searchInput={searchInput}

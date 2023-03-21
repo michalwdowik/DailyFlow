@@ -5,13 +5,13 @@ import categories from "./CategoryPicker/categories";
 import Button from "../Components/Button";
 import CategoryPicker from "./CategoryPicker/CategoryPicker";
 import Importance from "./Importance";
-import CustomDatePicker from "./DatePicker";
 
 import {
+  AlertContext,
   CategoryParamsContext,
   TaskDetailsContext,
-  AlertContext,
-} from "../Contexts/Contexts";
+} from "../Components/Contexts";
+import App2 from "./NewDatePicker";
 
 export default function Form({ colorStyle, setColorStyle }) {
   const { taskList, setTaskList, setSelectedTabCategory, groupTaskList } =
@@ -31,18 +31,6 @@ export default function Form({ colorStyle, setColorStyle }) {
 
   const [icon, setIcon] = useState("AiFillWallet");
   const [isSelectDateChecked, setIsSelectDateChecked] = useState(false);
-
-  useEffect(() => {
-    if (taskList.length === 0) {
-      setSelectedCategoryName("general");
-      setSelectedCategoryUUID(categories[0].uuid);
-      setSelectedTabCategory("all");
-      setColorStyle("info");
-      setIcon("AiFillWallet");
-      setTaskDeadline("Not specified");
-      setIsSelectDateChecked(false);
-    }
-  }, [taskList.length]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -86,7 +74,7 @@ export default function Form({ colorStyle, setColorStyle }) {
   };
 
   return (
-    <div className="customCard flex w-full flex-col gap-7 p-5">
+    <div className="maxHTaskCreationSection customCard flex w-full flex-col gap-7 p-5">
       <span className="label-text mt-2 -mb-6 text-slate-700">Add Task:</span>
       <div className="flex w-5/6 gap-5 sm:w-4/6 md:w-4/6">
         <input
@@ -136,12 +124,13 @@ export default function Form({ colorStyle, setColorStyle }) {
         <CategoryPicker />
         <Importance rating={rating} setRating={setRating} />
       </CategoryParamsContext.Provider>
-      <CustomDatePicker
+      {/* <CustomDatePicker
         colorStyle={colorStyle}
         setTaskDeadline={setTaskDeadline}
         isSelectDateChecked={isSelectDateChecked}
         setIsSelectDateChecked={setIsSelectDateChecked}
-      />
+      /> */}
+      <App2 />
     </div>
   );
 }

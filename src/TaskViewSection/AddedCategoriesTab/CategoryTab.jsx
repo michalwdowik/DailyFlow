@@ -2,8 +2,8 @@
 import React, { useContext } from "react";
 import { IoListOutline } from "react-icons/io5";
 import DynamicIcon from "../../TaskCreationSection/CategoryCreationSection/IconPicker/DynamicIcon";
-import { colorStyleBgHandler } from "../../colorStyleClassHandler";
-import { TaskDetailsContext } from "../../Contexts/Contexts";
+import { colorStyleBgHandler } from "../../Components/colorStyleClassHandler";
+import { TaskDetailsContext } from "../../Components/Contexts";
 
 export default function CategoryTab({ addedCategoryTab, allAddedCategories }) {
   const { selectedTabCategory, setSelectedTabCategory, taskList } =

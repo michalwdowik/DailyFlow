@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import React, { useContext } from "react";
-import { colorStyleInputHandler } from "../colorStyleClassHandler";
+import { colorStyleInputHandler } from "./colorStyleClassHandler";
 import Button from "./Button";
-import { TaskDetailsContext } from "../Contexts/Contexts";
+import { TaskDetailsContext } from "./Contexts";
 
 export default function SearchBar({ searchInput, onInput, colorStyle }) {
   const { removeTasksHandler, markAllAsDone, markAllAsUndone } =

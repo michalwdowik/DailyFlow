@@ -83,23 +83,6 @@ export const colorStyleInputHandler = (e) => {
   }
 };
 
-export const colorStyleTextAreaHandler = (e) => {
-  switch (e) {
-    case "info":
-      return `textarea-info`;
-    case "error":
-      return `textarea-error`;
-    case "success":
-      return `textarea-success`;
-    case "primary":
-      return `textarea-primary`;
-    case "warning":
-      return `textarea-warning`;
-    default:
-      return ``;
-  }
-};
-
 export const colorStyleTogglerHandler = (e) => {
   switch (e) {
     case "info":

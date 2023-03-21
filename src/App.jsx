@@ -1,8 +1,9 @@
 import React, { useMemo, useState } from "react";
-import Form from "./TaskCreationSection/TaskCreationSection";
-import { colorStyleBgHandler } from "./colorStyleClassHandler";
+import AnimateHeight from "react-animate-height";
+import TaskCreationSection from "./TaskCreationSection/TaskCreationSection";
+import { colorStyleBgHandler } from "./Components/colorStyleClassHandler";
 import AlertHandler from "./Components/AlertHandler";
-import { AlertContext, TaskDetailsContext } from "./Contexts/Contexts";
+import { AlertContext, TaskDetailsContext } from "./Components/Contexts";
 import TaskViewSection from "./TaskViewSection/TaskViewSection";
 
 export default function App() {
@@ -122,9 +123,14 @@ export default function App() {
     return wholeList;
   };
 
-  const taskManager = useMemo(() => <TaskViewSection />, [taskList]);
-  const form = useMemo(
-    () => <Form colorStyle={colorStyle} setColorStyle={setColorStyle} />,
+  const taskViewSection = useMemo(() => <TaskViewSection />, [taskList]);
+  const taskCreationSection = useMemo(
+    () => (
+      <TaskCreationSection
+        colorStyle={colorStyle}
+        setColorStyle={setColorStyle}
+      />
+    ),
     [colorStyle]
   );
 
@@ -164,8 +170,8 @@ export default function App() {
                 markAllAsUndone,
               }}
             >
-              {form}
-              {taskManager}
+              {taskCreationSection}
+              {taskViewSection}
             </TaskDetailsContext.Provider>
           </div>
         </div>

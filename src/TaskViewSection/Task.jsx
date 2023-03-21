@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import React, { useContext } from "react";
 import TaskDetailsModal from "./TaskDetailsModal";
-import { colorStyleCheckboxHandler } from "../colorStyleClassHandler";
-import { TaskDetailsContext } from "../Contexts/Contexts";
+import { colorStyleCheckboxHandler } from "../Components/colorStyleClassHandler";
+import { TaskDetailsContext } from "../Components/Contexts";
 
 export default function Task({ task, onChange, index, searchInput }) {
   const { selectedTabCategory } = useContext(TaskDetailsContext);
@@ -12,7 +12,7 @@ export default function Task({ task, onChange, index, searchInput }) {
       {selectedTabCategory === "all" &&
         task.name.toLowerCase().includes(searchInput.toLowerCase()) && (
           <label>
-            <li className="border-0 border-b border-solid border-slate-200 py-2 sm:py-4">
+            <li className="mx-3 border-b border-solid border-slate-200 py-1 sm:py-3">
               <div className="flex items-center space-x-4 ">
                 <input
                   className={`${colorStyleCheckboxHandler(
@@ -50,11 +50,8 @@ export default function Task({ task, onChange, index, searchInput }) {
                     </span>
                   ))}
                 </div>
-                {/* <Portal> */}
 
                 <TaskDetailsModal id={index} task={task} />
-
-                {/* </Portal> */}
               </div>
             </li>
           </label>
@@ -62,7 +59,7 @@ export default function Task({ task, onChange, index, searchInput }) {
       {task.category === selectedTabCategory &&
         task.name.toLowerCase().includes(searchInput.toLowerCase()) && (
           <label>
-            <li className="border-0 border-b border-solid border-slate-200 py-2 sm:py-4">
+            <li className="border-0 border-b border-solid border-slate-200 py-1 sm:py-3">
               <div className="flex items-center space-x-4 ">
                 <input
                   className={`${colorStyleCheckboxHandler(

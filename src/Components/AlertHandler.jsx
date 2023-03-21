@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { createPortal } from "react-dom";
-import { AlertContext } from "../Contexts/Contexts";
+import { AlertContext } from "./Contexts";
 import Alert from "./Alert";
 
-export default function Alert2() {
+export default function AlertHandler() {
   const portal = document.getElementById("portal");
   const {
     isRemovedAlertVisible,

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useContext, useState } from "react";
-import { colorStyleTextHandler } from "../colorStyleClassHandler";
-import { CategoryParamsContext } from "../Contexts/Contexts";
+import { colorStyleTextHandler } from "../Components/colorStyleClassHandler";
+import { CategoryParamsContext } from "../Components/Contexts";
 
 export default function Importance({ rating, setRating }) {
   const [hover, setHover] = useState(0);
