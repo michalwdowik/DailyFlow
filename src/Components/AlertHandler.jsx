@@ -3,6 +3,10 @@ import { createPortal } from "react-dom";
 import { AlertContext } from "./Contexts";
 import Alert from "./Alert";
 
+export const showAlert = (title, type, bg, isShowed) => (
+  <Alert title={title} type={type} bg={bg} isShowed={isShowed} />
+);
+
 export default function AlertHandler() {
   const portal = document.getElementById("portal");
   const {

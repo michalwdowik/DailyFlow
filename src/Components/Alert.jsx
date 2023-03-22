@@ -2,7 +2,7 @@
 import React from "react";
 import { Transition } from "@headlessui/react";
 
-export default function Alert({ title, type, backgroundGradient, isShowed }) {
+export default function Alert({ title, type, bg, isShowed }) {
   return (
     <Transition
       show={isShowed}
@@ -15,7 +15,7 @@ export default function Alert({ title, type, backgroundGradient, isShowed }) {
     >
       {/* showAlert(tittle, type, backgroundGradient, true ) */}
       <div
-        className={`alert absolute inset-x-0 top-0 w-4/6 ${backgroundGradient} shadow-lg transition`}
+        className={` alert absolute inset-x-0 top-0 w-4/6 ${bg} customShadow transition`}
       >
         <div>
           {type === "success" ? (

@@ -29,19 +29,17 @@ body {
 
 .maxHTaskCreationSection {
   height: auto;
+  min-height: 450px;
 max-height: 500px;
 overflow-y: scroll;
 }
 
 .taskViewSection {
-  /* height: 350px; */
   min-height: 350px;
   max-height: 850px;
   overflow-x: hidden;
   overflow-y: hidden;
   }
-
-
 
 .modalStyle {
   background: rgba( 0, 0, 0, 0.6 );

@@ -5,13 +5,14 @@ import categories from "./CategoryPicker/categories";
 import Button from "../Components/Button";
 import CategoryPicker from "./CategoryPicker/CategoryPicker";
 import Importance from "./Importance";
-
+import DatePicker from "./DatePicker";
 import {
   AlertContext,
   CategoryParamsContext,
   TaskDetailsContext,
 } from "../Components/Contexts";
-import App2 from "./NewDatePicker";
+// import App2 from "./NewDatePicker";
+// import { DatePicker } from "antd";
 
 export default function Form({ colorStyle, setColorStyle }) {
   const { taskList, setTaskList, setSelectedTabCategory, groupTaskList } =
@@ -124,13 +125,13 @@ export default function Form({ colorStyle, setColorStyle }) {
         <CategoryPicker />
         <Importance rating={rating} setRating={setRating} />
       </CategoryParamsContext.Provider>
-      {/* <CustomDatePicker
+      <DatePicker
         colorStyle={colorStyle}
         setTaskDeadline={setTaskDeadline}
         isSelectDateChecked={isSelectDateChecked}
         setIsSelectDateChecked={setIsSelectDateChecked}
-      /> */}
-      <App2 />
+      />
+      {/* <App2 /> */}
     </div>
   );
 }

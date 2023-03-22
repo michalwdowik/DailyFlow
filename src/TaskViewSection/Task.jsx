@@ -59,7 +59,7 @@ export default function Task({ task, onChange, index, searchInput }) {
       {task.category === selectedTabCategory &&
         task.name.toLowerCase().includes(searchInput.toLowerCase()) && (
           <label>
-            <li className="border-0 border-b border-solid border-slate-200 py-1 sm:py-3">
+            <li className="mx-3 border-0 border-b border-solid border-slate-200 py-1 sm:py-3">
               <div className="flex items-center space-x-4 ">
                 <input
                   className={`${colorStyleCheckboxHandler(

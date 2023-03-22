@@ -52,6 +52,7 @@ export default function TaskDetailsModal({ task }) {
       </>
     );
   };
+
   return (
     <div>
       <label
