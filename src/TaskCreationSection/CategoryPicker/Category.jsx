@@ -9,7 +9,7 @@ import {
   TaskDetailsContext,
 } from "../../Components/Contexts";
 import categories, { removeCategory } from "./categories";
-
+//
 export default function Category({
   categoryName,
   onChange,
