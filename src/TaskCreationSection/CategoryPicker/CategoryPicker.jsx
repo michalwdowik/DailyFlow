@@ -9,6 +9,7 @@ export default function CategoryPicker() {
   const { selectedCategoryName, colorStyle, setCategoryAndColor } = useContext(
     CategoryParamsContext
   );
+
   return (
     <div className="flex w-7/12 flex-col sm:w-2/4 md:w-2/4 ">
       <span className="label-text mb-1 text-slate-700">Select category:</span>
@@ -25,7 +26,7 @@ export default function CategoryPicker() {
           {categories.map((category) => (
             <Category
               onChange={() => setCategoryAndColor(category)}
-              key={category.uuid}
+              // key={Math.floor(Math.random() * 1000000000)}
               categoryName={category.name}
               color={category.colorStyle}
               isAddedByUser={category.isAddedByUser}

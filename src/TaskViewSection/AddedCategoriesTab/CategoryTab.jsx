@@ -22,10 +22,10 @@ export default function CategoryTab({ addedCategoryTab, allAddedCategories }) {
   return (
     <li>
       <div
-        className={`${calculatePadding()} indicator relative mt-4  bg-base-300 shadow-xl transition delay-150 ease-in-out hover:bg-base-200`}
+        className={`${calculatePadding()} indicator relative mt-4 bg-base-300 shadow-xl transition delay-150 ease-in-out hover:bg-base-200`}
       >
         <span
-          className={`badge badge-sm indicator-item absolute left-12 translate-x-0 border-0 shadow-xl md:badge-md lg:badge-sm ${colorStyleBgHandler(
+          className={`badge badge-sm indicator-item absolute left-5 translate-x-0 border-0 shadow-xl md:badge-md lg:badge-sm ${colorStyleBgHandler(
             addedCategoryTab.categoryColorStyle
           )} text-white ${
             addedCategoryTab.categoryName === selectedTabCategory &&

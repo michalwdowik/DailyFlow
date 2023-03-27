@@ -1,12 +1,76 @@
 /* eslint-disable react/prop-types */
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { colorStyleInputHandler } from "./colorStyleClassHandler";
 import Button from "./Button";
 import { TaskDetailsContext } from "./Contexts";
+import Alert from "./Alert";
 
-export default function SearchBar({ searchInput, onInput, colorStyle }) {
-  const { removeTasksHandler, markAllAsDone, markAllAsUndone } =
+export default function ToolBar({ searchInput, onInput, colorStyle }) {
+  const { selectedTabCategory, taskList, setTaskList } =
     useContext(TaskDetailsContext);
+
+  const [alertData, setAlertData] = useState({});
+  const isAnyTaskDone = () => {
+    const newList = [...taskList];
+    const doneTasks = newList.filter((item) => item.done === true);
+    for (const key of taskList) {
+      if (selectedTabCategory === "all" && doneTasks.length >= 1) {
+        setTaskList(newList.filter((item) => item.done !== true));
+        return true;
+      }
+
+      if (key.category === selectedTabCategory && key.done === true) {
+        setTaskList(newList.filter((item) => item.done !== true));
+        return true;
+      }
+    }
+    return false;
+  };
+
+  const removeTasksHandler = () => {
+    isAnyTaskDone()
+      ? setAlertData({
+          title: "All done tasks has been removed successfully",
+          type: "success",
+          bg: "bg-success",
+          isShowed: true,
+        })
+      : setAlertData({
+          title: "There are no completed tasks to be deleted",
+          type: "error",
+          bg: "bg-error",
+          isShowed: true,
+        });
+    setTimeout(() => {
+      setAlertData({ isShowed: false });
+    }, 3000);
+  };
+
+  const makeAllTasksDone = () => {
+    const newList = [...taskList];
+    newList.forEach((task) => {
+      if (
+        task.category === selectedTabCategory ||
+        selectedTabCategory === "all"
+      ) {
+        task.done = true;
+      }
+    });
+    setTaskList(newList);
+  };
+
+  const undoneAllTasks = () => {
+    const newList = [...taskList];
+    newList.forEach((task) => {
+      if (
+        task.category === selectedTabCategory ||
+        selectedTabCategory === "all"
+      ) {
+        task.done = false;
+      }
+    });
+    setTaskList(newList);
+  };
 
   return (
     <div className="relative flex gap-5 border-error">
@@ -63,7 +127,7 @@ export default function SearchBar({ searchInput, onInput, colorStyle }) {
         <Button
           toolTipClass="tooltip hover:tooltip hover:tooltip-open hover:tooltip-success"
           toolTipText="Mark all as done"
-          action={markAllAsDone}
+          action={makeAllTasksDone}
           className="customShadow btn-success btn-sm btn-circle btn"
           title={
             <svg
@@ -81,7 +145,7 @@ export default function SearchBar({ searchInput, onInput, colorStyle }) {
         <Button
           toolTipClass="tooltip hover:tooltip hover:tooltip-open hover:tooltip-primary"
           toolTipText="Mark all as undone"
-          action={markAllAsUndone}
+          action={undoneAllTasks}
           className="customShadow btn-primary btn-sm btn-circle btn"
           title={
             <svg
@@ -97,6 +161,7 @@ export default function SearchBar({ searchInput, onInput, colorStyle }) {
           }
         />
       </div>
+      <Alert alertData={alertData} />
     </div>
   );
 }

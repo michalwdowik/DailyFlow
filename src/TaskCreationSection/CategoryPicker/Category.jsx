@@ -2,8 +2,12 @@
 import React, { useContext } from "react";
 import { IoIosRemoveCircle } from "react-icons/io";
 import { v4 as uuid2 } from "uuid";
+// import Alert from "../../Components/Alert";
 import { colorStyleRadioHandler } from "../../Components/colorStyleClassHandler";
-import { AlertContext, CategoryParamsContext } from "../../Components/Contexts";
+import {
+  CategoryParamsContext,
+  TaskDetailsContext,
+} from "../../Components/Contexts";
 import categories, { removeCategory } from "./categories";
 
 export default function Category({
@@ -13,9 +17,13 @@ export default function Category({
   isAddedByUser,
   uuid,
 }) {
-  const { setColorStyle, selectedCategoryUUID, setSelectedCategoryUUID } =
-    useContext(CategoryParamsContext);
-  const { setIsCategoryRemovedAlertVisible } = useContext(AlertContext);
+  const {
+    setColorStyle,
+    selectedCategoryUUID,
+    setSelectedCategoryUUID,
+    setSelectedCategoryName,
+  } = useContext(CategoryParamsContext);
+  const { updateApp, setUpdateApp } = useContext(TaskDetailsContext);
 
   const uniqueID = uuid2();
 
@@ -24,11 +32,9 @@ export default function Category({
     if (selectedCategoryUUID === uuid) {
       setSelectedCategoryUUID(categories[0].uuid);
       setColorStyle("info");
+      setSelectedCategoryName(categories[0].name);
     }
-    setIsCategoryRemovedAlertVisible(true);
-    setTimeout(() => {
-      setIsCategoryRemovedAlertVisible(false);
-    }, 3000);
+    setUpdateApp(!updateApp);
   };
 
   return (

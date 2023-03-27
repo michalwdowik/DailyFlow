@@ -4,24 +4,29 @@ import { CirclePicker } from "react-color";
 import { v4 as uuid } from "uuid";
 import { createPortal } from "react-dom";
 import IconPicker from "./IconPicker/IconPicker";
-import { colorStyleBgHandler } from "../../Components/colorStyleClassHandler";
+import {
+  colorStyleBgHandler,
+  colorPickerColorHandler,
+} from "../../Components/colorStyleClassHandler";
 import Button from "../../Components/Button";
 import categories from "../CategoryPicker/categories";
-import { AlertContext } from "../../Components/Contexts";
+import { TaskDetailsContext } from "../../Components/Contexts";
+import Alert from "../../Components/Alert";
 
 export default function AddCategoryModal() {
   const [inputValue, setInputValue] = useState("");
   const [newCategoryIcon, setNewCategoryIcon] = useState("IoIosHappy");
   const [newCategoryColor, setNewCategoryColor] = useState("info");
   const [colorPickerColor, setColorPickerColor] = useState("#38bdf8");
-  const { setIsCategoryAddedAlertVisible, setIsCantAddCategoryAlertVisible } =
-    useContext(AlertContext);
 
+  const { updateApp, setUpdateApp } = useContext(TaskDetailsContext);
   const [isCorrectTyped, setIsCorrectTyped] = useState(true);
   const uniqueID = uuid();
   const portal = document.getElementById("portal");
 
   const [searchIcon, setSearchIcon] = useState("");
+
+  const [alertData, setAlertData] = useState({});
 
   const isAlreadyAdded = () => {
     const x = categories.filter((category) => category.name === inputValue);
@@ -34,6 +39,20 @@ export default function AddCategoryModal() {
   };
 
   const createNewCategory = () => {
+    if (categories.length >= 12) {
+      setUpdateApp(!updateApp);
+      setAlertData({
+        title: "You can create up to 7 different categories",
+        type: "error",
+        bg: "bg-error",
+        isShowed: true,
+      });
+      setTimeout(() => {
+        setAlertData({ isShowed: false });
+      }, 3000);
+      return;
+    }
+
     if (inputValue !== "" && !isAlreadyAdded()) {
       categories.push({
         name: inputValue.toLowerCase(),
@@ -43,15 +62,27 @@ export default function AddCategoryModal() {
         uuid: uniqueID,
       });
       setInputValue("");
-      setIsCategoryAddedAlertVisible(true);
+      setUpdateApp(!updateApp);
+      setAlertData({
+        title: "New category has been added!",
+        type: "success",
+        bg: "bg-success",
+        isShowed: true,
+      });
       setTimeout(() => {
-        setIsCategoryAddedAlertVisible(false);
+        setAlertData({ isShowed: false });
       }, 3000);
     } else {
       setIsCorrectTyped(false);
-      setIsCantAddCategoryAlertVisible(true);
+      setUpdateApp(!updateApp);
+      setAlertData({
+        title: "You can't create a category with this name, try again!",
+        type: "error",
+        bg: "bg-error",
+        isShowed: true,
+      });
       setTimeout(() => {
-        setIsCantAddCategoryAlertVisible(false);
+        setAlertData({ isShowed: false });
       }, 3000);
     }
   };
@@ -70,24 +101,8 @@ export default function AddCategoryModal() {
   );
 
   const changeColorHandler = (color) => {
-    const colorStyle = () => {
-      switch (color.hex) {
-        case "#38bdf8":
-          return `info`;
-        case "#f87171":
-          return `error`;
-        case "#10b981":
-          return `success`;
-        case "#7e22ce":
-          return `primary`;
-        case "#eab308":
-          return `warning`;
-        default:
-          return `info`;
-      }
-    };
     setColorPickerColor(color.hex);
-    setNewCategoryColor(colorStyle());
+    setNewCategoryColor(colorPickerColorHandler(color));
   };
 
   const colorPicker = useMemo(
@@ -170,6 +185,7 @@ export default function AddCategoryModal() {
         </div>,
         portal
       )}
+      <Alert alertData={alertData} />
     </div>
   );
 }

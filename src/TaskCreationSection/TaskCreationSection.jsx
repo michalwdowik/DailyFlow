@@ -1,22 +1,24 @@
 /* eslint-disable react/prop-types */
 
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useContext, useRef } from "react";
 import categories from "./CategoryPicker/categories";
 import Button from "../Components/Button";
 import CategoryPicker from "./CategoryPicker/CategoryPicker";
 import Importance from "./Importance";
 import DatePicker from "./DatePicker";
 import {
-  AlertContext,
   CategoryParamsContext,
   TaskDetailsContext,
 } from "../Components/Contexts";
-// import App2 from "./NewDatePicker";
-// import { DatePicker } from "antd";
+import Alert from "../Components/Alert";
 
 export default function Form({ colorStyle, setColorStyle }) {
-  const { taskList, setTaskList, setSelectedTabCategory, groupTaskList } =
+  const { taskList, setTaskList, groupTaskList } =
     useContext(TaskDetailsContext);
+
+  const { updateApp, setUpdateApp } = useContext(TaskDetailsContext);
+
+  const [alertData, setAlertData] = useState({});
 
   const [selectedCategoryName, setSelectedCategoryName] = useState("general");
   const [selectedCategoryUUID, setSelectedCategoryUUID] = useState(
@@ -28,18 +30,22 @@ export default function Form({ colorStyle, setColorStyle }) {
   const [isCorrectTyped, setIsCorrectTyped] = useState(true);
   const [taskDeadline, setTaskDeadline] = useState("Not specified");
 
-  const { setIsReachedMaxAlertVisible } = useContext(AlertContext);
-
   const [icon, setIcon] = useState("AiFillWallet");
   const [isSelectDateChecked, setIsSelectDateChecked] = useState(false);
 
   const submitHandler = (e) => {
     e.preventDefault();
     if (inputRef.current.value !== "") {
-      if (groupTaskList().length >= 9) {
-        setIsReachedMaxAlertVisible(true);
+      if (groupTaskList().length >= 8) {
+        setUpdateApp(!updateApp);
+        setAlertData({
+          title: "You can create up to 8 different categories",
+          type: "error",
+          bg: "bg-error",
+          isShowed: true,
+        });
         setTimeout(() => {
-          setIsReachedMaxAlertVisible(false);
+          setAlertData({ isShowed: false });
         }, 3000);
         return;
       }
@@ -131,7 +137,7 @@ export default function Form({ colorStyle, setColorStyle }) {
         isSelectDateChecked={isSelectDateChecked}
         setIsSelectDateChecked={setIsSelectDateChecked}
       />
-      {/* <App2 /> */}
+      <Alert alertData={alertData} />
     </div>
   );
 }

@@ -3,7 +3,8 @@ import React, { useContext, useState } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import Task from "./Task";
 import { TaskDetailsContext } from "../Components/Contexts";
-import SearchBar from "../Components/SearchBar";
+import SearchBar from "../Components/ToolBar";
+import ToolBar from "../Components/ToolBar";
 
 export default function TaskList({ setTaskList }) {
   const { taskList, groupTaskList, selectedTabCategory } =
@@ -37,7 +38,7 @@ export default function TaskList({ setTaskList }) {
 
   return (
     <div className="w-5/6 pb-5 sm:w-4/6 md:w-1/2 lg:w-5/6">
-      <SearchBar
+      <ToolBar
         onInput={onInput}
         searchInput={searchInput}
         colorStyle={getColor()}
@@ -46,10 +47,15 @@ export default function TaskList({ setTaskList }) {
       <div className="flow-root ">
         <ul
           ref={animationParent}
-          className={`mt-3 max-h-[550px]  ${
+          className={`mt-3 max-h-[550px] ${
             taskList.length > 8 && "overflow-y-scroll"
           } p-0`}
         >
+          {taskList.length === 0 && (
+            <h1 className="transition-color mt-10 animate-pulse text-center text-3xl opacity-70 duration-500 hover:text-success">
+              Add some tasks!
+            </h1>
+          )}
           {taskList.map((task, index) => (
             <Task
               searchInput={searchInput}

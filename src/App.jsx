@@ -1,80 +1,15 @@
-import React, { useMemo, useState } from "react";
-import AnimateHeight from "react-animate-height";
+import React, { useState } from "react";
 import TaskCreationSection from "./TaskCreationSection/TaskCreationSection";
 import { colorStyleBgHandler } from "./Components/colorStyleClassHandler";
-import AlertHandler from "./Components/AlertHandler";
-import { AlertContext, TaskDetailsContext } from "./Components/Contexts";
+import { TaskDetailsContext } from "./Components/Contexts";
 import TaskViewSection from "./TaskViewSection/TaskViewSection";
 
 export default function App() {
-  const [isRemovedAlertVisible, setIsRemovedAlertVisible] = useState(false);
-  const [isNotRemovedAlertVisible, setIsNotRemovedAlertVisible] =
-    useState(false);
-  const [isCategoryAddedAlertVisible, setIsCategoryAddedAlertVisible] =
-    useState(false);
-  const [isCategoryRemovedAlertVisible, setIsCategoryRemovedAlertVisible] =
-    useState(false);
-  const [isReachedMaxAlertVisible, setIsReachedMaxAlertVisible] =
-    useState(false);
-  const [isCantAddCategoryAlertVisible, setIsCantAddCategoryAlertVisible] =
-    useState(false);
+  const [updateApp, setUpdateApp] = useState(false);
 
   const [taskList, setTaskList] = useState([]);
   const [selectedTabCategory, setSelectedTabCategory] = useState("all");
   const [colorStyle, setColorStyle] = useState("info");
-
-  const isAnyDone = () => {
-    const newList = [...taskList];
-    const doneTasks = newList.filter((item) => item.done === true);
-    for (const key of taskList) {
-      if (selectedTabCategory === "all" && doneTasks.length >= 1) {
-        setTaskList(newList.filter((item) => item.done !== true));
-        return true;
-      }
-
-      if (key.category === selectedTabCategory && key.done === true) {
-        setTaskList(newList.filter((item) => item.done !== true));
-        return true;
-      }
-    }
-    return false;
-  };
-
-  const removeTasksHandler = () => {
-    isAnyDone()
-      ? setIsRemovedAlertVisible(true)
-      : setIsNotRemovedAlertVisible(true);
-
-    setTimeout(() => {
-      setIsRemovedAlertVisible(false);
-      setIsNotRemovedAlertVisible(false);
-    }, 3000);
-  };
-
-  const markAllAsDone = () => {
-    const newList = [...taskList];
-    newList.forEach((task) => {
-      if (
-        task.category === selectedTabCategory ||
-        selectedTabCategory === "all"
-      ) {
-        task.done = true;
-      }
-    });
-    setTaskList(newList);
-  };
-  const markAllAsUndone = () => {
-    const newList = [...taskList];
-    newList.forEach((task) => {
-      if (
-        task.category === selectedTabCategory ||
-        selectedTabCategory === "all"
-      ) {
-        task.done = false;
-      }
-    });
-    setTaskList(newList);
-  };
 
   const groupTaskList = () => {
     const newList = [...taskList];
@@ -123,59 +58,31 @@ export default function App() {
     return wholeList;
   };
 
-  const taskViewSection = useMemo(() => <TaskViewSection />, [taskList]);
-  const taskCreationSection = useMemo(
-    () => (
-      <TaskCreationSection
-        colorStyle={colorStyle}
-        setColorStyle={setColorStyle}
-      />
-    ),
-    [colorStyle]
-  );
-
   return (
     <div className="container min-h-screen min-w-full">
       <div className={`shape-blob one  ${colorStyleBgHandler(colorStyle)}`} />
       <div className={`shape-blob  ${colorStyleBgHandler(colorStyle)}`} />
-      <AlertContext.Provider
-        value={{
-          isRemovedAlertVisible,
-          setIsRemovedAlertVisible,
-          isNotRemovedAlertVisible,
-          setIsNotRemovedAlertVisible,
-          isCategoryAddedAlertVisible,
-          setIsCategoryAddedAlertVisible,
-          isCategoryRemovedAlertVisible,
-          setIsCategoryRemovedAlertVisible,
-          isReachedMaxAlertVisible,
-          setIsReachedMaxAlertVisible,
-          isCantAddCategoryAlertVisible,
-          setIsCantAddCategoryAlertVisible,
-        }}
-      >
-        <AlertHandler />
-
-        <div className="m-0 p-0 sm:m-10 lg:flex lg:items-center">
-          <div className="grid gap-10 p-10 sm:grid-cols-1 lg:grid-cols-2">
-            <TaskDetailsContext.Provider
-              value={{
-                setTaskList,
-                selectedTabCategory,
-                setSelectedTabCategory,
-                taskList,
-                groupTaskList,
-                removeTasksHandler,
-                markAllAsDone,
-                markAllAsUndone,
-              }}
-            >
-              {taskCreationSection}
-              {taskViewSection}
-            </TaskDetailsContext.Provider>
-          </div>
+      <div className="m-0 p-0 sm:m-10 lg:flex lg:items-center">
+        <div className="grid gap-10 p-10 sm:grid-cols-1 lg:grid-cols-2">
+          <TaskDetailsContext.Provider
+            value={{
+              setTaskList,
+              selectedTabCategory,
+              setSelectedTabCategory,
+              taskList,
+              groupTaskList,
+              updateApp,
+              setUpdateApp,
+            }}
+          >
+            <TaskCreationSection
+              colorStyle={colorStyle}
+              setColorStyle={setColorStyle}
+            />
+            <TaskViewSection />
+          </TaskDetailsContext.Provider>
         </div>
-      </AlertContext.Provider>
+      </div>
     </div>
   );
 }

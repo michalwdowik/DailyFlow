@@ -116,3 +116,20 @@ export const colorStyleBlobHandler = (e) => {
       return `#38bdf8`;
   }
 };
+
+export const colorPickerColorHandler = (color) => {
+  switch (color.hex) {
+    case "#38bdf8":
+      return `info`;
+    case "#f87171":
+      return `error`;
+    case "#10b981":
+      return `success`;
+    case "#7e22ce":
+      return `primary`;
+    case "#eab308":
+      return `warning`;
+    default:
+      return `info`;
+  }
+};
