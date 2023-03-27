@@ -26,7 +26,7 @@ export default function CategoryPicker() {
           {categories.map((category) => (
             <Category
               onChange={() => setCategoryAndColor(category)}
-              // key={Math.floor(Math.random() * 1000000000)}
+              key={category.uuid}
               categoryName={category.name}
               color={category.colorStyle}
               isAddedByUser={category.isAddedByUser}

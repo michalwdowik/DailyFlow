@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import React, { useContext } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { TaskDetailsContext } from "../Components/Contexts";

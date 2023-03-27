@@ -1,9 +1,10 @@
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable import/no-unresolved */
 /* eslint-disable react/prop-types */
 import React, { useContext, useState } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import Task from "./Task";
 import { TaskDetailsContext } from "../Components/Contexts";
-import SearchBar from "../Components/ToolBar";
 import ToolBar from "../Components/ToolBar";
 
 export default function TaskList({ setTaskList }) {

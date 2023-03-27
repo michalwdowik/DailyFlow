@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import React, { useState, useContext, useRef } from "react";
+import React, { useState, useContext, useRef, useMemo } from "react";
 import categories from "./CategoryPicker/categories";
 import Button from "../Components/Button";
 import CategoryPicker from "./CategoryPicker/CategoryPicker";
@@ -80,6 +80,19 @@ export default function Form({ colorStyle, setColorStyle }) {
     setColorStyle(e.colorStyle);
   };
 
+  const value = useMemo(
+    () => ({
+      selectedCategoryName,
+      setCategoryAndColor,
+      colorStyle,
+      setSelectedCategoryName,
+      setColorStyle,
+      selectedCategoryUUID,
+      setSelectedCategoryUUID,
+    }),
+    [selectedCategoryName, colorStyle, selectedCategoryUUID]
+  );
+
   return (
     <div className="maxHTaskCreationSection customCard flex w-full flex-col gap-7 p-5">
       <span className="label-text mt-2 -mb-6 text-slate-700">Add Task:</span>
@@ -117,17 +130,7 @@ export default function Form({ colorStyle, setColorStyle }) {
           }
         />
       </div>
-      <CategoryParamsContext.Provider
-        value={{
-          selectedCategoryName,
-          setCategoryAndColor,
-          colorStyle,
-          setSelectedCategoryName,
-          setColorStyle,
-          selectedCategoryUUID,
-          setSelectedCategoryUUID,
-        }}
-      >
+      <CategoryParamsContext.Provider value={value}>
         <CategoryPicker />
         <Importance rating={rating} setRating={setRating} />
       </CategoryParamsContext.Provider>

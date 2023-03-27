@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-constructed-context-values */
 /* eslint-disable react/prop-types */
 import React, { useMemo } from "react";
 import { IconContext } from "react-icons";
@@ -67,7 +68,6 @@ function IconPicker({
                 )} customShadow input sticky top-3 m-auto mb-3 block w-3/4 rounded-3xl border-0
        bg-base-300 pl-10 text-sm`}
                 placeholder="Search task"
-                // required
               />
 
               <div className="flex flex-wrap justify-center ">{children}</div>
