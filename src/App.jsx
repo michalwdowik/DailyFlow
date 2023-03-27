@@ -28,6 +28,7 @@ export default function App() {
       { categoryName, categoryLength, categoryIcon, categoryUUID },
     ];
 
+    // test1
     for (const [key, value] of Object.entries(segregatedList)) {
       categoryName = key;
       categoryLength = value.length;
