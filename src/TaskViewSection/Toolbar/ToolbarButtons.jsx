@@ -1,14 +1,16 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/prop-types */
 
 import React, { useContext } from "react";
-import Button from "./Button";
-import { TaskDetailsContext } from "./Contexts";
+import Button from "../../Components/Button";
+import { MainContext, ViewSectionContext } from "../../Contexts";
 
 export default function ToolbarButtons({ setAlertData }) {
-  const { selectedTabCategory, taskList, setTaskList } =
-    useContext(TaskDetailsContext);
+  const { taskList, setTaskList } = useContext(MainContext);
 
+  const { selectedTabCategory } = useContext(ViewSectionContext);
   const isAnyTaskDone = () => {
     const newList = [...taskList];
     const doneTasks = newList.filter((item) => item.done === true);
@@ -26,23 +28,32 @@ export default function ToolbarButtons({ setAlertData }) {
     return false;
   };
 
+  const showAlert = (params) => {
+    setAlertData({
+      title: params.title,
+      type: params.type,
+      bg: params.bg,
+      isShowed: params.isShowed,
+    });
+    setTimeout(() => {
+      setAlertData({ isShowed: false });
+    }, 3000);
+  };
+
   const removeTasksHandler = () => {
     isAnyTaskDone()
-      ? setAlertData({
+      ? showAlert({
           title: "All done tasks has been removed successfully",
           type: "success",
           bg: "bg-success",
           isShowed: true,
         })
-      : setAlertData({
+      : showAlert({
           title: "There are no completed tasks to be deleted",
           type: "error",
           bg: "bg-error",
           isShowed: true,
         });
-    setTimeout(() => {
-      setAlertData({ isShowed: false });
-    }, 3000);
   };
 
   const makeAllTasksDone = () => {

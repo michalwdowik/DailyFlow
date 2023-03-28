@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import Datepicker from "tailwind-datepicker-react";
-import { colorStyleTogglerHandler } from "../Components/colorStyleClassHandler";
+import { colorStyleTogglerHandler } from "../colorStyleClassHandler";
 
 const today = new Date();
 const yesterday = new Date(today);
@@ -94,6 +94,7 @@ export default function DatePicker({
     const formatDate = `${month}/${day}/${year}`;
     setTaskDeadline(formatDate);
   };
+
   return (
     <div className="relative mb-2 flex flex-col gap-2">
       <label className="label-text relative inline-flex cursor-pointer gap-3 ">

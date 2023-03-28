@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
-import { colorStyleInputHandler } from "./colorStyleClassHandler";
-import Alert from "./Alert";
+import { colorStyleInputHandler } from "../../colorStyleClassHandler";
+import Alert from "../../Components/Alert";
 import ToolbarButtons from "./ToolbarButtons";
 
 export default function ToolBar({ searchInput, onInput, colorStyle }) {

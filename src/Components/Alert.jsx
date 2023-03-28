@@ -12,7 +12,7 @@ export default function Alert({ alertData }) {
           {alertData.isShowed && (
             <Transition
               show
-              enter="transition-opacity duration-150"
+              enter="transition-opacity duration-150 "
               enterFrom="opacity-0"
               enterTo="opacity-100"
               leave="transition-opacity duration-150"

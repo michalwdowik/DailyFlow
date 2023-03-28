@@ -3,11 +3,11 @@
 /* eslint-disable react/prop-types */
 import React, { useContext } from "react";
 import TaskDetailsModal from "./TaskDetailsModal";
-import { colorStyleCheckboxHandler } from "../Components/colorStyleClassHandler";
-import { TaskDetailsContext } from "../Components/Contexts";
+import { colorStyleCheckboxHandler } from "../colorStyleClassHandler";
+import { ViewSectionContext } from "../Contexts";
 
 export default function Task({ task, onChange, index, searchInput }) {
-  const { selectedTabCategory } = useContext(TaskDetailsContext);
+  const { selectedTabCategory } = useContext(ViewSectionContext);
 
   return (
     <div className="">

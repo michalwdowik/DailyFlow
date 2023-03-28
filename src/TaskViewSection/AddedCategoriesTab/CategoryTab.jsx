@@ -2,12 +2,13 @@
 import React, { useContext } from "react";
 import { IoListOutline } from "react-icons/io5";
 import DynamicIcon from "../../TaskCreationSection/CategoryCreationSection/IconPicker/DynamicIcon";
-import { colorStyleBgHandler } from "../../Components/colorStyleClassHandler";
-import { TaskDetailsContext } from "../../Components/Contexts";
+import { colorStyleBgHandler } from "../../colorStyleClassHandler";
+import { MainContext, ViewSectionContext } from "../../Contexts";
 
 export default function CategoryTab({ addedCategoryTab, allAddedCategories }) {
-  const { selectedTabCategory, setSelectedTabCategory, taskList } =
-    useContext(TaskDetailsContext);
+  const { selectedTabCategory, setSelectedTabCategory } =
+    useContext(ViewSectionContext);
+  const { taskList } = useContext(MainContext);
 
   const calculatePadding = () => {
     if (allAddedCategories > 8) {

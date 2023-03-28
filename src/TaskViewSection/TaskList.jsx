@@ -4,12 +4,13 @@
 import React, { useContext, useState } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import Task from "./Task";
-import { TaskDetailsContext } from "../Components/Contexts";
-import ToolBar from "../Components/ToolBar";
+import { MainContext, ViewSectionContext } from "../Contexts";
+import ToolBar from "./Toolbar/ToolBar";
 
 export default function TaskList({ setTaskList }) {
-  const { taskList, groupTaskList, selectedTabCategory } =
-    useContext(TaskDetailsContext);
+  const { taskList, addedCategoriesTab } = useContext(MainContext);
+  const { selectedTabCategory } = useContext(ViewSectionContext);
+
   const [searchInput, setSearchInput] = useState("");
   const [animationParent] = useAutoAnimate({
     duration: 100,
@@ -27,9 +28,8 @@ export default function TaskList({ setTaskList }) {
   };
 
   const getColor = () => {
-    const visibleCategories = groupTaskList();
     let color;
-    for (const category of Object.values(visibleCategories)) {
+    for (const category of Object.values(addedCategoriesTab)) {
       if (category.category === selectedTabCategory) {
         color = category.categoryColorStyle;
       }

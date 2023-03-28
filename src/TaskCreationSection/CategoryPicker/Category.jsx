@@ -2,19 +2,17 @@
 import React, { useContext } from "react";
 import { IoIosRemoveCircle } from "react-icons/io";
 import { v4 as uuid2 } from "uuid";
-import { colorStyleRadioHandler } from "../../Components/colorStyleClassHandler";
-import {
-  CategoryParamsContext,
-  TaskDetailsContext,
-} from "../../Components/Contexts";
+import { colorStyleRadioHandler } from "../../colorStyleClassHandler";
+import { CategoryParamsContext } from "../../Contexts";
 import categories, { removeCategory } from "./categories";
-//
+
 export default function Category({
   categoryName,
-  onChange,
   color,
   isAddedByUser,
   uuid,
+  onChange,
+  forceUpdate,
 }) {
   const {
     setColorStyle,
@@ -22,18 +20,17 @@ export default function Category({
     setSelectedCategoryUUID,
     setSelectedCategoryName,
   } = useContext(CategoryParamsContext);
-  const { updateApp, setUpdateApp } = useContext(TaskDetailsContext);
 
   const uniqueID = uuid2();
 
   const removeCategoryHandler = () => {
+    forceUpdate();
     removeCategory(uuid);
     if (selectedCategoryUUID === uuid) {
       setSelectedCategoryUUID(categories[0].uuid);
       setColorStyle("info");
       setSelectedCategoryName(categories[0].name);
     }
-    setUpdateApp(!updateApp);
   };
 
   return (
@@ -44,7 +41,7 @@ export default function Category({
         onChange={onChange}
         type="radio"
         name="radio-3"
-        className={`  radio  ${colorStyleRadioHandler(color)}`}
+        className={`radio ${colorStyleRadioHandler(color)}`}
       />
 
       <label

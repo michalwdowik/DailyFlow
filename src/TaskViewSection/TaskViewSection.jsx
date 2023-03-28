@@ -1,20 +1,31 @@
 /* eslint-disable import/no-unresolved */
-import React, { useContext } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import { TaskDetailsContext } from "../Components/Contexts";
+import { MainContext, ViewSectionContext } from "../Contexts";
 import TaskList from "./TaskList";
 import AddedCategoriesTab from "./AddedCategoriesTab/AddedCategoriesTab";
 
 export default function TaskViewSection() {
+  const [selectedTabCategory, setSelectedTabCategory] = useState("all");
+  const { setTaskList } = useContext(MainContext);
   const [parent] = useAutoAnimate();
-  const { setTaskList } = useContext(TaskDetailsContext);
+  const value = useMemo(
+    () => ({
+      selectedTabCategory,
+      setSelectedTabCategory,
+    }),
+    [selectedTabCategory]
+  );
+
   return (
     <div
       ref={parent}
       className="taskViewSection customCard flex w-full flex-col gap-7  p-0 transition-[100px]"
     >
-      <AddedCategoriesTab />
-      <TaskList setTaskList={setTaskList} />
+      <ViewSectionContext.Provider value={value}>
+        <AddedCategoriesTab />
+        <TaskList setTaskList={setTaskList} />
+      </ViewSectionContext.Provider>
     </div>
   );
 }

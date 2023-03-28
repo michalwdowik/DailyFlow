@@ -1,12 +1,14 @@
-import React, { useContext } from "react";
-import { colorStyleBgHandler } from "../../Components/colorStyleClassHandler";
-import Category from "./Category";
+/* eslint-disable no-unused-vars */
+import React, { useContext, useReducer } from "react";
+import { colorStyleBgHandler } from "../../colorStyleClassHandler";
 import AddCategoryModal from "../CategoryCreationSection/AddCategoryModal";
-import { CategoryParamsContext } from "../../Components/Contexts";
+import { CategoryParamsContext } from "../../Contexts";
 import categories from "./categories";
+import Category from "./Category";
 
 export default function CategoryPicker() {
-  const { selectedCategoryName, colorStyle, setCategoryAndColor } = useContext(
+  const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
+  const { selectedCategoryName, colorStyle, setCategoryParams } = useContext(
     CategoryParamsContext
   );
 
@@ -25,15 +27,16 @@ export default function CategoryPicker() {
         <div className="collapse-content mt-3 flex flex-row flex-wrap content-center justify-center gap-2 rounded-lg bg-transparent text-primary-content peer-checked:bg-transparent peer-checked:text-secondary-content">
           {categories.map((category) => (
             <Category
-              onChange={() => setCategoryAndColor(category)}
+              onChange={() => setCategoryParams(category)}
               key={category.uuid}
               categoryName={category.name}
               color={category.colorStyle}
               isAddedByUser={category.isAddedByUser}
               uuid={category.uuid}
+              forceUpdate={forceUpdate}
             />
           ))}
-          <AddCategoryModal />
+          <AddCategoryModal forceUpdate={forceUpdate} />
         </div>
       </div>
     </div>

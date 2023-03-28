@@ -9,7 +9,7 @@ import DynamicIcon from "../TaskCreationSection/CategoryCreationSection/IconPick
 import {
   colorStyleTextHandler,
   colorStyleBlobHandler,
-} from "../Components/colorStyleClassHandler";
+} from "../colorStyleClassHandler";
 
 export default function TaskDetailsModal({ task }) {
   const uniqueID = uuid();

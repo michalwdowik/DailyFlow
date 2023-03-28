@@ -6,47 +6,45 @@ import Button from "../Components/Button";
 import CategoryPicker from "./CategoryPicker/CategoryPicker";
 import Importance from "./Importance";
 import DatePicker from "./DatePicker";
-import {
-  CategoryParamsContext,
-  TaskDetailsContext,
-} from "../Components/Contexts";
+import { CategoryParamsContext, MainContext } from "../Contexts";
 import Alert from "../Components/Alert";
 
 export default function Form({ colorStyle, setColorStyle }) {
-  const { taskList, setTaskList, groupTaskList } =
-    useContext(TaskDetailsContext);
-
-  const { updateApp, setUpdateApp } = useContext(TaskDetailsContext);
-
-  const [alertData, setAlertData] = useState({});
-
+  const { taskList, setTaskList, addedCategoriesTab } = useContext(MainContext);
   const [selectedCategoryName, setSelectedCategoryName] = useState("general");
   const [selectedCategoryUUID, setSelectedCategoryUUID] = useState(
     categories[0].uuid
   );
   const [rating, setRating] = useState(2);
   const inputRef = useRef("");
-
-  const [isCorrectTyped, setIsCorrectTyped] = useState(true);
   const [taskDeadline, setTaskDeadline] = useState("Not specified");
-
   const [icon, setIcon] = useState("AiFillWallet");
   const [isSelectDateChecked, setIsSelectDateChecked] = useState(false);
+  const [isCorrectTyped, setIsCorrectTyped] = useState(true);
+  const [alertData, setAlertData] = useState({});
+
+  const showAlert = (params) => {
+    setAlertData({
+      title: params.title,
+      type: params.type,
+      bg: params.bg,
+      isShowed: params.isShowed,
+    });
+    setTimeout(() => {
+      setAlertData({ isShowed: false });
+    }, 3000);
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
     if (inputRef.current.value !== "") {
-      if (groupTaskList().length >= 8) {
-        setUpdateApp(!updateApp);
-        setAlertData({
-          title: "You can create up to 8 different categories",
+      if (addedCategoriesTab.length >= 8) {
+        showAlert({
+          title: "You can add tasks of 8 different categories at a time ",
           type: "error",
           bg: "bg-error",
           isShowed: true,
         });
-        setTimeout(() => {
-          setAlertData({ isShowed: false });
-        }, 3000);
         return;
       }
 
@@ -63,8 +61,6 @@ export default function Form({ colorStyle, setColorStyle }) {
         },
       ]);
       inputRef.current.value = "";
-
-      groupTaskList();
       setIsSelectDateChecked(false);
       setTaskDeadline("Not specified");
       setIsCorrectTyped(true);
@@ -73,7 +69,7 @@ export default function Form({ colorStyle, setColorStyle }) {
     }
   };
 
-  const setCategoryAndColor = (e) => {
+  const setCategoryParams = (e) => {
     setSelectedCategoryName(e.name);
     setSelectedCategoryUUID(e.uuid);
     setIcon(e.icon);
@@ -83,7 +79,7 @@ export default function Form({ colorStyle, setColorStyle }) {
   const value = useMemo(
     () => ({
       selectedCategoryName,
-      setCategoryAndColor,
+      setCategoryParams,
       colorStyle,
       setSelectedCategoryName,
       setColorStyle,
