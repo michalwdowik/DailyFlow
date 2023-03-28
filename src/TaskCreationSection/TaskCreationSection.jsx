@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-
 import React, { useState, useContext, useRef, useMemo } from "react";
+import { v4 as uuid } from "uuid";
 import categories from "./CategoryPicker/categories";
 import Button from "../Components/Button";
 import CategoryPicker from "./CategoryPicker/CategoryPicker";
@@ -22,7 +22,7 @@ export default function Form({ colorStyle, setColorStyle }) {
   const [isSelectDateChecked, setIsSelectDateChecked] = useState(false);
   const [isCorrectTyped, setIsCorrectTyped] = useState(true);
   const [alertData, setAlertData] = useState({});
-
+  const id = uuid();
   const showAlert = (params) => {
     setAlertData({
       title: params.title,
@@ -58,6 +58,7 @@ export default function Form({ colorStyle, setColorStyle }) {
           deadline: taskDeadline,
           icon,
           colorStyle,
+          id,
         },
       ]);
       inputRef.current.value = "";

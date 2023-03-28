@@ -22,9 +22,7 @@ export default function AddCategoryModal({ forceUpdate }) {
   const [isCorrectTyped, setIsCorrectTyped] = useState(true);
   const uniqueID = uuid();
   const portal = document.getElementById("portal");
-
   const [searchIcon, setSearchIcon] = useState("");
-
   const [alertData, setAlertData] = useState({});
 
   const isCategoryoriginal = () => {

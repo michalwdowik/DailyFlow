@@ -7,8 +7,8 @@ import Task from "./Task";
 import { MainContext, ViewSectionContext } from "../Contexts";
 import ToolBar from "./Toolbar/ToolBar";
 
-export default function TaskList({ setTaskList }) {
-  const { taskList, addedCategoriesTab } = useContext(MainContext);
+export default function TaskList() {
+  const { taskList, setTaskList, addedCategoriesTab } = useContext(MainContext);
   const { selectedTabCategory } = useContext(ViewSectionContext);
 
   const [searchInput, setSearchInput] = useState("");
@@ -60,7 +60,7 @@ export default function TaskList({ setTaskList }) {
           {taskList.map((task, index) => (
             <Task
               searchInput={searchInput}
-              key={index}
+              key={task.id}
               index={index}
               onChange={(e) => updateStatusHandler(e, index)}
               task={task}

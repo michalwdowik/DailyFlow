@@ -11,7 +11,7 @@ export default function AddedCategoriesTab() {
           <CategoryTab
             key={addedCategoriesTab[index].categoryUUID}
             addedCategoryTab={addedCategoriesTab[index]}
-            allAddedCategories={addedCategoriesTab.length}
+            addedCategoriesTabLength={addedCategoriesTab.length}
           />
         ))}
       </ul>

@@ -5,16 +5,19 @@ import DynamicIcon from "../../TaskCreationSection/CategoryCreationSection/IconP
 import { colorStyleBgHandler } from "../../colorStyleClassHandler";
 import { MainContext, ViewSectionContext } from "../../Contexts";
 
-export default function CategoryTab({ addedCategoryTab, allAddedCategories }) {
+export default function CategoryTab({
+  addedCategoryTab,
+  addedCategoriesTabLength,
+}) {
   const { selectedTabCategory, setSelectedTabCategory } =
     useContext(ViewSectionContext);
   const { taskList } = useContext(MainContext);
 
   const calculatePadding = () => {
-    if (allAddedCategories > 8) {
+    if (addedCategoriesTabLength > 8) {
       return "p-0";
     }
-    if (allAddedCategories > 6) {
+    if (addedCategoriesTabLength > 6) {
       return "p-1";
     }
     return "p-2";
@@ -41,7 +44,7 @@ export default function CategoryTab({ addedCategoryTab, allAddedCategories }) {
           type="button"
           onClick={() => setSelectedTabCategory(addedCategoryTab.categoryName)}
           className={` ${
-            allAddedCategories > 5 ? "text-xs" : "text-xl"
+            addedCategoriesTabLength > 5 ? "text-xs" : "text-xl"
           } delay-50 bg-opacity-100 p-3 text-white transition ease-in-out hover:text-white hover:opacity-60 sm:text-2xl md:text-3xl lg:text-xl 
           ${
             addedCategoryTab.categoryName === selectedTabCategory
