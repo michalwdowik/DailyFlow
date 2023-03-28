@@ -54,7 +54,7 @@ export default function App() {
   );
 
   return (
-    <div className="container min-h-screen min-w-full">
+    <div className="container min-w-full min-h-screen">
       <BackgroundBlobs colorStyle={colorStyle} />
       <div className="grid gap-10 p-10 sm:grid-cols-1 lg:grid-cols-2">
         <MainContext.Provider value={value}>
