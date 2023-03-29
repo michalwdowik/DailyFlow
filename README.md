@@ -4,7 +4,7 @@
 A brief description of what this project does and who it's for
 
 
-## Run Locally
+## 🚀 Run Locally
 
 
 Install dependencies
@@ -20,12 +20,12 @@ Start the server
 ```
 
 
-## Screenshots
+## 📸 Screenshots
 
 ![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 
 
-## Tech Stack
+## 👨‍💻 Tech Stack
 
 [![Tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white
 )](https://choosealicense.com/licenses/mit/)
@@ -35,7 +35,7 @@ Start the server
 [![Prettier](https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E)](http://www.gnu.org/licenses/agpl-3.0)
 
 
-## Features
+## 🕹️ Features
 
 - Light/dark mode toggle
 - Live previews
