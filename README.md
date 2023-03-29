@@ -23,6 +23,7 @@ Start the server
 ## 📸 Screenshots
 
 ![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![Zrzut ekranu 2023-03-29 o 12 47 28](https://user-images.githubusercontent.com/57302276/228513358-7b7b487a-98ee-47e2-b61c-eba753b82fda.png)
 
 
 ## 👨‍💻 Tech Stack
