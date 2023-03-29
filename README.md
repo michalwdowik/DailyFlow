@@ -5,8 +5,8 @@ The ToDoApp is a web application built using React, Vite, Tailwind CSS, Eslint, 
 
 
 ## 📸 Screenshots
+![MergedImages](https://user-images.githubusercontent.com/57302276/228527144-5ccb122a-c649-41a8-ad01-27b4c7c25bd2.png)
 
-![MergedImages](https://user-images.githubusercontent.com/57302276/228524275-dacb0f45-3ce9-4994-bdc9-5b0a88168901.png)
 
 
 ## 👨‍💻 Tech Stack
