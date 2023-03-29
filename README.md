@@ -1,7 +1,10 @@
 
 # ToDoApp
 
-A brief description of what this project does and who it's for
+The ToDoApp is a web application built using React, Vite, Tailwind CSS, Eslint, and Prettier. The app allows users to create and manage their to-do lists by adding, editing, and deleting tasks. Users can also create custom categories by inputting a name and selecting emojis and the color of the category. Every task has a "details" button that shows a modal with details of a task ie. "days to deadline of a task". The application is responsive to user errors and successes and displays relevant alerts. The React framework is used for building the user interface, while Tailwind CSS is used for styling the components. The project is designed to provide a simple and intuitive user experience, with a clean and modern interface that is easy to use and navigate.
+
+
+
 
 
 ## 🚀 Run Locally
