@@ -40,8 +40,8 @@ Start the server
 
 ## 🕹️ Features
 
-- Add, remove task and assign to appropriate category
-- Create Category Modal that allows to create custom categories [Name/Color/Icon]
+- Add, remove and assign tasks to appropriate category
+- "Create Category Modal" that allows to create custom categories [Name/Color/Icon]
 - Date Picker
 - Emoji Picker / search emoji by input
 - Task Details Modal that shows counted days to the deadline
