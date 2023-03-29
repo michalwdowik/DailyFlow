@@ -7,20 +7,21 @@ The ToDoApp is a web application built using React, Vite, Tailwind CSS, Eslint, 
 ## 📸 Screenshots
 ![MergedImages](https://user-images.githubusercontent.com/57302276/228527144-5ccb122a-c649-41a8-ad01-27b4c7c25bd2.png)
 
+## 🚀 Live Demo
+[ToDoApp](https://prismatic-elf-c7f2f3.netlify.app)
 
-
-## 👨‍💻 Tech Stack
+## 👨🔨💻 Tech Stack
 
 [![Tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white
-)](https://choosealicense.com/licenses/mit/)
-[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://opensource.org/licenses/)
-[![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)](http://www.gnu.org/licenses/agpl-3.0)
-[![Eslint](https://img.shields.io/badge/eslint-3A33D1?style=for-the-badge&logo=eslint&logoColor=white)](http://www.gnu.org/licenses/agpl-3.0)
-[![Prettier](https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E)](http://www.gnu.org/licenses/agpl-3.0)
+)]
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)]
+[![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)]
+[![Eslint](https://img.shields.io/badge/eslint-3A33D1?style=for-the-badge&logo=eslint&logoColor=white)]
+[![Prettier](https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E)]
 
 
 
-## 🚀 Run Locally
+## 👨‍💻 Run Locally
 
 
 Install dependencies
