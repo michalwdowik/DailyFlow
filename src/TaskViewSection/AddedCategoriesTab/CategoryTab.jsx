@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 import React, { useContext } from "react";
 import { IoListOutline } from "react-icons/io5";
-import DynamicIcon from "../../TaskCreationSection/CategoryCreationSection/IconPicker/DynamicIcon";
 import { colorStyleBgHandler } from "../../colorStyleClassHandler";
 import { MainContext, ViewSectionContext } from "../../Contexts";
+import DynamicIcon from "../../TaskCreationSection/CategoryCreationSection/IconPicker/DynamicIcon";
 
 export default function CategoryTab({
   addedCategoryTab,

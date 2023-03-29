@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 * {
   box-sizing: border-box;
   margin: 0 auto;
@@ -226,12 +225,9 @@ button {
 footer{
   padding: 0; 
   width: 100%; 
-  /* background: #28282B;  */
   color: white; 
   text-align: center; 
 }
-
-
 
 @keyframes bounce {
   0%, 100% {

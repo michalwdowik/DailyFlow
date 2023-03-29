@@ -12,7 +12,6 @@ export default function Importance({ rating, setRating }) {
   return (
     <div className="flex items-baseline gap-3 ">
       <span className="label-text text-slate-700">How Important?:</span>
-
       <div className="star-rating">
         {[...Array(3)].map((star, index) => {
           index += 1;

@@ -9,7 +9,6 @@ import { MainContext, ViewSectionContext } from "../../Contexts";
 
 export default function ToolbarButtons({ setAlertData }) {
   const { taskList, setTaskList } = useContext(MainContext);
-
   const { selectedTabCategory } = useContext(ViewSectionContext);
   const isAnyTaskDone = () => {
     const newList = [...taskList];
@@ -83,7 +82,7 @@ export default function ToolbarButtons({ setAlertData }) {
   };
 
   return (
-    <div className="flex gap-1 self-center ">
+    <div className="flex self-center gap-1 ">
       <Button
         toolTipClass="hover:tooltip-error hover:tooltip hover:tooltip-open"
         toolTipText="Remove Done Tasks"
@@ -96,7 +95,7 @@ export default function ToolbarButtons({ setAlertData }) {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="#FFFFFF"
-            className="h-6 w-6"
+            className="w-6 h-6"
           >
             <path
               strokeLinecap="round"

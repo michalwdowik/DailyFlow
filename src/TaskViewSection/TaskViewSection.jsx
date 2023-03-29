@@ -6,8 +6,8 @@ import TaskList from "./TaskList";
 import AddedCategoriesTab from "./AddedCategoriesTab/AddedCategoriesTab";
 
 export default function TaskViewSection() {
-  const [selectedTabCategory, setSelectedTabCategory] = useState("all");
   const [parent] = useAutoAnimate();
+  const [selectedTabCategory, setSelectedTabCategory] = useState("all");
   const value = useMemo(
     () => ({
       selectedTabCategory,

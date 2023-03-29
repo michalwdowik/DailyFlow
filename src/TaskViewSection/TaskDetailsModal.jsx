@@ -5,7 +5,6 @@ import React from "react";
 import { v4 as uuid } from "uuid";
 import { createPortal } from "react-dom";
 import DynamicIcon from "../TaskCreationSection/CategoryCreationSection/IconPicker/DynamicIcon";
-
 import {
   colorStyleTextHandler,
   colorStyleBlobHandler,
@@ -14,7 +13,6 @@ import {
 export default function TaskDetailsModal({ task }) {
   const uniqueID = uuid();
   const portal = document.getElementById("portal");
-
   const calculateDaysLeft = () => {
     const deadlineDate = new Date(`${task.deadline}`);
     const todayDate = new Date();
@@ -59,7 +57,7 @@ export default function TaskDetailsModal({ task }) {
     <div>
       <label
         htmlFor={uniqueID}
-        className="btn-xs btn ml-5 border-0 bg-transparent bg-slate-700 p-0 dark:bg-slate-700 "
+        className="p-0 ml-5 bg-transparent border-0 btn-xs btn bg-slate-700 dark:bg-slate-700 "
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -76,20 +74,20 @@ export default function TaskDetailsModal({ task }) {
       {createPortal(
         <div>
           <input type="checkbox" id={uniqueID} className="modal-toggle " />
-          <label htmlFor={uniqueID} className="modal cursor-pointer">
+          <label htmlFor={uniqueID} className="cursor-pointer modal">
             <label
-              className="modal-box m-0 rounded-3xl bg-slate-100 p-0"
+              className="p-0 m-0 modal-box rounded-3xl bg-slate-100"
               htmlFor=""
             >
               <div className="p-6 ">
                 <div className="flex flex-col content-start gap-2">
-                  <h1 className="m-0 break-all text-center font-bold text-slate-700">
+                  <h1 className="m-0 font-bold text-center break-all text-slate-700">
                     {task.name}
                   </h1>
-                  <h2 className="m-0 self-center p-0 font-extralight">
+                  <h2 className="self-center p-0 m-0 font-extralight">
                     {task.category}
                   </h2>
-                  <p className="m-3 p-0 text-8xl text-slate-700">
+                  <p className="p-0 m-3 text-8xl text-slate-700">
                     <DynamicIcon name={task.icon} />
                   </p>
                   <div className="inline-flex">
@@ -114,7 +112,7 @@ export default function TaskDetailsModal({ task }) {
                   </div>
 
                   {task.deadline !== "Not specified" && (
-                    <div className="stats bg-transparent ">
+                    <div className="bg-transparent stats ">
                       <div className="stat">{renderDeadlineInfo()}</div>
                     </div>
                   )}

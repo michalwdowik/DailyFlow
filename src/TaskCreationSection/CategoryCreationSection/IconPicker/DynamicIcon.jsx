@@ -8,6 +8,5 @@ export default function DynamicIcon({ name }) {
   if (!IconComponent) {
     return <Icons.FaBeer />;
   }
-
   return <IconComponent />;
 }

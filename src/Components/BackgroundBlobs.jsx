@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import { colorStyleBgHandler } from "./colorStyleClassHandler";
+import { colorStyleBgHandler } from "../colorStyleClassHandler";
 
 export default function BackgroundBlobs({ colorStyle }) {
   return (

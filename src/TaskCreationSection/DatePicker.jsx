@@ -73,7 +73,6 @@ export default function DatePicker({
   colorStyle,
 }) {
   const [show, setShow] = useState(false);
-
   const handleChange = (selectedDate) => {
     const day = selectedDate.getDate();
     const month = selectedDate.getMonth() + 1;
@@ -96,12 +95,12 @@ export default function DatePicker({
   };
 
   return (
-    <div className="relative mb-2 flex flex-col gap-2">
-      <label className="label-text relative inline-flex cursor-pointer gap-3 ">
+    <div className="relative flex flex-col gap-2 mb-2">
+      <label className="relative inline-flex gap-3 cursor-pointer label-text ">
         <input
           type="checkbox"
           value=""
-          className="peer sr-only "
+          className="sr-only peer "
           checked={isSelectDateChecked}
           onChange={checkSelectedDateHandler}
         />

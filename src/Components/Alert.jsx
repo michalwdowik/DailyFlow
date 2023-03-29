@@ -26,7 +26,7 @@ export default function Alert({ alertData }) {
                   {alertData.type === "success" ? (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6 flex-shrink-0 stroke-current text-black"
+                      className="flex-shrink-0 w-6 h-6 text-black stroke-current"
                       fill="none"
                       viewBox="0 0 24 24"
                     >

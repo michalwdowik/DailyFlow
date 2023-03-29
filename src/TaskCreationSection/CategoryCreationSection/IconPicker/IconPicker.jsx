@@ -48,16 +48,16 @@ function IconPicker({
             color: "#334155",
           }}
         >
-          <div className="collapse max-h-60 flex-none rounded-3xl">
+          <div className="flex-none collapse max-h-60 rounded-3xl">
             <input type="checkbox" className="peer" />
             <button
-              className="collapse-title m-0 self-center p-0 transition ease-in-out peer-checked:scale-75 peer-checked:overflow-scroll"
+              className="self-center p-0 m-0 transition ease-in-out collapse-title peer-checked:scale-75 peer-checked:overflow-scroll"
               type="button"
             >
               <DynamicIcon name={newCategoryIcon} />
             </button>
 
-            <div className="collapse-content relative m-0 place-items-center overflow-auto p-0 accent-slate-700">
+            <div className="relative p-0 m-0 overflow-auto collapse-content place-items-center accent-slate-700">
               <input
                 value={searchIcon}
                 onInput={onInput}
@@ -65,11 +65,9 @@ function IconPicker({
                 id="simple-search"
                 className={` ${colorStyleInputHandler(
                   colorStyle
-                )} customShadow input sticky top-3 m-auto mb-3 block w-3/4 rounded-3xl border-0
-       bg-base-300 pl-10 text-sm`}
+                )} customShadow input sticky top-3 m-auto mb-3 block w-3/4 rounded-3xl border-0 bg-base-300 pl-10 text-sm`}
                 placeholder="Search task"
               />
-
               <div className="flex flex-wrap justify-center ">{children}</div>
             </div>
           </div>
@@ -78,5 +76,4 @@ function IconPicker({
     </div>
   );
 }
-
 export default IconPicker;

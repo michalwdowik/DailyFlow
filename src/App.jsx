@@ -5,13 +5,12 @@ import { v4 as uuid } from "uuid";
 import TaskCreationSection from "./TaskCreationSection/TaskCreationSection";
 import TaskViewSection from "./TaskViewSection/TaskViewSection";
 import { MainContext } from "./Contexts";
-import BackgroundBlobs from "./BackgroundBlobs";
+import BackgroundBlobs from "./Components/BackgroundBlobs";
 
 export default function App() {
   const [taskList, setTaskList] = useState([]);
   const [colorStyle, setColorStyle] = useState("info");
   const id = uuid();
-
   const addedCategoriesTab = useMemo(() => {
     const taskListCloned = [...taskList];
     // Segregate created tasks by category

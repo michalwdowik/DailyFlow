@@ -10,7 +10,7 @@ export default function Button({
 }) {
   return (
     <div className={toolTipClass} data-tip={toolTipText}>
-      <button onClick={action} type="button" className={className}>
+      <button type="button" onClick={action} className={className}>
         {title}
       </button>
     </div>

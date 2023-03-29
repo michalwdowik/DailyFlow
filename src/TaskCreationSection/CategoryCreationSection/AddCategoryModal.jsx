@@ -106,7 +106,7 @@ export default function AddCategoryModal({ forceUpdate }) {
   const colorPicker = useMemo(
     () => (
       <CirclePicker
-        className="m-0 self-center p-0"
+        className="self-center p-0 m-0"
         color={colorPickerColor}
         colors={["#38bdf8", "#f87171", "#10b981", "#7e22ce", "#eab308"]}
         onChangeComplete={changeColorHandler}
@@ -119,7 +119,7 @@ export default function AddCategoryModal({ forceUpdate }) {
     <div>
       <label
         htmlFor="my-modal-3"
-        className="dark:bg:transparent btn-xs btn m-0 border-0 bg-transparent p-1 font-normal text-slate-700 hover:scale-110 hover:bg-transparent"
+        className="p-1 m-0 font-normal bg-transparent border-0 dark:bg:transparent btn-xs btn text-slate-700 hover:scale-110 hover:bg-transparent"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -137,8 +137,8 @@ export default function AddCategoryModal({ forceUpdate }) {
       {createPortal(
         <div>
           <input type="checkbox" id="my-modal-3" className="modal-toggle " />
-          <label htmlFor="my-modal-3" className="modal cursor-pointer">
-            <label className="modal-box mt-5 flex flex-col content-center justify-center gap-3 rounded-3xl bg-slate-100 p-5 pt-10">
+          <label htmlFor="my-modal-3" className="cursor-pointer modal">
+            <label className="flex flex-col content-center justify-center gap-3 p-5 pt-10 mt-5 modal-box rounded-3xl bg-slate-100">
               <div className="indicator">
                 <input
                   maxLength={17}
@@ -165,7 +165,7 @@ export default function AddCategoryModal({ forceUpdate }) {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="h-6 w-6"
+                      className="w-6 h-6"
                     >
                       <path
                         strokeLinecap="round"

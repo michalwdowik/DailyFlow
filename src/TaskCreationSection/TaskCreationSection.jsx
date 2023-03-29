@@ -4,8 +4,8 @@ import { v4 as uuid } from "uuid";
 import categories from "./CategoryPicker/categories";
 import Button from "../Components/Button";
 import CategoryPicker from "./CategoryPicker/CategoryPicker";
-import Importance from "./Importance";
 import DatePicker from "./DatePicker";
+import Importance from "./Importance";
 import { CategoryParamsContext, MainContext } from "../Contexts";
 import Alert from "../Components/Alert";
 
@@ -91,8 +91,8 @@ export default function Form({ colorStyle, setColorStyle }) {
   );
 
   return (
-    <div className="maxHTaskCreationSection customCard flex w-full flex-col gap-7 p-5">
-      <span className="label-text mt-2 -mb-6 text-slate-700">Add Task:</span>
+    <div className="flex flex-col w-full p-5 maxHTaskCreationSection customCard gap-7">
+      <span className="mt-2 -mb-6 label-text text-slate-700">Add Task:</span>
       <div className="flex w-5/6 gap-5 sm:w-4/6 md:w-4/6">
         <input
           maxLength={30}
@@ -116,7 +116,7 @@ export default function Form({ colorStyle, setColorStyle }) {
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="h-6 w-6"
+              className="w-6 h-6"
             >
               <path
                 strokeLinecap="round"

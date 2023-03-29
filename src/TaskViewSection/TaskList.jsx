@@ -10,7 +10,6 @@ import ToolBar from "./Toolbar/ToolBar";
 export default function TaskList() {
   const { taskList, setTaskList, addedCategoriesTab } = useContext(MainContext);
   const { selectedTabCategory } = useContext(ViewSectionContext);
-
   const [searchInput, setSearchInput] = useState("");
   const [animationParent] = useAutoAnimate({
     duration: 100,
@@ -53,7 +52,7 @@ export default function TaskList() {
           } p-0`}
         >
           {taskList.length === 0 && (
-            <h1 className="transition-color mt-10 animate-pulse text-center text-3xl opacity-70 duration-500 hover:text-success">
+            <h1 className="mt-10 text-3xl text-center duration-500 transition-color animate-pulse opacity-70 hover:text-success">
               Add some tasks!
             </h1>
           )}

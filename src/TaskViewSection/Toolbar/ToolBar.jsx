@@ -9,10 +9,10 @@ export default function ToolBar({ searchInput, onInput, colorStyle }) {
 
   return (
     <div className="relative flex gap-5 border-error">
-      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 ">
+      <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none ">
         <svg
           aria-hidden="true"
-          className="h-5 w-5 text-gray-500 dark:text-gray-400 "
+          className="w-5 h-5 text-gray-500 dark:text-gray-400 "
           fill="currentColor"
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg"
@@ -31,9 +31,7 @@ export default function ToolBar({ searchInput, onInput, colorStyle }) {
         id="simple-search"
         className={` ${colorStyleInputHandler(
           colorStyle
-        )} customShadow input block w-full rounded-3xl border-0
-       bg-base-300 pl-10 text-xs placeholder-transparent dark:text-white
-             sm:text-sm sm:placeholder-gray-400  `}
+        )} customShadow input block w-full rounded-3xl border-0 bg-base-300 pl-10 text-xs placeholder-transparent dark:text-white sm:text-sm sm:placeholder-gray-400`}
         placeholder="Search task"
       />
       <ToolbarButtons setAlertData={setAlertData} />

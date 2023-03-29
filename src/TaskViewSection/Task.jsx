@@ -8,10 +8,9 @@ import { ViewSectionContext } from "../Contexts";
 
 export default function Task({ task, onChange, index, searchInput }) {
   const { selectedTabCategory } = useContext(ViewSectionContext);
-
   const renderTask = () => (
     <label>
-      <li className="mx-3 border-b border-solid border-slate-200 py-1 sm:py-3">
+      <li className="py-1 mx-3 border-b border-solid border-slate-200 sm:py-3">
         <div className="flex items-center space-x-4 ">
           <input
             className={`${colorStyleCheckboxHandler(
@@ -22,11 +21,11 @@ export default function Task({ task, onChange, index, searchInput }) {
             onChange={onChange}
             checked={task.done}
           />
-          <div className="min-w-0 flex-1">
-            <p className="transition-delay-50 truncate text-sm font-medium text-slate-700 transition hover:text-gray-400">
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-medium truncate transition transition-delay-50 text-slate-700 hover:text-gray-400">
               {task.name}
             </p>
-            <p className="truncate text-sm text-gray-500 ">{task.category}</p>
+            <p className="text-sm text-gray-500 truncate ">{task.category}</p>
           </div>
 
           <div className="inline-flex items-center text-base font-semibold text-slate-700 ">
@@ -36,7 +35,7 @@ export default function Task({ task, onChange, index, searchInput }) {
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   fill="currentColor"
-                  className="h-4 w-4"
+                  className="w-4 h-4"
                 >
                   <path
                     fillRule="evenodd"

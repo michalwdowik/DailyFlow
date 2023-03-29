@@ -5,7 +5,6 @@ const uniqueID2 = uuid();
 const uniqueID3 = uuid();
 const uniqueID4 = uuid();
 const uniqueID5 = uuid();
-
 const categories = [
   {
     name: "general",

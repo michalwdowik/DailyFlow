@@ -14,14 +14,13 @@ export default function Category({
   onChange,
   forceUpdate,
 }) {
+  const uniqueID = uuid2();
   const {
     setColorStyle,
     selectedCategoryUUID,
     setSelectedCategoryUUID,
     setSelectedCategoryName,
   } = useContext(CategoryParamsContext);
-
-  const uniqueID = uuid2();
 
   const removeCategoryHandler = () => {
     forceUpdate();

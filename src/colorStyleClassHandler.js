@@ -100,23 +100,6 @@ export const colorStyleTogglerHandler = (e) => {
   }
 };
 
-export const colorStyleBlobHandler = (e) => {
-  switch (e) {
-    case "info":
-      return `#38bdf8`;
-    case "error":
-      return `#f87171`;
-    case "success":
-      return `#10b981`;
-    case "primary":
-      return `#7e22ce`;
-    case "warning":
-      return `#eab308`;
-    default:
-      return `#38bdf8`;
-  }
-};
-
 export const colorPickerColorHandler = (color) => {
   switch (color.hex) {
     case "#38bdf8":
@@ -131,5 +114,22 @@ export const colorPickerColorHandler = (color) => {
       return `warning`;
     default:
       return `info`;
+  }
+};
+
+export const colorStyleBlobHandler = (e) => {
+  switch (e) {
+    case "info":
+      return `#38bdf8`;
+    case "error":
+      return `#f87171`;
+    case "success":
+      return `#10b981`;
+    case "primary":
+      return `#7e22ce`;
+    case "warning":
+      return `#eab308`;
+    default:
+      return `#38bdf8`;
   }
 };
