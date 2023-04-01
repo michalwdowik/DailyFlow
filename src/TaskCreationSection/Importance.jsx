@@ -3,11 +3,9 @@
 /* eslint-disable react/prop-types */
 import React, { useContext, useState } from "react";
 import { colorStyleTextHandler } from "../colorStyleClassHandler";
-import { CategoryParamsContext } from "../Contexts";
 
-export default function Importance({ rating, setRating }) {
+export default function Importance({ rating, setRating, colorStyle }) {
   const [hover, setHover] = useState(0);
-  const { colorStyle } = useContext(CategoryParamsContext);
 
   return (
     <div className="flex items-baseline gap-3 ">

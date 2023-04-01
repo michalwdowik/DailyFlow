@@ -1,45 +1,40 @@
 import { v4 as uuid } from "uuid";
 
-const uniqueID1 = uuid();
-const uniqueID2 = uuid();
-const uniqueID3 = uuid();
-const uniqueID4 = uuid();
-const uniqueID5 = uuid();
-const categories = [
+export const categories = [
   {
     name: "general",
     icon: "AiFillWallet",
     colorStyle: "info",
     isAddedByUser: false,
-    uuid: uniqueID1,
+    uuid: uuid(),
   },
   {
     name: "hobby",
     icon: "AiFillHeart",
     colorStyle: "error",
     isAddedByUser: false,
-    uuid: uniqueID2,
+    uuid: uuid(),
   },
   {
     name: "activities",
     icon: "BsActivity",
     colorStyle: "success",
     isAddedByUser: false,
-    uuid: uniqueID3,
+    uuid: uuid(),
   },
   {
     name: "work",
     icon: "MdWork",
     colorStyle: "primary",
     isAddedByUser: false,
-    uuid: uniqueID4,
+    uuid: uuid(),
   },
   {
     name: "school",
     icon: "IoSchoolSharp",
     colorStyle: "warning",
     isAddedByUser: false,
-    uuid: uniqueID5,
+    uuid: uuid(),
   },
 ];
 

@@ -1,3 +1,10 @@
+/*
+MAJOR: use more decomposiiton, this file is a bit unreadable, we should extract some smaller meanigful components from "Task"
+They can be even in the same file
+MAJOR: logic to decide whenever we should display task or not was to complicated, variables/functions are not only to store data
+they can always give more context to the reader that's the huge win
+*/
+
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/prop-types */
@@ -5,11 +12,19 @@ import React, { useContext } from "react";
 import TaskDetailsModal from "./TaskDetailsModal";
 import { colorStyleCheckboxHandler } from "../colorStyleClassHandler";
 import { ViewSectionContext } from "../Contexts";
+import PropTypes from 'prop-types'
 
-export default function Task({ task, onChange, index, searchInput }) {
+function Task({ task, onChange, index, searchInput }) {
   const { selectedTabCategory } = useContext(ViewSectionContext);
-  const renderTask = () => (
-    <label>
+  const correctCategory = selectedTabCategory === "all" || task.category === selectedTabCategory
+  const correctName = !searchInput || task.name.toLowerCase().includes(searchInput.toLowerCase())
+  const shouldDisplay = correctCategory && correctName
+
+  return (
+    <div className="">
+      {shouldDisplay &&
+      (
+        <label>
       <li className="py-1 mx-3 border-b border-solid border-slate-200 sm:py-3">
         <div className="flex items-center space-x-4 ">
           <input
@@ -21,15 +36,43 @@ export default function Task({ task, onChange, index, searchInput }) {
             onChange={onChange}
             checked={task.done}
           />
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium truncate transition transition-delay-50 text-slate-700 hover:text-gray-400">
-              {task.name}
-            </p>
-            <p className="text-sm text-gray-500 truncate ">{task.category}</p>
-          </div>
+          <TaskDescription name={task.name} category={task.category} />
 
           <div className="inline-flex items-center text-base font-semibold text-slate-700 ">
-            {[...Array(task.rate)].map((e, i) => (
+            <TaskIcons rate={task.rate} />
+          </div>
+
+          <TaskDetailsModal id={index} task={task} />
+        </div>
+      </li>
+    </label>
+      )
+      }
+    </div>
+  );
+}
+
+Task.propTypes = {
+  index: PropTypes.number,
+  searchInput: PropTypes.string
+}
+
+
+const TaskDescription = ({ name, category }) => {
+  return (
+    
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-medium truncate transition transition-delay-50 text-slate-700 hover:text-gray-400">
+              {name}
+            </p>
+            <p className="text-sm text-gray-500 truncate ">{category}</p>
+          </div>
+  )
+}
+
+
+const TaskIcons = ({ rate }) => {
+  return  [...Array(rate)].map((e, i) => (
               <span key={i}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -44,21 +87,8 @@ export default function Task({ task, onChange, index, searchInput }) {
                   />
                 </svg>
               </span>
-            ))}
-          </div>
-
-          <TaskDetailsModal id={index} task={task} />
-        </div>
-      </li>
-    </label>
-  );
-
-  return (
-    <div className="">
-      {(task.name.toLowerCase().includes(searchInput.toLowerCase()) &&
-        selectedTabCategory === "all" &&
-        renderTask()) ||
-        (task.category === selectedTabCategory && renderTask())}
-    </div>
-  );
+            )
+  )
 }
+
+export default Task

@@ -13,10 +13,14 @@ import Button from "../../Components/Button";
 import categories from "../CategoryPicker/categories";
 import Alert from "../../Components/Alert";
 
-export default function AddCategoryModal({ forceUpdate }) {
-  const [inputValue, setInputValue] = useState("");
-  const [newCategoryIcon, setNewCategoryIcon] = useState("IoIosHappy");
-  const [newCategoryColor, setNewCategoryColor] = useState("info");
+export default function AddCategoryModal({ onAddCategory }) {
+  const [category, setCategory] = useState({
+    name: "",
+    icon: "IoIosHappy",
+    color: "info",
+    colorStyle: "#38bdf8"
+  })
+
   const [colorPickerColor, setColorPickerColor] = useState("#38bdf8");
 
   const [isCorrectTyped, setIsCorrectTyped] = useState(true);
@@ -25,13 +29,8 @@ export default function AddCategoryModal({ forceUpdate }) {
   const [searchIcon, setSearchIcon] = useState("");
   const [alertData, setAlertData] = useState({});
 
-  const isCategoryoriginal = () => {
-    const x = categories.filter((category) => category.name === inputValue);
-    return x.length === 0;
-  };
-
   const onInput = (e) => {
-    setInputValue(e.target.value);
+    setInputValuisCategoryoriginale(e.target.value);
     setIsCorrectTyped(e.target.value !== "");
   };
 
@@ -58,23 +57,8 @@ export default function AddCategoryModal({ forceUpdate }) {
       return;
     }
 
-    if (inputValue !== "" && isCategoryoriginal()) {
-      forceUpdate();
-      categories.push({
-        name: inputValue.toLowerCase(),
-        icon: newCategoryIcon,
-        colorStyle: newCategoryColor,
-        isAddedByUser: true,
-        uuid: uniqueID,
-      });
-      setInputValue("");
-      showAlert({
-        title: "New category has been added!",
-        type: "success",
-        bg: "bg-success",
-        isShowed: true,
-      });
-    } else {
+    const isCategoryValid = category.name && !categories.some(({category}) => category.name === category);
+    if (!isCategoryValid) {
       setIsCorrectTyped(false);
       showAlert({
         title: "You can't create a category with this name, try again!",
@@ -82,25 +66,37 @@ export default function AddCategoryModal({ forceUpdate }) {
         bg: "bg-error",
         isShowed: true,
       });
+      return
     }
+
+    onAddCategory({
+      ...category,
+      colorStyle,
+    })
+    showAlert({
+      title: "New category has been added!",
+      type: "success",
+      bg: "bg-success",
+      isShowed: true,
+    });
   };
 
   const iconPicker = useMemo(
     () => (
       <IconPicker
-        newCategoryIcon={newCategoryIcon}
-        setNewCategoryIcon={setNewCategoryIcon}
-        colorStyle={newCategoryColor}
+        newCategoryIcon={category.icon}
+        setNewCategoryIcon={(categoryIcon) => setCategory({ ...category, icon: categoryIcon }) }
+        colorStyle={category.color}
         searchIcon={searchIcon}
         setSearchIcon={setSearchIcon}
       />
     ),
-    [searchIcon, newCategoryIcon]
+    [category]
   );
 
   const changeColorHandler = (color) => {
     setColorPickerColor(color.hex);
-    setNewCategoryColor(colorPickerColorHandler(color));
+    setCategory({ ...category, color: colorPickerColorHandler(color) })
   };
 
   const colorPicker = useMemo(
@@ -143,7 +139,7 @@ export default function AddCategoryModal({ forceUpdate }) {
                 <input
                   maxLength={17}
                   onInput={onInput}
-                  value={inputValue}
+                  value={category.name}
                   type="text"
                   placeholder="Type here..."
                   id="taskInput"
@@ -156,7 +152,7 @@ export default function AddCategoryModal({ forceUpdate }) {
                 <Button
                   action={createNewCategory}
                   className={`text-white ${colorStyleBgHandler(
-                    newCategoryColor
+                    category.color
                   )} btn-circle transition-all active:scale-90`}
                   title={
                     <svg

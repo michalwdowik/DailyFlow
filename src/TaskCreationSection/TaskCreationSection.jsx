@@ -6,23 +6,31 @@ import Button from "../Components/Button";
 import CategoryPicker from "./CategoryPicker/CategoryPicker";
 import DatePicker from "./DatePicker";
 import Importance from "./Importance";
-import { CategoryParamsContext, MainContext } from "../Contexts";
+import { MainContext } from "../Contexts";
 import Alert from "../Components/Alert";
+import { useThemeContext } from "../ThemeContext";
 
-export default function Form({ colorStyle, setColorStyle }) {
+const defaultTaskState = {
+    name: '',
+    category: categories[0].uuid,
+    done: false, 
+    rate: 2,
+    deadline: "Not specified",
+    icon: 'AiFillWallet',
+}
+
+export default function Form() {
+  const { colorStyle, setColorStyle } = useThemeContext()
   const { taskList, setTaskList, addedCategoriesTab } = useContext(MainContext);
-  const [selectedCategoryName, setSelectedCategoryName] = useState("general");
-  const [selectedCategoryUUID, setSelectedCategoryUUID] = useState(
-    categories[0].uuid
-  );
-  const [rating, setRating] = useState(2);
+  const [task, setTask] = useState({
+    ...defaultTaskState,
+    colorStyle,
+    id: uuid(),
+  })
   const inputRef = useRef("");
-  const [taskDeadline, setTaskDeadline] = useState("Not specified");
-  const [icon, setIcon] = useState("AiFillWallet");
   const [isSelectDateChecked, setIsSelectDateChecked] = useState(false);
   const [isCorrectTyped, setIsCorrectTyped] = useState(true);
   const [alertData, setAlertData] = useState({});
-  const id = uuid();
   const showAlert = (params) => {
     setAlertData({
       title: params.title,
@@ -37,58 +45,42 @@ export default function Form({ colorStyle, setColorStyle }) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (inputRef.current.value !== "") {
-      if (addedCategoriesTab.length >= 8) {
-        showAlert({
-          title: "You can add tasks of 8 different categories at a time ",
-          type: "error",
-          bg: "bg-error",
-          isShowed: true,
-        });
-        return;
-      }
+    if (task.name === "") {
+      setIsCorrectTyped(false);
+      return 
+    }
+    if (addedCategoriesTab.length >= 8) {
+      showAlert({
+        title: "You can add tasks of 8 different categories at a time ",
+        type: "error",
+        bg: "bg-error",
+        isShowed: true,
+      });
+      return;
+    }
 
+      // repalce with nice function from context like addTask
       setTaskList([
         ...taskList,
-        {
-          name: inputRef.current.value,
-          category: selectedCategoryName,
-          done: false,
-          rate: rating,
-          deadline: taskDeadline,
-          icon,
-          colorStyle,
-          id,
-        },
+       task
       ]);
-      inputRef.current.value = "";
+      setTask({
+        ...defaultTaskState,
+        colorStyle,
+        id: uuid()
+      })
       setIsSelectDateChecked(false);
-      setTaskDeadline("Not specified");
       setIsCorrectTyped(true);
-    } else {
-      setIsCorrectTyped(false);
     }
-  };
 
-  const setCategoryParams = (e) => {
-    setSelectedCategoryName(e.name);
-    setSelectedCategoryUUID(e.uuid);
-    setIcon(e.icon);
-    setColorStyle(e.colorStyle);
-  };
 
-  const value = useMemo(
-    () => ({
-      selectedCategoryName,
-      setCategoryParams,
-      colorStyle,
-      setSelectedCategoryName,
-      setColorStyle,
-      selectedCategoryUUID,
-      setSelectedCategoryUUID,
-    }),
-    [selectedCategoryName, colorStyle, selectedCategoryUUID]
-  );
+  const handleChangeTaskCategory = (category) => {
+    setTask({
+      ...task,
+      category: category.uuid
+    })
+    setColorStyle(category.colorStyle)
+  }
 
   return (
     <div className="flex flex-col w-full p-5 maxHTaskCreationSection customCard gap-7">
@@ -127,16 +119,14 @@ export default function Form({ colorStyle, setColorStyle }) {
           }
         />
       </div>
-      <CategoryParamsContext.Provider value={value}>
-        <CategoryPicker />
-        <Importance rating={rating} setRating={setRating} />
-      </CategoryParamsContext.Provider>
-      <DatePicker
-        colorStyle={colorStyle}
-        setTaskDeadline={setTaskDeadline}
-        isSelectDateChecked={isSelectDateChecked}
-        setIsSelectDateChecked={setIsSelectDateChecked}
-      />
+        <CategoryPicker selectedCategoryId={task.category} colorStyle={colorStyle} onCategoryChange={category => handleChangeTaskCategory(category)} />
+        <Importance rating={task.rate} setRating={(rate) => setTask({ ...task, rate })} colorStyle={colorStyle} />
+        <DatePicker
+          colorStyle={colorStyle}
+          setTaskDeadline={(deadline) => setTask({ ...task, deadline })}
+          isSelectDateChecked={isSelectDateChecked}
+          setIsSelectDateChecked={setIsSelectDateChecked}
+        />
       <Alert alertData={alertData} />
     </div>
   );

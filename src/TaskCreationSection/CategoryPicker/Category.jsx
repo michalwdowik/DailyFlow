@@ -3,34 +3,18 @@ import React, { useContext } from "react";
 import { IoIosRemoveCircle } from "react-icons/io";
 import { v4 as uuid2 } from "uuid";
 import { colorStyleRadioHandler } from "../../colorStyleClassHandler";
-import { CategoryParamsContext } from "../../Contexts";
 import categories, { removeCategory } from "./categories";
 
 export default function Category({
   categoryName,
   color,
   isAddedByUser,
+  selectedCategoryUUID,
   uuid,
   onChange,
-  forceUpdate,
+  onRemove,
 }) {
   const uniqueID = uuid2();
-  const {
-    setColorStyle,
-    selectedCategoryUUID,
-    setSelectedCategoryUUID,
-    setSelectedCategoryName,
-  } = useContext(CategoryParamsContext);
-
-  const removeCategoryHandler = () => {
-    forceUpdate();
-    removeCategory(uuid);
-    if (selectedCategoryUUID === uuid) {
-      setSelectedCategoryUUID(categories[0].uuid);
-      setColorStyle("info");
-      setSelectedCategoryName(categories[0].name);
-    }
-  };
 
   return (
     <div className="flex gap-1 p-1 ">
@@ -51,7 +35,7 @@ export default function Category({
       </label>
       {isAddedByUser && (
         <button
-          onClick={removeCategoryHandler}
+          onClick={() => onRemove(uuid)}
           type="button"
           className="transition active:scale-125"
         >

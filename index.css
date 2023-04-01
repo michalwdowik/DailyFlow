@@ -1,3 +1,7 @@
+/*
+I dont have a lot of experience with tailwind but I think you can organise these styles better? maybe create separate files
+or if you want to keep everything in one file then create some sections like: CONTAINERS, ACTIONS (e.g. buttons), INPUTS and so on 
+*/
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -14,6 +18,17 @@
     color-scheme: dark;
   }
 } */
+
+/*
+MINOR: you can define colors here and then reuse them across all CSS (e.g. "--primary-box-shadow"), this way you would have:
+- more organized code
+- increase readbility by giving context to the other devs what this color means
+- you can change all of them in once place, e.g. --primary-color to blue and all components that use it will be blue
+take a look at line 88 to see how to use variables
+*/
+:root {
+  --primary-color: #ffffff99;
+}
 
 
 * {
@@ -43,8 +58,8 @@ body {
 .maxHTaskCreationSection {
   height: auto;
   min-height: 450px;
-max-height: 500px;
-overflow-y: scroll;
+  max-height: 500px;
+  overflow-y: scroll;
 }
 
 .taskViewSection {
@@ -52,7 +67,7 @@ overflow-y: scroll;
   max-height: 850px;
   overflow-x: hidden;
   overflow-y: hidden;
-  }
+}
 
 
 .modalStyle {
@@ -74,7 +89,7 @@ overflow-y: scroll;
   filter: drop-shadow(5px 5px 10px #000);
 }
 .customCard {
-  background: rgba( 255, 255, 255, 0.6 );
+  background: var(--primary-color);
   box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
   backdrop-filter: blur( 20px );
   -webkit-backdrop-filter: blur( 20px );
@@ -82,6 +97,12 @@ overflow-y: scroll;
   border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 
+/*
+MINOR: I'd say that we should avoid adding container styles like marigins (e.g. h1 has marigin-left 15px), 
+paddings for text elements for that we should use containers e.g. div
+MINOR: We should stick to one unit, px, em, rem. In general for fonts pixel is not the best unit because
+if users would zoom browser e.g. set 150% then font will stay the same, in short px not scale
+*/
 h1 {
   margin-top: 0;
   margin-left: 15px;
@@ -133,6 +154,10 @@ body {
 
 }
 
+/*
+MINOR: there is a good design approach to use for styling only multiplys of some value, like 4px
+so you should have values like 4px, 8px, 12px, 16px, 20px etc.
+*/
 .square {
   background: #fff;
   border: 1px solid #999;
@@ -254,6 +279,9 @@ footer{
   }
 }
 
+/*
+this one seems to be unused, please remove dead code if it's not needed
+*/
 @mixin custom-checkbox($color) {
   --a: #{$color};
   --chkbg: var(--a);
