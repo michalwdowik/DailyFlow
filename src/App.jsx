@@ -14,48 +14,48 @@ import { ThemeContextProvider } from "./ThemeContext";
 export default function App() {
   const [taskList, setTaskList] = useState([]);
   const id = uuid();
-  // const addedCategoriesTab = useMemo(() => {
-  //   const taskListCloned = [...taskList];
-  //   // Segregate created tasks by category
-  //   const tasksSegregatedByCategory = taskListCloned.reduce((group, arr) => {
-  //     const { category } = arr;
-  //     group[category] = group[category] ?? [];
-  //     group[category].push(arr);
-  //     return group;
-  //   }, {});
+  const addedCategoriesTab = useMemo(() => {
+    const taskListCloned = [...taskList];
+    // Segregate created tasks by category
+    const tasksSegregatedByCategory = taskListCloned.reduce((group, arr) => {
+      const { category } = arr;
+      group[category] = group[category] ?? [];
+      group[category].push(arr);
+      return group;
+    }, {});
+    console.log({ tasksSegregatedByCategory })
 
-  //   // Create added categories tab list with default 'all' category
-  //   const addedCategoriesTabList = [
-  //     {
-  //       categoryName: "all",
-  //       categoryLength: 0,
-  //       categoryIcon: "IoListOutline",
-  //       categoryUUID: id,
-  //     },
-  //   ];
-  //   // Iterate over segregated tasks and convert them to Added Categories Tab List
-  //   for (const [key, value] of Object.entries(tasksSegregatedByCategory)) {
-  //     addedCategoriesTabList.push({
-  //       categoryName: key,
-  //       categoryLength: value.length,
-  //       categoryIcon: value[0].icon,
-  //       categoryColorStyle: value[0].colorStyle,
-  //       categoryUUID: value[0].uuid,
-  //     });
-  //   }
-  //   console.log({ addedCategoriesTabList })
-  //   return addedCategoriesTabList;
-  // }, [taskList.length]);
+    // Create added categories tab list with default 'all' category
+    const addedCategoriesTabList = [
+      {
+        categoryName: "all",
+        categoryLength: 0,
+        categoryIcon: "IoListOutline",
+        categoryUUID: id,
+      },
+    ];
+    // Iterate over segregated tasks and convert them to Added Categories Tab List
+    for (const [key, value] of Object.entries(tasksSegregatedByCategory)) {
+      addedCategoriesTabList.push({
+        categoryName: key,
+        categoryLength: value.length,
+        categoryIcon: value[0].icon,
+        categoryColorStyle: value[0].colorStyle,
+        categoryUUID: value[0].uuid,
+      });
+    }
+    return addedCategoriesTabList;
+  }, [taskList.length]);
 
   const value = useMemo(
     () => ({
-      // addedCategoriesTab,
-      addedCategoriesTab: [],
+      addedCategoriesTab,
+      // addedCategoriesTab: [],
       setTaskList,
       taskList,
     }),
-    // [addedCategoriesTab, taskList]
-    [taskList]
+    [addedCategoriesTab, taskList]
+    // [taskList]
   );
 
   return (

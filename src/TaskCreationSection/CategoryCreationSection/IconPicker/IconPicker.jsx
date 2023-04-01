@@ -1,40 +1,70 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 /* eslint-disable react/prop-types */
-import React, { useMemo } from "react";
+import React, { useMemo, useState, useRef, memo } from "react";
 import { IconContext } from "react-icons";
 import * as icons from "react-icons/io";
 import { colorStyleInputHandler } from "../../../colorStyleClassHandler";
 import DynamicIcon from "./DynamicIcon";
 
-function IconPicker({
+const toArray = (icons) => Object.values(icons) 
+const getLimitIcons = (icons, limit = 25) => toArray(icons).slice(0, limit)
+const findIcons = (icons, searchIcon) => icons.filter(icon => icon.name.toLowerCase().includes(searchIcon.toLowerCase()))
+const debounceTime = 300 
+
+export const IconPicker = ({
   newCategoryIcon,
   setNewCategoryIcon,
   colorStyle,
-  searchIcon,
-  setSearchIcon,
-}) {
+}) => {
+  const [searchIcon, setSearchIcon] = useState("");
+  const [iconsToDisplay, setIconsToDisplay] = useState(toArray(icons));
+  const loadingIcons = useRef(false)
   const onInput = (e) => {
     setSearchIcon(e.target.value);
+    handleLoadingIcons(e.target.value)
+  
   };
-  const memoizedResult = useMemo(() => {
-    return Object.entries(icons)
-      .filter(([name]) => name.toLowerCase().includes(searchIcon.toLowerCase()))
-      .map(([name, Icon]) => ({ name, Icon }));
-  }, [searchIcon]);
+
+  const handleLoadingIcons = (value) => {
+    if (!value) {
+      setIconsToDisplay(toArray(icons))
+    }
+    else if (!loadingIcons.current) {
+      loadingIcons.current = true
+      setTimeout(() => {
+        setIconsToDisplay(findIcons(getLimitIcons(icons), searchIcon))
+        loadingIcons.current = false
+      }, debounceTime)
+    }
+  }
+
+  //MAJOR: performance issue
+  // 1 - binary tree search a lot of effort
+  // 2 - limit results, do not render over 600 results
+  // 2 - debounce
+  // const memoizedResult = useMemo(() => {
+  //   return Object.entries(icons)
+  //     .filter(([name]) => name.toLowerCase().includes(searchIcon.toLowerCase()))
+  //     .map(([name, Icon]) => ({ name, Icon }));
+  // }, [searchIcon]);
+  // const memoizedResult = useEffect(() => {
+  //   return findIcons(getLimitIcons(icons), searchIcon)
+  // }, [searchIcon]);
+
 
   const children = useMemo(
     () =>
-      memoizedResult.map(({ name, Icon }) => (
+    iconsToDisplay.map((Icon) => (
         <button
           className="transition ease-in-out focus:scale-125"
           type="button"
-          key={name}
+          key={Icon.name}
           onClick={() => setNewCategoryIcon(Icon.name)}
         >
           <Icon />
         </button>
       )),
-    [searchIcon]
+    [iconsToDisplay.length]
   );
 
   return (
@@ -76,4 +106,3 @@ function IconPicker({
     </div>
   );
 }
-export default IconPicker;

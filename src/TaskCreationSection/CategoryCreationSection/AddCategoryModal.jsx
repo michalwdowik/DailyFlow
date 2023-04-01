@@ -4,7 +4,7 @@ import React, { useMemo, useState } from "react";
 import { CirclePicker } from "react-color";
 import { v4 as uuid } from "uuid";
 import { createPortal } from "react-dom";
-import IconPicker from "./IconPicker/IconPicker";
+import {IconPicker} from "./IconPicker/IconPicker";
 import {
   colorStyleBgHandler,
   colorPickerColorHandler,
@@ -21,17 +21,17 @@ export default function AddCategoryModal({ onAddCategory }) {
     colorStyle: "#38bdf8"
   })
 
-  const [colorPickerColor, setColorPickerColor] = useState("#38bdf8");
-
   const [isCorrectTyped, setIsCorrectTyped] = useState(true);
-  const uniqueID = uuid();
   const portal = document.getElementById("portal");
-  const [searchIcon, setSearchIcon] = useState("");
   const [alertData, setAlertData] = useState({});
 
   const onInput = (e) => {
-    setInputValuisCategoryoriginale(e.target.value);
-    setIsCorrectTyped(e.target.value !== "");
+    const name = e.target.value
+    setCategory({
+      ...category,
+      name,
+    })
+    setIsCorrectTyped(!name);
   };
 
   const showAlert = (params) => {
@@ -57,7 +57,7 @@ export default function AddCategoryModal({ onAddCategory }) {
       return;
     }
 
-    const isCategoryValid = category.name && !categories.some(({category}) => category.name === category);
+    const isCategoryValid = category.name && !categories.some(({ name }) => category.name === name);
     if (!isCategoryValid) {
       setIsCorrectTyped(false);
       showAlert({
@@ -69,10 +69,7 @@ export default function AddCategoryModal({ onAddCategory }) {
       return
     }
 
-    onAddCategory({
-      ...category,
-      colorStyle,
-    })
+    onAddCategory({...category, uuid: uuid() })
     showAlert({
       title: "New category has been added!",
       type: "success",
@@ -80,35 +77,37 @@ export default function AddCategoryModal({ onAddCategory }) {
       isShowed: true,
     });
   };
+  
+  const handleChangeCategoryIcon = (icon) => {
+    setCategory({ ...category, icon })
+  }
+  
 
   const iconPicker = useMemo(
     () => (
       <IconPicker
         newCategoryIcon={category.icon}
-        setNewCategoryIcon={(categoryIcon) => setCategory({ ...category, icon: categoryIcon }) }
+        setNewCategoryIcon={(categoryIcon) => handleChangeCategoryIcon(categoryIcon)}
         colorStyle={category.color}
-        searchIcon={searchIcon}
-        setSearchIcon={setSearchIcon}
       />
     ),
-    [category]
+    [category.icon, category.color]
   );
 
   const changeColorHandler = (color) => {
-    setColorPickerColor(color.hex);
-    setCategory({ ...category, color: colorPickerColorHandler(color) })
+    setCategory({ ...category, colorStyle: colorPickerColorHandler(color) })
   };
 
   const colorPicker = useMemo(
     () => (
       <CirclePicker
         className="self-center p-0 m-0"
-        color={colorPickerColor}
+        color={category.color.hex}
         colors={["#38bdf8", "#f87171", "#10b981", "#7e22ce", "#eab308"]}
         onChangeComplete={changeColorHandler}
       />
     ),
-    [colorPickerColor]
+    [category.color, category.name]
   );
 
   return (

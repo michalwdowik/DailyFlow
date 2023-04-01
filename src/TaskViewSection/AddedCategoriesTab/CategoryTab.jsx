@@ -5,15 +5,7 @@ import { colorStyleBgHandler } from "../../colorStyleClassHandler";
 import { MainContext, ViewSectionContext } from "../../Contexts";
 import DynamicIcon from "../../TaskCreationSection/CategoryCreationSection/IconPicker/DynamicIcon";
 
-export default function CategoryTab({
-  addedCategoryTab,
-  addedCategoriesTabLength,
-}) {
-  const { selectedTabCategory, setSelectedTabCategory } =
-    useContext(ViewSectionContext);
-  const { taskList } = useContext(MainContext);
-
-  const calculatePadding = () => {
+const calculatePadding = (addedCategoriesTabLength) => {
     if (addedCategoriesTabLength > 8) {
       return "p-0";
     }
@@ -23,10 +15,20 @@ export default function CategoryTab({
     return "p-2";
   };
 
+export default function CategoryTab({
+  addedCategoryTab,
+  addedCategoriesTabLength,
+}) {
+  const { selectedTabCategory, setSelectedTabCategory } =
+    useContext(ViewSectionContext);
+  const { taskList } = useContext(MainContext);
+
+  const paddingClassName = calculatePadding(addedCategoriesTabLength)
+
   return (
     <li>
       <div
-        className={`${calculatePadding()} indicator relative mt-4 bg-base-300 shadow-xl transition delay-150 ease-in-out hover:bg-base-200`}
+        className={`${paddingClassName} indicator relative mt-4 bg-base-300 shadow-xl transition delay-150 ease-in-out hover:bg-base-200`}
       >
         <span
           className={`badge badge-sm indicator-item absolute left-5 translate-x-0 border-0 shadow-xl md:badge-md lg:badge-sm ${colorStyleBgHandler(

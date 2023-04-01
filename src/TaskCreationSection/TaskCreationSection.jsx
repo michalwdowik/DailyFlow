@@ -12,7 +12,7 @@ import { useThemeContext } from "../ThemeContext";
 
 const defaultTaskState = {
     name: '',
-    category: categories[0].uuid,
+    category: categories[0].name,
     done: false, 
     rate: 2,
     deadline: "Not specified",
@@ -45,7 +45,7 @@ export default function Form() {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (task.name === "") {
+    if (inputRef.current.value === "") {
       setIsCorrectTyped(false);
       return 
     }
@@ -62,8 +62,12 @@ export default function Form() {
       // repalce with nice function from context like addTask
       setTaskList([
         ...taskList,
-       task
+        {
+          ...task,
+         name: inputRef.current.value
+        }
       ]);
+      inputRef.current.value = ''
       setTask({
         ...defaultTaskState,
         colorStyle,
@@ -77,7 +81,7 @@ export default function Form() {
   const handleChangeTaskCategory = (category) => {
     setTask({
       ...task,
-      category: category.uuid
+      category: category.name
     })
     setColorStyle(category.colorStyle)
   }
@@ -119,7 +123,7 @@ export default function Form() {
           }
         />
       </div>
-        <CategoryPicker selectedCategoryId={task.category} colorStyle={colorStyle} onCategoryChange={category => handleChangeTaskCategory(category)} />
+        <CategoryPicker selectedCategoryName={task.category} colorStyle={colorStyle} onCategoryChange={category => handleChangeTaskCategory(category)} />
         <Importance rating={task.rate} setRating={(rate) => setTask({ ...task, rate })} colorStyle={colorStyle} />
         <DatePicker
           colorStyle={colorStyle}

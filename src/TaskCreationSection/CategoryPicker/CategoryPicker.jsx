@@ -6,7 +6,7 @@ import Category from "./Category";
 import categories from "./categories";
 import { v4 as uuid } from "uuid";
 
-export default function CategoryPicker({ onCategoryChange, colorStyle, selectedCategoryId }) {
+export default function CategoryPicker({ onCategoryChange, colorStyle, selectedCategoryName }) {
   const [categories, setCategories] = useState(defaultCategories);
 
   const removeCategory = (uuid) => {
@@ -17,7 +17,7 @@ export default function CategoryPicker({ onCategoryChange, colorStyle, selectedC
     setCategories([...categories, category])
   }
 
-  const selectedCategory = useMemo(() => categories.find(category => category.uuid === selectedCategoryId), [categories, selectedCategoryId])
+  const selectedCategory = useMemo(() => categories.find(category => category.name === selectedCategoryName), [categories, selectedCategoryName])
 
   return (
     <div className="flex flex-col w-7/12 sm:w-2/4 md:w-2/4 ">
@@ -29,7 +29,7 @@ export default function CategoryPicker({ onCategoryChange, colorStyle, selectedC
             colorStyle
           )} collapse-title rounded-3xl text-primary-content transition duration-150 ease-in-out peer-checked:text-secondary-content peer-checked:opacity-75`}
         >
-          {selectedCategory?.name}
+          {selectedCategoryName}
         </div>
         <div className="flex flex-row flex-wrap content-center justify-center gap-2 mt-3 bg-transparent rounded-lg collapse-content text-primary-content peer-checked:bg-transparent peer-checked:text-secondary-content">
           {categories.map((category) => (
@@ -38,7 +38,7 @@ export default function CategoryPicker({ onCategoryChange, colorStyle, selectedC
               onRemove={(uuid) => removeCategory(uuid)}
               key={category.uuid}
               categoryName={category.name}
-              selectedCategoryUUID={selectedCategoryId}
+              selectedCategoryUUID={selectedCategory?.uuid}
               color={category.colorStyle}
               isAddedByUser={category.isAddedByUser}
               uuid={category.uuid}
