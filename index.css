@@ -24,18 +24,6 @@
   }
 }
 
-/* @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-}
-
-@media (prefers-color-scheme: light) {
-  html {
-    color-scheme: dark;
-  }
-} */
-
 * {
   box-sizing: border-box;
   margin: 0 auto;
@@ -63,9 +51,8 @@ body {
 .maxHTaskCreationSection {
   height: auto;
   min-height: 450px;
-max-height: 500px;
-overflow-y: scroll;
 }
+
 
 .taskViewSection {
   min-height: 350px;

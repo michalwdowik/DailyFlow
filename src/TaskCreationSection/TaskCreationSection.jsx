@@ -97,7 +97,7 @@ export default function Form({ colorStyle, setColorStyle }) {
   );
 
   return (
-    <div className="flex flex-col w-full p-5 maxHTaskCreationSection customCard gap-7">
+    <div className="flex flex-col w-full p-5 maxHTaskCreationSection customCard gap-7 ">
       <span className="mt-2 -mb-6 label-text text-slate-700">Add Task:</span>
       <div className="flex w-5/6 gap-5 sm:w-4/6 md:w-4/6">
         <input

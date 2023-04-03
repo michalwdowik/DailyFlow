@@ -12,11 +12,11 @@ const options = {
   title: "Select Deadline",
   autoHide: true,
   todayBtn: true,
-  clearBtn: false,
+  clearBtn: true,
   maxDate: new Date("2030-01-01"),
   minDate: new Date("2000-01-01"),
   theme: {
-    background: " bg-gray-300 dark:bg-base-300 rounded-3xl z-50",
+    background: " bg-gray-300 dark:bg-base-300 rounded-3xl m-0 overflow-auto",
     todayBtn:
       "transition active:scale-90 active:dark:scale-90  bg-success dark:bg-success  hover:bg-success hover:dark:bg-success",
     clearBtn:
@@ -61,7 +61,8 @@ const options = {
       </span>
     ),
   },
-  datepickerClassNames: "absolute -inset-x-14 -top-[310px]",
+  datepickerClassNames:
+    "fixed inset-0 flex items-center justify-center w-72 h-96",
   defaultDate: today,
   language: "en",
 };
@@ -80,6 +81,7 @@ export default function DatePicker({
     const formatDate = `${month}/${day}/${year}`;
 
     setTaskDeadline(formatDate);
+    handleClose();
   };
   const handleClose = (state) => {
     setShow(state);
