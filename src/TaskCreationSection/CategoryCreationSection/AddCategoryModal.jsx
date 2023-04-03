@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { CirclePicker } from "react-color";
 import { v4 as uuid } from "uuid";
 import { createPortal } from "react-dom";
@@ -14,6 +14,19 @@ import categories from "../CategoryPicker/categories";
 import Alert from "../../Components/Alert";
 
 export default function AddCategoryModal({ forceUpdate }) {
+  useEffect(() => {
+    const handleEscapeKey = (event) => {
+      if (event.keyCode === 27) {
+        const checkbox = document.getElementById("my-modal-3");
+        checkbox.checked = false;
+      }
+    };
+    document.addEventListener("keydown", handleEscapeKey);
+    return () => {
+      document.removeEventListener("keydown", handleEscapeKey);
+    };
+  }, []);
+
   const [inputValue, setInputValue] = useState("");
   const [newCategoryIcon, setNewCategoryIcon] = useState("IoIosHappy");
   const [newCategoryColor, setNewCategoryColor] = useState("info");

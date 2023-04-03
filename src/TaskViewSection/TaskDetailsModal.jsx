@@ -1,7 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, { useEffect } from "react";
 import { v4 as uuid } from "uuid";
 import { createPortal } from "react-dom";
 import DynamicIcon from "../TaskCreationSection/CategoryCreationSection/IconPicker/DynamicIcon";
@@ -20,6 +20,19 @@ export default function TaskDetailsModal({ task }) {
     const totalDays = Math.ceil(difference / (1000 * 3600 * 24));
     return totalDays;
   };
+
+  useEffect(() => {
+    const handleEscapeKey = (event) => {
+      if (event.keyCode === 27) {
+        const checkbox = document.getElementById(uniqueID);
+        checkbox.checked = false;
+      }
+    };
+    document.addEventListener("keydown", handleEscapeKey);
+    return () => {
+      document.removeEventListener("keydown", handleEscapeKey);
+    };
+  }, [uniqueID]);
 
   const renderDeadlineInfo = () => {
     const daysLeft = calculateDaysLeft();
