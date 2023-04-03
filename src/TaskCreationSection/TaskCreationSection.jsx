@@ -70,6 +70,12 @@ export default function Form({ colorStyle, setColorStyle }) {
     }
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      submitHandler(e);
+    }
+  };
+
   const setCategoryParams = (e) => {
     setSelectedCategoryName(e.name);
     setSelectedCategoryUUID(e.uuid);
@@ -95,6 +101,7 @@ export default function Form({ colorStyle, setColorStyle }) {
       <span className="mt-2 -mb-6 label-text text-slate-700">Add Task:</span>
       <div className="flex w-5/6 gap-5 sm:w-4/6 md:w-4/6">
         <input
+          onKeyDown={handleKeyPress}
           maxLength={30}
           ref={inputRef}
           type="text"
