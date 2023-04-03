@@ -10,7 +10,7 @@ yesterday.setDate(yesterday.getDate() - 1);
 
 const options = {
   title: "Select Deadline",
-  autoHide: false,
+  autoHide: true,
   todayBtn: true,
   clearBtn: false,
   maxDate: new Date("2030-01-01"),

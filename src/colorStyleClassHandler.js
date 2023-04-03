@@ -133,3 +133,20 @@ export const colorStyleBlobHandler = (e) => {
       return `#38bdf8`;
   }
 };
+
+export const colorStyleTooltipHandler = (e) => {
+  switch (e) {
+    case "info":
+      return `tooltip-info`;
+    case "error":
+      return `tooltip-error`;
+    case "success":
+      return `tooltip-success`;
+    case "primary":
+      return `tooltip-primary`;
+    case "warning":
+      return `tooltip-warning`;
+    default:
+      return `tooltip-black`;
+  }
+};

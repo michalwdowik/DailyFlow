@@ -1,7 +1,10 @@
 /* eslint-disable react/prop-types */
 import React, { useContext } from "react";
 import { IoListOutline } from "react-icons/io5";
-import { colorStyleBgHandler } from "../../colorStyleClassHandler";
+import {
+  colorStyleBgHandler,
+  colorStyleTooltipHandler,
+} from "../../colorStyleClassHandler";
 import { MainContext, ViewSectionContext } from "../../Contexts";
 import DynamicIcon from "../../TaskCreationSection/CategoryCreationSection/IconPicker/DynamicIcon";
 
@@ -40,25 +43,35 @@ export default function CategoryTab({
             ? taskList.length
             : addedCategoryTab.categoryLength}
         </span>
-        <button
-          type="button"
-          onClick={() => setSelectedTabCategory(addedCategoryTab.categoryName)}
-          className={` ${
-            addedCategoriesTabLength > 5 ? "text-xs" : "text-xl"
-          } delay-50 bg-opacity-100 p-3 text-white transition ease-in-out hover:text-white hover:opacity-60 sm:text-2xl md:text-3xl lg:text-xl 
+        <div
+          className={`tooltip tooltip-bottom ${colorStyleTooltipHandler(
+            addedCategoryTab.categoryColorStyle
+          )}`}
+          data-tip={addedCategoryTab.categoryName}
+        >
+          <button
+            type="button"
+            onClick={() =>
+              setSelectedTabCategory(addedCategoryTab.categoryName)
+            }
+            className={` ${
+              addedCategoriesTabLength > 5 ? "text-xs" : "text-xl"
+            } delay-50 bg-opacity-100 p-3 text-white transition ease-in-out hover:text-white hover:opacity-60 sm:text-2xl md:text-3xl lg:text-xl 
           ${
             addedCategoryTab.categoryName === selectedTabCategory
               ? " scale-150  "
               : "scale-100"
           }`}
-        >
-          {addedCategoryTab.categoryName === "all" ? (
-            <IoListOutline />
-          ) : (
-            <DynamicIcon name={`${addedCategoryTab.categoryIcon}`} />
-          )}
-        </button>
+          >
+            {addedCategoryTab.categoryName === "all" ? (
+              <IoListOutline />
+            ) : (
+              <DynamicIcon name={`${addedCategoryTab.categoryIcon}`} />
+            )}
+          </button>
+        </div>
       </div>
+      {/* </div> */}
     </li>
   );
 }
