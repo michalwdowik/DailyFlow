@@ -3,6 +3,27 @@
 @tailwind utilities;
 
 
+.buzz-effect {
+  animation: buzz 0.2s ease-in-out;
+}
+
+@keyframes buzz {
+  0% {
+    transform: rotate(15deg);
+  }
+
+  25% {
+    transform: rotate(-15deg);
+  }
+
+  50% {
+    transform: rotate(15deg);
+  }
+  100% {
+    transform: rotate(-15deg);
+  }
+}
+
 /* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

@@ -105,9 +105,9 @@ export default function Form({ colorStyle, setColorStyle }) {
           }  input ${inputRef !== "" && "focus:input-success"}`}
         />
         <Button
-          toolTipClass="tooltip hover:tooltip hover:tooltip-open hover:tooltip-success"
-          toolTipText="Add Task"
-          className="btn-m customShadow btn-success btn-circle btn"
+          className={`btn-m  btn-circle btn ${
+            !isCorrectTyped && "buzz-effect"
+          }`}
           action={submitHandler}
           title={
             <svg
