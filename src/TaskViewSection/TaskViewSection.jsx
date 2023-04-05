@@ -19,7 +19,7 @@ export default function TaskViewSection() {
   return (
     <div
       ref={parent}
-      className="taskViewSection customCard flex w-full flex-col gap-7  p-0 transition-[100px]"
+      className="customCard flex w-full flex-col gap-7  p-0 transition-[100px]"
     >
       <ViewSectionContext.Provider value={value}>
         <AddedCategoriesTab />

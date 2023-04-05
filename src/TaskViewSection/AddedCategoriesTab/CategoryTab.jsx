@@ -44,9 +44,9 @@ export default function CategoryTab({
   };
 
   const animateIndicatorOnActiveTab = () => {
-    return `${
+    return (
       addedCategoryTab.categoryName === selectedTabCategory && "animate-bounce"
-    }`;
+    );
   };
 
   function TabIndicator({ color }) {

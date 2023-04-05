@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { colorStyleBgHandler } from "../../colorStyleClassHandler";
 import AddCategoryModal from "../CategoryCreationSection/AddCategoryModal";
 import Category from "./Category";
@@ -12,20 +12,23 @@ export default function CategoryPicker({
   selectedCategoryName,
   onChangeCategory,
 }) {
-  // Task 2
   const [categories, setCategories] = useState(defaultCategories);
-  const removeCategory = (category) => {
+  const removeCategory = (uuid) => {
     setCategories(
-      categories.filter((c) => !c.isAddedByUser || c.name !== category.name)
+      categories.filter(
+        (category) => !category.isAddedByUser || category.uuid !== uuid
+      )
     );
   };
   const addCategory = (category) => {
     setCategories([...categories, category]);
   };
 
-  const selectedCategory = defaultCategories.find(
-    (category) => category.name === selectedCategoryName
+  const selectedCategory = useMemo(
+    () => categories.find((category) => category.name === selectedCategoryName),
+    [categories, selectedCategoryName]
   );
+
   //
   function CategoryDropdownMenu({ pickedCategory, color }) {
     return (
@@ -61,7 +64,10 @@ export default function CategoryPicker({
               selectedCategoryUUID={selectedCategory.uuid}
             />
           ))}
-          <AddCategoryModal addCategory={(category) => addCategory(category)} />{" "}
+          <AddCategoryModal
+            addCategory={(category) => addCategory(category)}
+            categories={categories}
+          />
         </div>
       </div>
     </div>

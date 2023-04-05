@@ -56,7 +56,7 @@ export default function ToolbarButtons({ setAlert }) {
   };
   const makeAllTasksDone = () => {
     const newList = [...taskList];
-    newList.forEach((task) => {
+    taskList.forEach((task) => {
       if (
         task.category === selectedTabCategory ||
         selectedTabCategory === "all"

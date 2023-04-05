@@ -10,7 +10,6 @@ import { MainContext } from "../Contexts";
 import Alert from "../Components/Alert";
 
 export default function Form({ colorStyle, setColorStyle }) {
-  // TASK1
   const defaultTask = {
     name: "",
     category: "general",

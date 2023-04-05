@@ -17,11 +17,11 @@ export default function Category({
     removeCategory(uuid);
   };
 
-  function CategoryRadio({ isChecked, action, radioColor }) {
+  function CategoryRadio({ checked, action, radioColor }) {
     return (
       <input
         id={uuid}
-        checked={isChecked}
+        checked={checked}
         onChange={action}
         type="radio"
         name="radio-3"
@@ -41,7 +41,7 @@ export default function Category({
     );
   }
 
-  function RemoveCategoryButton(action) {
+  function RemoveCategoryButton({ action }) {
     return (
       <button
         onClick={action}
@@ -55,7 +55,7 @@ export default function Category({
   return (
     <div className="flex gap-1 p-1 ">
       <CategoryRadio
-        isChecked={selectedCategoryUUID === uuid}
+        checked={selectedCategoryUUID === uuid}
         action={onChange}
         radioColor={colorStyleRadioHandler(color)}
       />
