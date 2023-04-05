@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
@@ -74,20 +75,20 @@ export default function DatePicker({
   colorStyle,
 }) {
   const [show, setShow] = useState(false);
-  const handleChange = (selectedDate) => {
-    const day = selectedDate.getDate();
-    const month = selectedDate.getMonth() + 1;
-    const year = selectedDate.getFullYear();
-    const formatDate = `${month}/${day}/${year}`;
-
-    setTaskDeadline(formatDate);
-    handleClose();
-  };
   const handleClose = (state) => {
     setShow(state);
   };
 
-  const checkSelectedDateHandler = () => {
+  const handleDateChange = (selectedDate) => {
+    const day = selectedDate.getDate();
+    const month = selectedDate.getMonth() + 1;
+    const year = selectedDate.getFullYear();
+    const formatDate = `${month}/${day}/${year}`;
+    setTaskDeadline(formatDate);
+    handleClose();
+  };
+
+  const selectTodayDate = () => {
     setIsSelectDateChecked(!isSelectDateChecked);
     const day = today.getDate();
     const month = today.getMonth() + 1;
@@ -96,15 +97,33 @@ export default function DatePicker({
     setTaskDeadline(formatDate);
   };
 
+  function TogglerInput({ isChecked, action }) {
+    return (
+      <input
+        type="checkbox"
+        value=""
+        className="sr-only peer "
+        checked={isChecked}
+        onChange={action}
+      />
+    );
+  }
+
+  function TogglerLabel({ isToggled }) {
+    return (
+      <span
+        className={`text-slate-700 ${isToggled ? "opacity-50" : "opacity-100"}`}
+      >
+        Set Deadline
+      </span>
+    );
+  }
   return (
     <div className="relative flex flex-col gap-2 mb-2">
       <label className="relative inline-flex gap-3 cursor-pointer label-text ">
-        <input
-          type="checkbox"
-          value=""
-          className="sr-only peer "
-          checked={isSelectDateChecked}
-          onChange={checkSelectedDateHandler}
+        <TogglerInput
+          isChecked={isSelectDateChecked}
+          action={selectTodayDate}
         />
         <div
           className={`peer h-6 w-11 rounded-full transition-all ease-in-out after:absolute after:top-0.5 after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white 
@@ -112,18 +131,13 @@ export default function DatePicker({
             colorStyle
           )}  customShadow relative duration-150 bg-slate-700 dark:bg-slate-700 `}
         />
-        <span
-          className={`text-slate-700 ${
-            isSelectDateChecked ? "opacity-50" : "opacity-100"
-          }`}
-        >
-          Set Deadline
-        </span>
+
+        <TogglerLabel isToggled={isSelectDateChecked} />
       </label>
       {isSelectDateChecked && (
         <Datepicker
           options={options}
-          onChange={handleChange}
+          onChange={handleDateChange}
           show={show}
           setShow={handleClose}
         />

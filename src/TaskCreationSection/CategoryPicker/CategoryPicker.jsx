@@ -1,42 +1,67 @@
+/* eslint-disable react/no-unstable-nested-components */
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useContext, useReducer } from "react";
+import React, { useState } from "react";
 import { colorStyleBgHandler } from "../../colorStyleClassHandler";
 import AddCategoryModal from "../CategoryCreationSection/AddCategoryModal";
-import { CategoryParamsContext } from "../../Contexts";
 import Category from "./Category";
-import categories from "./categories";
+import defaultCategories from "./defaultCategories";
 
-export default function CategoryPicker() {
-  const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
-  const { selectedCategoryName, colorStyle, setCategoryParams } = useContext(
-    CategoryParamsContext
+export default function CategoryPicker({
+  colorStyle,
+  selectedCategoryName,
+  onChangeCategory,
+}) {
+  // Task 2
+  const [categories, setCategories] = useState(defaultCategories);
+  const removeCategory = (category) => {
+    setCategories(
+      categories.filter((c) => !c.isAddedByUser || c.name !== category.name)
+    );
+  };
+  const addCategory = (category) => {
+    setCategories([...categories, category]);
+  };
+
+  const selectedCategory = defaultCategories.find(
+    (category) => category.name === selectedCategoryName
   );
+  //
+  function CategoryDropdownMenu({ pickedCategory, color }) {
+    return (
+      <div
+        className={`customShadow ${colorStyleBgHandler(
+          color
+        )} collapse-title rounded-3xl text-primary-content transition duration-150 ease-in-out peer-checked:text-secondary-content peer-checked:opacity-75`}
+      >
+        {pickedCategory}
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col w-7/12 sm:w-2/4 md:w-2/4 ">
       <span className="mb-1 label-text text-slate-700">Select category:</span>
       <div className="bg-transparent collapse-arrow collapse rounded-xl">
         <input type="checkbox" className="peer" />
-        <div
-          className={`customShadow ${colorStyleBgHandler(
-            colorStyle
-          )} collapse-title rounded-3xl text-primary-content transition duration-150 ease-in-out peer-checked:text-secondary-content peer-checked:opacity-75`}
-        >
-          {selectedCategoryName}
-        </div>
+        <CategoryDropdownMenu
+          pickedCategory={selectedCategoryName}
+          color={colorStyle}
+        />
         <div className="flex flex-row flex-wrap content-center justify-center gap-2 mt-3 bg-transparent rounded-lg collapse-content text-primary-content peer-checked:bg-transparent peer-checked:text-secondary-content">
           {categories.map((category) => (
             <Category
-              onChange={() => setCategoryParams(category)}
+              onChange={() => onChangeCategory(category)}
               key={category.uuid}
               categoryName={category.name}
               color={category.colorStyle}
               isAddedByUser={category.isAddedByUser}
               uuid={category.uuid}
-              forceUpdate={forceUpdate}
+              removeCategory={removeCategory}
+              selectedCategoryUUID={selectedCategory.uuid}
             />
           ))}
-          <AddCategoryModal forceUpdate={forceUpdate} />
+          <AddCategoryModal addCategory={(category) => addCategory(category)} />{" "}
         </div>
       </div>
     </div>

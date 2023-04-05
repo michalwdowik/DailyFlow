@@ -1,63 +1,66 @@
+/* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/prop-types */
-import React, { useContext } from "react";
+import React from "react";
 import { IoIosRemoveCircle } from "react-icons/io";
-import { v4 as uuid2 } from "uuid";
 import { colorStyleRadioHandler } from "../../colorStyleClassHandler";
-import { CategoryParamsContext } from "../../Contexts";
-import categories, { removeCategory } from "./categories";
 
 export default function Category({
+  selectedCategoryUUID,
   categoryName,
   color,
   isAddedByUser,
   uuid,
   onChange,
-  forceUpdate,
+  removeCategory,
 }) {
-  const uniqueID = uuid2();
-  const {
-    setColorStyle,
-    selectedCategoryUUID,
-    setSelectedCategoryUUID,
-    setSelectedCategoryName,
-  } = useContext(CategoryParamsContext);
-
   const removeCategoryHandler = () => {
-    forceUpdate();
     removeCategory(uuid);
-    if (selectedCategoryUUID === uuid) {
-      setSelectedCategoryUUID(categories[0].uuid);
-      setColorStyle("info");
-      setSelectedCategoryName(categories[0].name);
-    }
   };
 
-  return (
-    <div className="flex gap-1 p-1 ">
+  function CategoryRadio({ isChecked, action, radioColor }) {
+    return (
       <input
-        id={uniqueID}
-        checked={selectedCategoryUUID === uuid}
-        onChange={onChange}
+        id={uuid}
+        checked={isChecked}
+        onChange={action}
         type="radio"
         name="radio-3"
-        className={`radio ${colorStyleRadioHandler(color)}`}
+        className={`radio ${radioColor}`}
       />
+    );
+  }
 
+  function CategoryLabel({ name }) {
+    return (
       <label
-        htmlFor={uniqueID}
+        htmlFor={uuid}
         className="text-gray-600 transition duration-150 ease-in-out active:text-gray-400"
       >
-        {categoryName}
+        {name}
       </label>
-      {isAddedByUser && (
-        <button
-          onClick={removeCategoryHandler}
-          type="button"
-          className="transition active:scale-125"
-        >
-          <IoIosRemoveCircle className="text-error opacity-90" />
-        </button>
-      )}
+    );
+  }
+
+  function RemoveCategoryButton(action) {
+    return (
+      <button
+        onClick={action}
+        type="button"
+        className="transition active:scale-125"
+      >
+        <IoIosRemoveCircle className="text-error opacity-90" />
+      </button>
+    );
+  }
+  return (
+    <div className="flex gap-1 p-1 ">
+      <CategoryRadio
+        isChecked={selectedCategoryUUID === uuid}
+        action={onChange}
+        radioColor={colorStyleRadioHandler(color)}
+      />
+      <CategoryLabel name={categoryName} />
+      {isAddedByUser && <RemoveCategoryButton action={removeCategoryHandler} />}
     </div>
   );
 }

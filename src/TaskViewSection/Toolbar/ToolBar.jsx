@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/tabindex-no-positive */
+/* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import { colorStyleInputHandler } from "../../colorStyleClassHandler";
@@ -5,10 +7,10 @@ import Alert from "../../Components/Alert";
 import ToolbarButtons from "./ToolbarButtons";
 
 export default function ToolBar({ searchInput, onInput, colorStyle }) {
-  const [alertData, setAlertData] = useState({});
+  const [alert, setAlert] = useState({});
 
-  return (
-    <div className="relative flex gap-5 border-error">
+  function TaskSearchBarIcon() {
+    return (
       <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none ">
         <svg
           aria-hidden="true"
@@ -24,6 +26,10 @@ export default function ToolBar({ searchInput, onInput, colorStyle }) {
           />
         </svg>
       </div>
+    );
+  }
+  function TaskSearchBarInput() {
+    return (
       <input
         value={searchInput}
         onInput={onInput}
@@ -34,8 +40,21 @@ export default function ToolBar({ searchInput, onInput, colorStyle }) {
         )} customShadow input block w-full rounded-3xl border-0 bg-base-300 pl-10 text-xs placeholder-transparent dark:text-white sm:text-sm sm:placeholder-gray-400`}
         placeholder="Search task"
       />
-      <ToolbarButtons setAlertData={setAlertData} />
-      <Alert alertData={alertData} />
+    );
+  }
+  function TaskSearchBar() {
+    return (
+      <>
+        <TaskSearchBarIcon />
+        <TaskSearchBarInput />
+      </>
+    );
+  }
+  return (
+    <div className="relative flex gap-5 border-error">
+      <TaskSearchBar />
+      <ToolbarButtons setAlert={setAlert} />
+      <Alert alert={alert} />
     </div>
   );
 }

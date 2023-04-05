@@ -4,16 +4,24 @@ import React, { useEffect, useMemo, useState } from "react";
 import { CirclePicker } from "react-color";
 import { v4 as uuid } from "uuid";
 import { createPortal } from "react-dom";
-import IconPicker from "./IconPicker/IconPicker";
+import { IconPicker } from "./IconPicker/IconPicker";
 import {
   colorStyleBgHandler,
   colorPickerColorHandler,
 } from "../../colorStyleClassHandler";
 import Button from "../../Components/Button";
-import categories from "../CategoryPicker/categories";
+import categories from "../CategoryPicker/defaultCategories";
 import Alert from "../../Components/Alert";
 
-export default function AddCategoryModal({ forceUpdate }) {
+export default function AddCategoryModal({ addCategory }) {
+  // Task1
+  const [newCategory, setNewCategory] = useState({
+    name: "",
+    color: "info",
+    colorPicker: "#38bdf8",
+    icon: "IoIosHappy",
+  });
+
   useEffect(() => {
     const handleEscapeKey = (event) => {
       if (event.keyCode === 27) {
@@ -27,36 +35,34 @@ export default function AddCategoryModal({ forceUpdate }) {
     };
   }, []);
 
-  const [inputValue, setInputValue] = useState("");
-  const [newCategoryIcon, setNewCategoryIcon] = useState("IoIosHappy");
-  const [newCategoryColor, setNewCategoryColor] = useState("info");
   const [colorPickerColor, setColorPickerColor] = useState("#38bdf8");
 
   const [isCorrectTyped, setIsCorrectTyped] = useState(true);
-  const uniqueID = uuid();
   const portal = document.getElementById("portal");
   const [searchIcon, setSearchIcon] = useState("");
-  const [alertData, setAlertData] = useState({});
+  const [alert, setAlert] = useState({});
 
-  const isCategoryoriginal = () => {
-    const x = categories.filter((category) => category.name === inputValue);
+  const isCategoryAlreadyAdded = () => {
+    const x = categories.filter(
+      (category) => category.name === newCategory.name
+    );
     return x.length === 0;
   };
 
   const onInput = (e) => {
-    setInputValue(e.target.value);
+    setNewCategory({ ...newCategory, name: e.target.value });
     setIsCorrectTyped(e.target.value !== "");
   };
 
   const showAlert = (params) => {
-    setAlertData({
+    setAlert({
       title: params.title,
       type: params.type,
-      bg: params.bg,
+      background: params.background,
       isShowed: params.isShowed,
     });
     setTimeout(() => {
-      setAlertData({ isShowed: false });
+      setAlert({ isShowed: false });
     }, 3000);
   };
 
@@ -65,26 +71,25 @@ export default function AddCategoryModal({ forceUpdate }) {
       showAlert({
         title: "You can create up to 7 different categories",
         type: "error",
-        bg: "bg-error",
+        background: "bg-error",
         isShowed: true,
       });
       return;
     }
-
-    if (inputValue !== "" && isCategoryoriginal()) {
-      forceUpdate();
-      categories.push({
-        name: inputValue.toLowerCase(),
-        icon: newCategoryIcon,
-        colorStyle: newCategoryColor,
+    if (newCategory.name !== "" && isCategoryAlreadyAdded()) {
+      addCategory({
+        name: newCategory.name.toLowerCase(),
+        icon: newCategory.icon,
+        colorStyle: newCategory.colorStyle,
         isAddedByUser: true,
-        uuid: uniqueID,
+        uuid: uuid(),
       });
-      setInputValue("");
+
+      setNewCategory({ ...newCategory, name: "" });
       showAlert({
         title: "New category has been added!",
         type: "success",
-        bg: "bg-success",
+        background: "bg-success",
         isShowed: true,
       });
     } else {
@@ -92,7 +97,7 @@ export default function AddCategoryModal({ forceUpdate }) {
       showAlert({
         title: "You can't create a category with this name, try again!",
         type: "error",
-        bg: "bg-error",
+        background: "bg-error",
         isShowed: true,
       });
     }
@@ -101,19 +106,21 @@ export default function AddCategoryModal({ forceUpdate }) {
   const iconPicker = useMemo(
     () => (
       <IconPicker
-        newCategoryIcon={newCategoryIcon}
-        setNewCategoryIcon={setNewCategoryIcon}
-        colorStyle={newCategoryColor}
+        newCategoryIcon={newCategory.icon}
+        setNewCategoryIcon={(icon) => setNewCategory({ ...newCategory, icon })}
         searchIcon={searchIcon}
         setSearchIcon={setSearchIcon}
       />
     ),
-    [searchIcon, newCategoryIcon]
+    [newCategory.icon]
   );
 
   const changeColorHandler = (color) => {
     setColorPickerColor(color.hex);
-    setNewCategoryColor(colorPickerColorHandler(color));
+    setNewCategory({
+      ...newCategory,
+      colorStyle: colorPickerColorHandler(color),
+    });
   };
 
   const colorPicker = useMemo(
@@ -156,7 +163,7 @@ export default function AddCategoryModal({ forceUpdate }) {
                 <input
                   maxLength={17}
                   onInput={onInput}
-                  value={inputValue}
+                  value={newCategory.name}
                   type="text"
                   placeholder="Type here..."
                   id="taskInput"
@@ -169,7 +176,7 @@ export default function AddCategoryModal({ forceUpdate }) {
                 <Button
                   action={createNewCategory}
                   className={`text-white ${colorStyleBgHandler(
-                    newCategoryColor
+                    newCategory.colorStyle
                   )} btn-circle transition-all active:scale-90`}
                   title={
                     <svg
@@ -196,7 +203,7 @@ export default function AddCategoryModal({ forceUpdate }) {
         </div>,
         portal
       )}
-      <Alert alertData={alertData} />
+      <Alert alert={alert} />
     </div>
   );
 }

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable react/prop-types */
@@ -26,6 +27,15 @@ export default function TaskList() {
     setTaskList(newList);
   };
 
+  function CallToActionLabel({ length }) {
+    if (length === 0)
+      return (
+        <h1 className="mt-10 text-3xl text-center duration-500 transition-color animate-pulse opacity-70 hover:text-success">
+          Add some tasks!
+        </h1>
+      );
+  }
+
   const getColor = () => {
     let color;
     for (const category of Object.values(addedCategoriesTab)) {
@@ -51,11 +61,7 @@ export default function TaskList() {
             taskList.length > 8 && "overflow-y-scroll"
           } p-0`}
         >
-          {taskList.length === 0 && (
-            <h1 className="mt-10 text-3xl text-center duration-500 transition-color animate-pulse opacity-70 hover:text-success">
-              Add some tasks!
-            </h1>
-          )}
+          <CallToActionLabel length={taskList.length} />
           {taskList.map((task, index) => (
             <Task
               searchInput={searchInput}

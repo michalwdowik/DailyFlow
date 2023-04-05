@@ -10,7 +10,6 @@ import BackgroundBlobs from "./Components/BackgroundBlobs";
 export default function App() {
   const [taskList, setTaskList] = useState([]);
   const [colorStyle, setColorStyle] = useState("info");
-  const id = uuid();
   const addedCategoriesTab = useMemo(() => {
     const taskListCloned = [...taskList];
     // Segregate created tasks by category
@@ -27,7 +26,7 @@ export default function App() {
         categoryName: "all",
         categoryLength: 0,
         categoryIcon: "IoListOutline",
-        categoryUUID: id,
+        categoryUUID: uuid(),
       },
     ];
     // Iterate over segregated tasks and convert them to Added Categories Tab List

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-param-reassign */
@@ -7,20 +8,20 @@ import React, { useContext } from "react";
 import Button from "../../Components/Button";
 import { MainContext, ViewSectionContext } from "../../Contexts";
 
-export default function ToolbarButtons({ setAlertData }) {
+export default function ToolbarButtons({ setAlert }) {
   const { taskList, setTaskList } = useContext(MainContext);
   const { selectedTabCategory } = useContext(ViewSectionContext);
+
   const isAnyTaskDone = () => {
-    const newList = [...taskList];
-    const doneTasks = newList.filter((item) => item.done === true);
+    const doneTasks = taskList.filter((item) => item.done === true);
     for (const key of taskList) {
       if (selectedTabCategory === "all" && doneTasks.length >= 1) {
-        setTaskList(newList.filter((item) => item.done !== true));
+        setTaskList(taskList.filter((item) => item.done !== true));
         return true;
       }
 
       if (key.category === selectedTabCategory && key.done === true) {
-        setTaskList(newList.filter((item) => item.done !== true));
+        setTaskList(taskList.filter((item) => item.done !== true));
         return true;
       }
     }
@@ -28,33 +29,31 @@ export default function ToolbarButtons({ setAlertData }) {
   };
 
   const showAlert = (params) => {
-    setAlertData({
+    setAlert({
       title: params.title,
       type: params.type,
-      bg: params.bg,
+      background: params.background,
       isShowed: params.isShowed,
     });
     setTimeout(() => {
-      setAlertData({ isShowed: false });
+      setAlert({ isShowed: false });
     }, 3000);
   };
-
   const removeTasksHandler = () => {
     isAnyTaskDone()
       ? showAlert({
           title: "All done tasks has been removed successfully",
           type: "success",
-          bg: "bg-success",
+          background: "bg-success",
           isShowed: true,
         })
       : showAlert({
           title: "There are no completed tasks to be deleted",
           type: "error",
-          bg: "bg-error",
+          background: "bg-error",
           isShowed: true,
         });
   };
-
   const makeAllTasksDone = () => {
     const newList = [...taskList];
     newList.forEach((task) => {
@@ -67,7 +66,6 @@ export default function ToolbarButtons({ setAlertData }) {
     });
     setTaskList(newList);
   };
-
   const undoneAllTasks = () => {
     const newList = [...taskList];
     newList.forEach((task) => {
@@ -80,13 +78,12 @@ export default function ToolbarButtons({ setAlertData }) {
     });
     setTaskList(newList);
   };
-
-  return (
-    <div className="flex self-center gap-1 ">
+  function RemoveDoneTasksButton({ action }) {
+    return (
       <Button
         toolTipClass="hover:tooltip-error hover:tooltip hover:tooltip-open"
         toolTipText="Remove Done Tasks"
-        action={removeTasksHandler}
+        action={action}
         className="customShadow btn-error btn-sm btn-circle btn"
         title={
           <svg
@@ -105,10 +102,14 @@ export default function ToolbarButtons({ setAlertData }) {
           </svg>
         }
       />
+    );
+  }
+  function MakeAllTasksDoneButton({ action }) {
+    return (
       <Button
         toolTipClass="tooltip hover:tooltip hover:tooltip-open hover:tooltip-success"
         toolTipText="Mark all as done"
-        action={makeAllTasksDone}
+        action={action}
         className="customShadow btn-success btn-sm btn-circle btn"
         title={
           <svg
@@ -123,10 +124,14 @@ export default function ToolbarButtons({ setAlertData }) {
           </svg>
         }
       />
+    );
+  }
+  function UndoneAllTasksButton({ action }) {
+    return (
       <Button
         toolTipClass="tooltip hover:tooltip hover:tooltip-open hover:tooltip-primary"
         toolTipText="Mark all as undone"
-        action={undoneAllTasks}
+        action={action}
         className="customShadow btn-primary btn-sm btn-circle btn"
         title={
           <svg
@@ -141,6 +146,14 @@ export default function ToolbarButtons({ setAlertData }) {
           </svg>
         }
       />
+    );
+  }
+
+  return (
+    <div className="flex self-center gap-1 ">
+      <RemoveDoneTasksButton action={removeTasksHandler} />
+      <MakeAllTasksDoneButton action={makeAllTasksDone} />
+      <UndoneAllTasksButton action={undoneAllTasks} />
     </div>
   );
 }

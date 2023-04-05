@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --primary-color: #ffffff99;
+}
 
 .buzz-effect {
   animation: buzz 0.2s ease-in-out;
@@ -81,7 +84,7 @@ body {
   filter: drop-shadow(5px 5px 10px #000);
 }
 .customCard {
-  background: rgba( 255, 255, 255, 0.6 );
+  background: var(--primary-color);
   box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
   backdrop-filter: blur( 20px );
   -webkit-backdrop-filter: blur( 20px );
@@ -260,25 +263,6 @@ footer{
     animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
   }
 }
-
-@mixin custom-checkbox($color) {
-  --a: #{$color};
-  --chkbg: var(--a);
-  --chkfg: var(--ac);
-
-  --tw-border-opacity: 1;
-  border-color: hsl(var(--a) / var(--tw-border-opacity));
-
-  &:checked, &[checked=true], &[aria-checked=true] {
-    --tw-border-opacity: 1;
-    border-color: hsl(var(--a) / var(--tw-border-opacity));
-    --tw-bg-opacity: 1;
-    background-color: hsl(var(--a) / var(--tw-bg-opacity));
-    --tw-text-opacity: 1;
-    color: hsl(var(--a) / var(--tw-text-opacity));
-  }
-}
-
 
 /* ------------------ BLOBS ------------------- */
 
