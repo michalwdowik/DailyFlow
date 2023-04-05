@@ -33,7 +33,7 @@ export default function CategoryPicker({
   function CategoryDropdownMenu({ pickedCategory, color }) {
     return (
       <div
-        className={`customShadow ${colorStyleBgHandler(
+        className={`${colorStyleBgHandler(
           color
         )} collapse-title rounded-3xl text-primary-content transition duration-150 ease-in-out peer-checked:text-secondary-content peer-checked:opacity-75`}
       >

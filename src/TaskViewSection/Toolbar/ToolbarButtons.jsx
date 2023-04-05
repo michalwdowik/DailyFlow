@@ -84,7 +84,7 @@ export default function ToolbarButtons({ setAlert }) {
         toolTipClass="hover:tooltip-error hover:tooltip hover:tooltip-open"
         toolTipText="Remove Done Tasks"
         action={action}
-        className="customShadow btn-error btn-sm btn-circle btn"
+        className=" btn-error btn-sm btn-circle btn"
         title={
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -110,7 +110,7 @@ export default function ToolbarButtons({ setAlert }) {
         toolTipClass="tooltip hover:tooltip hover:tooltip-open hover:tooltip-success"
         toolTipText="Mark all as done"
         action={action}
-        className="customShadow btn-success btn-sm btn-circle btn"
+        className=" btn-success btn-sm btn-circle btn"
         title={
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -132,7 +132,7 @@ export default function ToolbarButtons({ setAlert }) {
         toolTipClass="tooltip hover:tooltip hover:tooltip-open hover:tooltip-primary"
         toolTipText="Mark all as undone"
         action={action}
-        className="customShadow btn-primary btn-sm btn-circle btn"
+        className=" btn-primary btn-sm btn-circle btn"
         title={
           <svg
             xmlns="http://www.w3.org/2000/svg"

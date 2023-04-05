@@ -37,7 +37,7 @@ export default function ToolBar({ searchInput, onInput, colorStyle }) {
         id="simple-search"
         className={` ${colorStyleInputHandler(
           colorStyle
-        )} customShadow input block w-full rounded-3xl border-0 bg-base-300 pl-10 text-xs placeholder-transparent dark:text-white sm:text-sm sm:placeholder-gray-400`}
+        )}  input block w-full rounded-3xl border-0 bg-base-300 pl-10 text-xs placeholder-transparent dark:text-white sm:text-sm sm:placeholder-gray-400`}
         placeholder="Search task"
       />
     );

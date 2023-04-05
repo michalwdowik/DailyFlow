@@ -57,7 +57,7 @@ export default function Alert({ alert }) {
               leaveTo="opacity-0"
             >
               <div
-                className={` alert absolute inset-x-0 top-0 w-4/6 ${alert.background} customShadow transition`}
+                className={` alert absolute inset-x-0 top-0 w-4/6 ${alert.background} transition`}
               >
                 <div>
                   <AlertIcon />

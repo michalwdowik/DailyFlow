@@ -55,7 +55,7 @@ function IconPicker({
         onInput={action}
         type="text"
         id="simple-search"
-        className={` ${color} customShadow input sticky top-3 m-auto mb-3 block w-3/4 rounded-3xl border-0 bg-base-300 pl-10 text-sm`}
+        className={` ${color} input sticky top-3 m-auto mb-3 block w-3/4 rounded-3xl border-0 bg-base-300 pl-10 text-sm`}
         placeholder="Search task"
       />
     );

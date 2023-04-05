@@ -93,7 +93,7 @@ export default function Form({ colorStyle, setColorStyle }) {
   function AddTaskButton({ action }) {
     return (
       <Button
-        className={`btn-m  btn-circle btn ${buzzIfTaskNotValid()}`}
+        className={`btn-m btn-circle btn ${buzzIfTaskNotValid()}`}
         action={action}
         title={
           <svg
@@ -130,14 +130,14 @@ export default function Form({ colorStyle, setColorStyle }) {
         type="text"
         placeholder="Type here..."
         id="taskInput"
-        className={`input customShadow w-full rounded-3xl bg-base-300  
+        className={`input w-full rounded-3xl bg-base-300  
         ${colorInputBorder()}`}
       />
     );
   }
 
   return (
-    <div className="relative flex flex-col w-full p-5 maxHTaskCreationSection customCard gap-7 ">
+    <div className="relative flex flex-col w-full p-5 glassmorphismCard gap-7 ">
       <span className="mt-2 -mb-6 label-text text-slate-700">Add Task:</span>
       <div className="flex w-5/6 gap-5 sm:w-4/6 md:w-4/6">
         <TaskInput action={handleKeyPress} maxLength={30} />

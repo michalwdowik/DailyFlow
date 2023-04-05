@@ -11,7 +11,7 @@ export default function Importance({ rate, setRate, colorStyle }) {
   const colorStar = (index) => {
     return index <= (hover || rate)
       ? `${colorStyleTextHandler(colorStyle)}`
-      : "on";
+      : "";
   };
   function Star({ index }) {
     return (
