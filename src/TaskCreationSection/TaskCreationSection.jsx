@@ -9,7 +9,7 @@ import Importance from "./Importance";
 import { MainContext } from "../Contexts";
 import Alert from "../Components/Alert";
 
-export default function Form({ colorStyle, setColorStyle }) {
+export default function TaskCreationSection({ colorStyle, setColorStyle }) {
   const defaultTask = {
     name: "",
     category: "general",

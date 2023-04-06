@@ -1,11 +1,12 @@
+/* eslint-disable react/function-component-definition */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useEffect, useMemo, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { CirclePicker } from "react-color";
 import { v4 as uuid } from "uuid";
 import { createPortal } from "react-dom";
-import IconPicker from "./IconPicker/IconPicker";
+import Iconpicker from "./IconPicker/IconPicker";
 import {
   colorStyleBgHandler,
   colorPickerColorHandler,
@@ -14,6 +15,23 @@ import Button from "../../Components/Button";
 import Alert from "../../Components/Alert";
 
 export default function AddCategoryModal({ addCategory, categories }) {
+  const [isCorrectTyped, setIsCorrectTyped] = useState(true);
+  const portal = document.getElementById("portal");
+  const [alert, setAlert] = useState({});
+
+  const [newCategory, setNewCategory] = useState({
+    name: "",
+    colorStyle: "info",
+    color: "#38bdf8",
+    icon: "IoIosHappy",
+    isAddedByUser: true,
+  });
+
+  const onInput = (e) => {
+    setNewCategory({ ...newCategory, name: e.target.value });
+    setIsCorrectTyped(e.target.value !== "");
+  };
+
   useEffect(() => {
     const handleEscapeKey = (event) => {
       if (event.keyCode === 27) {
@@ -26,23 +44,6 @@ export default function AddCategoryModal({ addCategory, categories }) {
       document.removeEventListener("keydown", handleEscapeKey);
     };
   }, []);
-
-  const [searchIcon, setSearchIcon] = useState("");
-  const [newCategory, setNewCategory] = useState({
-    name: "",
-    colorStyle: "info",
-    color: "#38bdf8",
-    icon: "IoIosHappy",
-    isAddedByUser: true,
-  });
-
-  const [isCorrectTyped, setIsCorrectTyped] = useState(true);
-  const portal = document.getElementById("portal");
-  const [alert, setAlert] = useState({});
-  const onInput = (e) => {
-    setNewCategory({ ...newCategory, name: e.target.value });
-    setIsCorrectTyped(e.target.value !== "");
-  };
 
   const showAlert = (params) => {
     setAlert({
@@ -90,18 +91,6 @@ export default function AddCategoryModal({ addCategory, categories }) {
     });
   };
 
-  const iconPicker = useMemo(
-    () => (
-      <IconPicker
-        searchIcon={searchIcon}
-        setSearchIcon={setSearchIcon}
-        newCategoryIcon={newCategory.icon}
-        setNewCategoryIcon={(icon) => setNewCategory({ ...newCategory, icon })}
-      />
-    ),
-    [newCategory.icon]
-  );
-
   const changeColorHandler = (color) => {
     setNewCategory({
       ...newCategory,
@@ -109,84 +98,6 @@ export default function AddCategoryModal({ addCategory, categories }) {
       color: color.hex,
     });
   };
-
-  const colorPicker = useMemo(
-    () => (
-      <CirclePicker
-        className="self-center p-0 m-0"
-        color={newCategory.color}
-        colors={["#38bdf8", "#f87171", "#10b981", "#7e22ce", "#eab308"]}
-        onChangeComplete={changeColorHandler}
-      />
-    ),
-    [newCategory.color]
-  );
-
-  function OpenModalButton() {
-    return (
-      <label
-        htmlFor="my-modal-3"
-        className="p-1 m-0 font-normal bg-transparent border-0 dark:bg:transparent btn-xs btn text-slate-700 hover:scale-110 hover:bg-transparent"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          height="24"
-          viewBox="0 96 960 960"
-          width="24"
-        >
-          <path
-            fill="#6366f1"
-            d="M440 856V616H200v-80h240V296h80v240h240v80H520v240h-80Z"
-          />
-        </svg>
-        add
-      </label>
-    );
-  }
-
-  function CreateNewTaskButton({ color, action }) {
-    return (
-      <Button
-        action={action}
-        className={`text-white ${colorStyleBgHandler(
-          color
-        )} btn-circle transition-all active:scale-90`}
-        title={
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M12 4.5v15m7.5-7.5h-15"
-            />
-          </svg>
-        }
-      />
-    );
-  }
-
-  function inputBorderColor() {
-    return isCorrectTyped ? "input focus:input" : "input-error";
-  }
-  function NewCategoryInput({ maxChars, value, action }) {
-    return (
-      <input
-        maxLength={maxChars}
-        onInput={action}
-        value={value}
-        type="text"
-        placeholder="Type here..."
-        id="taskInput"
-        className={`input mb-5 mr-5 w-full max-w-xs input-bordered ${inputBorderColor}`}
-      />
-    );
-  }
 
   return (
     <div>
@@ -201,14 +112,21 @@ export default function AddCategoryModal({ addCategory, categories }) {
                   maxChars={17}
                   value={newCategory.name}
                   action={onInput}
+                  isInputCorrect={isCorrectTyped}
                 />
                 <CreateNewTaskButton
                   color={newCategory.colorStyle}
                   action={createNewCategory}
                 />
               </div>
-              {colorPicker}
-              {iconPicker}
+              <ColorPicker
+                action={changeColorHandler}
+                color={newCategory.color}
+              />
+              <IconPicker
+                newCategory={newCategory}
+                setNewCategory={setNewCategory}
+              />
             </label>
           </label>
         </div>,
@@ -218,3 +136,87 @@ export default function AddCategoryModal({ addCategory, categories }) {
     </div>
   );
 }
+
+const NewCategoryInput = ({ maxChars, value, action, isInputCorrect }) => {
+  const inputBorderColor = () => {
+    return isInputCorrect ? "input focus:input" : "input-error";
+  };
+  return (
+    <input
+      maxLength={maxChars}
+      onInput={action}
+      value={value}
+      type="text"
+      placeholder="Type here..."
+      id="taskInput"
+      className={`input mb-5 mr-5 w-full max-w-xs input-bordered ${inputBorderColor}`}
+    />
+  );
+};
+
+const OpenModalButton = () => {
+  return (
+    <label
+      htmlFor="my-modal-3"
+      className="p-1 m-0 font-normal bg-transparent border-0 dark:bg:transparent btn-xs btn text-slate-700 hover:scale-110 hover:bg-transparent"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="24"
+        viewBox="0 96 960 960"
+        width="24"
+      >
+        <path
+          fill="#6366f1"
+          d="M440 856V616H200v-80h240V296h80v240h240v80H520v240h-80Z"
+        />
+      </svg>
+      add
+    </label>
+  );
+};
+
+const CreateNewTaskButton = ({ color, action }) => {
+  return (
+    <Button
+      action={action}
+      className={`text-white ${colorStyleBgHandler(
+        color
+      )} btn-circle transition-all active:scale-90`}
+      title={
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="w-6 h-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M12 4.5v15m7.5-7.5h-15"
+          />
+        </svg>
+      }
+    />
+  );
+};
+
+const IconPicker = memo(({ newCategory, setNewCategory }) => {
+  return (
+    <Iconpicker
+      newCategoryIcon={newCategory.icon}
+      setNewCategoryIcon={(icon) => setNewCategory({ ...newCategory, icon })}
+    />
+  );
+});
+
+const ColorPicker = ({ color, action }) => (
+  <CirclePicker
+    className="self-center p-0 m-0"
+    color={color}
+    colors={["#38bdf8", "#f87171", "#10b981", "#7e22ce", "#eab308"]}
+    onChangeComplete={action}
+  />
+);

@@ -1,11 +1,13 @@
+/* eslint-disable consistent-return */
+/* eslint-disable react/function-component-definition */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable react/prop-types */
-import React, { useContext, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import Task from "./Task";
-import { MainContext, ViewSectionContext } from "../Contexts";
+import { MainContext, ViewSectionContext, ToolbarContext } from "../Contexts";
 import ToolBar from "./Toolbar/ToolBar";
 
 export default function TaskList() {
@@ -27,15 +29,6 @@ export default function TaskList() {
     setTaskList(newList);
   };
 
-  function CallToActionLabel({ length }) {
-    if (length === 0)
-      return (
-        <h1 className="mt-10 text-3xl text-center duration-500 transition-color animate-pulse opacity-70 hover:text-success">
-          Add some tasks!
-        </h1>
-      );
-  }
-
   const getColor = () => {
     let color;
     for (const category of Object.values(addedCategoriesTab)) {
@@ -46,13 +39,20 @@ export default function TaskList() {
     return color;
   };
 
+  const value = useMemo(
+    () => ({
+      onInput,
+      searchInput,
+      getColor,
+    }),
+    [searchInput, getColor, onInput]
+  );
+
   return (
     <div className="w-5/6 pb-5 sm:w-4/6 md:w-1/2 lg:w-5/6">
-      <ToolBar
-        onInput={onInput}
-        searchInput={searchInput}
-        colorStyle={getColor()}
-      />
+      <ToolbarContext.Provider value={value}>
+        <ToolBar />
+      </ToolbarContext.Provider>
 
       <div className="flow-root ">
         <ul
@@ -61,12 +61,11 @@ export default function TaskList() {
             taskList.length > 8 && "overflow-y-scroll"
           } p-0`}
         >
-          <CallToActionLabel length={taskList.length} />
+          <CallToActionLabel taskListLength={taskList.length} />
           {taskList.map((task, index) => (
             <Task
               searchInput={searchInput}
               key={task.id}
-              index={index}
               onChange={(e) => updateStatusHandler(e, index)}
               task={task}
             />
@@ -76,3 +75,12 @@ export default function TaskList() {
     </div>
   );
 }
+
+const CallToActionLabel = ({ taskListLength }) => {
+  if (taskListLength === 0)
+    return (
+      <h1 className="mt-10 text-3xl text-center duration-500 transition-color animate-pulse opacity-70 hover:text-success">
+        Add some tasks!
+      </h1>
+    );
+};

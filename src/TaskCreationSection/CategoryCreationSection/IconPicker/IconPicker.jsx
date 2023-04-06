@@ -1,19 +1,14 @@
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/jsx-no-constructed-context-values */
 /* eslint-disable react/prop-types */
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { IconContext } from "react-icons";
 import * as icons from "react-icons/io";
 import { colorStyleInputHandler } from "../../../colorStyleClassHandler";
 import DynamicIcon from "./DynamicIcon";
 
-function IconPicker({
-  newCategoryIcon,
-  setNewCategoryIcon,
-  colorStyle,
-  searchIcon,
-  setSearchIcon,
-}) {
+function Iconpicker({ newCategoryIcon, setNewCategoryIcon, colorStyle }) {
+  const [searchIcon, setSearchIcon] = useState("");
   const onInput = (e) => {
     setSearchIcon(e.target.value);
   };
@@ -89,4 +84,4 @@ function IconPicker({
     </div>
   );
 }
-export default IconPicker;
+export default Iconpicker;
