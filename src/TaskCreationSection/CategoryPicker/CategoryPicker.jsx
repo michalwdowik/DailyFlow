@@ -11,6 +11,7 @@ export default function CategoryPicker({
   colorStyle,
   selectedCategoryName,
   onChangeCategory,
+  resetCategorySelection,
 }) {
   const [categories, setCategories] = useState(defaultCategories);
   const removeCategory = (uuid) => {
@@ -49,6 +50,7 @@ export default function CategoryPicker({
               uuid={category.uuid}
               removeCategory={removeCategory}
               selectedCategoryUUID={selectedCategory.uuid}
+              resetCategorySelection={resetCategorySelection}
             />
           ))}
           <AddCategoryModal

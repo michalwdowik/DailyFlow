@@ -12,8 +12,14 @@ export default function Category({
   uuid,
   onChange,
   removeCategory,
+  resetCategorySelection,
 }) {
+  const categoryIsChecked = selectedCategoryUUID === uuid;
+
   const removeCategoryHandler = () => {
+    if (categoryIsChecked) {
+      resetCategorySelection();
+    }
     removeCategory(uuid);
   };
 
@@ -21,7 +27,7 @@ export default function Category({
     <div className="flex gap-1 p-1 ">
       <CategoryRadio
         uuid={uuid}
-        checked={selectedCategoryUUID === uuid}
+        checked={categoryIsChecked}
         action={onChange}
         radioColor={colorStyleRadioHandler(color)}
       />

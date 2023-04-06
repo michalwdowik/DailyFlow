@@ -21,7 +21,7 @@ export default function CategoryTab({
   function scaleActiveTab() {
     return addedCategoryTab.categoryName === selectedTabCategory
       ? " scale-150 "
-      : "scale-100";
+      : " scale-100 ";
   }
 
   function validIconSize() {
@@ -108,8 +108,8 @@ function Tab({
       <button
         type="button"
         onClick={() => setSelectedTabCategory(name)}
-        className={` ${validIconSize} delay-50 bg-opacity-100 p-3 text-white transition ease-in-out hover:text-white hover:opacity-60 sm:text-2xl md:text-3xl lg:text-xl 
-        ${scaleActiveTab}`}
+        className={` ${validIconSize} transition-all duration-500 ease-in-out delay-50 bg-opacity-100 p-3 text-white hover:text-white hover:opacity-60 sm:text-2xl md:text-3xl lg:text-xl 
+        ${scaleActiveTab}  `}
       >
         <TabIcon categoryName={name} iconName={icon} />
       </button>

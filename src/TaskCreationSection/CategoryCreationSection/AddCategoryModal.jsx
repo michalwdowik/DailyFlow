@@ -19,13 +19,15 @@ export default function AddCategoryModal({ addCategory, categories }) {
   const portal = document.getElementById("portal");
   const [alert, setAlert] = useState({});
 
-  const [newCategory, setNewCategory] = useState({
+  const defaultCategoryParams = {
     name: "",
     colorStyle: "info",
     color: "#38bdf8",
     icon: "IoIosHappy",
     isAddedByUser: true,
-  });
+  };
+
+  const [newCategory, setNewCategory] = useState(defaultCategoryParams);
   const maxCategoriesReached = categories.length >= 12;
   const onInput = (e) => {
     setNewCategory({ ...newCategory, name: e.target.value });
@@ -83,12 +85,14 @@ export default function AddCategoryModal({ addCategory, categories }) {
     }
 
     addCategory({ ...newCategory, uuid: uuid() });
+
     showAlert({
       title: "New category has been added!",
       type: "success",
       background: "bg-success",
       isShowed: true,
     });
+    setNewCategory(defaultCategoryParams);
   };
 
   const changeColorHandler = (color) => {

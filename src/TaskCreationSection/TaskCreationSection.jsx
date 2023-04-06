@@ -86,6 +86,11 @@ export default function TaskCreationSection({ colorStyle, setColorStyle }) {
     setColorStyle(category.colorStyle);
   };
 
+  const resetCategorySelection = () => {
+    setColorStyle("info");
+    setTask(defaultTask);
+  };
+
   return (
     <div className="relative flex flex-col w-full p-5 glassmorphismCard gap-7 ">
       <span className="mt-2 -mb-6 label-text text-slate-700">Add Task:</span>
@@ -102,6 +107,7 @@ export default function TaskCreationSection({ colorStyle, setColorStyle }) {
         colorStyle={colorStyle}
         selectedCategoryName={task.category}
         onChangeCategory={(category) => handleCategoryChange(category)}
+        resetCategorySelection={resetCategorySelection}
       />
       <Importance
         colorStyle={colorStyle}
