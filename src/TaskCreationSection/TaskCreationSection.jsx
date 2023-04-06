@@ -16,7 +16,7 @@ export default function TaskCreationSection({ colorStyle, setColorStyle }) {
     done: false,
     rate: 2,
     deadline: "Not specified",
-    icon: "AiFillWallet",
+    icon: "IoDocuments",
     colorStyle,
   };
   const [task, setTask] = useState({
@@ -29,12 +29,12 @@ export default function TaskCreationSection({ colorStyle, setColorStyle }) {
   const [isCorrectTyped, setIsCorrectTyped] = useState(true);
   const [alert, setAlert] = useState({});
 
-  const showAlert = (params) => {
+  const showAlert = (alertData) => {
     setAlert({
-      title: params.title,
-      type: params.type,
-      background: params.background,
-      isShowed: params.isShowed,
+      title: alertData.title,
+      type: alertData.type,
+      background: alertData.background,
+      isShowed: alertData.isShowed,
     });
     setTimeout(() => {
       setAlert({ isShowed: false });
@@ -86,62 +86,17 @@ export default function TaskCreationSection({ colorStyle, setColorStyle }) {
     setColorStyle(category.colorStyle);
   };
 
-  const buzzIfTaskNotValid = () => {
-    return !isCorrectTyped && "buzz-effect";
-  };
-
-  function AddTaskButton({ action }) {
-    return (
-      <Button
-        className={`btn-m btn-circle btn ${buzzIfTaskNotValid()}`}
-        action={action}
-        title={
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M12 4.5v15m7.5-7.5h-15"
-            />
-          </svg>
-        }
-      />
-    );
-  }
-
-  const colorInputBorder = () => {
-    return !isCorrectTyped
-      ? "input-error"
-      : "input" && inputRef !== "" && "focus:input-success";
-  };
-
-  function TaskInput({ action, maxLength }) {
-    return (
-      <input
-        onKeyDown={action}
-        maxLength={maxLength}
-        ref={inputRef}
-        type="text"
-        placeholder="Type here..."
-        id="taskInput"
-        className={`input w-full rounded-3xl bg-base-300  
-        ${colorInputBorder()}`}
-      />
-    );
-  }
-
   return (
     <div className="relative flex flex-col w-full p-5 glassmorphismCard gap-7 ">
       <span className="mt-2 -mb-6 label-text text-slate-700">Add Task:</span>
       <div className="flex w-5/6 gap-5 sm:w-4/6 md:w-4/6">
-        <TaskInput action={handleKeyPress} maxLength={30} />
-        <AddTaskButton action={submitHandler} />
+        <TaskInput
+          action={handleKeyPress}
+          maxLength={30}
+          inputRef={inputRef}
+          isCorrectTyped={isCorrectTyped}
+        />
+        <AddTaskButton action={submitHandler} isCorrectTyped={isCorrectTyped} />
       </div>
       <CategoryPicker
         colorStyle={colorStyle}
@@ -161,5 +116,53 @@ export default function TaskCreationSection({ colorStyle, setColorStyle }) {
       />
       <Alert alert={alert} />
     </div>
+  );
+}
+
+function TaskInput({ action, maxLength, inputRef, isCorrectTyped }) {
+  const colorInputBorder = () => {
+    return !isCorrectTyped
+      ? "input-error"
+      : "input" && inputRef !== "" && "focus:input-success";
+  };
+  return (
+    <input
+      onKeyDown={action}
+      maxLength={maxLength}
+      ref={inputRef}
+      type="text"
+      placeholder="Type here..."
+      id="taskInput"
+      className={`input w-full rounded-3xl bg-base-300  
+      ${colorInputBorder()}`}
+    />
+  );
+}
+
+function AddTaskButton({ action, isCorrectTyped }) {
+  const buzzIfTaskNotValid = () => {
+    return !isCorrectTyped && "buzz-effect";
+  };
+  return (
+    <Button
+      className={`btn-m btn-circle btn ${buzzIfTaskNotValid()}`}
+      action={action}
+      title={
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="w-6 h-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M12 4.5v15m7.5-7.5h-15"
+          />
+        </svg>
+      }
+    />
   );
 }

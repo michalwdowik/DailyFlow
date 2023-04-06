@@ -23,8 +23,8 @@ export default function Task({ task, onChange, searchInput }) {
   };
   return (
     <div className="">
-      {(isValidForCategoryAll && <NewTask task={task} action={onChange} />) ||
-        (isValidForSelectedTab && <NewTask task={task} action={onChange} />)}
+      {(isValidForCategoryAll() && <NewTask task={task} action={onChange} />) ||
+        (isValidForSelectedTab() && <NewTask task={task} action={onChange} />)}
     </div>
   );
 }

@@ -17,50 +17,52 @@ export default function Category({
     removeCategory(uuid);
   };
 
-  function CategoryRadio({ checked, action, radioColor }) {
-    return (
-      <input
-        id={uuid}
-        checked={checked}
-        onChange={action}
-        type="radio"
-        name="radio-3"
-        className={`radio ${radioColor}`}
-      />
-    );
-  }
-
-  function CategoryLabel({ name }) {
-    return (
-      <label
-        htmlFor={uuid}
-        className="text-gray-600 transition duration-150 ease-in-out active:text-gray-400"
-      >
-        {name}
-      </label>
-    );
-  }
-
-  function RemoveCategoryButton({ action }) {
-    return (
-      <button
-        onClick={action}
-        type="button"
-        className="transition active:scale-125"
-      >
-        <IoIosRemoveCircle className="text-error opacity-90" />
-      </button>
-    );
-  }
   return (
     <div className="flex gap-1 p-1 ">
       <CategoryRadio
+        uuid={uuid}
         checked={selectedCategoryUUID === uuid}
         action={onChange}
         radioColor={colorStyleRadioHandler(color)}
       />
-      <CategoryLabel name={categoryName} />
+      <CategoryLabel name={categoryName} uuid={uuid} />
       {isAddedByUser && <RemoveCategoryButton action={removeCategoryHandler} />}
     </div>
+  );
+}
+
+function CategoryRadio({ checked, action, radioColor, uuid }) {
+  return (
+    <input
+      id={uuid}
+      checked={checked}
+      onChange={action}
+      type="radio"
+      name="radio-3"
+      className={`radio ${radioColor}`}
+    />
+  );
+}
+
+function RemoveCategoryButton({ action }) {
+  return (
+    <button
+      onClick={action}
+      type="button"
+      className="transition active:scale-125"
+    >
+      <IoIosRemoveCircle className="text-error opacity-90" />
+    </button>
+  );
+}
+
+function CategoryLabel({ name, uuid }) {
+  return (
+    <label
+      htmlFor={uuid}
+      className="text-gray-600 transition duration-150 ease-in-out active:text-gray-400"
+    >
+      {name}
+    </label>
   );
 }

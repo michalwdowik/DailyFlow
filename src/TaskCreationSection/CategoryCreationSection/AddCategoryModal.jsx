@@ -6,7 +6,7 @@ import React, { memo, useEffect, useState } from "react";
 import { CirclePicker } from "react-color";
 import { v4 as uuid } from "uuid";
 import { createPortal } from "react-dom";
-import Iconpicker from "./IconPicker/IconPicker";
+import { Iconpicker } from "./IconPicker";
 import {
   colorStyleBgHandler,
   colorPickerColorHandler,
@@ -26,7 +26,7 @@ export default function AddCategoryModal({ addCategory, categories }) {
     icon: "IoIosHappy",
     isAddedByUser: true,
   });
-
+  const maxCategoriesReached = categories.length >= 12;
   const onInput = (e) => {
     setNewCategory({ ...newCategory, name: e.target.value });
     setIsCorrectTyped(e.target.value !== "");
@@ -45,12 +45,12 @@ export default function AddCategoryModal({ addCategory, categories }) {
     };
   }, []);
 
-  const showAlert = (params) => {
+  const showAlert = (alertData) => {
     setAlert({
-      title: params.title,
-      type: params.type,
-      background: params.background,
-      isShowed: params.isShowed,
+      title: alertData.title,
+      type: alertData.type,
+      background: alertData.background,
+      isShowed: alertData.isShowed,
     });
     setTimeout(() => {
       setAlert({ isShowed: false });
@@ -58,7 +58,7 @@ export default function AddCategoryModal({ addCategory, categories }) {
   };
 
   const createNewCategory = () => {
-    if (categories.length >= 12) {
+    if (maxCategoriesReached) {
       showAlert({
         title: "You can create up to 7 different categories",
         type: "error",

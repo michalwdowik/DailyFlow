@@ -3,27 +3,27 @@ import { v4 as uuid } from "uuid";
 const defaultCategories = [
   {
     name: "general",
-    icon: "AiFillWallet",
+    icon: "IoDocuments",
     colorStyle: "info",
   },
   {
     name: "hobby",
-    icon: "AiFillHeart",
+    icon: "IoHeart",
     colorStyle: "error",
   },
   {
     name: "activities",
-    icon: "BsActivity",
+    icon: "IoPulse",
     colorStyle: "success",
   },
   {
     name: "work",
-    icon: "MdWork",
+    icon: "IoLaptop",
     colorStyle: "primary",
   },
   {
     name: "school",
-    icon: "IoSchoolSharp",
+    icon: "IoSchool",
     colorStyle: "warning",
   },
 ].map((category) => ({ ...category, uuid: uuid(), isAddedByUser: false }));

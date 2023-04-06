@@ -11,9 +11,8 @@ export default function App() {
   const [taskList, setTaskList] = useState([]);
   const [colorStyle, setColorStyle] = useState("info");
   const addedCategoriesTab = useMemo(() => {
-    const taskListCloned = [...taskList];
     // Segregate created tasks by category
-    const tasksSegregatedByCategory = taskListCloned.reduce((group, arr) => {
+    const tasksSegregatedByCategory = taskList.reduce((group, arr) => {
       const { category } = arr;
       group[category] = group[category] ?? [];
       group[category].push(arr);

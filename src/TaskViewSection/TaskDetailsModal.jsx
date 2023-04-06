@@ -5,7 +5,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
-import DynamicIcon from "../TaskCreationSection/CategoryCreationSection/IconPicker/DynamicIcon";
+import { DynamicIcon } from "../TaskCreationSection/CategoryCreationSection/IconPicker";
 import {
   colorStyleTextHandler,
   colorStyleBlobHandler,

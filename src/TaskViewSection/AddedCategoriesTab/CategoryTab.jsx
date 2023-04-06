@@ -8,7 +8,7 @@ import {
   colorStyleTooltipHandler,
 } from "../../colorStyleClassHandler";
 import { MainContext, ViewSectionContext } from "../../Contexts";
-import DynamicIcon from "../../TaskCreationSection/CategoryCreationSection/IconPicker/DynamicIcon";
+import { DynamicIcon } from "../../TaskCreationSection/CategoryCreationSection/IconPicker";
 
 export default function CategoryTab({
   addedCategoryTab,

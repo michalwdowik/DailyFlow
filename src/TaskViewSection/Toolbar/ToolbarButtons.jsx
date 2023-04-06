@@ -28,12 +28,12 @@ export default function ToolbarButtons({ setAlert }) {
     return false;
   };
 
-  const showAlert = (params) => {
+  const showAlert = (alertData) => {
     setAlert({
-      title: params.title,
-      type: params.type,
-      background: params.background,
-      isShowed: params.isShowed,
+      title: alertData.title,
+      type: alertData.type,
+      background: alertData.background,
+      isShowed: alertData.isShowed,
     });
     setTimeout(() => {
       setAlert({ isShowed: false });

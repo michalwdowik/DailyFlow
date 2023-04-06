@@ -88,7 +88,7 @@ export default function DatePicker({
     handleClose();
   };
 
-  const selectTodayDate = () => {
+  const setTodaysDate = () => {
     setIsSelectDateChecked(!isSelectDateChecked);
     const day = today.getDate();
     const month = today.getMonth() + 1;
@@ -97,34 +97,10 @@ export default function DatePicker({
     setTaskDeadline(formatDate);
   };
 
-  function TogglerInput({ isChecked, action }) {
-    return (
-      <input
-        type="checkbox"
-        value=""
-        className="sr-only peer "
-        checked={isChecked}
-        onChange={action}
-      />
-    );
-  }
-
-  function TogglerLabel({ isToggled }) {
-    return (
-      <span
-        className={`text-slate-700 ${isToggled ? "opacity-50" : "opacity-100"}`}
-      >
-        Set Deadline
-      </span>
-    );
-  }
   return (
     <div className="relative flex flex-col gap-2 mb-2">
       <label className="relative inline-flex gap-3 cursor-pointer label-text ">
-        <TogglerInput
-          isChecked={isSelectDateChecked}
-          action={selectTodayDate}
-        />
+        <TogglerInput isChecked={isSelectDateChecked} action={setTodaysDate} />
         <div
           className={`peer h-6 w-11 rounded-full transition-all ease-in-out after:absolute after:top-0.5 after:left-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white 
           ${colorStyleTogglerHandler(
@@ -143,5 +119,27 @@ export default function DatePicker({
         />
       )}
     </div>
+  );
+}
+
+function TogglerLabel({ isToggled }) {
+  return (
+    <span
+      className={`text-slate-700 ${isToggled ? "opacity-50" : "opacity-100"}`}
+    >
+      Set Deadline
+    </span>
+  );
+}
+
+function TogglerInput({ isChecked, action }) {
+  return (
+    <input
+      type="checkbox"
+      value=""
+      className="sr-only peer "
+      checked={isChecked}
+      onChange={action}
+    />
   );
 }

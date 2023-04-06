@@ -29,19 +29,6 @@ export default function CategoryPicker({
     [categories, selectedCategoryName]
   );
 
-  //
-  function CategoryDropdownMenu({ pickedCategory, color }) {
-    return (
-      <div
-        className={`${colorStyleBgHandler(
-          color
-        )} collapse-title rounded-3xl text-primary-content transition duration-150 ease-in-out peer-checked:text-secondary-content peer-checked:opacity-75`}
-      >
-        {pickedCategory}
-      </div>
-    );
-  }
-
   return (
     <div className="flex flex-col w-7/12 sm:w-2/4 md:w-2/4 ">
       <span className="mb-1 label-text text-slate-700">Select category:</span>
@@ -70,6 +57,18 @@ export default function CategoryPicker({
           />
         </div>
       </div>
+    </div>
+  );
+}
+
+function CategoryDropdownMenu({ pickedCategory, color }) {
+  return (
+    <div
+      className={`${colorStyleBgHandler(
+        color
+      )} collapse-title rounded-3xl text-primary-content transition duration-150 ease-in-out peer-checked:text-secondary-content peer-checked:opacity-75`}
+    >
+      {pickedCategory}
     </div>
   );
 }
