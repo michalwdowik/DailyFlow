@@ -1,12 +1,16 @@
 /* eslint-disable react/prop-types */
-import React from "react";
-import { colorStyleBgHandler } from "../colorStyleClassHandler";
+import React from 'react'
+import { colorStyleBgHandler } from '../colorStyleClassHandler'
+import { useThemeContext } from '../Contexts/ThemeContext'
 
-export default function BackgroundBlobs({ colorStyle }) {
-  return (
-    <div>
-      <div className={`shape-blob one ${colorStyleBgHandler(colorStyle)}`} />
-      <div className={`shape-blob ${colorStyleBgHandler(colorStyle)}`} />
-    </div>
-  );
+export default function BackgroundBlobs() {
+    const { colorStyle } = useThemeContext()
+    return (
+        <div>
+            <div
+                className={`shape-blob one ${colorStyleBgHandler(colorStyle)}`}
+            />
+            <div className={`shape-blob ${colorStyleBgHandler(colorStyle)}`} />
+        </div>
+    )
 }

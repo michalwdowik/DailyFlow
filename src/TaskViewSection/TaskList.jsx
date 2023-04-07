@@ -7,7 +7,7 @@
 import React, { useContext, useMemo, useState } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import Task from "./Task";
-import { MainContext, ViewSectionContext, ToolbarContext } from "../Contexts";
+import { MainContext, ViewSectionContext, ToolbarContext } from "../Contexts/Contexts";
 import ToolBar from "./Toolbar/ToolBar";
 
 export default function TaskList() {
