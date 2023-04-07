@@ -1,7 +1,4 @@
 /* eslint-disable no-restricted-syntax */
-/*
-MAJOR: performance issues, they come from reloading whole app even if we just update select different activities category
-
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-param-reassign */
 import React, { useState, useMemo } from 'react'
@@ -14,19 +11,14 @@ import { ThemeContextProvider } from './Contexts/ThemeContext'
 
 export default function App() {
     const [taskList, setTaskList] = useState([])
-    const id = uuid()
     const addedCategoriesTab = useMemo(() => {
-        const taskListCloned = [...taskList]
         // Segregate created tasks by category
-        const tasksSegregatedByCategory = taskListCloned.reduce(
-            (group, arr) => {
-                const { category } = arr
-                group[category] = group[category] ?? []
-                group[category].push(arr)
-                return group
-            },
-            {}
-        )
+        const tasksSegregatedByCategory = taskList.reduce((group, arr) => {
+            const { category } = arr
+            group[category] = group[category] ?? []
+            group[category].push(arr)
+            return group
+        }, {})
 
         // Create added categories tab list with default 'all' category
         const addedCategoriesTabList = [
@@ -34,7 +26,7 @@ export default function App() {
                 categoryName: 'all',
                 categoryLength: 0,
                 categoryIcon: 'IoListOutline',
-                categoryUUID: id,
+                categoryUUID: uuid(),
             },
         ]
         // Iterate over segregated tasks and convert them to Added Categories Tab List
