@@ -61,7 +61,6 @@ export default function TaskCreationSection() {
             })
             return
         }
-        // addTask from context
 
         const addTaskToList = (task) => {
             setTaskList([...taskList, task])
@@ -141,10 +140,11 @@ export default function TaskCreationSection() {
 }
 
 function TaskInput({ action, maxLength, inputRef, isCorrectTyped }) {
+    const isEmpty = inputRef !== ''
     const colorInputBorder = () => {
         return !isCorrectTyped
             ? 'input-error'
-            : 'input' && inputRef !== '' && 'focus:input-success'
+            : 'input' && !isEmpty && 'focus:input-success'
     }
     return (
         <input

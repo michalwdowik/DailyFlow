@@ -42,7 +42,7 @@ function TaskSearchBarIcon() {
 // how to pass a function (getColor) and then run it inside child component
 function TaskSearchBarInput() {
     const { searchInput, onInput, getColor } = useContext(ToolbarContext)
-    const c = getColor()
+    const color = getColor()
     return (
         <input
             value={searchInput}
@@ -50,7 +50,7 @@ function TaskSearchBarInput() {
             type="text"
             id="simple-search"
             className={` ${colorStyleInputHandler(
-                c
+                color
             )}  input block w-full rounded-3xl border-0 bg-base-300 pl-10 text-xs placeholder-transparent dark:text-white sm:text-sm sm:placeholder-gray-400`}
             placeholder="Search task"
         />
