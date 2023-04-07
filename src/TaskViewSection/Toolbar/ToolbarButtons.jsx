@@ -11,7 +11,7 @@ import { ViewSectionContext } from '../../Contexts/Contexts'
 import { useTaskContext } from '../../Contexts/TaskContext'
 
 export default function ToolbarButtons({ setAlert }) {
-    const { taskList, setTaskList } = useTaskContext
+    const { taskList, setTaskList } = useTaskContext()
     const { selectedTabCategory } = useContext(ViewSectionContext)
     const allTabIsActive = selectedTabCategory === 'all'
     const removeFromList = () =>

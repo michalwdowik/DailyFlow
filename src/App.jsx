@@ -1,6 +1,3 @@
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-param-reassign */
 import React from 'react'
 import TaskCreationSection from './TaskCreationSection/TaskCreationSection'
 import TaskViewSection from './TaskViewSection/TaskViewSection'
