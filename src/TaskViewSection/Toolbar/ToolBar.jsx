@@ -2,7 +2,6 @@
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/prop-types */
 import React, { useContext, useState } from 'react'
-import { colorStyleInputHandler } from '../../colorStyleClassHandler'
 import Alert from '../../Components/Alert'
 import ToolbarButtons from './ToolbarButtons'
 import { ToolbarContext } from '../../Contexts/Contexts'
@@ -39,19 +38,15 @@ function TaskSearchBarIcon() {
     )
 }
 
-// how to pass a function (getColor) and then run it inside child component
 function TaskSearchBarInput() {
-    const { searchInput, onInput, getColor } = useContext(ToolbarContext)
-    const color = getColor()
+    const { searchInput, onInput } = useContext(ToolbarContext)
     return (
         <input
             value={searchInput}
             onInput={onInput}
             type="text"
             id="simple-search"
-            className={` ${colorStyleInputHandler(
-                color
-            )}  input block w-full rounded-3xl border-0 bg-base-300 pl-10 text-xs placeholder-transparent dark:text-white sm:text-sm sm:placeholder-gray-400`}
+            className={`   input block w-full rounded-3xl border-0 bg-base-300 pl-10 text-xs placeholder-transparent dark:text-white sm:text-sm sm:placeholder-gray-400`}
             placeholder="Search task"
         />
     )

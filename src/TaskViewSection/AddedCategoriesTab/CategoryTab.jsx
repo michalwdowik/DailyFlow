@@ -7,47 +7,45 @@ import {
     colorStyleBgHandler,
     colorStyleTooltipHandler,
 } from '../../colorStyleClassHandler'
-import { MainContext, ViewSectionContext } from '../../Contexts/Contexts'
+import { ViewSectionContext } from '../../Contexts/Contexts'
 import { DynamicIcon } from '../../TaskCreationSection/CategoryCreationSection/IconPicker'
+import { useTaskContext } from '../../Contexts/TaskContext'
 
-export default function CategoryTab({
-    addedCategoryTab,
-    addedCategoriesTabLength,
-}) {
+export default function CategoryTab({ categoryTabs, categoryTabsLength }) {
     const { selectedTabCategory, setSelectedTabCategory } =
         useContext(ViewSectionContext)
-    const { taskList } = useContext(MainContext)
+    const { taskList } = useTaskContext()
 
     function scaleActiveTab() {
-        return addedCategoryTab.categoryName === selectedTabCategory
+        return categoryTabs.categoryName === selectedTabCategory
             ? ' scale-150 '
             : ' scale-100 '
     }
 
     function validIconSize() {
-        return addedCategoriesTabLength > 5 ? 'text-xs' : 'text-xl'
+        return categoryTabsLength > 5 ? 'text-xs' : 'text-xl'
     }
 
     const calculatePadding = () => {
-        if (addedCategoriesTabLength > 8) {
+        if (categoryTabsLength > 8) {
             return 'p-0'
         }
-        if (addedCategoriesTabLength > 6) {
+        if (categoryTabsLength > 6) {
             return 'p-1'
         }
         return 'p-2'
     }
-    const paddingClassName = calculatePadding(addedCategoriesTabLength)
+    const paddingClassName = calculatePadding(categoryTabsLength)
 
     const categoryLength = () => {
-        return addedCategoryTab.categoryName === 'all'
+        return categoryTabs.categoryName === 'all'
             ? taskList.length
-            : addedCategoryTab.categoryLength
+            : categoryTabs.categoryLength
     }
 
     const animateIndicatorOnActiveTab = () => {
         return (
-            addedCategoryTab.categoryName === selectedTabCategory &&
+            categoryTabs.categoryName === selectedTabCategory &&
             'animate-bounce'
         )
     }
@@ -58,17 +56,17 @@ export default function CategoryTab({
                 className={`${paddingClassName} indicator relative mt-4 bg-base-300 shadow-xl transition delay-150 ease-in-out hover:bg-base-200`}
             >
                 <TabIndicator
-                    color={addedCategoryTab.categoryColorStyle}
+                    color={categoryTabs.categoryColorStyle}
                     categoryLength={categoryLength}
                     animate={animateIndicatorOnActiveTab()}
                 />
                 <Tab
-                    color={addedCategoryTab.categoryColorStyle}
-                    name={addedCategoryTab.categoryName}
+                    color={categoryTabs.categoryColorStyle}
+                    name={categoryTabs.categoryName}
                     scaleActiveTab={scaleActiveTab()}
                     validIconSize={validIconSize()}
                     setSelectedTabCategory={setSelectedTabCategory}
-                    icon={addedCategoryTab.categoryIcon}
+                    icon={categoryTabs.categoryIcon}
                 />
             </div>
         </li>

@@ -4,20 +4,15 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable react/prop-types */
-import React, { useContext, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import Task from './Task'
-import {
-    MainContext,
-    ViewSectionContext,
-    ToolbarContext,
-} from '../Contexts/Contexts'
+import { ToolbarContext } from '../Contexts/Contexts'
 import ToolBar from './Toolbar/ToolBar'
+import { useTaskContext } from '../Contexts/TaskContext'
 
 export default function TaskList() {
-    const { taskList, setTaskList, addedCategoriesTab } =
-        useContext(MainContext)
-    const { selectedTabCategory } = useContext(ViewSectionContext)
+    const { taskList, setTaskList } = useTaskContext()
     const [searchInput, setSearchInput] = useState('')
     const [animationParent] = useAutoAnimate({
         duration: 100,
@@ -34,23 +29,12 @@ export default function TaskList() {
         setTaskList(newList)
     }
 
-    const getColor = () => {
-        let color
-        for (const category of Object.values(addedCategoriesTab)) {
-            if (category.category === selectedTabCategory) {
-                color = category.categoryColorStyle
-            }
-        }
-        return color
-    }
-
     const value = useMemo(
         () => ({
             onInput,
             searchInput,
-            getColor,
         }),
-        [searchInput, getColor, onInput]
+        [searchInput, onInput]
     )
 
     return (

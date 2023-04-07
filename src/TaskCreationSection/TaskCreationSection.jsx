@@ -1,16 +1,16 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/prop-types */
-import React, { useState, useContext, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import { v4 as uuid } from 'uuid'
 import Button from '../Components/Button'
 import CategoryPicker from './CategoryPicker/CategoryPicker'
 import DatePicker from './DatePicker'
 import Importance from './Importance'
-import { MainContext } from '../Contexts/Contexts'
 import Alert from '../Components/Alert'
 import { useThemeContext } from '../Contexts/ThemeContext'
 import { CategoryContextProvider } from '../Contexts/CategoryContext'
+import { useTaskContext } from '../Contexts/TaskContext'
 
 export default function TaskCreationSection() {
     const { colorStyle, setColorStyle } = useThemeContext()
@@ -27,8 +27,7 @@ export default function TaskCreationSection() {
     const [newTask, setNewTask] = useState({
         ...defaultTask,
     })
-    const { taskList, setTaskList, addedCategoriesTab } =
-        useContext(MainContext)
+    const { taskList, setTaskList, categoryTabs } = useTaskContext()
     const inputRef = useRef('')
     const [isSelectDateChecked, setIsSelectDateChecked] = useState(false)
     const [isCorrectTyped, setIsCorrectTyped] = useState(true)
@@ -52,7 +51,7 @@ export default function TaskCreationSection() {
             setIsCorrectTyped(false)
             return
         }
-        if (addedCategoriesTab.length >= 8) {
+        if (categoryTabs.length >= 8) {
             showAlert({
                 title: 'You can add tasks of 8 different categories at a time ',
                 type: 'error',
@@ -144,7 +143,7 @@ function TaskInput({ action, maxLength, inputRef, isCorrectTyped }) {
     const colorInputBorder = () => {
         return !isCorrectTyped
             ? 'input-error'
-            : 'input' && !isEmpty && 'focus:input-success'
+            : 'input' && isEmpty && 'focus:input-success'
     }
     return (
         <input
