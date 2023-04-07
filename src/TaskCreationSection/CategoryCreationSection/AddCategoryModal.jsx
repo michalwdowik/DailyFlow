@@ -89,7 +89,6 @@ export default function AddCategoryModal() {
         }
 
         addCategory({
-            ...newCategory,
             name: inputRef.current.value,
             uuid: uuid(),
         })

@@ -24,7 +24,7 @@ export default function TaskCreationSection() {
         icon: 'IoDocuments',
         colorStyle,
     }
-    const [task, setTask] = useState({
+    const [newTask, setNewTask] = useState({
         ...defaultTask,
     })
     const { taskList, setTaskList, addedCategoriesTab } =
@@ -62,14 +62,13 @@ export default function TaskCreationSection() {
             return
         }
         // addTask from context
-        setTaskList([
-            ...taskList,
-            {
-                ...task,
-                name: inputRef.current.value,
-                id: uuid(),
-            },
-        ])
+
+        const addTaskToList = (task) => {
+            setTaskList([...taskList, task])
+        }
+
+        addTaskToList({ ...newTask, name: inputRef.current.value, id: uuid() })
+
         inputRef.current.value = ''
         setIsSelectDateChecked(false)
         setIsCorrectTyped(true)
@@ -82,8 +81,8 @@ export default function TaskCreationSection() {
     }
 
     const handleCategoryChange = (category) => {
-        setTask({
-            ...task,
+        setNewTask({
+            ...newTask,
             category: category.name,
             icon: category.icon,
             colorStyle: category.colorStyle,
@@ -93,7 +92,7 @@ export default function TaskCreationSection() {
 
     const resetCategorySelection = () => {
         setColorStyle('info')
-        setTask(defaultTask)
+        setNewTask(defaultTask)
     }
 
     return (
@@ -116,7 +115,7 @@ export default function TaskCreationSection() {
             <CategoryContextProvider>
                 <CategoryPicker
                     colorStyle={colorStyle}
-                    selectedCategoryName={task.category}
+                    selectedCategoryName={newTask.category}
                     onChangeCategory={(category) =>
                         handleCategoryChange(category)
                     }
@@ -125,12 +124,14 @@ export default function TaskCreationSection() {
             </CategoryContextProvider>
             <Importance
                 colorStyle={colorStyle}
-                rate={task.rate}
-                setRate={(rate) => setTask({ ...task, rate })}
+                rate={newTask.rate}
+                setRate={(rate) => setNewTask({ ...newTask, rate })}
             />
             <DatePicker
                 colorStyle={colorStyle}
-                setTaskDeadline={(deadline) => setTask({ ...task, deadline })}
+                setTaskDeadline={(deadline) =>
+                    setNewTask({ ...newTask, deadline })
+                }
                 isSelectDateChecked={isSelectDateChecked}
                 setIsSelectDateChecked={setIsSelectDateChecked}
             />

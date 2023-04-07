@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-restricted-syntax */
@@ -11,21 +12,32 @@ import { MainContext, ViewSectionContext } from '../../Contexts/Contexts'
 export default function ToolbarButtons({ setAlert }) {
     const { taskList, setTaskList } = useContext(MainContext)
     const { selectedTabCategory } = useContext(ViewSectionContext)
+    const allTabIsActive = selectedTabCategory === 'all'
+    const removeFromList = () =>
+        setTaskList(taskList.filter((item) => item.done !== true))
 
-    const isAnyTaskDone = () => {
-        const doneTasks = taskList.filter((item) => item.done === true)
-        for (const key of taskList) {
-            if (selectedTabCategory === 'all' && doneTasks.length >= 1) {
-                setTaskList(taskList.filter((item) => item.done !== true))
-                return true
-            }
+    const removeTasksHandler = () => {
+        for (const task of taskList) {
+            const isDone = task.done === true
+            const belongsToActiveTab = task.category === selectedTabCategory
 
-            if (key.category === selectedTabCategory && key.done === true) {
-                setTaskList(taskList.filter((item) => item.done !== true))
-                return true
+            if (allTabIsActive || (belongsToActiveTab && isDone)) {
+                removeFromList()
+                showAlert({
+                    title: 'All done tasks has been removed successfully',
+                    type: 'success',
+                    background: 'bg-success',
+                    isShowed: true,
+                })
+            } else {
+                showAlert({
+                    title: 'There are no completed tasks to be deleted',
+                    type: 'error',
+                    background: 'bg-error',
+                    isShowed: true,
+                })
             }
         }
-        return false
     }
 
     const showAlert = (alertData) => {
@@ -38,21 +50,6 @@ export default function ToolbarButtons({ setAlert }) {
         setTimeout(() => {
             setAlert({ isShowed: false })
         }, 3000)
-    }
-    const removeTasksHandler = () => {
-        isAnyTaskDone()
-            ? showAlert({
-                  title: 'All done tasks has been removed successfully',
-                  type: 'success',
-                  background: 'bg-success',
-                  isShowed: true,
-              })
-            : showAlert({
-                  title: 'There are no completed tasks to be deleted',
-                  type: 'error',
-                  background: 'bg-error',
-                  isShowed: true,
-              })
     }
     const makeAllTasksDone = () => {
         const newList = [...taskList]

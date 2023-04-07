@@ -7,7 +7,6 @@ const ThemeContext = createContext({
 
 export function ThemeContextProvider({ children }) {
     const [colorStyle, setColorStyle] = useState('info')
-
     const value = useMemo(
         () => ({
             colorStyle,
