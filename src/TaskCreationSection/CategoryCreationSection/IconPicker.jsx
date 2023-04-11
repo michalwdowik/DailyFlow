@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/jsx-no-constructed-context-values */
 /* eslint-disable react/prop-types */

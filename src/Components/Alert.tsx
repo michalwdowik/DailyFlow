@@ -1,9 +1,17 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/no-unstable-nested-components */
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import { Transition } from '@headlessui/react'
 import { createPortal } from 'react-dom'
 
-export default function Alert({ alert }) {
+type AlertProps = {
+    alert: {
+        isShowed: boolean
+        type: string
+        title: string
+        background: string
+    }
+}
+
+export default function Alert({ alert }: AlertProps): JSX.Element {
     const portal = document.getElementById('portal')
 
     return (
@@ -21,29 +29,39 @@ export default function Alert({ alert }) {
                             leaveTo="opacity-0"
                         >
                             <div
-                                className={` alert absolute inset-x-0 top-0 w-4/6 ${alert.background} transition`}
+                                className={`alert absolute inset-x-0 top-0 w-4/6 ${alert.background} transition`}
                             >
                                 <div>
-                                    <AlertIcon />
+                                    <AlertIcon type={alert.type} />
                                     <AlertMessage message={alert.title} />
                                 </div>
                             </div>
                         </Transition>
                     )}
                 </div>,
-                portal
+                portal!
             )}
         </div>
     )
 }
 
-function AlertIcon() {
-    return alert.type === 'success' ? <SuccessIcon /> : <ErrorIcon />
+type AlertIconProps = {
+    type: string
 }
-function AlertMessage({ message }) {
+
+function AlertIcon({ type }: AlertIconProps): JSX.Element {
+    return type === 'success' ? <SuccessIcon /> : <ErrorIcon />
+}
+
+type AlertMessageProps = {
+    message: string
+}
+
+function AlertMessage({ message }: AlertMessageProps): JSX.Element {
     return <span className="text-black">{message}</span>
 }
-function SuccessIcon() {
+
+function SuccessIcon(): JSX.Element {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -60,7 +78,8 @@ function SuccessIcon() {
         </svg>
     )
 }
-function ErrorIcon() {
+
+function ErrorIcon(): JSX.Element {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"

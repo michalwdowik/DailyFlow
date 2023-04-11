@@ -1,11 +1,21 @@
 /* eslint-disable react/prop-types */
-import { createContext, useMemo, useState, useContext } from 'react'
+import { createContext, useMemo, useState, useContext, ReactNode } from 'react'
 
-const ThemeContext = createContext({
+interface ThemeContextType {
+    colorStyle: string
+    setColorStyle: (color: string) => void
+}
+
+const ThemeContext = createContext<ThemeContextType>({
     colorStyle: 'info',
+    setColorStyle: () => {},
 })
 
-export function ThemeContextProvider({ children }) {
+interface ThemeContextProviderProps {
+    children: ReactNode
+}
+
+export function ThemeContextProvider({ children }: ThemeContextProviderProps) {
     const [colorStyle, setColorStyle] = useState('info')
     const value = useMemo(
         () => ({

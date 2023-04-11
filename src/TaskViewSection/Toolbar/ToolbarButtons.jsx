@@ -1,6 +1,4 @@
-/* eslint-disable no-use-before-define */
-/* eslint-disable react/no-unstable-nested-components */
-/* eslint-disable no-unused-expressions */
+/* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/prop-types */
@@ -14,6 +12,17 @@ export default function ToolbarButtons({ setAlert }) {
     const { taskList, setTaskList } = useTaskContext()
     const { selectedTabCategory } = useContext(ViewSectionContext)
     const allTabIsActive = selectedTabCategory === 'all'
+    const showAlert = (alertData) => {
+        setAlert({
+            title: alertData.title,
+            type: alertData.type,
+            background: alertData.background,
+            isShowed: alertData.isShowed,
+        })
+        setTimeout(() => {
+            setAlert({ isShowed: false })
+        }, 3000)
+    }
     const removeFromList = () =>
         setTaskList(taskList.filter((item) => item.done !== true))
 
@@ -41,17 +50,6 @@ export default function ToolbarButtons({ setAlert }) {
         }
     }
 
-    const showAlert = (alertData) => {
-        setAlert({
-            title: alertData.title,
-            type: alertData.type,
-            background: alertData.background,
-            isShowed: alertData.isShowed,
-        })
-        setTimeout(() => {
-            setAlert({ isShowed: false })
-        }, 3000)
-    }
     const makeAllTasksDone = () => {
         const newList = [...taskList]
         taskList.forEach((task) => {

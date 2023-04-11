@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable consistent-return */
 /* eslint-disable react/function-component-definition */
 /* eslint-disable react/no-unstable-nested-components */

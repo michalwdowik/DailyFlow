@@ -1,4 +1,4 @@
-export const colorStyleBgHandler = (e) => {
+export const colorStyleBgHandler = (e: string) => {
     switch (e) {
         case 'info':
             return `bg-info`
@@ -15,7 +15,7 @@ export const colorStyleBgHandler = (e) => {
     }
 }
 
-export const colorStyleTextHandler = (e) => {
+export const colorStyleTextHandler = (e: string) => {
     switch (e) {
         case 'info':
             return `text-info`
@@ -32,7 +32,7 @@ export const colorStyleTextHandler = (e) => {
     }
 }
 
-export const colorStyleRadioHandler = (e) => {
+export const colorStyleRadioHandler = (e: string) => {
     switch (e) {
         case 'info':
             return `radio-info`
@@ -49,7 +49,7 @@ export const colorStyleRadioHandler = (e) => {
     }
 }
 
-export const colorStyleCheckboxHandler = (e) => {
+export const colorStyleCheckboxHandler = (e: string) => {
     switch (e) {
         case 'info':
             return `radio-info`
@@ -66,7 +66,7 @@ export const colorStyleCheckboxHandler = (e) => {
     }
 }
 
-export const colorStyleTogglerHandler = (e) => {
+export const colorStyleTogglerHandler = (e: string) => {
     switch (e) {
         case 'info':
             return `peer-checked:bg-info`
@@ -83,7 +83,7 @@ export const colorStyleTogglerHandler = (e) => {
     }
 }
 
-export const colorPickerColorHandler = (color) => {
+export const colorPickerColorHandler = (color: { hex: string }) => {
     switch (color.hex) {
         case '#38bdf8':
             return `info`
@@ -100,7 +100,7 @@ export const colorPickerColorHandler = (color) => {
     }
 }
 
-export const colorStyleBlobHandler = (e) => {
+export const colorStyleBlobHandler = (e: string) => {
     switch (e) {
         case 'info':
             return `#38bdf8`
@@ -117,7 +117,7 @@ export const colorStyleBlobHandler = (e) => {
     }
 }
 
-export const colorStyleTooltipHandler = (e) => {
+export const colorStyleTooltipHandler = (e: string) => {
     switch (e) {
         case 'info':
             return `tooltip-info`

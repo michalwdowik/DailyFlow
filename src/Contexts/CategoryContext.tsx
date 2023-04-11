@@ -1,13 +1,30 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-shadow */
 /* eslint-disable react/prop-types */
-import { createContext, useMemo, useState, useContext } from 'react'
+import { createContext, useMemo, useState, useContext, ReactNode } from 'react'
 import { v4 as uuid } from 'uuid'
 
-const CategoryContext = createContext({
-    colorStyle: 'info',
+type CategoryContextType = {
+    categories: Category[]
+    removeCategory: (id: string) => void
+    addCategory: (category: Category) => void
+}
+
+const CategoryContext = createContext<CategoryContextType>({
+    categories: [],
+    addCategory: () => {},
+    removeCategory: () => {},
 })
 
-const defaultCategories = [
+type Category = {
+    name: string
+    icon: string
+    colorStyle: string
+    uuid: string
+    isAddedByUser: boolean
+}
+
+const defaultCategories: Category[] = [
     {
         name: 'general',
         icon: 'IoDocuments',
@@ -35,18 +52,24 @@ const defaultCategories = [
     },
 ].map((category) => ({ ...category, uuid: uuid(), isAddedByUser: false }))
 
-export function CategoryContextProvider({ children }) {
-    const [categories, setCategories] = useState(defaultCategories)
+type CategoryContextProviderType = {
+    children: ReactNode
+}
 
-    const removeCategory = (uuid) => {
+export function CategoryContextProvider({
+    children,
+}: CategoryContextProviderType) {
+    const [categories, setCategories] = useState<Category[]>(defaultCategories)
+
+    const removeCategory = (id: string) => {
         setCategories(
             categories.filter(
-                (category) => !category.isAddedByUser || category.uuid !== uuid
+                (category) => !category.isAddedByUser || category.uuid !== id
             )
         )
     }
 
-    const addCategory = (category) => {
+    const addCategory = (category: Category) => {
         setCategories([...categories, category])
     }
 
