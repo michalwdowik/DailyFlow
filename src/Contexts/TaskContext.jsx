@@ -2,7 +2,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-shadow */
 /* eslint-disable react/prop-types */
-import React, { createContext, useMemo, useState, useContext } from 'react'
+import { createContext, useMemo, useState, useContext } from 'react'
 import { v4 as uuid } from 'uuid'
 
 const TaskContext = createContext({

@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/prop-types */
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { IoListOutline } from 'react-icons/io5'
 import {
     colorStyleBgHandler,

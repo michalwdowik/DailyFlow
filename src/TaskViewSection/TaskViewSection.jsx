@@ -1,5 +1,5 @@
 /* eslint-disable import/no-unresolved */
-import React, { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import { ViewSectionContext } from '../Contexts/Contexts'
 import TaskList from './TaskList'

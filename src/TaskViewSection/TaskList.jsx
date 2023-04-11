@@ -4,7 +4,7 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable react/prop-types */
-import React, { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import Task from './Task'
 import { ToolbarContext } from '../Contexts/Contexts'

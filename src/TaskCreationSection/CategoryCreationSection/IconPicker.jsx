@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/jsx-no-constructed-context-values */
 /* eslint-disable react/prop-types */
-import React, { memo } from 'react'
+import { memo } from 'react'
 import { IconContext } from 'react-icons'
 import * as ImportedIcons from 'react-icons/io5'
 

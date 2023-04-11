@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { colorStyleBgHandler } from '../../colorStyleClassHandler'
 import AddCategoryModal from '../CategoryCreationSection/AddCategoryModal'
 import Category from './Category'

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { createContext, useMemo, useState, useContext } from 'react'
+import { createContext, useMemo, useState, useContext } from 'react'
 
 const ThemeContext = createContext({
     colorStyle: 'info',

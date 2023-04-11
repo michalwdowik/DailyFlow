@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/tabindex-no-positive */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/prop-types */
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import Alert from '../../Components/Alert'
 import ToolbarButtons from './ToolbarButtons'
 import { ToolbarContext } from '../../Contexts/Contexts'

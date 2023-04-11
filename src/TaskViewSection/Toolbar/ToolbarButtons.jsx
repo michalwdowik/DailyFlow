@@ -5,7 +5,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/prop-types */
 
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import Button from '../../Components/Button'
 import { ViewSectionContext } from '../../Contexts/Contexts'
 import { useTaskContext } from '../../Contexts/TaskContext'

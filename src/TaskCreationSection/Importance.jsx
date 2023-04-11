@@ -3,7 +3,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import { useState } from "react";
 import { colorStyleTextHandler } from "../colorStyleClassHandler";
 
 export default function Importance({ rate, setRate, colorStyle }) {

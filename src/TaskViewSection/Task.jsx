@@ -2,7 +2,7 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/prop-types */
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { v4 as uuid } from 'uuid'
 import TaskDetailsModal from './TaskDetailsModal'
 import { colorStyleCheckboxHandler } from '../colorStyleClassHandler'

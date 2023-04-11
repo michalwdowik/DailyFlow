@@ -1,4 +1,3 @@
-import React from 'react'
 import TaskCreationSection from './TaskCreationSection/TaskCreationSection'
 import TaskViewSection from './TaskViewSection/TaskViewSection'
 import BackgroundBlobs from './Components/BackgroundBlobs'

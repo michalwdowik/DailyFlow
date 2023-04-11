@@ -1,4 +1,3 @@
-import React from 'react'
 import { v4 as uuid } from 'uuid'
 import CategoryTab from './CategoryTab'
 import { useTaskContext } from '../../Contexts/TaskContext'

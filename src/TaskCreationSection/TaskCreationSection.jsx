@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/prop-types */
-import React, { useState, useRef } from 'react'
+import { useState, useRef } from 'react'
 import { v4 as uuid } from 'uuid'
 import Button from '../Components/Button'
 import CategoryPicker from './CategoryPicker/CategoryPicker'
