@@ -4,24 +4,22 @@ module.exports = {
         es2021: true,
     },
     extends: [
-        'plugin:react/recommended',
         'airbnb',
+        'airbnb-typescript',
+        'airbnb/hooks',
+        'plugin:react/recommended',
+        'plugin:@typescript-eslint/recommended',
         'plugin:prettier/recommended',
     ],
     overrides: [],
+    parser: '@typescript-eslint/parser',
     parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
+        project: 'ToDoApp/tsconfig.json',
     },
-    plugins: ['react', 'prettier'],
+    plugins: ['react', '@typescript-eslint', 'prettier'],
     rules: {
-        'no-unused-vars': 'warn',
-        'import/no-extraneous-dependencies': [
-            'error',
-            { devDependencies: true },
-        ],
-        'no-use-before-define': ['error', { functions: false, classes: true }],
-        'prettier/prettier': 'error',
-        'react/react-in-jsx-scope': 'off',
+        'react/react-in-jsx-scope': 0,
     },
 }
