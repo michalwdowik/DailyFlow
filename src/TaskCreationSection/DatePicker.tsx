@@ -69,19 +69,25 @@ const options = {
     defaultDate: today,
     language: 'en',
 }
-
+type DatePickerProps = {
+    setTaskDeadline: (date: string) => void
+    isSelectDateChecked: boolean
+    setIsSelectDateChecked: (isChecked: boolean) => void
+    colorStyle: string
+}
 export default function DatePicker({
     setTaskDeadline,
     isSelectDateChecked,
     setIsSelectDateChecked,
     colorStyle,
-}) {
+}: DatePickerProps) {
     const [show, setShow] = useState(false)
-    const handleClose = (state) => {
-        setShow(state)
+
+    const handleClose = () => {
+        setShow(!show)
     }
 
-    const handleDateChange = (selectedDate) => {
+    const handleDateChange = (selectedDate: Date) => {
         const day = selectedDate.getDate()
         const month = selectedDate.getMonth() + 1
         const year = selectedDate.getFullYear()
@@ -127,7 +133,10 @@ export default function DatePicker({
     )
 }
 
-function TogglerLabel({ isToggled }) {
+type TogglerLabelProps = {
+    isToggled: boolean
+}
+function TogglerLabel({ isToggled }: TogglerLabelProps) {
     return (
         <span
             className={`text-slate-700 ${
@@ -139,7 +148,12 @@ function TogglerLabel({ isToggled }) {
     )
 }
 
-function TogglerInput({ isChecked, action }) {
+type TogglerInputProps = {
+    isChecked: boolean
+    action: () => void
+}
+
+function TogglerInput({ isChecked, action }: TogglerInputProps) {
     return (
         <input
             type="checkbox"
