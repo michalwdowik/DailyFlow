@@ -1,11 +1,9 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable no-use-before-define */
 /* eslint-disable react/function-component-definition */
-/* eslint-disable react/no-unstable-nested-components */
-/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { useEffect, useRef, useState } from 'react'
-import { CirclePicker } from 'react-color'
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
+import { CirclePicker, ColorResult } from 'react-color'
 import { v4 as uuid } from 'uuid'
 import { createPortal } from 'react-dom'
 import IconPicker from './IconPicker'
@@ -17,14 +15,33 @@ import Button from '../../Components/Button'
 import Alert from '../../Components/Alert'
 import { useCategoryContext } from '../../Contexts/CategoryContext'
 
+type AlertType = {
+    title: string
+    type: string
+    background: string
+    isShowed: boolean
+}
+
+type NewCategory = {
+    name: string
+    colorStyle: string
+    color: string
+    icon: string
+    isAddedByUser: boolean
+}
+
 export default function AddCategoryModal() {
     const { categories, addCategory } = useCategoryContext()
 
     useEffect(() => {
-        const handleEscapeKey = (event) => {
-            if (event.keyCode === 27) {
-                const checkbox = document.getElementById('my-modal-3')
-                checkbox.checked = false
+        const handleEscapeKey = (event: KeyboardEvent) => {
+            if (event.code === 'Escape') {
+                const checkbox = document.getElementById(
+                    'my-modal-3'
+                ) as HTMLInputElement | null
+                if (checkbox) {
+                    checkbox.checked = false
+                }
             }
         }
         document.addEventListener('keydown', handleEscapeKey)
@@ -37,7 +54,7 @@ export default function AddCategoryModal() {
     const portal = document.getElementById('portal')
     const [alert, setAlert] = useState({})
     const [searchIconInput, setSearchIconInput] = useState('')
-    const defaultCategoryParams = {
+    const defaultCategoryParams: NewCategory = {
         name: '',
         colorStyle: 'info',
         color: '#38bdf8',
@@ -45,14 +62,14 @@ export default function AddCategoryModal() {
         isAddedByUser: true,
     }
     const [newCategory, setNewCategory] = useState(defaultCategoryParams)
-    const inputRef = useRef('')
+    const inputRef = useRef<HTMLInputElement>(null)
     const maxCategoriesReached = categories.length >= 12
 
-    const onInput = (e) => {
+    const onInput = (e: ChangeEvent<HTMLInputElement>) => {
         setIsCorrectTyped(e.target.value !== '')
     }
 
-    const showAlert = (alertData) => {
+    const showAlert = (alertData: AlertType) => {
         setAlert({
             title: alertData.title,
             type: alertData.type,
@@ -75,8 +92,8 @@ export default function AddCategoryModal() {
             return
         }
         const isCategoryValid =
-            inputRef.current.value &&
-            !categories.some(({ name }) => inputRef.current.value === name)
+            inputRef.current?.value &&
+            !categories.some(({ name }) => inputRef.current!.value === name)
 
         if (!isCategoryValid) {
             setIsCorrectTyped(false)
@@ -106,7 +123,7 @@ export default function AddCategoryModal() {
         setNewCategory(defaultCategoryParams)
     }
 
-    const changeColorHandler = (color) => {
+    const changeColorHandler = (color: ColorResult) => {
         setNewCategory({
             ...newCategory,
             colorStyle: colorPickerColorHandler(color),
@@ -114,7 +131,7 @@ export default function AddCategoryModal() {
         })
     }
 
-    const changeCategoryIconHandler = (icon) => {
+    const changeCategoryIconHandler = (icon: string) => {
         setNewCategory({ ...newCategory, icon })
     }
 
@@ -153,21 +170,33 @@ export default function AddCategoryModal() {
                                 setSearchIconInput={setSearchIconInput}
                                 searchIconInput={searchIconInput}
                                 newCategoryIcon={newCategory.icon}
-                                setNewCategoryIcon={(categoryIcon) =>
+                                setNewCategoryIcon={(categoryIcon: string) =>
                                     changeCategoryIconHandler(categoryIcon)
                                 }
                             />
                         </label>
                     </label>
                 </div>,
-                portal
+                portal!
             )}
             <Alert alert={alert} />
         </div>
     )
 }
 
-const NewCategoryInput = ({ maxChars, onInput, isInputCorrect, inputRef }) => {
+type NewCategoryInputProps = {
+    maxChars: number
+    onInput: (e: ChangeEvent<HTMLInputElement>) => void
+    isInputCorrect: boolean
+    inputRef: React.RefObject<HTMLInputElement>
+}
+
+const NewCategoryInput = ({
+    maxChars,
+    onInput,
+    isInputCorrect,
+    inputRef,
+}: NewCategoryInputProps) => {
     const inputBorderColor = () => {
         return isInputCorrect ? 'input focus:input' : 'input-error'
     }
@@ -206,7 +235,12 @@ const OpenModalButton = () => {
     )
 }
 
-const CreateNewTaskButton = ({ color, action }) => {
+type CreateNewTaskButtonProps = {
+    color: string
+    action: () => void
+}
+
+const CreateNewTaskButton = ({ color, action }: CreateNewTaskButtonProps) => {
     return (
         <Button
             action={action}
@@ -233,7 +267,12 @@ const CreateNewTaskButton = ({ color, action }) => {
     )
 }
 
-const ColorPicker = ({ color, action }) => (
+type ColorPickerProps = {
+    action: (color: ColorResult) => void
+    color: string
+}
+
+const ColorPicker = ({ color, action }: ColorPickerProps) => (
     <CirclePicker
         className="self-center p-0 m-0"
         color={color}

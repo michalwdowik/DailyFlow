@@ -1,9 +1,10 @@
+/* eslint-disable react/require-default-props */
 type ButtonProps = {
-    toolTipClass: string
-    toolTipText: string
+    toolTipClass?: string
+    toolTipText?: string
     action: () => void
     className: string
-    title: string
+    title: React.ReactNode | string
 }
 export default function Button({
     toolTipClass,

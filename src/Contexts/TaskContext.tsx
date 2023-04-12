@@ -1,8 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-param-reassign */
-/* eslint-disable no-shadow */
-/* eslint-disable react/prop-types */
 import React, {
     createContext,
     useMemo,
@@ -24,13 +22,11 @@ type Task = {
 }
 
 type TaskContextType = {
-    // colorStyle: string
     taskList: Task[]
     categoryTabs: Category[]
     setTaskList: React.Dispatch<React.SetStateAction<Task[]>>
 }
 const TaskContext = createContext<TaskContextType>({
-    // colorStyle: 'info',
     taskList: [],
     categoryTabs: [],
     setTaskList: () => {},

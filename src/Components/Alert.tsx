@@ -1,17 +1,20 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { Transition } from '@headlessui/react'
 import { createPortal } from 'react-dom'
 
 type AlertProps = {
-    alert: {
-        isShowed: boolean
-        type: string
-        title: string
-        background: string
+    alert?: {
+        isShowed?: boolean
+        type?: string
+        title?: string
+        background?: string
     }
 }
 
-export default function Alert({ alert }: AlertProps): JSX.Element {
+export default function Alert({
+    alert = { isShowed: false, type: '', title: '', background: '' },
+}: AlertProps): JSX.Element {
     const portal = document.getElementById('portal')
 
     return (
@@ -31,10 +34,12 @@ export default function Alert({ alert }: AlertProps): JSX.Element {
                             <div
                                 className={`alert absolute inset-x-0 top-0 w-4/6 ${alert.background} transition`}
                             >
-                                <div>
-                                    <AlertIcon type={alert.type} />
-                                    <AlertMessage message={alert.title} />
-                                </div>
+                                {alert.type && alert.title && (
+                                    <div>
+                                        <AlertIcon type={alert.type} />
+                                        <AlertMessage message={alert.title} />
+                                    </div>
+                                )}
                             </div>
                         </Transition>
                     )}
