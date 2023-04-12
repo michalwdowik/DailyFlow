@@ -14,7 +14,7 @@ const CategoryContext = createContext<CategoryContextType>({
     removeCategory: () => {},
 })
 
-export type CategoryType = {
+export interface CategoryType {
     name: string
     icon: string
     colorStyle: string
@@ -56,7 +56,7 @@ type CategoryContextProviderType = {
 
 export function CategoryContextProvider({
     children,
-}: CategoryContextProviderType) {
+}: CategoryContextProviderType): JSX.Element {
     const [categories, setCategories] =
         useState<CategoryType[]>(defaultCategories)
 

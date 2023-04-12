@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable react/require-default-props */
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import { Transition } from '@headlessui/react'
 import { createPortal } from 'react-dom'
 
@@ -12,19 +10,31 @@ export type AlertType = {
 }
 
 type AlertProps = {
-    alert?: AlertType
+    alert: AlertType
 }
 
-export default function Alert({
-    alert = { isShowed: false, type: '', title: '', background: '' },
-}: AlertProps): JSX.Element {
-    const portal = document.getElementById('portal')
+export const showAlert = (
+    alertData: AlertType,
+    setAlert: (alert: AlertType) => void
+) => {
+    setAlert({
+        title: alertData.title,
+        type: alertData.type,
+        background: alertData.background,
+        isShowed: alertData.isShowed,
+    })
+    setTimeout(() => {
+        setAlert({ isShowed: false })
+    }, 3000)
+}
 
+export default function Alert({ alert }: AlertProps): JSX.Element {
+    const portal = document.getElementById('portal')
     return (
         <div>
             {createPortal(
                 <div>
-                    {alert.isShowed && (
+                    {alert?.isShowed && (
                         <Transition
                             show
                             enter="transition-opacity duration-150 "

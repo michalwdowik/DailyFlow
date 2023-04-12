@@ -1,13 +1,10 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-param-reassign */
-/* eslint-disable react/prop-types */
-
 import { useContext } from 'react'
 import Button from '../../Components/Button'
 import { ViewSectionContext } from '../../Contexts/Contexts'
 import { useTaskContext } from '../../Contexts/TaskContext'
-import { AlertType } from '../../Components/Alert'
+import { AlertType, showAlert } from '../../Components/Alert'
 
 type ToolBarButtonsProps = {
     setAlert: (alert: AlertType) => void
@@ -17,17 +14,7 @@ export default function ToolbarButtons({ setAlert }: ToolBarButtonsProps) {
     const { taskList, setTaskList } = useTaskContext()
     const { selectedTabCategory } = useContext(ViewSectionContext)
     const allTabIsActive = selectedTabCategory === 'all'
-    const showAlert = (alertData: AlertType) => {
-        setAlert({
-            title: alertData.title,
-            type: alertData.type,
-            background: alertData.background,
-            isShowed: alertData.isShowed,
-        })
-        setTimeout(() => {
-            setAlert({ isShowed: false })
-        }, 3000)
-    }
+
     const removeFromList = () =>
         setTaskList(taskList.filter((item) => item.done !== true))
 
@@ -42,19 +29,25 @@ export default function ToolbarButtons({ setAlert }: ToolBarButtonsProps) {
                 (belongsToActiveTab && isDone)
             ) {
                 removeFromList()
-                showAlert({
-                    title: 'All done tasks has been removed successfully',
-                    type: 'success',
-                    background: 'bg-success',
-                    isShowed: true,
-                })
+                showAlert(
+                    {
+                        title: 'All done tasks has been removed successfully',
+                        type: 'success',
+                        background: 'bg-success',
+                        isShowed: true,
+                    },
+                    setAlert
+                )
             } else {
-                showAlert({
-                    title: 'There are no completed tasks to be deleted',
-                    type: 'error',
-                    background: 'bg-error',
-                    isShowed: true,
-                })
+                showAlert(
+                    {
+                        title: 'There are no completed tasks to be deleted',
+                        type: 'error',
+                        background: 'bg-error',
+                        isShowed: true,
+                    },
+                    setAlert
+                )
             }
         }
     }

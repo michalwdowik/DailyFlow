@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-redeclare */
-/* eslint-disable @typescript-eslint/no-use-before-define */
 
 import { ReactNode, useContext } from 'react'
 import { IoListOutline } from 'react-icons/io5'

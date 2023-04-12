@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable react/function-component-definition */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { ChangeEvent, useMemo, useState } from 'react'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import Task from './Task'
@@ -36,6 +35,7 @@ export default function TaskList() {
         [searchInput, onInput]
     )
 
+    const scrollIfOverflow = taskList.length > 8 && 'overflow-y-scroll'
     return (
         <div className="w-5/6 pb-5 sm:w-4/6 md:w-1/2 lg:w-5/6">
             <ToolbarContext.Provider value={value}>
@@ -45,16 +45,16 @@ export default function TaskList() {
             <div className="flow-root ">
                 <ul
                     ref={animationParent}
-                    className={`mt-3 max-h-[550px] ${
-                        taskList.length > 8 && 'overflow-y-scroll'
-                    } p-0`}
+                    className={`mt-3 max-h-[550px] ${scrollIfOverflow} p-0`}
                 >
                     <CallToActionLabel taskListLength={taskList.length} />
                     {taskList.map((task, index) => (
                         <Task
                             searchInput={searchInput}
                             key={task.uuid}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => updateStatusHandler(e, index)}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                                updateStatusHandler(e, index)
+                            }
                             task={task}
                         />
                     ))}
@@ -68,14 +68,14 @@ type CallToActionLabelProps = {
     taskListLength: number
 }
 
-const CallToActionLabel = ({ taskListLength }: CallToActionLabelProps) => {
-    if (taskListLength === 0) {
+function CallToActionLabel({ taskListLength }: CallToActionLabelProps) {
+    const noTasksAdded = taskListLength === 0
+    if (noTasksAdded) {
         return (
             <h1 className="mt-10 text-3xl text-center duration-500 transition-color animate-pulse opacity-70 hover:text-success">
                 Add some tasks!
             </h1>
-        );
-    } else {
-        return null
+        )
     }
-};
+    return null
+}

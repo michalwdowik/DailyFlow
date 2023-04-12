@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-redeclare */
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import { ReactNode, useMemo } from 'react'
 import { colorStyleBgHandler } from '../../colorStyleClassHandler'
 import AddCategoryModal from '../CategoryCreationSection/AddCategoryModal'

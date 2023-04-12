@@ -1,7 +1,7 @@
 import { colorStyleBgHandler } from '../colorStyleClassHandler'
 import { useThemeContext } from '../Contexts/ThemeContext'
 
-export default function BackgroundBlobs() {
+export default function BackgroundBlobs(): JSX.Element {
     const { colorStyle } = useThemeContext()
     return (
         <div>

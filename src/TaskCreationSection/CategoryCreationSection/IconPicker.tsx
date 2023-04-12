@@ -1,5 +1,4 @@
 /* eslint-disable react/require-default-props */
-/* eslint-disable @typescript-eslint/no-use-before-define */
 
 import { ChangeEvent, memo, useMemo } from 'react'
 import { IconContext } from 'react-icons'

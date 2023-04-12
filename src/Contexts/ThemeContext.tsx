@@ -1,7 +1,6 @@
-/* eslint-disable react/prop-types */
 import { createContext, useMemo, useState, useContext, ReactNode } from 'react'
 
-interface ThemeContextType {
+type ThemeContextType = {
     colorStyle: string
     setColorStyle: (color: string) => void
 }

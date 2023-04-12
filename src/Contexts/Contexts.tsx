@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { createContext } from 'react'
 
-interface ContextType {
+type ContextType = {
     selectedTabCategory: string
     setSelectedTabCategory: (category: string) => void
 }
@@ -17,5 +16,5 @@ type ToolbarContextValue = {
 }
 export const ToolbarContext = createContext<ToolbarContextValue>({
     searchInput: '',
-    onInput: (e: React.ChangeEvent<HTMLInputElement>) => {},
+    onInput: () => {},
 })

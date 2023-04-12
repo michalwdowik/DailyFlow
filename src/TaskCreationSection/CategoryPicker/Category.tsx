@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import { IoIosRemoveCircle } from 'react-icons/io'
 import { colorStyleRadioHandler } from '../../colorStyleClassHandler'
 import { useCategoryContext } from '../../Contexts/CategoryContext'

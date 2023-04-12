@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable react/require-default-props */
 type ButtonProps = {
     toolTipClass?: string
     toolTipText?: string

@@ -1,33 +1,24 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable react/function-component-definition */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
-import { CirclePicker, ColorResult } from 'react-color'
 import { v4 as uuid } from 'uuid'
 import { createPortal } from 'react-dom'
+import { ColorResult } from 'react-color'
 import IconPicker from './IconPicker'
+import ColorPicker from './ColorPicker'
 import {
     colorStyleBgHandler,
     colorPickerColorHandler,
 } from '../../colorStyleClassHandler'
 import Button from '../../Components/Button'
-import Alert from '../../Components/Alert'
-import { useCategoryContext } from '../../Contexts/CategoryContext'
+import Alert, { AlertType, showAlert } from '../../Components/Alert'
+import {
+    useCategoryContext,
+    CategoryType,
+} from '../../Contexts/CategoryContext'
 
-type AlertType = {
-    title: string
-    type: string
-    background: string
-    isShowed: boolean
-}
-
-type NewCategory = {
-    name: string
-    colorStyle: string
+export interface DefaultCategory extends Omit<CategoryType, 'uuid'> {
     color: string
-    icon: string
-    isAddedByUser: boolean
 }
 
 export default function AddCategoryModal() {
@@ -35,7 +26,8 @@ export default function AddCategoryModal() {
 
     useEffect(() => {
         const handleEscapeKey = (event: KeyboardEvent) => {
-            if (event.code === 'Escape') {
+            const escapeClicked = event.code === 'Escape'
+            if (escapeClicked) {
                 const checkbox = document.getElementById(
                     'my-modal-3'
                 ) as HTMLInputElement | null
@@ -52,9 +44,14 @@ export default function AddCategoryModal() {
 
     const [isCorrectTyped, setIsCorrectTyped] = useState(true)
     const portal = document.getElementById('portal')
-    const [alert, setAlert] = useState({})
+    const [alert, setAlert] = useState<AlertType>({
+        title: '',
+        type: '',
+        background: '',
+        isShowed: false,
+    })
     const [searchIconInput, setSearchIconInput] = useState('')
-    const defaultCategoryParams: NewCategory = {
+    const defaultCategoryParams: DefaultCategory = {
         name: '',
         colorStyle: 'info',
         color: '#38bdf8',
@@ -69,40 +66,34 @@ export default function AddCategoryModal() {
         setIsCorrectTyped(e.target.value !== '')
     }
 
-    const showAlert = (alertData: AlertType) => {
-        setAlert({
-            title: alertData.title,
-            type: alertData.type,
-            background: alertData.background,
-            isShowed: alertData.isShowed,
-        })
-        setTimeout(() => {
-            setAlert({ isShowed: false })
-        }, 3000)
-    }
-
     const createNewCategory = () => {
         if (maxCategoriesReached) {
-            showAlert({
-                title: 'You can create up to 7 different categories',
-                type: 'error',
-                background: 'bg-error',
-                isShowed: true,
-            })
+            showAlert(
+                {
+                    title: 'You can create up to 7 different categories',
+                    type: 'error',
+                    background: 'bg-error',
+                    isShowed: true,
+                },
+                setAlert
+            )
             return
         }
         const isCategoryValid =
             inputRef.current?.value &&
-            !categories.some(({ name }) => inputRef.current!.value === name)
+            !categories.some(({ name }) => inputRef.current?.value === name)
 
         if (!isCategoryValid) {
             setIsCorrectTyped(false)
-            showAlert({
-                title: "You can't create a category with this name, try again!",
-                type: 'error',
-                background: 'bg-error',
-                isShowed: true,
-            })
+            showAlert(
+                {
+                    title: "You can't create a category with this name, try again!",
+                    type: 'error',
+                    background: 'bg-error',
+                    isShowed: true,
+                },
+                setAlert
+            )
             return
         }
 
@@ -112,12 +103,15 @@ export default function AddCategoryModal() {
             uuid: uuid(),
         })
 
-        showAlert({
-            title: 'New category has been added!',
-            type: 'success',
-            background: 'bg-success',
-            isShowed: true,
-        })
+        showAlert(
+            {
+                title: 'New category has been added!',
+                type: 'success',
+                background: 'bg-success',
+                isShowed: true,
+            },
+            setAlert
+        )
         inputRef.current.value = ''
         setSearchIconInput('')
         setNewCategory(defaultCategoryParams)
@@ -191,12 +185,12 @@ type NewCategoryInputProps = {
     inputRef: React.RefObject<HTMLInputElement>
 }
 
-const NewCategoryInput = ({
+function NewCategoryInput({
     maxChars,
     onInput,
     isInputCorrect,
     inputRef,
-}: NewCategoryInputProps) => {
+}: NewCategoryInputProps) {
     const inputBorderColor = () => {
         return isInputCorrect ? 'input focus:input' : 'input-error'
     }
@@ -213,7 +207,7 @@ const NewCategoryInput = ({
     )
 }
 
-const OpenModalButton = () => {
+function OpenModalButton() {
     return (
         <label
             htmlFor="my-modal-3"
@@ -230,7 +224,7 @@ const OpenModalButton = () => {
                     d="M440 856V616H200v-80h240V296h80v240h240v80H520v240h-80Z"
                 />
             </svg>
-            add
+            <span>Add</span>
         </label>
     )
 }
@@ -240,7 +234,7 @@ type CreateNewTaskButtonProps = {
     action: () => void
 }
 
-const CreateNewTaskButton = ({ color, action }: CreateNewTaskButtonProps) => {
+function CreateNewTaskButton({ color, action }: CreateNewTaskButtonProps) {
     return (
         <Button
             action={action}
@@ -266,17 +260,3 @@ const CreateNewTaskButton = ({ color, action }: CreateNewTaskButtonProps) => {
         />
     )
 }
-
-type ColorPickerProps = {
-    action: (color: ColorResult) => void
-    color: string
-}
-
-const ColorPicker = ({ color, action }: ColorPickerProps) => (
-    <CirclePicker
-        className="self-center p-0 m-0"
-        color={color}
-        colors={['#38bdf8', '#f87171', '#10b981', '#7e22ce', '#eab308']}
-        onChangeComplete={action}
-    />
-)

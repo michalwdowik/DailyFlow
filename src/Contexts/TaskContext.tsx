@@ -1,6 +1,6 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-param-reassign */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {
     createContext,
     useMemo,
@@ -32,16 +32,16 @@ const TaskContext = createContext<TaskContextType>({
     setTaskList: () => {},
 })
 
-type TaskContextProviderType = {
-    children: ReactNode
-}
-
 export type CategoryTabType = {
     categoryName: string
     categoryLength: number
     categoryIcon: string
     categoryUUID: string
     categoryColorStyle?: string
+}
+
+type TaskContextProviderType = {
+    children: ReactNode
 }
 
 export function TaskContextProvider({ children }: TaskContextProviderType) {

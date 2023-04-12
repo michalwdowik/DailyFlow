@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable jsx-a11y/tabindex-no-positive */
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/prop-types */

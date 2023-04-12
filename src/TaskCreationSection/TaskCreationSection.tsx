@@ -1,11 +1,11 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useState, useRef, MutableRefObject } from 'react'
 import { v4 as uuid } from 'uuid'
 import Button from '../Components/Button'
 import CategoryPicker from './CategoryPicker/CategoryPicker'
 import DatePicker from './DatePicker'
 import Importance from './Importance'
-import Alert, { AlertType } from '../Components/Alert'
+import Alert, { AlertType, showAlert } from '../Components/Alert'
 import { useThemeContext } from '../Contexts/ThemeContext'
 import {
     CategoryContextProvider,
@@ -31,37 +31,33 @@ export default function TaskCreationSection() {
         ...defaultTask,
     })
     const { taskList, setTaskList, categoryTabs } = useTaskContext()
-    // const inputRef = useRef()
     const inputRef: InputRefType = useRef<HTMLInputElement>(null)
     const [isSelectDateChecked, setIsSelectDateChecked] = useState(false)
     const [isCorrectTyped, setIsCorrectTyped] = useState(true)
-    const [alert, setAlert] = useState({})
-
-    const showAlert = (alertData: AlertType) => {
-        setAlert({
-            title: alertData.title,
-            type: alertData.type,
-            background: alertData.background,
-            isShowed: alertData.isShowed,
-        })
-        setTimeout(() => {
-            setAlert({ isShowed: false })
-        }, 3000)
-    }
+    const [alert, setAlert] = useState<AlertType>({
+        title: '',
+        type: '',
+        background: '',
+        isShowed: false,
+    })
 
     const submitHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
         e.preventDefault()
-        if (inputRef.current === null) {
+
+        if (inputRef.current?.value === '') {
             setIsCorrectTyped(false)
             return
         }
         if (categoryTabs.length >= 8) {
-            showAlert({
-                title: 'You can add tasks of 8 different categories at a time ',
-                type: 'error',
-                background: 'bg-error',
-                isShowed: true,
-            })
+            showAlert(
+                {
+                    title: 'You can add tasks of 8 different categories at a time ',
+                    type: 'error',
+                    background: 'bg-error',
+                    isShowed: true,
+                },
+                setAlert
+            )
             return
         }
 
@@ -71,11 +67,11 @@ export default function TaskCreationSection() {
 
         addTaskToList({
             ...newTask,
-            name: inputRef.current.value,
+            name: inputRef.current!.value,
             uuid: uuid(),
         })
 
-        inputRef.current.value = ''
+        inputRef.current!.value = ''
         setIsSelectDateChecked(false)
         setIsCorrectTyped(true)
     }
