@@ -10,7 +10,7 @@ import React, {
 } from 'react'
 import { v4 as uuid } from 'uuid'
 
-type Task = {
+export type TaskType = {
     uuid: string
     name: string
     category: string
@@ -22,9 +22,9 @@ type Task = {
 }
 
 type TaskContextType = {
-    taskList: Task[]
-    categoryTabs: Category[]
-    setTaskList: React.Dispatch<React.SetStateAction<Task[]>>
+    taskList: TaskType[]
+    categoryTabs: CategoryTabType[]
+    setTaskList: React.Dispatch<React.SetStateAction<TaskType[]>>
 }
 const TaskContext = createContext<TaskContextType>({
     taskList: [],
@@ -36,7 +36,7 @@ type TaskContextProviderType = {
     children: ReactNode
 }
 
-type Category = {
+export type CategoryTabType = {
     categoryName: string
     categoryLength: number
     categoryIcon: string
@@ -45,16 +45,16 @@ type Category = {
 }
 
 export function TaskContextProvider({ children }: TaskContextProviderType) {
-    const [taskList, setTaskList] = useState<Task[]>([])
-    const defaultCategory: Category = {
+    const [taskList, setTaskList] = useState<TaskType[]>([])
+    const defaultCategory: CategoryTabType = {
         categoryName: 'all',
         categoryLength: 0,
         categoryIcon: 'IoListOutline',
         categoryUUID: uuid(),
     }
 
-    const tabList: Category[] = [defaultCategory]
-    const taskSegregated = taskList.reduce<{ [key: string]: Task[] }>(
+    const tabList: CategoryTabType[] = [defaultCategory]
+    const taskSegregated = taskList.reduce<{ [key: string]: TaskType[] }>(
         (group, arr) => {
             const { category } = arr
             group[category] = group[category] ?? []

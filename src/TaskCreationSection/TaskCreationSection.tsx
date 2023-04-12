@@ -5,10 +5,13 @@ import Button from '../Components/Button'
 import CategoryPicker from './CategoryPicker/CategoryPicker'
 import DatePicker from './DatePicker'
 import Importance from './Importance'
-import Alert from '../Components/Alert'
+import Alert, { AlertType } from '../Components/Alert'
 import { useThemeContext } from '../Contexts/ThemeContext'
-import { CategoryContextProvider } from '../Contexts/CategoryContext'
-import { useTaskContext } from '../Contexts/TaskContext'
+import {
+    CategoryContextProvider,
+    CategoryType,
+} from '../Contexts/CategoryContext'
+import { useTaskContext, TaskType } from '../Contexts/TaskContext'
 
 type InputRefType = MutableRefObject<HTMLInputElement | null>
 
@@ -34,13 +37,7 @@ export default function TaskCreationSection() {
     const [isCorrectTyped, setIsCorrectTyped] = useState(true)
     const [alert, setAlert] = useState({})
 
-    type Alert = {
-        title: string
-        type: string
-        background: string
-        isShowed: boolean
-    }
-    const showAlert = (alertData: Alert) => {
+    const showAlert = (alertData: AlertType) => {
         setAlert({
             title: alertData.title,
             type: alertData.type,
@@ -68,17 +65,7 @@ export default function TaskCreationSection() {
             return
         }
 
-        type Task = {
-            name: string
-            category: string
-            uuid: string
-            rate: number
-            deadline: string
-            colorStyle: string
-            done: boolean
-            icon: string
-        }
-        const addTaskToList = (task: Task) => {
+        const addTaskToList = (task: TaskType) => {
             setTaskList([...taskList, task])
         }
 
@@ -99,15 +86,7 @@ export default function TaskCreationSection() {
         }
     }
 
-    type Category = {
-        name: string
-        icon: string
-        colorStyle: string
-        uuid: string
-        isAddedByUser: boolean
-    }
-
-    const handleCategoryChange = (category: Category) => {
+    const handleCategoryChange = (category: CategoryType) => {
         setNewTask({
             ...newTask,
             category: category.name,
@@ -143,7 +122,7 @@ export default function TaskCreationSection() {
                 <CategoryPicker
                     colorStyle={colorStyle}
                     selectedCategoryName={newTask.category}
-                    onChangeCategory={(category: Category) =>
+                    onChangeCategory={(category: CategoryType) =>
                         handleCategoryChange(category)
                     }
                     resetCategorySelection={resetCategorySelection}

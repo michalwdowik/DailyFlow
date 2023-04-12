@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-redeclare */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
 import { ReactNode, useContext } from 'react'
@@ -8,15 +9,10 @@ import {
 } from '../../colorStyleClassHandler'
 import { ViewSectionContext } from '../../Contexts/Contexts'
 import { DynamicIcon } from '../../TaskCreationSection/CategoryCreationSection/IconPicker'
-import { useTaskContext } from '../../Contexts/TaskContext'
+import { CategoryTabType, useTaskContext } from '../../Contexts/TaskContext'
 
 type CategoryTabProps = {
-    categoryTabs: {
-        categoryName: string
-        categoryLength: number
-        categoryColorStyle: string
-        categoryIcon: string
-    }
+    categoryTabs: CategoryTabType
     categoryTabsLength: number
 }
 
@@ -74,12 +70,12 @@ export default function CategoryTab({
                 className={`${paddingClassName} indicator relative mt-4 bg-base-300 shadow-xl transition delay-150 ease-in-out hover:bg-base-200`}
             >
                 <TabIndicator
-                    color={categoryTabs.categoryColorStyle}
+                    color={categoryTabs.categoryColorStyle ?? ''}
                     categoryLength={categoryLength}
                     animate={animateIndicatorOnActiveTab()}
                 />
                 <Tab
-                    color={categoryTabs.categoryColorStyle}
+                    color={categoryTabs.categoryColorStyle ?? ''}
                     name={categoryTabs.categoryName}
                     scaleActiveTab={scaleActiveTab()}
                     validIconSize={validIconSize()}

@@ -3,9 +3,9 @@ import { createContext, useMemo, useState, useContext, ReactNode } from 'react'
 import { v4 as uuid } from 'uuid'
 
 type CategoryContextType = {
-    categories: Category[]
+    categories: CategoryType[]
     removeCategory: (id: string) => void
-    addCategory: (category: Category) => void
+    addCategory: (category: CategoryType) => void
 }
 
 const CategoryContext = createContext<CategoryContextType>({
@@ -14,7 +14,7 @@ const CategoryContext = createContext<CategoryContextType>({
     removeCategory: () => {},
 })
 
-type Category = {
+export type CategoryType = {
     name: string
     icon: string
     colorStyle: string
@@ -22,7 +22,7 @@ type Category = {
     isAddedByUser: boolean
 }
 
-const defaultCategories: Category[] = [
+const defaultCategories: CategoryType[] = [
     {
         name: 'general',
         icon: 'IoDocuments',
@@ -57,7 +57,8 @@ type CategoryContextProviderType = {
 export function CategoryContextProvider({
     children,
 }: CategoryContextProviderType) {
-    const [categories, setCategories] = useState<Category[]>(defaultCategories)
+    const [categories, setCategories] =
+        useState<CategoryType[]>(defaultCategories)
 
     const removeCategory = (id: string) => {
         setCategories(
@@ -67,7 +68,7 @@ export function CategoryContextProvider({
         )
     }
 
-    const addCategory = (category: Category) => {
+    const addCategory = (category: CategoryType) => {
         setCategories([...categories, category])
     }
 

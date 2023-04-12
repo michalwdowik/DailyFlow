@@ -7,22 +7,17 @@ import { useContext } from 'react'
 import Button from '../../Components/Button'
 import { ViewSectionContext } from '../../Contexts/Contexts'
 import { useTaskContext } from '../../Contexts/TaskContext'
+import { AlertType } from '../../Components/Alert'
 
 type ToolBarButtonsProps = {
-    setAlert: (alert: Alert) => void
+    setAlert: (alert: AlertType) => void
 }
 
-type Alert = {
-    title?: string
-    type?: string
-    background?: string
-    isShowed?: boolean
-}
 export default function ToolbarButtons({ setAlert }: ToolBarButtonsProps) {
     const { taskList, setTaskList } = useTaskContext()
     const { selectedTabCategory } = useContext(ViewSectionContext)
     const allTabIsActive = selectedTabCategory === 'all'
-    const showAlert = (alertData: Alert) => {
+    const showAlert = (alertData: AlertType) => {
         setAlert({
             title: alertData.title,
             type: alertData.type,
@@ -36,12 +31,16 @@ export default function ToolbarButtons({ setAlert }: ToolBarButtonsProps) {
     const removeFromList = () =>
         setTaskList(taskList.filter((item) => item.done !== true))
 
+    const isAnyDone = taskList.some((task) => task.done)
     const removeTasksHandler = () => {
         for (const task of taskList) {
             const isDone = task.done === true
             const belongsToActiveTab = task.category === selectedTabCategory
 
-            if (allTabIsActive || (belongsToActiveTab && isDone)) {
+            if (
+                (allTabIsActive && isAnyDone) ||
+                (belongsToActiveTab && isDone)
+            ) {
                 removeFromList()
                 showAlert({
                     title: 'All done tasks has been removed successfully',

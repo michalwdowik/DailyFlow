@@ -10,22 +10,12 @@ import {
     colorStyleTextHandler,
     colorStyleBlobHandler,
 } from '../colorStyleClassHandler'
+import { TaskType } from '../Contexts/TaskContext'
 
 const portal = document.getElementById('portal')
 
-type Task = {
-    name: string
-    category: string
-    uuid: string
-    rate: number
-    deadline: string
-    colorStyle: string
-    done: boolean
-    icon: string
-}
-
 type TaskDetailsModalProps = {
-    task: Task
+    task: TaskType
 }
 
 export default function TaskDetailsModal({ task }: TaskDetailsModalProps) {
@@ -192,7 +182,7 @@ function ModalDetails({ task }: ModalProps) {
 }
 
 type ModalProps = {
-    task: Task
+    task: TaskType
 }
 
 function Modal({ task }: ModalProps) {

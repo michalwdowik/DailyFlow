@@ -6,17 +6,7 @@ import { v4 as uuid } from 'uuid'
 import TaskDetailsModal from './TaskDetailsModal'
 import { colorStyleCheckboxHandler } from '../colorStyleClassHandler'
 import { ViewSectionContext } from '../Contexts/Contexts'
-
-type TaskType = {
-    name: string
-    category: string
-    uuid: string
-    rate: number
-    deadline: string
-    colorStyle: string
-    done: boolean
-    icon: string
-}
+import { TaskType } from '../Contexts/TaskContext'
 
 type TaskProps = {
     task: TaskType

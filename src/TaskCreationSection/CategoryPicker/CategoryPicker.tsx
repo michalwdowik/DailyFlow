@@ -4,20 +4,15 @@ import { ReactNode, useMemo } from 'react'
 import { colorStyleBgHandler } from '../../colorStyleClassHandler'
 import AddCategoryModal from '../CategoryCreationSection/AddCategoryModal'
 import Category from './Category'
-import { useCategoryContext } from '../../Contexts/CategoryContext'
-
-type Category = {
-    name: string
-    icon: string
-    colorStyle: string
-    uuid: string
-    isAddedByUser: boolean
-}
+import {
+    useCategoryContext,
+    CategoryType,
+} from '../../Contexts/CategoryContext'
 
 type CategoryPickerProps = {
     colorStyle: string
     selectedCategoryName: string
-    onChangeCategory: (category: Category) => void
+    onChangeCategory: (category: CategoryType) => void
     resetCategorySelection: () => void
 }
 

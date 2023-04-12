@@ -4,13 +4,15 @@
 import { Transition } from '@headlessui/react'
 import { createPortal } from 'react-dom'
 
+export type AlertType = {
+    isShowed?: boolean
+    type?: string
+    title?: string
+    background?: string
+}
+
 type AlertProps = {
-    alert?: {
-        isShowed?: boolean
-        type?: string
-        title?: string
-        background?: string
-    }
+    alert?: AlertType
 }
 
 export default function Alert({
