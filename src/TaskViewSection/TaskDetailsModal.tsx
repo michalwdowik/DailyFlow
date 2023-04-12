@@ -1,9 +1,8 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable react/function-component-definition */
-/* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable react/prop-types */
 import { useEffect } from 'react'
 import { createPortal } from 'react-dom'
 import { DynamicIcon } from '../TaskCreationSection/CategoryCreationSection/IconPicker'
@@ -14,29 +13,51 @@ import {
 
 const portal = document.getElementById('portal')
 
-export default function TaskDetailsModal({ task }) {
+type Task = {
+    name: string
+    category: string
+    uuid: string
+    rate: number
+    deadline: string
+    colorStyle: string
+    done: boolean
+    icon: string
+}
+
+type TaskDetailsModalProps = {
+    task: Task
+}
+
+export default function TaskDetailsModal({ task }: TaskDetailsModalProps) {
     useEffect(() => {
-        const handleEscapeKey = (event) => {
+        const handleEscapeKey = (event: { keyCode: number }) => {
             if (event.keyCode === 27) {
-                const checkbox = document.getElementById(task.id)
-                checkbox.checked = false
+                const checkbox = document.getElementById(
+                    task.uuid
+                ) as HTMLInputElement
+                if (checkbox) {
+                    checkbox.checked = false
+                }
             }
         }
         document.addEventListener('keydown', handleEscapeKey)
         return () => {
             document.removeEventListener('keydown', handleEscapeKey)
         }
-    }, [task.id])
+    }, [task.uuid])
 
     return (
         <div>
-            <ShowModalButton id={task.id} />
+            <ShowModalButton id={task.uuid} />
             <Modal task={task} />
         </div>
     )
 }
 
-const ShowModalButton = ({ id }) => {
+type ShowModalButtonProps = {
+    id: string
+}
+const ShowModalButton = ({ id }: ShowModalButtonProps) => {
     return (
         <label
             htmlFor={id}
@@ -56,7 +77,10 @@ const ShowModalButton = ({ id }) => {
     )
 }
 
-function ModalBackground({ color }) {
+type ModalBackgroundProps = {
+    color: string
+}
+function ModalBackground({ color }: ModalBackgroundProps) {
     return (
         <svg
             className="bottom-0 left-0 right-0 w-full "
@@ -79,7 +103,7 @@ function ModalBackground({ color }) {
     )
 }
 
-function ModalDetails({ task }) {
+function ModalDetails({ task }: ModalProps) {
     const calculateDaysLeft = () => {
         const deadlineDate = new Date(`${task.deadline}`)
         const todayDate = new Date()
@@ -88,7 +112,7 @@ function ModalDetails({ task }) {
         return totalDays
     }
 
-    const deadlineInfo = (date) => {
+    const deadlineInfo = (date: string) => {
         const daysLeft = calculateDaysLeft()
         if (daysLeft <= -1) {
             return (
@@ -167,11 +191,15 @@ function ModalDetails({ task }) {
     )
 }
 
-function Modal({ task }) {
+type ModalProps = {
+    task: Task
+}
+
+function Modal({ task }: ModalProps) {
     return createPortal(
         <div>
-            <input type="checkbox" id={task.id} className="modal-toggle" />
-            <label htmlFor={task.id} className="cursor-pointer modal">
+            <input type="checkbox" id={task.uuid} className="modal-toggle" />
+            <label htmlFor={task.uuid} className="cursor-pointer modal">
                 <label
                     className="p-0 m-0 modal-box rounded-3xl bg-slate-100"
                     htmlFor=""
@@ -183,6 +211,6 @@ function Modal({ task }) {
                 </label>
             </label>
         </div>,
-        portal
+        portal!
     )
 }

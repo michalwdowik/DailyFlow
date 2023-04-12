@@ -1,15 +1,30 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable react/prop-types */
-import { useContext } from 'react'
+import { ChangeEvent, useContext } from 'react'
 import { v4 as uuid } from 'uuid'
 import TaskDetailsModal from './TaskDetailsModal'
 import { colorStyleCheckboxHandler } from '../colorStyleClassHandler'
 import { ViewSectionContext } from '../Contexts/Contexts'
 
-export default function Task({ task, onChange, searchInput }) {
+type TaskType = {
+    name: string
+    category: string
+    uuid: string
+    rate: number
+    deadline: string
+    colorStyle: string
+    done: boolean
+    icon: string
+}
+
+type TaskProps = {
+    task: TaskType
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void
+    searchInput: string
+}
+
+export default function Task({ task, onChange, searchInput }: TaskProps) {
     const { selectedTabCategory } = useContext(ViewSectionContext)
     const correctCategory =
         selectedTabCategory === 'all' || task.category === selectedTabCategory
@@ -25,7 +40,13 @@ export default function Task({ task, onChange, searchInput }) {
     )
 }
 
-function TaskCheckbox({ done, colorStyle, action }) {
+type TaskCheckBoxProps = {
+    done: boolean
+    colorStyle: string
+    action: (e: ChangeEvent<HTMLInputElement>) => void
+}
+
+function TaskCheckbox({ done, colorStyle, action }: TaskCheckBoxProps) {
     return (
         <input
             className={`${colorStyleCheckboxHandler(colorStyle)} checkbox `}
@@ -36,7 +57,12 @@ function TaskCheckbox({ done, colorStyle, action }) {
         />
     )
 }
-function TaskDescription({ name, category }) {
+
+type TaskDescriptionProps = {
+    name: string
+    category: string
+}
+function TaskDescription({ name, category }: TaskDescriptionProps) {
     return (
         <div className="flex-1 min-w-0">
             <p className="text-sm font-medium truncate transition transition-delay-50 text-slate-700 hover:text-gray-400">
@@ -46,7 +72,10 @@ function TaskDescription({ name, category }) {
         </div>
     )
 }
-function TaskImportance({ rate }) {
+type TaskImportanceProps = {
+    rate: number
+}
+function TaskImportance({ rate }: TaskImportanceProps) {
     return (
         <div className="inline-flex items-center text-base font-semibold text-slate-700 ">
             {[...Array(rate)].map((e, i) => (
@@ -68,7 +97,11 @@ function TaskImportance({ rate }) {
         </div>
     )
 }
-function NewTask({ task, action }) {
+type NewTaskProps = {
+    task: TaskType
+    action: (e: ChangeEvent<HTMLInputElement>) => void
+}
+function NewTask({ task, action }: NewTaskProps) {
     return (
         <label>
             <li className="py-1 mx-3 border-b border-solid border-slate-200 sm:py-3">
@@ -83,9 +116,11 @@ function NewTask({ task, action }) {
                         category={task.category}
                     />
                     <TaskImportance rate={task.rate} />
-                    <TaskDetailsModal id={task.id} task={task} />
+                    <TaskDetailsModal task={task} />
                 </div>
             </li>
         </label>
     )
 }
+
+// uuid={task.uuid}

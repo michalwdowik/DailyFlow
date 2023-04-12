@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable react/jsx-no-bind */
-/* eslint-disable react/no-unstable-nested-components */
-/* eslint-disable react/prop-types */
-import { useContext } from 'react'
+
+import { ReactNode, useContext } from 'react'
 import { IoListOutline } from 'react-icons/io5'
 import {
     colorStyleBgHandler,
@@ -12,22 +10,41 @@ import { ViewSectionContext } from '../../Contexts/Contexts'
 import { DynamicIcon } from '../../TaskCreationSection/CategoryCreationSection/IconPicker'
 import { useTaskContext } from '../../Contexts/TaskContext'
 
-export default function CategoryTab({ categoryTabs, categoryTabsLength }) {
+type CategoryTabProps = {
+    categoryTabs: {
+        categoryName: string
+        categoryLength: number
+        categoryColorStyle: string
+        categoryIcon: string
+    }
+    categoryTabsLength: number
+}
+
+type ContextType = {
+    selectedTabCategory: string
+    setSelectedTabCategory: (category: string) => void
+}
+
+export default function CategoryTab({
+    categoryTabs,
+    categoryTabsLength,
+}: CategoryTabProps) {
     const { selectedTabCategory, setSelectedTabCategory } =
-        useContext(ViewSectionContext)
+        useContext<ContextType>(ViewSectionContext)
+
     const { taskList } = useTaskContext()
 
-    function scaleActiveTab() {
+    function scaleActiveTab(): string {
         return categoryTabs.categoryName === selectedTabCategory
             ? ' scale-150 '
             : ' scale-100 '
     }
 
-    function validIconSize() {
+    function validIconSize(): string {
         return categoryTabsLength > 5 ? 'text-xs' : 'text-xl'
     }
 
-    const calculatePadding = () => {
+    const calculatePadding = (): string => {
         if (categoryTabsLength > 8) {
             return 'p-0'
         }
@@ -36,9 +53,9 @@ export default function CategoryTab({ categoryTabs, categoryTabsLength }) {
         }
         return 'p-2'
     }
-    const paddingClassName = calculatePadding(categoryTabsLength)
+    const paddingClassName = calculatePadding()
 
-    const categoryLength = () => {
+    const categoryLength = (): ReactNode => {
         return categoryTabs.categoryName === 'all'
             ? taskList.length
             : categoryTabs.categoryLength
@@ -74,7 +91,17 @@ export default function CategoryTab({ categoryTabs, categoryTabsLength }) {
     )
 }
 
-function TabIndicator({ color, categoryLength, animate }) {
+type TabIndicatorProps = {
+    color: string
+    categoryLength: () => ReactNode
+    animate: string | boolean
+}
+
+function TabIndicator({
+    color,
+    categoryLength,
+    animate,
+}: TabIndicatorProps): JSX.Element {
     return (
         <span
             className={`badge badge-sm indicator-item absolute left-5 translate-x-0 border-0 shadow-xl md:badge-md lg:badge-sm ${colorStyleBgHandler(
@@ -86,13 +113,28 @@ function TabIndicator({ color, categoryLength, animate }) {
     )
 }
 
-function TabIcon({ iconName, categoryName }) {
+type TabIconProps = {
+    iconName: string
+    categoryName: string
+}
+
+function TabIcon({ iconName, categoryName }: TabIconProps) {
     return categoryName === 'all' ? (
         <IoListOutline />
     ) : (
         <DynamicIcon name={iconName} />
     )
 }
+
+type TabProps = {
+    color: string
+    name: string
+    scaleActiveTab: string
+    validIconSize: string
+    setSelectedTabCategory: (category: string) => void
+    icon: string
+}
+
 function Tab({
     color,
     name,
@@ -100,7 +142,7 @@ function Tab({
     validIconSize,
     setSelectedTabCategory,
     icon,
-}) {
+}: TabProps) {
     return (
         <div
             className={`tooltip tooltip-bottom ${colorStyleTooltipHandler(

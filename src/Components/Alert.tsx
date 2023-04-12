@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable react/require-default-props */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { Transition } from '@headlessui/react'

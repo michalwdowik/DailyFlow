@@ -8,11 +8,21 @@ import Button from '../../Components/Button'
 import { ViewSectionContext } from '../../Contexts/Contexts'
 import { useTaskContext } from '../../Contexts/TaskContext'
 
-export default function ToolbarButtons({ setAlert }) {
+type ToolBarButtonsProps = {
+    setAlert: (alert: Alert) => void
+}
+
+type Alert = {
+    title?: string
+    type?: string
+    background?: string
+    isShowed?: boolean
+}
+export default function ToolbarButtons({ setAlert }: ToolBarButtonsProps) {
     const { taskList, setTaskList } = useTaskContext()
     const { selectedTabCategory } = useContext(ViewSectionContext)
     const allTabIsActive = selectedTabCategory === 'all'
-    const showAlert = (alertData) => {
+    const showAlert = (alertData: Alert) => {
         setAlert({
             title: alertData.title,
             type: alertData.type,
@@ -84,7 +94,11 @@ export default function ToolbarButtons({ setAlert }) {
     )
 }
 
-function RemoveDoneTasksButton({ action }) {
+type ActionType = {
+    action: () => void
+}
+
+function RemoveDoneTasksButton({ action }: ActionType) {
     return (
         <Button
             toolTipClass="hover:tooltip-error hover:tooltip hover:tooltip-open"
@@ -110,7 +124,7 @@ function RemoveDoneTasksButton({ action }) {
         />
     )
 }
-function MakeAllTasksDoneButton({ action }) {
+function MakeAllTasksDoneButton({ action }: ActionType) {
     return (
         <Button
             toolTipClass="tooltip hover:tooltip hover:tooltip-open hover:tooltip-success"
@@ -132,7 +146,8 @@ function MakeAllTasksDoneButton({ action }) {
         />
     )
 }
-function UndoneAllTasksButton({ action }) {
+
+function UndoneAllTasksButton({ action }: ActionType) {
     return (
         <Button
             toolTipClass="tooltip hover:tooltip hover:tooltip-open hover:tooltip-primary"

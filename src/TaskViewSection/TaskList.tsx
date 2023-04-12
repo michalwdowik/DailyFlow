@@ -1,12 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable consistent-return */
 /* eslint-disable react/function-component-definition */
-/* eslint-disable react/no-unstable-nested-components */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable react/prop-types */
-import { useMemo, useState } from 'react'
+import { ChangeEvent, useMemo, useState } from 'react'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import Task from './Task'
 import { ToolbarContext } from '../Contexts/Contexts'
@@ -21,11 +15,14 @@ export default function TaskList() {
         easing: 'ease-in-out',
         disrespectUserMotionPreference: false,
     })
-    const onInput = (e) => {
+    const onInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchInput(e.target.value)
     }
 
-    const updateStatusHandler = (e, index) => {
+    const updateStatusHandler = (
+        e: React.ChangeEvent<HTMLInputElement>,
+        index: number
+    ) => {
         const newList = [...taskList]
         newList[index].done = e.target.checked
         setTaskList(newList)
@@ -56,8 +53,8 @@ export default function TaskList() {
                     {taskList.map((task, index) => (
                         <Task
                             searchInput={searchInput}
-                            key={task.id}
-                            onChange={(e) => updateStatusHandler(e, index)}
+                            key={task.uuid}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => updateStatusHandler(e, index)}
                             task={task}
                         />
                     ))}
@@ -67,11 +64,18 @@ export default function TaskList() {
     )
 }
 
-const CallToActionLabel = ({ taskListLength }) => {
-    if (taskListLength === 0)
+type CallToActionLabelProps = {
+    taskListLength: number
+}
+
+const CallToActionLabel = ({ taskListLength }: CallToActionLabelProps) => {
+    if (taskListLength === 0) {
         return (
             <h1 className="mt-10 text-3xl text-center duration-500 transition-color animate-pulse opacity-70 hover:text-success">
                 Add some tasks!
             </h1>
-        )
-}
+        );
+    } else {
+        return null
+    }
+};
