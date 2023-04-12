@@ -1,15 +1,21 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable no-shadow */
-/* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/no-array-index-key */
-/* eslint-disable react/prop-types */
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import { colorStyleTextHandler } from '../colorStyleClassHandler'
 
-export default function Importance({ rate, setRate, colorStyle }) {
-    const [hover, setHover] = useState()
+type ImportanceProps = {
+    rate: number
+    setRate: (rate: number) => void
+    colorStyle: string
+}
+export default function Importance({
+    rate,
+    setRate,
+    colorStyle,
+}: ImportanceProps) {
+    const [hover, setHover] = useState<number>(2)
 
     return (
         <div className="flex items-baseline gap-3 ">
@@ -34,8 +40,23 @@ export default function Importance({ rate, setRate, colorStyle }) {
     )
 }
 
-function Star({ index, setRate, setHover, rate, hover, colorStyle }) {
-    const colorStar = (index) => {
+type StarProps = {
+    index: number
+    setRate: (rate: number) => void
+    setHover: Dispatch<SetStateAction<number>>
+    rate: number
+    hover: number
+    colorStyle: string
+}
+function Star({
+    index,
+    setRate,
+    setHover,
+    rate,
+    hover,
+    colorStyle,
+}: StarProps) {
+    const colorStar = (index: number) => {
         return index <= (hover || rate)
             ? `${colorStyleTextHandler(colorStyle)}`
             : ''

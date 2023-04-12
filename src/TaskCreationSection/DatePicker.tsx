@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable react/prop-types */
 import { useState } from 'react'
 import Datepicker from 'tailwind-datepicker-react'
 import { colorStyleTogglerHandler } from '../colorStyleClassHandler'
