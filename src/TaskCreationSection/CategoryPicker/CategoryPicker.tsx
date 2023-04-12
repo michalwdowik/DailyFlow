@@ -1,19 +1,32 @@
+/* eslint-disable @typescript-eslint/no-redeclare */
 /* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable react/no-unstable-nested-components */
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-import { useMemo } from 'react'
+import { ReactNode, useMemo } from 'react'
 import { colorStyleBgHandler } from '../../colorStyleClassHandler'
 import AddCategoryModal from '../CategoryCreationSection/AddCategoryModal'
 import Category from './Category'
 import { useCategoryContext } from '../../Contexts/CategoryContext'
+
+type Category = {
+    name: string
+    icon: string
+    colorStyle: string
+    uuid: string
+    isAddedByUser: boolean
+}
+
+type CategoryPickerProps = {
+    colorStyle: string
+    selectedCategoryName: string
+    onChangeCategory: (category: Category) => void
+    resetCategorySelection: () => void
+}
 
 export default function CategoryPicker({
     colorStyle,
     selectedCategoryName,
     onChangeCategory,
     resetCategorySelection,
-}) {
+}: CategoryPickerProps) {
     const { categories } = useCategoryContext()
 
     const selectedCategory = useMemo(
@@ -44,7 +57,9 @@ export default function CategoryPicker({
                             color={category.colorStyle}
                             isAddedByUser={category.isAddedByUser}
                             uuid={category.uuid}
-                            selectedCategoryUUID={selectedCategory.uuid}
+                            selectedCategoryUUID={
+                                selectedCategory ? selectedCategory.uuid : ''
+                            }
                             resetCategorySelection={resetCategorySelection}
                         />
                     ))}
@@ -55,7 +70,14 @@ export default function CategoryPicker({
     )
 }
 
-function CategoryDropdownMenu({ pickedCategory, color }) {
+type CategoryDropdownMenuProps = {
+    pickedCategory: ReactNode
+    color: string
+}
+function CategoryDropdownMenu({
+    pickedCategory,
+    color,
+}: CategoryDropdownMenuProps) {
     return (
         <div
             className={`${colorStyleBgHandler(

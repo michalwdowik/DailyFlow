@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react/require-default-props */
 type ButtonProps = {
     toolTipClass?: string
     toolTipText?: string
-    action: () => void
+    action: (...args: any[]) => void
     className: string
     title: React.ReactNode | string
 }

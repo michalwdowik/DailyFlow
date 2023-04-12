@@ -1,8 +1,5 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable no-use-before-define */
-/* eslint-disable react/no-unstable-nested-components */
-/* eslint-disable react/prop-types */
-import { useState, useRef } from 'react'
+import { useState, useRef, MutableRefObject } from 'react'
 import { v4 as uuid } from 'uuid'
 import Button from '../Components/Button'
 import CategoryPicker from './CategoryPicker/CategoryPicker'
@@ -12,6 +9,8 @@ import Alert from '../Components/Alert'
 import { useThemeContext } from '../Contexts/ThemeContext'
 import { CategoryContextProvider } from '../Contexts/CategoryContext'
 import { useTaskContext } from '../Contexts/TaskContext'
+
+type InputRefType = MutableRefObject<HTMLInputElement | null>
 
 export default function TaskCreationSection() {
     const { colorStyle, setColorStyle } = useThemeContext()
@@ -29,12 +28,19 @@ export default function TaskCreationSection() {
         ...defaultTask,
     })
     const { taskList, setTaskList, categoryTabs } = useTaskContext()
-    const inputRef = useRef('')
+    // const inputRef = useRef()
+    const inputRef: InputRefType = useRef<HTMLInputElement>(null)
     const [isSelectDateChecked, setIsSelectDateChecked] = useState(false)
     const [isCorrectTyped, setIsCorrectTyped] = useState(true)
     const [alert, setAlert] = useState({})
 
-    const showAlert = (alertData) => {
+    type Alert = {
+        title: string
+        type: string
+        background: string
+        isShowed: boolean
+    }
+    const showAlert = (alertData: Alert) => {
         setAlert({
             title: alertData.title,
             type: alertData.type,
@@ -46,9 +52,9 @@ export default function TaskCreationSection() {
         }, 3000)
     }
 
-    const submitHandler = (e) => {
+    const submitHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
         e.preventDefault()
-        if (inputRef.current.value === '') {
+        if (inputRef.current === null) {
             setIsCorrectTyped(false)
             return
         }
@@ -62,24 +68,46 @@ export default function TaskCreationSection() {
             return
         }
 
-        const addTaskToList = (task) => {
+        type Task = {
+            name: string
+            category: string
+            uuid: string
+            rate: number
+            deadline: string
+            colorStyle: string
+            done: boolean
+            icon: string
+        }
+        const addTaskToList = (task: Task) => {
             setTaskList([...taskList, task])
         }
 
-        addTaskToList({ ...newTask, name: inputRef.current.value, id: uuid() })
+        addTaskToList({
+            ...newTask,
+            name: inputRef.current.value,
+            uuid: uuid(),
+        })
 
         inputRef.current.value = ''
         setIsSelectDateChecked(false)
         setIsCorrectTyped(true)
     }
 
-    const handleKeyPress = (e) => {
+    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
             submitHandler(e)
         }
     }
 
-    const handleCategoryChange = (category) => {
+    type Category = {
+        name: string
+        icon: string
+        colorStyle: string
+        uuid: string
+        isAddedByUser: boolean
+    }
+
+    const handleCategoryChange = (category: Category) => {
         setNewTask({
             ...newTask,
             category: category.name,
@@ -115,7 +143,7 @@ export default function TaskCreationSection() {
                 <CategoryPicker
                     colorStyle={colorStyle}
                     selectedCategoryName={newTask.category}
-                    onChangeCategory={(category) =>
+                    onChangeCategory={(category: Category) =>
                         handleCategoryChange(category)
                     }
                     resetCategorySelection={resetCategorySelection}
@@ -138,9 +166,20 @@ export default function TaskCreationSection() {
         </div>
     )
 }
+type TaskInputProps = {
+    action: (e: React.KeyboardEvent<HTMLInputElement>) => void
+    maxLength: number
+    inputRef: InputRefType
+    isCorrectTyped: boolean
+}
 
-function TaskInput({ action, maxLength, inputRef, isCorrectTyped }) {
-    const isEmpty = inputRef !== ''
+function TaskInput({
+    action,
+    maxLength,
+    inputRef,
+    isCorrectTyped,
+}: TaskInputProps) {
+    const isEmpty = inputRef.current?.value !== ''
     const colorInputBorder = () => {
         return !isCorrectTyped
             ? 'input-error'
@@ -160,7 +199,11 @@ function TaskInput({ action, maxLength, inputRef, isCorrectTyped }) {
     )
 }
 
-function AddTaskButton({ action, isCorrectTyped }) {
+type AddTaskButtonProps = {
+    action: (e: React.KeyboardEvent<HTMLInputElement>) => void
+    isCorrectTyped: boolean
+}
+function AddTaskButton({ action, isCorrectTyped }: AddTaskButtonProps) {
     const buzzIfTaskNotValid = () => {
         return !isCorrectTyped && 'buzz-effect'
     }

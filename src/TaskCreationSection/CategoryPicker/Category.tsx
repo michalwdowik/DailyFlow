@@ -5,6 +5,16 @@ import { IoIosRemoveCircle } from 'react-icons/io'
 import { colorStyleRadioHandler } from '../../colorStyleClassHandler'
 import { useCategoryContext } from '../../Contexts/CategoryContext'
 
+type CategoryProps = {
+    selectedCategoryUUID: string
+    categoryName: string
+    color: string
+    isAddedByUser: boolean
+    uuid: string
+    onChange: () => void
+    resetCategorySelection: () => void
+}
+
 export default function Category({
     selectedCategoryUUID,
     categoryName,
@@ -13,7 +23,7 @@ export default function Category({
     uuid,
     onChange,
     resetCategorySelection,
-}) {
+}: CategoryProps): JSX.Element {
     const { removeCategory } = useCategoryContext()
     const categoryIsChecked = selectedCategoryUUID === uuid
     const removeCategoryHandler = () => {
@@ -39,7 +49,19 @@ export default function Category({
     )
 }
 
-function CategoryRadio({ checked, action, radioColor, uuid }) {
+type CategoryRadioProps = {
+    checked: boolean
+    action: () => void
+    radioColor: string
+    uuid: string
+}
+
+function CategoryRadio({
+    checked,
+    action,
+    radioColor,
+    uuid,
+}: CategoryRadioProps) {
     return (
         <input
             id={uuid}
@@ -52,7 +74,10 @@ function CategoryRadio({ checked, action, radioColor, uuid }) {
     )
 }
 
-function RemoveCategoryButton({ action }) {
+type RemoveCategoryButtonProps = {
+    action: () => void
+}
+function RemoveCategoryButton({ action }: RemoveCategoryButtonProps) {
     return (
         <button
             onClick={action}
@@ -63,8 +88,12 @@ function RemoveCategoryButton({ action }) {
         </button>
     )
 }
+type CategoryLabelProps = {
+    name: string
+    uuid: string
+}
 
-function CategoryLabel({ name, uuid }) {
+function CategoryLabel({ name, uuid }: CategoryLabelProps) {
     return (
         <label
             htmlFor={uuid}
