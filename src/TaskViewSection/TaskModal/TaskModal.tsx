@@ -1,32 +1,32 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useEffect } from 'react'
-import { createPortal } from 'react-dom'
 import { v4 as uuid } from 'uuid'
-import { DynamicIcon } from '../TaskCreationSection/CategoryCreationSection/IconPicker'
+import { DynamicIcon } from '../../TaskCreationSection/CategoryCreationSection/IconPicker'
 import {
     colorStyleTextHandler,
     colorStyleBlobHandler,
-} from '../colorStyleClassHandler'
-import { TaskType } from '../Contexts/TaskContext'
+} from '../../colorStyleClassHandler'
+import { TaskType } from '../../Contexts/TaskContext'
+import Portal from '../../Portal'
+import DeadlineDetails from './DeadlineDetails'
 
-const portal = document.getElementById('portal')
-
-export default function TaskDetailsModal({ task }: { task: TaskType }) {
+export default function TaskModal({ task }: { task: TaskType }) {
     useEffect(() => {
-        const handleEscapeKey = (event: KeyboardEvent) => {
-            const escapeClicked = event.code === 'Escape'
+        const closeModal = (event: KeyboardEvent) => {
+            const escapeClicked = event.key === 'Escape'
             if (escapeClicked) {
-                const checkbox = document.getElementById(
-                    'my-modal-3'
+                const modal = document.getElementById(
+                    task.uuid
                 ) as HTMLInputElement | null
-                if (checkbox) {
-                    checkbox.checked = false
+                if (modal) {
+                    modal.checked = false
                 }
             }
         }
-        document.addEventListener('keydown', handleEscapeKey)
+        document.addEventListener('keydown', closeModal)
         return () => {
-            document.removeEventListener('keydown', handleEscapeKey)
+            document.removeEventListener('keydown', closeModal)
         }
     }, [])
 
@@ -59,22 +59,29 @@ function ShowModalButton({ id }: { id: string }) {
 }
 
 function Modal({ task }: { task: TaskType }) {
-    return createPortal(
+    return (
         <div>
-            <input type="checkbox" id={task.uuid} className="modal-toggle" />
-            <label htmlFor={task.uuid} className="cursor-pointer modal">
-                <label
-                    className="p-0 m-0 modal-box rounded-3xl bg-slate-100"
-                    htmlFor=""
-                >
-                    <ModalDetails task={task} />
-                    <ModalBackground
-                        color={colorStyleBlobHandler(task.colorStyle)}
+            <Portal>
+                <div>
+                    <input
+                        type="checkbox"
+                        id={task.uuid}
+                        className="modal-toggle"
                     />
-                </label>
-            </label>
-        </div>,
-        (portal as Element).appendChild(document.createElement('div'))
+                    <label htmlFor={task.uuid} className="cursor-pointer modal">
+                        <label
+                            htmlFor=""
+                            className="p-0 m-0 modal-box rounded-3xl bg-slate-100"
+                        >
+                            <ModalDetails task={task} />
+                            <ModalBackground
+                                color={colorStyleBlobHandler(task.colorStyle)}
+                            />
+                        </label>
+                    </label>
+                </div>
+            </Portal>
+        </div>
     )
 }
 
@@ -92,7 +99,7 @@ function ModalDetails({ task }: { task: TaskType }) {
                 <Stars task={task} />
 
                 {taskHasDeadline && (
-                    <DeadlineInfo date={task.deadline} task={task} />
+                    <DeadlineDetails date={task.deadline} task={task} />
                 )}
             </div>
         </div>
@@ -135,79 +142,6 @@ function Stars({ task }: { task: TaskType }) {
                 </span>
             ))}
         </div>
-    )
-}
-
-function DeadlineInfo({
-    date,
-    task,
-}: {
-    task: TaskType
-    date: string
-}): JSX.Element {
-    const calculateDaysLeft = () => {
-        const deadlineDate = new Date(`${task.deadline}`)
-        const todayDate = new Date()
-        const difference = deadlineDate.getTime() - todayDate.getTime()
-        const totalDays = Math.ceil(difference / (1000 * 3600 * 24))
-        return totalDays
-    }
-
-    const daysLeft = calculateDaysLeft()
-    const pastDeadline = daysLeft <= -1
-    const todayIsTheDeadline = daysLeft === 0
-    const deadlineInFuture = daysLeft > 0
-
-    return (
-        <div className="bg-transparent stats ">
-            <div className="stat">
-                {pastDeadline && (
-                    <PastDeadline daysLeft={daysLeft} date={date} />
-                )}
-                {todayIsTheDeadline && <TodaysDeadline date={date} />}
-                {deadlineInFuture && (
-                    <FutureDeadline date={date} daysLeft={daysLeft} />
-                )}
-            </div>
-        </div>
-    )
-}
-
-function PastDeadline({ daysLeft, date }: { daysLeft: number; date: string }) {
-    return (
-        <>
-            <div className="stat-title text-slate-700">{`${Math.abs(
-                daysLeft
-            )} days after the`}</div>
-            <div className="stat-value text-error">Deadline</div>
-            <div className="stat-desc">{`Deadline: ${date}`}</div>
-        </>
-    )
-}
-
-function TodaysDeadline({ date }: { date: string }) {
-    return (
-        <>
-            <div className="stat-title text-slate-700">Due to:</div>
-            <div className="stat-value text-slate-500">Today</div>
-            <div className="stat-desc">{`Deadline: ${date}`}</div>
-        </>
-    )
-}
-
-function FutureDeadline({
-    daysLeft,
-    date,
-}: {
-    daysLeft: number
-    date: string
-}) {
-    return (
-        <>
-            <div className="stat-title">Days left:</div>
-            <div className="stat-value text-slate-500">{daysLeft}</div>
-            <div className="stat-desc">{`Deadline: ${date}`}</div>
-        </>
     )
 }
 

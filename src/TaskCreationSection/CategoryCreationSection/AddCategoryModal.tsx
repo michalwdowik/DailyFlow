@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { v4 as uuid } from 'uuid'
-import { createPortal } from 'react-dom'
 import { ColorResult } from 'react-color'
 import IconPicker from './IconPicker'
 import ColorPicker from './ColorPicker'
@@ -16,6 +15,7 @@ import {
     useCategoryContext,
     CategoryType,
 } from '../../Contexts/CategoryContext'
+import Portal from '../../Portal'
 
 export interface DefaultCategory extends Omit<CategoryType, 'uuid'> {
     color: string
@@ -25,25 +25,24 @@ export default function AddCategoryModal() {
     const { categories, addCategory } = useCategoryContext()
 
     useEffect(() => {
-        const handleEscapeKey = (event: KeyboardEvent) => {
+        const closeModal = (event: KeyboardEvent) => {
             const escapeClicked = event.code === 'Escape'
             if (escapeClicked) {
-                const checkbox = document.getElementById(
+                const modal = document.getElementById(
                     'my-modal-3'
                 ) as HTMLInputElement | null
-                if (checkbox) {
-                    checkbox.checked = false
+                if (modal) {
+                    modal.checked = false
                 }
             }
         }
-        document.addEventListener('keydown', handleEscapeKey)
+        document.addEventListener('keydown', closeModal)
         return () => {
-            document.removeEventListener('keydown', handleEscapeKey)
+            document.removeEventListener('keydown', closeModal)
         }
     }, [])
 
     const [isCorrectTyped, setIsCorrectTyped] = useState(true)
-    const portal = document.getElementById('portal')
     const [alert, setAlert] = useState<AlertType>({
         title: '',
         type: '',
@@ -132,7 +131,7 @@ export default function AddCategoryModal() {
     return (
         <div>
             <OpenModalButton />
-            {createPortal(
+            <Portal>
                 <div>
                     <input
                         type="checkbox"
@@ -170,9 +169,9 @@ export default function AddCategoryModal() {
                             />
                         </label>
                     </label>
-                </div>,
-                portal!
-            )}
+                </div>
+                ,
+            </Portal>
             <Alert alert={alert} />
         </div>
     )

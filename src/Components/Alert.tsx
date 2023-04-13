@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Transition } from '@headlessui/react'
-import { createPortal } from 'react-dom'
+import Portal from '../Portal'
 
 export type AlertType = {
     isShowed?: boolean
@@ -29,36 +29,32 @@ export const showAlert = (
 }
 
 export default function Alert({ alert }: AlertProps): JSX.Element {
-    const portal = document.getElementById('portal')
     return (
         <div>
-            {createPortal(
-                <div>
-                    {alert?.isShowed && (
-                        <Transition
-                            show
-                            enter="transition-opacity duration-150 "
-                            enterFrom="opacity-0"
-                            enterTo="opacity-100"
-                            leave="transition-opacity duration-150"
-                            leaveFrom="opacity-100"
-                            leaveTo="opacity-0"
+            <Portal>
+                {alert?.isShowed && (
+                    <Transition
+                        show
+                        enter="transition-opacity duration-150 "
+                        enterFrom="opacity-0"
+                        enterTo="opacity-100"
+                        leave="transition-opacity duration-150"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
+                    >
+                        <div
+                            className={`alert absolute inset-x-0 top-0 w-4/6 ${alert.background} transition`}
                         >
-                            <div
-                                className={`alert absolute inset-x-0 top-0 w-4/6 ${alert.background} transition`}
-                            >
-                                {alert.type && alert.title && (
-                                    <div>
-                                        <AlertIcon type={alert.type} />
-                                        <AlertMessage message={alert.title} />
-                                    </div>
-                                )}
-                            </div>
-                        </Transition>
-                    )}
-                </div>,
-                portal!
-            )}
+                            {alert.type && alert.title && (
+                                <div>
+                                    <AlertIcon type={alert.type} />
+                                    <AlertMessage message={alert.title} />
+                                </div>
+                            )}
+                        </div>
+                    </Transition>
+                )}
+            </Portal>
         </div>
     )
 }

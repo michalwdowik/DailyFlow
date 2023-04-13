@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { ChangeEvent, useContext } from 'react'
 import { v4 as uuid } from 'uuid'
-import TaskDetailsModal from './TaskDetailsModal'
+import TaskModal from './TaskModal/TaskModal'
 import { colorStyleCheckboxHandler } from '../colorStyleClassHandler'
 import { ViewSectionContext } from '../Contexts/Contexts'
 import { TaskType } from '../Contexts/TaskContext'
@@ -105,7 +105,7 @@ function NewTask({ task, action }: NewTaskProps) {
                         category={task.category}
                     />
                     <TaskImportance rate={task.rate} />
-                    <TaskDetailsModal task={task} />
+                    <TaskModal task={task} />
                 </div>
             </li>
         </label>
