@@ -1,16 +1,17 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-param-reassign */
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import Button from '../../Components/Button'
 import { ViewSectionContext } from '../../Contexts/Contexts'
 import { useTaskContext } from '../../Contexts/TaskContext'
-import { AlertType, showAlert, AlertVariant } from '../../Components/Alert'
+import Alert, {
+    showAlert,
+    AlertVariant,
+    AlertType,
+} from '../../Components/Alert'
 
-type ToolBarButtonsProps = {
-    setAlert: (alert: AlertType) => void
-}
-
-export default function ToolbarButtons({ setAlert }: ToolBarButtonsProps) {
+export default function ToolbarButtons() {
+    const [alert, setAlert] = useState<AlertType>({})
     const { taskList, setTaskList } = useTaskContext()
     const { selectedTabCategory } = useContext(ViewSectionContext)
     const allTabIsActive = selectedTabCategory === 'all'
@@ -63,6 +64,7 @@ export default function ToolbarButtons({ setAlert }: ToolBarButtonsProps) {
 
     return (
         <div className="flex self-center gap-1 ">
+            <Alert alert={alert} />
             <RemoveDoneTasksButton action={removeTasksHandler} />
             <MakeAllTasksDoneButton action={makeAllTasksDone} />
             <UndoneAllTasksButton action={undoneAllTasks} />

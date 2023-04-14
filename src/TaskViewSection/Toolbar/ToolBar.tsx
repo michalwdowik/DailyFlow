@@ -1,16 +1,12 @@
-import { useContext, useState } from 'react'
-import Alert from '../../Components/Alert'
+import { useContext } from 'react'
 import ToolbarButtons from './ToolbarButtons'
 import { ToolbarContext } from '../../Contexts/Contexts'
 
 export default function ToolBar() {
-    const [alert, setAlert] = useState({})
-
     return (
         <div className="relative flex gap-5 border-error">
             <TaskSearchBar />
-            <ToolbarButtons setAlert={setAlert} />
-            <Alert alert={alert} />
+            <ToolbarButtons />
         </div>
     )
 }

@@ -50,6 +50,18 @@ const defaultCategories: CategoryType[] = [
     },
 ].map((category) => ({ ...category, uuid: uuid(), isAddedByUser: false }))
 
+export interface DefaultCategory extends Omit<CategoryType, 'uuid'> {
+    color: string
+}
+
+export const defaultCategoryParams: DefaultCategory = {
+    name: '',
+    colorStyle: 'info',
+    color: '#38bdf8',
+    icon: 'IoIosHappy',
+    isAddedByUser: true,
+}
+
 type CategoryContextProviderType = {
     children: ReactNode
 }

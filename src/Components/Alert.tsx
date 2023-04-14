@@ -89,8 +89,8 @@ export default function Alert({ alert }: AlertProps): JSX.Element {
                         >
                             {isAlertDeclared && (
                                 <div>
-                                    <AlertIcon type={alert.type} />
-                                    <AlertMessage message={alert.title} />
+                                    <AlertIcon type={alert.type!} />
+                                    <AlertMessage message={alert.title!} />
                                 </div>
                             )}
                         </div>

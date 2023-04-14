@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { ChangeEvent, useRef, useState } from 'react'
 import { v4 as uuid } from 'uuid'
@@ -19,39 +18,22 @@ import Alert, {
 } from '../../Components/Alert'
 import {
     useCategoryContext,
-    CategoryType,
+    defaultCategoryParams,
 } from '../../Contexts/CategoryContext'
 import Portal from '../../Components/Portal'
 import useCloseOnEscapeKey from '../../Helpers/useCloseOnEscapeKey'
 import useModalLogic from '../../Helpers/useModalLogic'
 
-export interface DefaultCategory extends Omit<CategoryType, 'uuid'> {
-    color: string
-}
-
 export default function AddCategoryModal() {
     const { categories, addCategory } = useCategoryContext()
     const { showModal, openModal, closeModal } = useModalLogic()
-    useCloseOnEscapeKey({ id: 'addCategoryModal', closeModal })
-
     const [isCorrectTyped, setIsCorrectTyped] = useState(true)
-    const [alert, setAlert] = useState<AlertType>({
-        title: '',
-        type: '',
-        background: '',
-        isShowed: false,
-    })
+    const [alert, setAlert] = useState<AlertType>({})
     const [searchIconInput, setSearchIconInput] = useState('')
-    const defaultCategoryParams: DefaultCategory = {
-        name: '',
-        colorStyle: 'info',
-        color: '#38bdf8',
-        icon: 'IoIosHappy',
-        isAddedByUser: true,
-    }
     const [newCategory, setNewCategory] = useState(defaultCategoryParams)
     const inputRef = useRef<HTMLInputElement>(null)
     const maxCategoriesReached = categories.length >= 12
+    useCloseOnEscapeKey({ id: 'addCategoryModal', closeModal })
 
     const onInput = (e: ChangeEvent<HTMLInputElement>) => {
         setIsCorrectTyped(e.target.value !== '')
@@ -66,7 +48,6 @@ export default function AddCategoryModal() {
         resetInput()
         setSearchIconInput('')
         setNewCategory(defaultCategoryParams)
-        closeModal()
     }
 
     const createNewCategory = () => {
@@ -92,8 +73,9 @@ export default function AddCategoryModal() {
             name: inputRef.current.value,
             uuid: uuid(),
         })
-        showAlert(AlertVariant.SUCCESS_NEW_CATEGORY_ADDED, setAlert)
         resetNewCategorySettings()
+        closeModal()
+        showAlert(AlertVariant.SUCCESS_NEW_CATEGORY_ADDED, setAlert)
     }
 
     const changeColorHandler = (color: ColorResult) => {
