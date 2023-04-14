@@ -5,7 +5,7 @@ import Button from '../Components/Button'
 import CategoryPicker from './CategoryPicker/CategoryPicker'
 import DatePicker from './DatePicker'
 import Importance from './Importance'
-import Alert, { AlertType, showAlert } from '../Components/Alert'
+import Alert, { AlertType, AlertVariant, showAlert } from '../Components/Alert'
 import { useThemeContext } from '../Contexts/ThemeContext'
 import {
     CategoryContextProvider,
@@ -17,7 +17,6 @@ type InputRefType = MutableRefObject<HTMLInputElement | null>
 
 export default function TaskCreationSection() {
     const { colorStyle, setColorStyle } = useThemeContext()
-
     const defaultTask = {
         name: '',
         category: 'general',
@@ -40,6 +39,7 @@ export default function TaskCreationSection() {
         background: '',
         isShowed: false,
     })
+    const maxCategoriesReached = categoryTabs.length >= 8
 
     const submitHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
         e.preventDefault()
@@ -48,16 +48,8 @@ export default function TaskCreationSection() {
             setIsCorrectTyped(false)
             return
         }
-        if (categoryTabs.length >= 8) {
-            showAlert(
-                {
-                    title: 'You can add tasks of 8 different categories at a time ',
-                    type: 'error',
-                    background: 'bg-error',
-                    isShowed: true,
-                },
-                setAlert
-            )
+        if (maxCategoriesReached) {
+            showAlert(AlertVariant.ERROR_MAX_CATEGORIES_REACHED, setAlert)
             return
         }
 

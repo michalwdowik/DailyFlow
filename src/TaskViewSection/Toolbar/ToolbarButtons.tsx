@@ -4,7 +4,7 @@ import { useContext } from 'react'
 import Button from '../../Components/Button'
 import { ViewSectionContext } from '../../Contexts/Contexts'
 import { useTaskContext } from '../../Contexts/TaskContext'
-import { AlertType, showAlert } from '../../Components/Alert'
+import { AlertType, showAlert, AlertVariant } from '../../Components/Alert'
 
 type ToolBarButtonsProps = {
     setAlert: (alert: AlertType) => void
@@ -29,25 +29,9 @@ export default function ToolbarButtons({ setAlert }: ToolBarButtonsProps) {
                 (belongsToActiveTab && isDone)
             ) {
                 removeFromList()
-                showAlert(
-                    {
-                        title: 'All done tasks has been removed successfully',
-                        type: 'success',
-                        background: 'bg-success',
-                        isShowed: true,
-                    },
-                    setAlert
-                )
+                showAlert(AlertVariant.SUCCESS_DONE_TASKS_REMOVED, setAlert)
             } else {
-                showAlert(
-                    {
-                        title: 'There are no completed tasks to be deleted',
-                        type: 'error',
-                        background: 'bg-error',
-                        isShowed: true,
-                    },
-                    setAlert
-                )
+                showAlert(AlertVariant.ERROR_NO_DONE_TASKS, setAlert)
             }
         }
     }

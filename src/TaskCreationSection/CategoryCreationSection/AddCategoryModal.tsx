@@ -12,7 +12,11 @@ import {
     colorStyleBgHandler,
 } from '../../Helpers/colorStyleClassHandler'
 import Button from '../../Components/Button'
-import Alert, { AlertType, showAlert } from '../../Components/Alert'
+import Alert, {
+    AlertType,
+    AlertVariant,
+    showAlert,
+} from '../../Components/Alert'
 import {
     useCategoryContext,
     CategoryType,
@@ -52,35 +56,34 @@ export default function AddCategoryModal() {
     const onInput = (e: ChangeEvent<HTMLInputElement>) => {
         setIsCorrectTyped(e.target.value !== '')
     }
+    const resetInput = () => {
+        if (inputRef.current) {
+            inputRef.current.value = ''
+        }
+    }
+
+    const resetNewCategorySettings = () => {
+        resetInput()
+        setSearchIconInput('')
+        setNewCategory(defaultCategoryParams)
+        closeModal()
+    }
 
     const createNewCategory = () => {
+        const hasValidName = inputRef.current?.value
+        const isAlreadyAdded = !categories.some(
+            ({ name }) => inputRef.current?.value === name
+        )
+        const isCategoryValid = hasValidName && !isAlreadyAdded
+
         if (maxCategoriesReached) {
-            showAlert(
-                {
-                    title: 'You can create up to 7 different categories',
-                    type: 'error',
-                    background: 'bg-error',
-                    isShowed: true,
-                },
-                setAlert
-            )
+            showAlert(AlertVariant.ERROR_UP_TO_7_CATEGORIES, setAlert)
             return
         }
-        const isCategoryValid =
-            inputRef.current?.value &&
-            !categories.some(({ name }) => inputRef.current?.value === name)
 
         if (!isCategoryValid) {
             setIsCorrectTyped(false)
-            showAlert(
-                {
-                    title: "You can't create a category with this name, try again!",
-                    type: 'error',
-                    background: 'bg-error',
-                    isShowed: true,
-                },
-                setAlert
-            )
+            showAlert(AlertVariant.ERROR_WRONG_NAME, setAlert)
             return
         }
 
@@ -89,19 +92,8 @@ export default function AddCategoryModal() {
             name: inputRef.current.value,
             uuid: uuid(),
         })
-        showAlert(
-            {
-                title: 'New category has been added!',
-                type: 'success',
-                background: 'bg-success',
-                isShowed: true,
-            },
-            setAlert
-        )
-        inputRef.current.value = ''
-        setSearchIconInput('')
-        setNewCategory(defaultCategoryParams)
-        closeModal()
+        showAlert(AlertVariant.SUCCESS_NEW_CATEGORY_ADDED, setAlert)
+        resetNewCategorySettings()
     }
 
     const changeColorHandler = (color: ColorResult) => {
