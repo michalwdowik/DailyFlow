@@ -6,9 +6,15 @@ export default function BackgroundBlobs(): JSX.Element {
     return (
         <div>
             <div
-                className={`shape-blob one ${colorStyleBgHandler(colorStyle)}`}
+                className={`shape-blob one transition-colors duration-500 ease-in-out ${colorStyleBgHandler(
+                    colorStyle
+                )}`}
             />
-            <div className={`shape-blob ${colorStyleBgHandler(colorStyle)}`} />
+            <div
+                className={`shape-blob transition-colors duration-500 ease-in-out ${colorStyleBgHandler(
+                    colorStyle
+                )}`}
+            />
         </div>
     )
 }

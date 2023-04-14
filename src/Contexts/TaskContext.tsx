@@ -33,11 +33,11 @@ const TaskContext = createContext<TaskContextType>({
 })
 
 export type CategoryTabType = {
-    categoryName: string
-    categoryLength: number
-    categoryIcon: string
-    categoryUUID: string
-    categoryColorStyle?: string
+    name: string
+    length: number
+    icon: string
+    uuid: string
+    colorStyle?: string
 }
 
 type TaskContextProviderType = {
@@ -47,10 +47,10 @@ type TaskContextProviderType = {
 export function TaskContextProvider({ children }: TaskContextProviderType) {
     const [taskList, setTaskList] = useState<TaskType[]>([])
     const defaultCategory: CategoryTabType = {
-        categoryName: 'all',
-        categoryLength: 0,
-        categoryIcon: 'IoListOutline',
-        categoryUUID: uuid(),
+        name: 'all',
+        length: 0,
+        icon: 'IoListOutline',
+        uuid: uuid(),
     }
 
     const tabList: CategoryTabType[] = [defaultCategory]
@@ -67,11 +67,11 @@ export function TaskContextProvider({ children }: TaskContextProviderType) {
     const categoryTabs = useMemo(() => {
         for (const [key, value] of Object.entries(taskSegregated)) {
             tabList.push({
-                categoryName: key,
-                categoryLength: value.length,
-                categoryIcon: value[0].icon,
-                categoryColorStyle: value[0].colorStyle,
-                categoryUUID: value[0].uuid,
+                name: key,
+                length: value.length,
+                icon: value[0].icon,
+                colorStyle: value[0].colorStyle,
+                uuid: value[0].uuid,
             })
         }
         return tabList

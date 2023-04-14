@@ -80,7 +80,7 @@ function Modal({
                             <label
                                 onClick={(e) => e.stopPropagation()}
                                 htmlFor=""
-                                className="p-0 m-0 modal-box rounded-3xl bg-slate-100"
+                                className="p-0 m-0 modalStyle modal-box rounded-3xl bg-slate-100"
                             >
                                 <ModalDetails task={task} />
                                 <ModalBackground

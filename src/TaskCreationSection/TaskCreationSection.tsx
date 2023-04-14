@@ -118,14 +118,14 @@ export default function TaskCreationSection() {
                 rate={newTask.rate}
                 setRate={(rate) => setNewTask({ ...newTask, rate })}
             />
-            <DatePicker
+            {/* <DatePicker
                 colorStyle={colorStyle}
                 setTaskDeadline={(deadline) =>
                     setNewTask({ ...newTask, deadline })
                 }
                 isSelectDateChecked={isSelectDateChecked}
                 setIsSelectDateChecked={setIsSelectDateChecked}
-            />
+            /> */}
             <Alert alert={alertState} />
         </div>
     )

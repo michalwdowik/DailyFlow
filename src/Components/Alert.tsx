@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { Transition } from '@headlessui/react'
 import { useState } from 'react'
 import Portal from './Portal'
 
@@ -80,27 +79,17 @@ export default function Alert({ alert }: AlertProps): JSX.Element {
         <div>
             {alert?.isShowed && (
                 <Portal rootId="portal">
-                    <Transition
-                        show
-                        enter="transition-opacity duration-150 "
-                        enterFrom="opacity-0"
-                        enterTo="opacity-100"
-                        leave="transition-opacity duration-150"
-                        leaveFrom="opacity-100"
-                        leaveTo="opacity-0"
+                    <div
+                        className={`alert absolute inset-x-0 top-0 w-4/6 ${alert.background} transition`}
+                        style={{ zIndex: 9999 }}
                     >
-                        <div
-                            className={`alert absolute inset-x-0 top-0 w-4/6 ${alert.background} transition`}
-                            style={{ zIndex: 9999 }}
-                        >
-                            {isAlertDeclared && (
-                                <div>
-                                    <AlertIcon type={alert.type!} />
-                                    <AlertMessage message={alert.title!} />
-                                </div>
-                            )}
-                        </div>
-                    </Transition>
+                        {isAlertDeclared && (
+                            <div>
+                                <AlertIcon type={alert.type!} />
+                                <AlertMessage message={alert.title!} />
+                            </div>
+                        )}
+                    </div>
                 </Portal>
             )}
         </div>

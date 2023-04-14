@@ -1,20 +1,22 @@
 import { createContext } from 'react'
 
-type ContextType = {
-    selectedTabCategory: string
-    setSelectedTabCategory: (category: string) => void
+type TaskViewSectionContextType = {
+    selectedCategoryTab: string
+    setSelectedCategoryTab: (category: string) => void
 }
 
-export const ViewSectionContext = createContext<ContextType>({
-    selectedTabCategory: 'all',
-    setSelectedTabCategory: () => {},
-})
+export const TaskViewSectionContext = createContext<TaskViewSectionContextType>(
+    {
+        selectedCategoryTab: 'all',
+        setSelectedCategoryTab: () => {},
+    }
+)
 
-type ToolbarContextValue = {
+type ToolbarContextType = {
     searchInput: string
     onInput: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
-export const ToolbarContext = createContext<ToolbarContextValue>({
+export const ToolbarContext = createContext<ToolbarContextType>({
     searchInput: '',
     onInput: () => {},
 })

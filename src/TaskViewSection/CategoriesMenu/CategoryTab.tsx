@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-redeclare */
 
 import { ReactNode, useContext } from 'react'
 import { IoListOutline } from 'react-icons/io5'
-import { ViewSectionContext } from '../../Contexts/Contexts'
+import { TaskViewSectionContext } from '../../Contexts/Contexts'
 import { DynamicIcon } from '../../TaskCreationSection/CategoryCreationSection/IconPicker'
 import { CategoryTabType, useTaskContext } from '../../Contexts/TaskContext'
 import {
@@ -11,29 +12,25 @@ import {
 } from '../../Helpers/colorStyleClassHandler'
 
 type CategoryTabProps = {
-    categoryTabs: CategoryTabType
+    categoryTab: CategoryTabType
     categoryTabsLength: number
 }
 
 type ContextType = {
-    selectedTabCategory: string
-    setSelectedTabCategory: (category: string) => void
+    selectedCategoryTab: string
+    setSelectedCategoryTab: (category: string) => void
 }
 
 export default function CategoryTab({
-    categoryTabs,
+    categoryTab,
     categoryTabsLength,
 }: CategoryTabProps) {
-    const { selectedTabCategory, setSelectedTabCategory } =
-        useContext<ContextType>(ViewSectionContext)
+    const { selectedCategoryTab, setSelectedCategoryTab } =
+        useContext<ContextType>(TaskViewSectionContext)
 
     const { taskList } = useTaskContext()
 
-    function scaleActiveTab(): string {
-        return categoryTabs.categoryName === selectedTabCategory
-            ? ' scale-150 '
-            : ' scale-100 '
-    }
+    const isTabSelected = categoryTab.name === selectedCategoryTab
 
     function validIconSize(): string {
         return categoryTabsLength > 5 ? 'text-xs' : 'text-xl'
@@ -46,36 +43,33 @@ export default function CategoryTab({
     }
     const paddingClassName = calculatePadding()
 
-    const categoryLength = (): ReactNode => {
-        return categoryTabs.categoryName === 'all'
-            ? taskList.length
-            : categoryTabs.categoryLength
+    const categoryTabLength = (): ReactNode => {
+        return categoryTab.name === 'all' ? taskList.length : categoryTab.length
     }
 
-    const animateIndicatorOnActiveTab = () => {
-        return (
-            categoryTabs.categoryName === selectedTabCategory &&
-            'animate-bounce'
-        )
+    const animateIndicatorOnSelectedTab = () => {
+        return categoryTab.name === selectedCategoryTab && 'animate-bounce'
     }
-
+    const taskListEmpty = taskList.length === 0
     return (
         <li>
             <div
-                className={`${paddingClassName} indicator relative mt-4 bg-base-300 shadow-xl transition delay-150 ease-in-out hover:bg-base-200`}
+                className={`${paddingClassName} ${
+                    taskListEmpty && 'rounded-2xl'
+                } indicator relative mt-4 bg-base-300 shadow-xl transition delay-150 ease-in-out hover:bg-base-200`}
             >
                 <TabIndicator
-                    color={categoryTabs.categoryColorStyle ?? ''}
-                    categoryLength={categoryLength}
-                    animate={animateIndicatorOnActiveTab()}
+                    color={categoryTab.colorStyle ?? ''}
+                    categoryLength={categoryTabLength}
+                    animate={animateIndicatorOnSelectedTab()}
                 />
                 <Tab
-                    color={categoryTabs.categoryColorStyle ?? ''}
-                    name={categoryTabs.categoryName}
-                    scaleActiveTab={scaleActiveTab()}
+                    color={categoryTab.colorStyle ?? ''}
+                    name={categoryTab.name}
+                    isTabSelected={isTabSelected}
                     validIconSize={validIconSize()}
-                    setSelectedTabCategory={setSelectedTabCategory}
-                    icon={categoryTabs.categoryIcon}
+                    setSelectedCategoryTab={setSelectedCategoryTab}
+                    icon={categoryTab.icon}
                 />
             </div>
         </li>
@@ -120,18 +114,18 @@ function TabIcon({ iconName, categoryName }: TabIconProps) {
 type TabProps = {
     color: string
     name: string
-    scaleActiveTab: string
+    isTabSelected: boolean
     validIconSize: string
-    setSelectedTabCategory: (category: string) => void
+    setSelectedCategoryTab: (category: string) => void
     icon: string
 }
 
 function Tab({
     color,
     name,
-    scaleActiveTab,
+    isTabSelected,
     validIconSize,
-    setSelectedTabCategory,
+    setSelectedCategoryTab,
     icon,
 }: TabProps) {
     return (
@@ -143,9 +137,9 @@ function Tab({
         >
             <button
                 type="button"
-                onClick={() => setSelectedTabCategory(name)}
-                className={` ${validIconSize} transition-all duration-500 ease-in-out delay-50 bg-opacity-100 p-3 text-white hover:text-white hover:opacity-60 sm:text-2xl md:text-3xl lg:text-xl 
-        ${scaleActiveTab}  `}
+                onClick={() => setSelectedCategoryTab(name)}
+                className={`focus:scale-150 transition-transform ${validIconSize}  bg-opacity-100 p-3 text-white hover:text-white hover:opacity-60 sm:text-2xl md:text-3xl lg:text-xl 
+        ${isTabSelected && 'scale-150'}`}
             >
                 <TabIcon categoryName={name} iconName={icon} />
             </button>

@@ -3,7 +3,7 @@ import CategoryTab from './CategoryTab'
 
 import { useTaskContext } from '../../Contexts/TaskContext'
 
-export default function AddedCategoriesTab(): JSX.Element {
+export default function CategoriesMenu(): JSX.Element {
     const { categoryTabs } = useTaskContext()
     return (
         <div>
@@ -11,7 +11,7 @@ export default function AddedCategoriesTab(): JSX.Element {
                 {categoryTabs.map((_, index) => (
                     <CategoryTab
                         key={uuid()}
-                        categoryTabs={categoryTabs[index]}
+                        categoryTab={categoryTabs[index]}
                         categoryTabsLength={categoryTabs.length}
                     />
                 ))}

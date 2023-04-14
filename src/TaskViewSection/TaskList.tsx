@@ -9,14 +9,14 @@ import { useTaskContext } from '../Contexts/TaskContext'
 export default function TaskList() {
     const { taskList, setTaskList } = useTaskContext()
     const [searchInput, setSearchInput] = useState('')
-    const [animationParent] = useAutoAnimate({
-        duration: 100,
-        easing: 'ease-in-out',
-        disrespectUserMotionPreference: false,
-    })
+
     const onInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchInput(e.target.value)
     }
+    const [animationParent] = useAutoAnimate({
+        duration: 150,
+        easing: 'ease-out',
+    })
 
     const updateStatusHandler = (
         e: React.ChangeEvent<HTMLInputElement>,
@@ -41,7 +41,6 @@ export default function TaskList() {
             <ToolbarContext.Provider value={value}>
                 <ToolBar />
             </ToolbarContext.Provider>
-
             <div className="flow-root ">
                 <ul
                     ref={animationParent}
@@ -72,8 +71,8 @@ function CallToActionLabel({ taskListLength }: CallToActionLabelProps) {
     const noTasksAdded = taskListLength === 0
     if (noTasksAdded) {
         return (
-            <h1 className="mt-10 text-3xl text-center duration-500 transition-color animate-pulse opacity-70 hover:text-success">
-                Add some tasks!
+            <h1 className="mt-10 text-3xl text-center duration-500 loop-scale transition-color animate-pulse opacity-70 hover:text-success">
+                Add some tasks...
             </h1>
         )
     }

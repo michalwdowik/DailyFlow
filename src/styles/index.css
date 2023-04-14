@@ -28,4 +28,9 @@ body {
   animation: buzz 0.2s ease-in-out;
 }
 
+.loop-scale {
+  animation-name: loop-scale;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
 

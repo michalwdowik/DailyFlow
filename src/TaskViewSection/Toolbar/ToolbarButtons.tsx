@@ -2,7 +2,7 @@
 /* eslint-disable no-param-reassign */
 import { useContext } from 'react'
 import Button from '../../Components/Button'
-import { ViewSectionContext } from '../../Contexts/Contexts'
+import { TaskViewSectionContext } from '../../Contexts/Contexts'
 import { useTaskContext } from '../../Contexts/TaskContext'
 import Alert, {
     showAlert,
@@ -13,8 +13,10 @@ import Alert, {
 export default function ToolbarButtons() {
     const { alertState, setAlertState } = useAlertState()
     const { taskList, setTaskList } = useTaskContext()
-    const { selectedTabCategory } = useContext(ViewSectionContext)
-    const allTabIsSelected = selectedTabCategory === 'all'
+    const { selectedCategoryTab, setSelectedCategoryTab } = useContext(
+        TaskViewSectionContext
+    )
+    const allTabIsSelected = selectedCategoryTab === 'all'
 
     const removeTaskFromList = () =>
         setTaskList(taskList.filter((item) => item.done !== true))
@@ -23,14 +25,21 @@ export default function ToolbarButtons() {
 
     const removeTasksHandler = () => {
         for (const task of taskList) {
-            const belongsToActiveTab = task.category === selectedTabCategory
+            const belongsToActiveTab = task.category === selectedCategoryTab
             const isDone = task.done === true
-
+            const tabEmpty = taskList.some(
+                (item) => item.category === selectedCategoryTab
+            )
             if (
                 (allTabIsSelected && isAnyDone) ||
                 (belongsToActiveTab && isDone)
             ) {
                 removeTaskFromList()
+
+                if (tabEmpty) {
+                    setSelectedCategoryTab('all')
+                }
+
                 showAlert(
                     AlertVariant.SUCCESS_DONE_TASKS_REMOVED,
                     setAlertState
@@ -44,7 +53,7 @@ export default function ToolbarButtons() {
     const giveAllTasks = (status: TaskStatus) => {
         const newList = [...taskList]
         taskList.forEach((task) => {
-            const belongsToActiveTab = task.category === selectedTabCategory
+            const belongsToActiveTab = task.category === selectedCategoryTab
             if (status === 'done')
                 if (belongsToActiveTab || allTabIsSelected) task.done = true
             if (status === 'notDone')
@@ -69,12 +78,16 @@ type ActionType = {
 }
 
 function RemoveDoneTasksButton({ action }: ActionType) {
+    const { taskList } = useTaskContext()
+
     return (
         <Button
             toolTipClass="hover:tooltip-error hover:tooltip hover:tooltip-open"
             toolTipText="Remove Done Tasks"
             action={action}
-            className=" btn-error btn-sm btn-circle btn"
+            className={`btn-error btn-sm btn-circle btn ${
+                taskList.length === 0 && 'btn-disabled'
+            }`}
             title={
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -95,12 +108,16 @@ function RemoveDoneTasksButton({ action }: ActionType) {
     )
 }
 function MakeAllTasksDoneButton({ action }: ActionType) {
+    const { taskList } = useTaskContext()
+
     return (
         <Button
             toolTipClass="tooltip hover:tooltip hover:tooltip-open hover:tooltip-success"
             toolTipText="Mark all as done"
             action={action}
-            className=" btn-success btn-sm btn-circle btn"
+            className={`btn-success btn-sm btn-circle btn ${
+                taskList.length === 0 && 'btn-disabled'
+            }`}
             title={
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -118,12 +135,16 @@ function MakeAllTasksDoneButton({ action }: ActionType) {
 }
 
 function UndoneAllTasksButton({ action }: ActionType) {
+    const { taskList } = useTaskContext()
+
     return (
         <Button
             toolTipClass="tooltip hover:tooltip hover:tooltip-open hover:tooltip-primary"
             toolTipText="Mark all as undone"
             action={action}
-            className=" btn-primary btn-sm btn-circle btn"
+            className={`btn-primary btn-sm btn-circle btn ${
+                taskList.length === 0 && 'btn-disabled'
+            }`}
             title={
                 <svg
                     xmlns="http://www.w3.org/2000/svg"

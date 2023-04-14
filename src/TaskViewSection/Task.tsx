@@ -4,7 +4,7 @@ import { ChangeEvent, useContext } from 'react'
 import { v4 as uuid } from 'uuid'
 import TaskModal from './TaskModal/TaskModal'
 import { colorStyleCheckboxHandler } from '../Helpers/colorStyleClassHandler'
-import { ViewSectionContext } from '../Contexts/Contexts'
+import { TaskViewSectionContext } from '../Contexts/Contexts'
 import { TaskType } from '../Contexts/TaskContext'
 
 type TaskProps = {
@@ -14,9 +14,9 @@ type TaskProps = {
 }
 
 export default function Task({ task, onChange, searchInput }: TaskProps) {
-    const { selectedTabCategory } = useContext(ViewSectionContext)
+    const { selectedCategoryTab } = useContext(TaskViewSectionContext)
     const correctCategory =
-        selectedTabCategory === 'all' || task.category === selectedTabCategory
+        selectedCategoryTab === 'all' || task.category === selectedCategoryTab
     const correctName =
         !searchInput ||
         task.name.toLowerCase().includes(searchInput.toLowerCase())

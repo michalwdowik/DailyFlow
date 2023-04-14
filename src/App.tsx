@@ -8,7 +8,7 @@ export default function App() {
     return (
         <div className="container min-w-full min-h-screen">
             <TaskContextProvider>
-                <div className="grid gap-10 p-10 sm:grid-cols-1 lg:grid-cols-2">
+                <div className="flex flex-col gap-10 p-5 sm:p-20 lg:flex-row lg:p-10">
                     <ThemeContextProvider>
                         <BackgroundBlobs />
                         <TaskCreationSection />

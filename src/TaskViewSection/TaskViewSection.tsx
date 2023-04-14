@@ -1,35 +1,31 @@
 import { useMemo, useState } from 'react'
-import { useAutoAnimate } from '@formkit/auto-animate/react'
-import { ViewSectionContext } from '../Contexts/Contexts'
+import { TaskViewSectionContext } from '../Contexts/Contexts'
 import TaskList from './TaskList'
-import AddedCategoriesTab from './AddedCategoriesTab/AddedCategoriesTab'
+import CategoriesMenu from './CategoriesMenu/CategoriesMenu'
 
 interface ContextType {
-    selectedTabCategory: string
-    setSelectedTabCategory: (category: string) => void
+    selectedCategoryTab: string
+    setSelectedCategoryTab: (category: string) => void
 }
 
 export default function TaskViewSection() {
-    const [parent] = useAutoAnimate()
-    const [selectedTabCategory, setSelectedTabCategory] =
+    const [selectedCategoryTab, setSelectedCategoryTab] =
         useState<string>('all')
+
     const value = useMemo<ContextType>(
         () => ({
-            selectedTabCategory,
-            setSelectedTabCategory,
+            selectedCategoryTab,
+            setSelectedCategoryTab,
         }),
-        [selectedTabCategory]
+        [selectedCategoryTab]
     )
 
     return (
-        <div
-            ref={parent}
-            className=" glassmorphismCard flex w-full flex-col gap-7 p-0 transition-[100px] "
-        >
-            <ViewSectionContext.Provider value={value}>
-                <AddedCategoriesTab />
+        <div className="flex flex-col w-full p-0 glassmorphismCard gap-7 transition-[100px]">
+            <TaskViewSectionContext.Provider value={value}>
+                <CategoriesMenu />
                 <TaskList />
-            </ViewSectionContext.Provider>
+            </TaskViewSectionContext.Provider>
         </div>
     )
 }
