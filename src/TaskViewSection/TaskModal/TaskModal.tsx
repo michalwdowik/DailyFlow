@@ -74,7 +74,7 @@ function Modal({
                         />
                         <label
                             htmlFor={task.uuid}
-                            className="cursor-pointer modal"
+                            className="backdrop-blur-md modal"
                             onClick={closeModal}
                         >
                             <label

@@ -14,23 +14,23 @@ export default function ToolbarButtons() {
     const { alertState, setAlertState } = useAlertState()
     const { taskList, setTaskList } = useTaskContext()
     const { selectedTabCategory } = useContext(ViewSectionContext)
-    const allTabIsActive = selectedTabCategory === 'all'
+    const allTabIsSelected = selectedTabCategory === 'all'
 
-    const removeFromList = () =>
+    const removeTaskFromList = () =>
         setTaskList(taskList.filter((item) => item.done !== true))
 
     const isAnyDone = taskList.some((task) => task.done)
 
     const removeTasksHandler = () => {
         for (const task of taskList) {
-            const isDone = task.done === true
             const belongsToActiveTab = task.category === selectedTabCategory
+            const isDone = task.done === true
 
             if (
-                (allTabIsActive && isAnyDone) ||
+                (allTabIsSelected && isAnyDone) ||
                 (belongsToActiveTab && isDone)
             ) {
-                removeFromList()
+                removeTaskFromList()
                 showAlert(
                     AlertVariant.SUCCESS_DONE_TASKS_REMOVED,
                     setAlertState
@@ -41,27 +41,14 @@ export default function ToolbarButtons() {
         }
     }
 
-    const makeAllTasksDone = () => {
+    const giveAllTasks = (status: TaskStatus) => {
         const newList = [...taskList]
         taskList.forEach((task) => {
-            if (
-                task.category === selectedTabCategory ||
-                selectedTabCategory === 'all'
-            ) {
-                task.done = true
-            }
-        })
-        setTaskList(newList)
-    }
-    const undoneAllTasks = () => {
-        const newList = [...taskList]
-        newList.forEach((task) => {
-            if (
-                task.category === selectedTabCategory ||
-                selectedTabCategory === 'all'
-            ) {
-                task.done = false
-            }
+            const belongsToActiveTab = task.category === selectedTabCategory
+            if (status === 'done')
+                if (belongsToActiveTab || allTabIsSelected) task.done = true
+            if (status === 'notDone')
+                if (belongsToActiveTab || allTabIsSelected) task.done = false
         })
         setTaskList(newList)
     }
@@ -70,14 +57,15 @@ export default function ToolbarButtons() {
         <div className="flex self-center gap-1 ">
             <Alert alert={alertState} />
             <RemoveDoneTasksButton action={removeTasksHandler} />
-            <MakeAllTasksDoneButton action={makeAllTasksDone} />
-            <UndoneAllTasksButton action={undoneAllTasks} />
+            <MakeAllTasksDoneButton action={() => giveAllTasks('done')} />
+            <UndoneAllTasksButton action={() => giveAllTasks('notDone')} />
         </div>
     )
 }
+type TaskStatus = 'done' | 'notDone'
 
 type ActionType = {
-    action: () => void
+    action: (all: TaskStatus) => void
 }
 
 function RemoveDoneTasksButton({ action }: ActionType) {

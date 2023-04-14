@@ -22,11 +22,7 @@ export default function Task({ task, onChange, searchInput }: TaskProps) {
         task.name.toLowerCase().includes(searchInput.toLowerCase())
     const shouldDisplay = correctCategory && correctName
 
-    return (
-        <div className="">
-            {shouldDisplay && <NewTask task={task} action={onChange} />}
-        </div>
-    )
+    return shouldDisplay ? <NewTask task={task} action={onChange} /> : null
 }
 
 type TaskCheckBoxProps = {
@@ -111,5 +107,3 @@ function NewTask({ task, action }: NewTaskProps) {
         </label>
     )
 }
-
-// uuid={task.uuid}

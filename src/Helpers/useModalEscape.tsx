@@ -8,9 +8,8 @@ export default function useModalEscape(id: string) {
                 const modal = document.getElementById(
                     id
                 ) as HTMLInputElement | null
-                if (modal) {
-                    modal.checked = false
-                }
+
+                if (modal) modal.checked = false
             }
         }
         document.addEventListener('keydown', closeModal)

@@ -14,9 +14,7 @@ const useCloseOnEscapeKey = ({ id, closeModal }: UseCloseOnEscapeKeyProps) => {
                     id
                 ) as HTMLInputElement | null
                 closeModal()
-                if (modal) {
-                    modal.checked = false
-                }
+                if (modal) modal.checked = false
             }
         }
         document.addEventListener('keydown', closeModalOnEscapeKey)

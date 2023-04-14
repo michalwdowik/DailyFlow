@@ -91,8 +91,6 @@ export function TaskContextProvider({ children }: TaskContextProviderType) {
 
 export const useTaskContext = () => {
     const context = useContext(TaskContext)
-    if (!context) {
-        throw Error('You`re missing TaskContextProvider')
-    }
+    if (!context) throw Error('You`re missing TaskContextProvider')
     return context
 }

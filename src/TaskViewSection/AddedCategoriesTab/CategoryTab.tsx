@@ -40,12 +40,8 @@ export default function CategoryTab({
     }
 
     const calculatePadding = (): string => {
-        if (categoryTabsLength > 8) {
-            return 'p-0'
-        }
-        if (categoryTabsLength > 6) {
-            return 'p-1'
-        }
+        if (categoryTabsLength > 8) return 'p-0'
+        if (categoryTabsLength > 6) return 'p-1'
         return 'p-2'
     }
     const paddingClassName = calculatePadding()

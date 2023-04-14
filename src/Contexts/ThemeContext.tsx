@@ -31,8 +31,6 @@ export function ThemeContextProvider({ children }: ThemeContextProviderProps) {
 
 export const useThemeContext = () => {
     const context = useContext(ThemeContext)
-    if (!context) {
-        throw Error('You`re missing ThemeContextProvider')
-    }
+    if (!context) throw Error('You`re missing ThemeContextProvider')
     return context
 }

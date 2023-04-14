@@ -24,9 +24,8 @@ export default function Category({
     const { removeCategory } = useCategoryContext()
     const categoryIsChecked = selectedCategoryUUID === uuid
     const removeCategoryHandler = () => {
-        if (categoryIsChecked) {
-            resetCategorySelection()
-        }
+        if (categoryIsChecked) resetCategorySelection()
+
         removeCategory(uuid)
     }
 

@@ -39,9 +39,7 @@ export default function AddCategoryModal() {
         setIsCorrectTyped(e.target.value !== '')
     }
     const resetInput = () => {
-        if (inputRef.current) {
-            inputRef.current.value = ''
-        }
+        if (inputRef.current) inputRef.current.value = ''
     }
 
     const resetNewCategorySettings = () => {
@@ -52,10 +50,10 @@ export default function AddCategoryModal() {
 
     const createNewCategory = () => {
         const hasValidName = inputRef.current?.value
-        const isAlreadyAdded = !categories.some(
+        const isUnique = !categories.some(
             ({ name }) => inputRef.current?.value === name
         )
-        const isCategoryValid = hasValidName && !isAlreadyAdded
+        const isCategoryValid = hasValidName && isUnique
 
         if (maxCategoriesReached) {
             showAlert(AlertVariant.ERROR_UP_TO_7_CATEGORIES, setAlertState)
@@ -90,6 +88,10 @@ export default function AddCategoryModal() {
         setNewCategory({ ...newCategory, icon })
     }
 
+    const addOnEnterPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') createNewCategory()
+    }
+
     return (
         <div>
             <OpenModalButton openModal={openModal} />
@@ -116,6 +118,7 @@ export default function AddCategoryModal() {
                                         inputRef={inputRef}
                                         onInput={onInput}
                                         isInputCorrect={isCorrectTyped}
+                                        addOnEnterPress={addOnEnterPress}
                                     />
                                     <CreateNewTaskButton
                                         color={newCategory.colorStyle}
@@ -151,6 +154,7 @@ type NewCategoryInputProps = {
     onInput: (e: ChangeEvent<HTMLInputElement>) => void
     isInputCorrect: boolean
     inputRef: React.RefObject<HTMLInputElement>
+    addOnEnterPress: (e: React.KeyboardEvent<HTMLInputElement>) => void
 }
 
 function NewCategoryInput({
@@ -158,12 +162,14 @@ function NewCategoryInput({
     onInput,
     isInputCorrect,
     inputRef,
+    addOnEnterPress,
 }: NewCategoryInputProps) {
     const inputBorderColor = () => {
         return isInputCorrect ? 'input focus:input' : 'input-error'
     }
     return (
         <input
+            onKeyDown={addOnEnterPress}
             ref={inputRef}
             maxLength={maxChars}
             onInput={onInput}

@@ -1,5 +1,6 @@
 import { v4 as uuid } from 'uuid'
 import CategoryTab from './CategoryTab'
+
 import { useTaskContext } from '../../Contexts/TaskContext'
 
 export default function AddedCategoriesTab(): JSX.Element {

@@ -67,10 +67,8 @@ export default function TaskCreationSection() {
         setIsCorrectTyped(true)
     }
 
-    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            submitHandler(e)
-        }
+    const addOnEnterPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') submitHandler(e)
     }
 
     const handleCategoryChange = (category: CategoryType) => {
@@ -95,7 +93,7 @@ export default function TaskCreationSection() {
             </span>
             <div className="flex w-5/6 gap-5 sm:w-4/6 md:w-4/6">
                 <TaskInput
-                    action={handleKeyPress}
+                    action={addOnEnterPress}
                     maxLength={30}
                     inputRef={inputRef}
                     isCorrectTyped={isCorrectTyped}

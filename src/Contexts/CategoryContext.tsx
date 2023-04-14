@@ -102,8 +102,6 @@ export function CategoryContextProvider({
 
 export const useCategoryContext = () => {
     const context = useContext(CategoryContext)
-    if (!context) {
-        throw Error('You`re missing CategoryContextProvider')
-    }
+    if (!context) throw Error('You`re missing CategoryContextProvider')
     return context
 }
