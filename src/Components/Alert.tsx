@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Transition } from '@headlessui/react'
+import { useState } from 'react'
 import Portal from './Portal'
 
 export const AlertVariant = {
@@ -51,21 +52,26 @@ export type AlertType = {
 const showTime = 3000
 export const showAlert = (
     alertData: AlertType,
-    setAlert: (alert: AlertType) => void
+    setAlertState: (alert: AlertType) => void
 ) => {
-    setAlert({
+    setAlertState({
         title: alertData.title,
         type: alertData.type,
         background: alertData.background,
         isShowed: alertData.isShowed,
     })
     setTimeout(() => {
-        setAlert({ isShowed: false })
+        setAlertState({ isShowed: false })
     }, showTime)
 }
-
 type AlertProps = {
     alert: AlertType
+}
+
+export const useAlertState = () => {
+    const [alertState, setAlertState] = useState<AlertType>({})
+
+    return { alertState, setAlertState }
 }
 
 export default function Alert({ alert }: AlertProps): JSX.Element {

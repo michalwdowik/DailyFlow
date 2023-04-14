@@ -1,17 +1,17 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-param-reassign */
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import Button from '../../Components/Button'
 import { ViewSectionContext } from '../../Contexts/Contexts'
 import { useTaskContext } from '../../Contexts/TaskContext'
 import Alert, {
     showAlert,
     AlertVariant,
-    AlertType,
+    useAlertState,
 } from '../../Components/Alert'
 
 export default function ToolbarButtons() {
-    const [alert, setAlert] = useState<AlertType>({})
+    const { alertState, setAlertState } = useAlertState()
     const { taskList, setTaskList } = useTaskContext()
     const { selectedTabCategory } = useContext(ViewSectionContext)
     const allTabIsActive = selectedTabCategory === 'all'
@@ -20,6 +20,7 @@ export default function ToolbarButtons() {
         setTaskList(taskList.filter((item) => item.done !== true))
 
     const isAnyDone = taskList.some((task) => task.done)
+
     const removeTasksHandler = () => {
         for (const task of taskList) {
             const isDone = task.done === true
@@ -30,9 +31,12 @@ export default function ToolbarButtons() {
                 (belongsToActiveTab && isDone)
             ) {
                 removeFromList()
-                showAlert(AlertVariant.SUCCESS_DONE_TASKS_REMOVED, setAlert)
+                showAlert(
+                    AlertVariant.SUCCESS_DONE_TASKS_REMOVED,
+                    setAlertState
+                )
             } else {
-                showAlert(AlertVariant.ERROR_NO_DONE_TASKS, setAlert)
+                showAlert(AlertVariant.ERROR_NO_DONE_TASKS, setAlertState)
             }
         }
     }
@@ -64,7 +68,7 @@ export default function ToolbarButtons() {
 
     return (
         <div className="flex self-center gap-1 ">
-            <Alert alert={alert} />
+            <Alert alert={alertState} />
             <RemoveDoneTasksButton action={removeTasksHandler} />
             <MakeAllTasksDoneButton action={makeAllTasksDone} />
             <UndoneAllTasksButton action={undoneAllTasks} />

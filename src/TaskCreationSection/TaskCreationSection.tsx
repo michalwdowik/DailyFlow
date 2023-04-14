@@ -5,7 +5,11 @@ import Button from '../Components/Button'
 import CategoryPicker from './CategoryPicker/CategoryPicker'
 import DatePicker from './DatePicker'
 import Importance from './Importance'
-import Alert, { AlertType, AlertVariant, showAlert } from '../Components/Alert'
+import Alert, {
+    AlertVariant,
+    showAlert,
+    useAlertState,
+} from '../Components/Alert'
 import { useThemeContext } from '../Contexts/ThemeContext'
 import {
     CategoryContextProvider,
@@ -33,12 +37,7 @@ export default function TaskCreationSection() {
     const inputRef: InputRefType = useRef<HTMLInputElement>(null)
     const [isSelectDateChecked, setIsSelectDateChecked] = useState(false)
     const [isCorrectTyped, setIsCorrectTyped] = useState(true)
-    const [alert, setAlert] = useState<AlertType>({
-        title: '',
-        type: '',
-        background: '',
-        isShowed: false,
-    })
+    const { alertState, setAlertState } = useAlertState()
     const maxCategoriesReached = categoryTabs.length >= 8
 
     const submitHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -49,7 +48,7 @@ export default function TaskCreationSection() {
             return
         }
         if (maxCategoriesReached) {
-            showAlert(AlertVariant.ERROR_MAX_CATEGORIES_REACHED, setAlert)
+            showAlert(AlertVariant.ERROR_MAX_CATEGORIES_REACHED, setAlertState)
             return
         }
 
@@ -129,7 +128,7 @@ export default function TaskCreationSection() {
                 isSelectDateChecked={isSelectDateChecked}
                 setIsSelectDateChecked={setIsSelectDateChecked}
             />
-            <Alert alert={alert} />
+            <Alert alert={alertState} />
         </div>
     )
 }

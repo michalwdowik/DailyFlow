@@ -12,9 +12,9 @@ import {
 } from '../../Helpers/colorStyleClassHandler'
 import Button from '../../Components/Button'
 import Alert, {
-    AlertType,
     AlertVariant,
     showAlert,
+    useAlertState,
 } from '../../Components/Alert'
 import {
     useCategoryContext,
@@ -28,7 +28,7 @@ export default function AddCategoryModal() {
     const { categories, addCategory } = useCategoryContext()
     const { showModal, openModal, closeModal } = useModalLogic()
     const [isCorrectTyped, setIsCorrectTyped] = useState(true)
-    const [alert, setAlert] = useState<AlertType>({})
+    const { alertState, setAlertState } = useAlertState()
     const [searchIconInput, setSearchIconInput] = useState('')
     const [newCategory, setNewCategory] = useState(defaultCategoryParams)
     const inputRef = useRef<HTMLInputElement>(null)
@@ -58,13 +58,13 @@ export default function AddCategoryModal() {
         const isCategoryValid = hasValidName && !isAlreadyAdded
 
         if (maxCategoriesReached) {
-            showAlert(AlertVariant.ERROR_UP_TO_7_CATEGORIES, setAlert)
+            showAlert(AlertVariant.ERROR_UP_TO_7_CATEGORIES, setAlertState)
             return
         }
 
         if (!isCategoryValid) {
             setIsCorrectTyped(false)
-            showAlert(AlertVariant.ERROR_WRONG_NAME, setAlert)
+            showAlert(AlertVariant.ERROR_WRONG_NAME, setAlertState)
             return
         }
 
@@ -75,7 +75,7 @@ export default function AddCategoryModal() {
         })
         resetNewCategorySettings()
         closeModal()
-        showAlert(AlertVariant.SUCCESS_NEW_CATEGORY_ADDED, setAlert)
+        showAlert(AlertVariant.SUCCESS_NEW_CATEGORY_ADDED, setAlertState)
     }
 
     const changeColorHandler = (color: ColorResult) => {
@@ -141,7 +141,7 @@ export default function AddCategoryModal() {
                     </div>
                 </Portal>
             )}
-            <Alert alert={alert} />
+            <Alert alert={alertState} />
         </div>
     )
 }
