@@ -1,21 +1,25 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { ChangeEvent, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, useRef, useState } from 'react'
 import { v4 as uuid } from 'uuid'
 import { ColorResult } from 'react-color'
 import IconPicker from './IconPicker'
 import ColorPicker from './ColorPicker'
 import {
-    colorStyleBgHandler,
     colorPickerColorHandler,
-} from '../../colorStyleClassHandler'
+    colorStyleBgHandler,
+} from '../../Helpers/colorStyleClassHandler'
 import Button from '../../Components/Button'
 import Alert, { AlertType, showAlert } from '../../Components/Alert'
 import {
     useCategoryContext,
     CategoryType,
 } from '../../Contexts/CategoryContext'
-import Portal from '../../Portal'
+import Portal from '../../Components/Portal'
+import useCloseOnEscapeKey from '../../Helpers/useCloseOnEscapeKey'
+import useModalLogic from '../../Helpers/useModalLogic'
 
 export interface DefaultCategory extends Omit<CategoryType, 'uuid'> {
     color: string
@@ -23,24 +27,8 @@ export interface DefaultCategory extends Omit<CategoryType, 'uuid'> {
 
 export default function AddCategoryModal() {
     const { categories, addCategory } = useCategoryContext()
-
-    useEffect(() => {
-        const closeModal = (event: KeyboardEvent) => {
-            const escapeClicked = event.code === 'Escape'
-            if (escapeClicked) {
-                const modal = document.getElementById(
-                    'my-modal-3'
-                ) as HTMLInputElement | null
-                if (modal) {
-                    modal.checked = false
-                }
-            }
-        }
-        document.addEventListener('keydown', closeModal)
-        return () => {
-            document.removeEventListener('keydown', closeModal)
-        }
-    }, [])
+    const { showModal, openModal, closeModal } = useModalLogic()
+    useCloseOnEscapeKey({ id: 'addCategoryModal', closeModal })
 
     const [isCorrectTyped, setIsCorrectTyped] = useState(true)
     const [alert, setAlert] = useState<AlertType>({
@@ -101,7 +89,6 @@ export default function AddCategoryModal() {
             name: inputRef.current.value,
             uuid: uuid(),
         })
-
         showAlert(
             {
                 title: 'New category has been added!',
@@ -114,6 +101,7 @@ export default function AddCategoryModal() {
         inputRef.current.value = ''
         setSearchIconInput('')
         setNewCategory(defaultCategoryParams)
+        closeModal()
     }
 
     const changeColorHandler = (color: ColorResult) => {
@@ -130,48 +118,55 @@ export default function AddCategoryModal() {
 
     return (
         <div>
-            <OpenModalButton />
-            <Portal>
-                <div>
-                    <input
-                        type="checkbox"
-                        id="my-modal-3"
-                        className="modal-toggle "
-                    />
-                    <label
-                        htmlFor="my-modal-3"
-                        className="cursor-pointer modal"
-                    >
-                        <label className="flex flex-col content-center justify-center gap-3 p-5 pt-10 mt-5 modal-box rounded-3xl bg-slate-100">
-                            <div className="indicator">
-                                <NewCategoryInput
-                                    maxChars={17}
-                                    inputRef={inputRef}
-                                    onInput={onInput}
-                                    isInputCorrect={isCorrectTyped}
+            <OpenModalButton openModal={openModal} />
+            {showModal && (
+                <Portal rootId="portal">
+                    <div>
+                        <input
+                            type="checkbox"
+                            id="addCategoryModal"
+                            className="modal-toggle"
+                        />
+                        <label
+                            htmlFor="addCategoryModal"
+                            className="backdrop-blur-md modal"
+                            onClick={closeModal}
+                        >
+                            <label
+                                className="flex flex-col content-center justify-center gap-3 p-5 pt-10 mt-5 modal-box rounded-3xl bg-slate-100"
+                                onClick={(e) => e.stopPropagation()}
+                            >
+                                <div className="indicator">
+                                    <NewCategoryInput
+                                        maxChars={17}
+                                        inputRef={inputRef}
+                                        onInput={onInput}
+                                        isInputCorrect={isCorrectTyped}
+                                    />
+                                    <CreateNewTaskButton
+                                        color={newCategory.colorStyle}
+                                        action={createNewCategory}
+                                    />
+                                </div>
+                                <ColorPicker
+                                    action={changeColorHandler}
+                                    color={newCategory.color}
                                 />
-                                <CreateNewTaskButton
-                                    color={newCategory.colorStyle}
-                                    action={createNewCategory}
+                                <IconPicker
+                                    setSearchIconInput={setSearchIconInput}
+                                    searchIconInput={searchIconInput}
+                                    newCategoryIcon={newCategory.icon}
+                                    setNewCategoryIcon={(
+                                        categoryIcon: string
+                                    ) =>
+                                        changeCategoryIconHandler(categoryIcon)
+                                    }
                                 />
-                            </div>
-                            <ColorPicker
-                                action={changeColorHandler}
-                                color={newCategory.color}
-                            />
-                            <IconPicker
-                                setSearchIconInput={setSearchIconInput}
-                                searchIconInput={searchIconInput}
-                                newCategoryIcon={newCategory.icon}
-                                setNewCategoryIcon={(categoryIcon: string) =>
-                                    changeCategoryIconHandler(categoryIcon)
-                                }
-                            />
+                            </label>
                         </label>
-                    </label>
-                </div>
-                ,
-            </Portal>
+                    </div>
+                </Portal>
+            )}
             <Alert alert={alert} />
         </div>
     )
@@ -206,10 +201,14 @@ function NewCategoryInput({
     )
 }
 
-function OpenModalButton() {
+type OpenModalButtonProps = {
+    openModal: () => void
+}
+function OpenModalButton({ openModal }: OpenModalButtonProps) {
     return (
         <label
-            htmlFor="my-modal-3"
+            onClick={openModal}
+            htmlFor="addCategoryModal"
             className="p-1 m-0 font-normal bg-transparent border-0 dark:bg:transparent btn-xs btn text-slate-700 hover:scale-110 hover:bg-transparent"
         >
             <svg

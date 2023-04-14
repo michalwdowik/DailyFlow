@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useState } from 'react'
 import Datepicker from 'tailwind-datepicker-react'
-import { colorStyleTogglerHandler } from '../colorStyleClassHandler'
+import { colorStyleTogglerHandler } from '../Helpers/colorStyleClassHandler'
 
 const today = new Date()
 const yesterday = new Date(today)

@@ -1,46 +1,41 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { useEffect } from 'react'
 import { v4 as uuid } from 'uuid'
 import { DynamicIcon } from '../../TaskCreationSection/CategoryCreationSection/IconPicker'
 import {
     colorStyleTextHandler,
     colorStyleBlobHandler,
-} from '../../colorStyleClassHandler'
+} from '../../Helpers/colorStyleClassHandler'
 import { TaskType } from '../../Contexts/TaskContext'
-import Portal from '../../Portal'
 import DeadlineDetails from './DeadlineDetails'
+import Portal from '../../Components/Portal'
+import useCloseOnEscapeKey from '../../Helpers/useCloseOnEscapeKey'
+import useModalLogic from '../../Helpers/useModalLogic'
 
 export default function TaskModal({ task }: { task: TaskType }) {
-    useEffect(() => {
-        const closeModal = (event: KeyboardEvent) => {
-            const escapeClicked = event.key === 'Escape'
-            if (escapeClicked) {
-                const modal = document.getElementById(
-                    task.uuid
-                ) as HTMLInputElement | null
-                if (modal) {
-                    modal.checked = false
-                }
-            }
-        }
-        document.addEventListener('keydown', closeModal)
-        return () => {
-            document.removeEventListener('keydown', closeModal)
-        }
-    }, [])
+    const { showModal, openModal, closeModal } = useModalLogic()
+    useCloseOnEscapeKey({ id: task.uuid, closeModal })
 
     return (
         <div>
-            <ShowModalButton id={task.uuid} />
-            <Modal task={task} />
+            <ShowModalButton id={task.uuid} openModal={openModal} />
+            <Modal task={task} showModal={showModal} closeModal={closeModal} />
         </div>
     )
 }
 
-function ShowModalButton({ id }: { id: string }) {
+function ShowModalButton({
+    id,
+    openModal,
+}: {
+    id: string
+    openModal: () => void
+}) {
     return (
         <label
+            onClick={openModal}
             htmlFor={id}
             className="p-0 ml-5 bg-transparent border-0 btn-xs btn bg-slate-700 dark:bg-slate-700 "
         >
@@ -58,29 +53,46 @@ function ShowModalButton({ id }: { id: string }) {
     )
 }
 
-function Modal({ task }: { task: TaskType }) {
+function Modal({
+    task,
+    showModal,
+    closeModal,
+}: {
+    task: TaskType
+    showModal: boolean
+    closeModal: () => void
+}) {
     return (
         <div>
-            <Portal>
-                <div>
-                    <input
-                        type="checkbox"
-                        id={task.uuid}
-                        className="modal-toggle"
-                    />
-                    <label htmlFor={task.uuid} className="cursor-pointer modal">
+            {showModal && (
+                <Portal rootId="portal">
+                    <div>
+                        <input
+                            type="checkbox"
+                            id={task.uuid}
+                            className="modal-toggle"
+                        />
                         <label
-                            htmlFor=""
-                            className="p-0 m-0 modal-box rounded-3xl bg-slate-100"
+                            htmlFor={task.uuid}
+                            className="cursor-pointer modal"
+                            onClick={closeModal}
                         >
-                            <ModalDetails task={task} />
-                            <ModalBackground
-                                color={colorStyleBlobHandler(task.colorStyle)}
-                            />
+                            <label
+                                onClick={(e) => e.stopPropagation()}
+                                htmlFor=""
+                                className="p-0 m-0 modal-box rounded-3xl bg-slate-100"
+                            >
+                                <ModalDetails task={task} />
+                                <ModalBackground
+                                    color={colorStyleBlobHandler(
+                                        task.colorStyle
+                                    )}
+                                />
+                            </label>
                         </label>
-                    </label>
-                </div>
-            </Portal>
+                    </div>
+                </Portal>
+            )}
         </div>
     )
 }

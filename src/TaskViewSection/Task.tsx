@@ -3,7 +3,7 @@
 import { ChangeEvent, useContext } from 'react'
 import { v4 as uuid } from 'uuid'
 import TaskModal from './TaskModal/TaskModal'
-import { colorStyleCheckboxHandler } from '../colorStyleClassHandler'
+import { colorStyleCheckboxHandler } from '../Helpers/colorStyleClassHandler'
 import { ViewSectionContext } from '../Contexts/Contexts'
 import { TaskType } from '../Contexts/TaskContext'
 

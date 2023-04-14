@@ -2,7 +2,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/no-array-index-key */
 import { Dispatch, SetStateAction, useState } from 'react'
-import { colorStyleTextHandler } from '../colorStyleClassHandler'
+import { colorStyleTextHandler } from '../Helpers/colorStyleClassHandler'
 
 type ImportanceProps = {
     rate: number

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Transition } from '@headlessui/react'
-import Portal from '../Portal'
+import Portal from './Portal'
 
 export type AlertType = {
     isShowed?: boolean
@@ -31,8 +31,8 @@ export const showAlert = (
 export default function Alert({ alert }: AlertProps): JSX.Element {
     return (
         <div>
-            <Portal>
-                {alert?.isShowed && (
+            {alert?.isShowed && (
+                <Portal rootId="portal">
                     <Transition
                         show
                         enter="transition-opacity duration-150 "
@@ -43,6 +43,7 @@ export default function Alert({ alert }: AlertProps): JSX.Element {
                         leaveTo="opacity-0"
                     >
                         <div
+                            style={{ zIndex: 9999 }}
                             className={`alert absolute inset-x-0 top-0 w-4/6 ${alert.background} transition`}
                         >
                             {alert.type && alert.title && (
@@ -53,8 +54,8 @@ export default function Alert({ alert }: AlertProps): JSX.Element {
                             )}
                         </div>
                     </Transition>
-                )}
-            </Portal>
+                </Portal>
+            )}
         </div>
     )
 }

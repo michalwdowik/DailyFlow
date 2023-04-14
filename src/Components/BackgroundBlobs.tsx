@@ -1,4 +1,4 @@
-import { colorStyleBgHandler } from '../colorStyleClassHandler'
+import { colorStyleBgHandler } from '../Helpers/colorStyleClassHandler'
 import { useThemeContext } from '../Contexts/ThemeContext'
 
 export default function BackgroundBlobs(): JSX.Element {

@@ -2,13 +2,13 @@
 
 import { ReactNode, useContext } from 'react'
 import { IoListOutline } from 'react-icons/io5'
-import {
-    colorStyleBgHandler,
-    colorStyleTooltipHandler,
-} from '../../colorStyleClassHandler'
 import { ViewSectionContext } from '../../Contexts/Contexts'
 import { DynamicIcon } from '../../TaskCreationSection/CategoryCreationSection/IconPicker'
 import { CategoryTabType, useTaskContext } from '../../Contexts/TaskContext'
+import {
+    colorStyleBgHandler,
+    colorStyleTooltipHandler,
+} from '../../Helpers/colorStyleClassHandler'
 
 type CategoryTabProps = {
     categoryTabs: CategoryTabType

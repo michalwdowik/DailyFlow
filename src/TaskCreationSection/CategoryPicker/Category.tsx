@@ -1,5 +1,5 @@
 import { IoIosRemoveCircle } from 'react-icons/io'
-import { colorStyleRadioHandler } from '../../colorStyleClassHandler'
+import { colorStyleRadioHandler } from '../../Helpers/colorStyleClassHandler'
 import { useCategoryContext } from '../../Contexts/CategoryContext'
 
 type CategoryProps = {
