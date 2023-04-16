@@ -10,12 +10,12 @@ type IconPickerProps = {
     searchIconInput: string
     setSearchIconInput: (e: string) => void
 }
-function IconPicker({
+const IconPicker = ({
     newCategoryIcon,
     setNewCategoryIcon,
     searchIconInput,
     setSearchIconInput,
-}: IconPickerProps): JSX.Element {
+}: IconPickerProps): JSX.Element => {
     const onInput = (e: ChangeEvent<HTMLInputElement>): void => {
         setSearchIconInput(e.target.value)
     }
@@ -62,10 +62,10 @@ type IconsProps = {
     searchIconInput: string
 }
 
-function Icons({
+const Icons = ({
     setNewCategoryIcon,
     searchIconInput,
-}: IconsProps): JSX.Element {
+}: IconsProps): JSX.Element => {
     const maxIcons = 250
     const excludedKeywords = [
         'outline',
@@ -119,42 +119,38 @@ type SearchIconInputProps = {
     action: (e: ChangeEvent<HTMLInputElement>) => void
     color?: string
 }
-function SearchIconInput({
+const SearchIconInput = ({
     searchIconInput,
     action,
     color,
-}: SearchIconInputProps): JSX.Element {
-    return (
-        <input
-            value={searchIconInput}
-            onInput={action}
-            type="text"
-            id="simple-search"
-            className={` ${color} input sticky top-3 m-auto mb-3 block w-3/4 rounded-3xl border-0 bg-base-300 pl-10 text-sm`}
-            placeholder="Search task"
-        />
-    )
-}
+}: SearchIconInputProps): JSX.Element => (
+    <input
+        value={searchIconInput}
+        onInput={action}
+        type="text"
+        id="simple-search"
+        className={` ${color} input sticky top-3 m-auto mb-3 block w-3/4 rounded-3xl border-0 bg-base-300 pl-10 text-sm`}
+        placeholder="Search task"
+    />
+)
 type SelectedIconProps = {
     iconName: string
 }
 
-function SelectedIcon({ iconName }: SelectedIconProps): JSX.Element {
-    return (
-        <button
-            className="self-center p-0 m-0 transition ease-in-out collapse-title peer-checked:scale-75 peer-checked:overflow-scroll"
-            type="button"
-        >
-            <DynamicIcon name={iconName} />
-        </button>
-    )
-}
+const SelectedIcon = ({ iconName }: SelectedIconProps): JSX.Element => (
+    <button
+        className="self-center p-0 m-0 transition ease-in-out collapse-title peer-checked:scale-75 peer-checked:overflow-scroll"
+        type="button"
+    >
+        <DynamicIcon name={iconName} />
+    </button>
+)
 
 type DynamicIconProps = {
     name: string
 }
 
-export function DynamicIcon({ name }: DynamicIconProps): JSX.Element {
+export const DynamicIcon = ({ name }: DynamicIconProps): JSX.Element => {
     const Icon = ImportedIcons[name as IconType]
 
     if (!Icon) {

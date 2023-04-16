@@ -5,97 +5,98 @@ import { useCategoryContext } from '../../Contexts/CategoryContext'
 type CategoryProps = {
     selectedCategoryUUID: string
     categoryName: string
-    color: string
-    isAddedByUser: boolean
-    uuid: string
-    onChange: () => void
+    categoryColor: string
+    isCategoryAddedByUser: boolean
+    categoryUUID: string
+    changeCategory: () => void
     resetCategorySelection: () => void
 }
 
-export default function Category({
+const Category = ({
     selectedCategoryUUID,
     categoryName,
-    color,
-    isAddedByUser,
-    uuid,
-    onChange,
+    categoryColor,
+    isCategoryAddedByUser,
+    categoryUUID,
+    changeCategory,
     resetCategorySelection,
-}: CategoryProps): JSX.Element {
+}: CategoryProps): JSX.Element => {
     const { removeCategory } = useCategoryContext()
-    const categoryIsChecked = selectedCategoryUUID === uuid
+    const categoryIsChecked = selectedCategoryUUID === categoryUUID
     const removeCategoryHandler = () => {
         if (categoryIsChecked) resetCategorySelection()
-
-        removeCategory(uuid)
+        removeCategory(categoryUUID)
     }
 
     return (
         <div className="flex gap-1 p-1 ">
             <CategoryRadio
-                uuid={uuid}
-                checked={categoryIsChecked}
-                action={onChange}
-                radioColor={colorStyleRadioHandler(color)}
+                categoryUUID={categoryUUID}
+                isCategoryChecked={categoryIsChecked}
+                changeCategory={changeCategory}
+                radioColor={colorStyleRadioHandler(categoryColor)}
             />
-            <CategoryLabel name={categoryName} uuid={uuid} />
-            {isAddedByUser && (
-                <RemoveCategoryButton action={removeCategoryHandler} />
+            <CategoryLabel
+                categoryName={categoryName}
+                categoryUUID={categoryUUID}
+            />
+            {isCategoryAddedByUser && (
+                <RemoveCategoryButton
+                    removeCategoryHandler={removeCategoryHandler}
+                />
             )}
         </div>
     )
 }
+export default Category
 
 type CategoryRadioProps = {
-    checked: boolean
-    action: () => void
+    isCategoryChecked: boolean
+    changeCategory: () => void
     radioColor: string
-    uuid: string
+    categoryUUID: string
 }
 
-function CategoryRadio({
-    checked,
-    action,
+const CategoryRadio = ({
+    isCategoryChecked,
+    changeCategory,
     radioColor,
-    uuid,
-}: CategoryRadioProps) {
-    return (
-        <input
-            id={uuid}
-            checked={checked}
-            onChange={action}
-            type="radio"
-            name="radio-3"
-            className={`radio ${radioColor}`}
-        />
-    )
-}
+    categoryUUID,
+}: CategoryRadioProps) => (
+    <input
+        id={categoryUUID}
+        checked={isCategoryChecked}
+        onChange={changeCategory}
+        type="radio"
+        name="radio-3"
+        className={`radio ${radioColor}`}
+    />
+)
 
 type RemoveCategoryButtonProps = {
-    action: () => void
+    removeCategoryHandler: () => void
 }
-function RemoveCategoryButton({ action }: RemoveCategoryButtonProps) {
-    return (
-        <button
-            onClick={action}
-            type="button"
-            className="transition active:scale-125"
-        >
-            <IoIosRemoveCircle className="text-error opacity-90" />
-        </button>
-    )
-}
+const RemoveCategoryButton = ({
+    removeCategoryHandler,
+}: RemoveCategoryButtonProps) => (
+    <button
+        onClick={removeCategoryHandler}
+        type="button"
+        className="transition active:scale-125"
+    >
+        <IoIosRemoveCircle className="text-error opacity-90" />
+    </button>
+)
 type CategoryLabelProps = {
-    name: string
-    uuid: string
+    categoryName: string
+    categoryUUID: string
 }
 
-function CategoryLabel({ name, uuid }: CategoryLabelProps) {
-    return (
-        <label
-            htmlFor={uuid}
-            className="text-gray-600 transition duration-150 ease-in-out active:text-gray-400"
-        >
-            {name}
-        </label>
-    )
-}
+const CategoryLabel = ({ categoryName, categoryUUID }: CategoryLabelProps) => (
+    <label
+        htmlFor={categoryUUID}
+        className="text-gray-600 transition duration-150 ease-in-out active:text-gray-400"
+    >
+        {categoryName}
+    </label>
+)

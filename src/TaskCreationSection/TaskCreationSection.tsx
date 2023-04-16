@@ -4,7 +4,7 @@ import { v4 as uuid } from 'uuid'
 import Button from '../Components/Button'
 import CategoryPicker from './CategoryPicker/CategoryPicker'
 import DatePicker from './DatePicker'
-import Importance from './Importance'
+import TaskImportance from './TaskImportance'
 import Alert, {
     AlertVariant,
     showAlert,
@@ -15,21 +15,12 @@ import {
     CategoryContextProvider,
     CategoryType,
 } from '../Contexts/CategoryContext'
-import { useTaskContext, TaskType } from '../Contexts/TaskContext'
+import { useTaskContext, defaultTask } from '../Contexts/TaskContext'
 
 type InputRefType = MutableRefObject<HTMLInputElement | null>
 
-export default function TaskCreationSection() {
+const TaskCreationSection = () => {
     const { colorStyle, setColorStyle } = useThemeContext()
-    const defaultTask = {
-        name: '',
-        category: 'general',
-        done: false,
-        rate: 2,
-        deadline: 'Not specified',
-        icon: 'IoDocuments',
-        colorStyle,
-    }
     const [newTask, setNewTask] = useState({
         ...defaultTask,
     })
@@ -39,36 +30,37 @@ export default function TaskCreationSection() {
     const [isCorrectTyped, setIsCorrectTyped] = useState(true)
     const { alertState, setAlertState } = useAlertState()
     const maxCategoriesReached = categoryTabs.length >= 8
-
+    const resetInput = () => {
+        inputRef.current!.value = ''
+    }
+    const resetDeadline = () => {
+        setNewTask({ ...newTask, deadline: 'Not specified' })
+    }
     const submitHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
         e.preventDefault()
-
-        if (inputRef.current?.value === '') {
+        const inputIsEmpty = inputRef.current?.value === ''
+        if (inputIsEmpty) {
             setIsCorrectTyped(false)
             return
         }
+
         if (maxCategoriesReached) {
             showAlert(AlertVariant.ERROR_MAX_CATEGORIES_REACHED, setAlertState)
             return
         }
 
-        const addTaskToList = (task: TaskType) => {
-            setTaskList([...taskList, task])
-        }
-
-        addTaskToList({
-            ...newTask,
-            name: inputRef.current!.value,
-            uuid: uuid(),
-        })
-
-        inputRef.current!.value = ''
+        setTaskList([
+            ...taskList,
+            {
+                ...newTask,
+                name: inputRef.current!.value,
+                uuid: uuid(),
+            },
+        ])
+        resetDeadline()
         setIsSelectDateChecked(false)
         setIsCorrectTyped(true)
-    }
-
-    const addOnEnterPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') submitHandler(e)
+        resetInput()
     }
 
     const handleCategoryChange = (category: CategoryType) => {
@@ -93,19 +85,19 @@ export default function TaskCreationSection() {
             </span>
             <div className="flex w-5/6 gap-5 sm:w-4/6 md:w-4/6">
                 <TaskInput
-                    action={addOnEnterPress}
-                    maxLength={30}
+                    maxInputLength={30}
                     inputRef={inputRef}
                     isCorrectTyped={isCorrectTyped}
+                    submitHandler={submitHandler}
                 />
                 <AddTaskButton
-                    action={submitHandler}
+                    submitHandler={submitHandler}
                     isCorrectTyped={isCorrectTyped}
                 />
             </div>
             <CategoryContextProvider>
                 <CategoryPicker
-                    colorStyle={colorStyle}
+                    categoryColor={colorStyle}
                     selectedCategoryName={newTask.category}
                     onChangeCategory={(category: CategoryType) =>
                         handleCategoryChange(category)
@@ -113,68 +105,74 @@ export default function TaskCreationSection() {
                     resetCategorySelection={resetCategorySelection}
                 />
             </CategoryContextProvider>
-            <Importance
-                colorStyle={colorStyle}
-                rate={newTask.rate}
-                setRate={(rate) => setNewTask({ ...newTask, rate })}
+            <TaskImportance
+                categoryColor={colorStyle}
+                taskRate={newTask.rate}
+                setTaskRate={(rate) => setNewTask({ ...newTask, rate })}
             />
-            {/* <DatePicker
+            <DatePicker
                 colorStyle={colorStyle}
                 setTaskDeadline={(deadline) =>
                     setNewTask({ ...newTask, deadline })
                 }
                 isSelectDateChecked={isSelectDateChecked}
                 setIsSelectDateChecked={setIsSelectDateChecked}
-            /> */}
+            />
             <Alert alert={alertState} />
         </div>
     )
 }
+
+export default TaskCreationSection
+
 type TaskInputProps = {
-    action: (e: React.KeyboardEvent<HTMLInputElement>) => void
-    maxLength: number
+    maxInputLength: number
     inputRef: InputRefType
     isCorrectTyped: boolean
+    submitHandler: (e: React.KeyboardEvent<HTMLInputElement>) => void
 }
 
-function TaskInput({
-    action,
-    maxLength,
+const TaskInput = ({
+    submitHandler,
+    maxInputLength,
     inputRef,
     isCorrectTyped,
-}: TaskInputProps) {
-    const isEmpty = inputRef.current?.value !== ''
-    const colorInputBorder = () => {
-        return !isCorrectTyped
-            ? 'input-error'
-            : 'input' && isEmpty && 'focus:input-success'
-    }
-    return (
-        <input
-            onKeyDown={action}
-            maxLength={maxLength}
-            ref={inputRef}
-            type="text"
-            placeholder="Type here..."
-            id="taskInput"
-            className={`input w-full rounded-3xl bg-base-300  
-      ${colorInputBorder()}`}
-        />
-    )
-}
+}: TaskInputProps) => (
+    <input
+        onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+                submitHandler(e)
+            }
+        }}
+        maxLength={maxInputLength}
+        ref={inputRef}
+        type="text"
+        placeholder="Type here..."
+        id="taskInput"
+        className={`input ${
+            isCorrectTyped
+                ? 'input-success focus:input-success'
+                : 'input-error focus:input-error'
+        } w-full rounded-3xl bg-base-300  
+      `}
+    />
+)
 
 type AddTaskButtonProps = {
-    action: (e: React.KeyboardEvent<HTMLInputElement>) => void
+    submitHandler: (e: React.KeyboardEvent<HTMLInputElement>) => void
     isCorrectTyped: boolean
 }
-function AddTaskButton({ action, isCorrectTyped }: AddTaskButtonProps) {
+const AddTaskButton = ({
+    submitHandler,
+    isCorrectTyped,
+}: AddTaskButtonProps) => {
     const buzzIfTaskNotValid = () => {
         return !isCorrectTyped && 'buzz-effect'
     }
     return (
         <Button
             className={`btn-m btn-circle btn ${buzzIfTaskNotValid()}`}
-            action={action}
+            action={submitHandler}
             title={
                 <svg
                     xmlns="http://www.w3.org/2000/svg"

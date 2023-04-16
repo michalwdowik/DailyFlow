@@ -3,7 +3,7 @@ import CategoryTab from './CategoryTab'
 
 import { useTaskContext } from '../../Contexts/TaskContext'
 
-export default function CategoriesMenu(): JSX.Element {
+const CategoriesMenu = (): JSX.Element => {
     const { categoryTabs } = useTaskContext()
     return (
         <div>
@@ -19,3 +19,4 @@ export default function CategoriesMenu(): JSX.Element {
         </div>
     )
 }
+export default CategoriesMenu

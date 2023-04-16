@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { TaskViewSectionContext } from '../Contexts/Contexts'
+import TaskViewSectionContext from '../Contexts/TaskViewSectionContext'
 import TaskList from './TaskList'
 import CategoriesMenu from './CategoriesMenu/CategoriesMenu'
 
@@ -8,7 +8,7 @@ interface ContextType {
     setSelectedCategoryTab: (category: string) => void
 }
 
-export default function TaskViewSection() {
+const TaskViewSection = () => {
     const [selectedCategoryTab, setSelectedCategoryTab] =
         useState<string>('all')
 
@@ -29,3 +29,4 @@ export default function TaskViewSection() {
         </div>
     )
 }
+export default TaskViewSection

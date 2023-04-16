@@ -44,7 +44,17 @@ type TaskContextProviderType = {
     children: ReactNode
 }
 
-export function TaskContextProvider({ children }: TaskContextProviderType) {
+export const defaultTask = {
+    name: '',
+    category: 'general',
+    done: false,
+    rate: 2,
+    deadline: 'Not specified',
+    icon: 'IoDocuments',
+    colorStyle: 'info',
+}
+
+export const TaskContextProvider = ({ children }: TaskContextProviderType) => {
     const [taskList, setTaskList] = useState<TaskType[]>([])
     const defaultCategory: CategoryTabType = {
         name: 'all',
@@ -53,7 +63,6 @@ export function TaskContextProvider({ children }: TaskContextProviderType) {
         uuid: uuid(),
     }
 
-    const tabList: CategoryTabType[] = [defaultCategory]
     const taskSegregated = taskList.reduce<{ [key: string]: TaskType[] }>(
         (group, arr) => {
             const { category } = arr
@@ -65,16 +74,16 @@ export function TaskContextProvider({ children }: TaskContextProviderType) {
     )
 
     const categoryTabs = useMemo(() => {
-        for (const [key, value] of Object.entries(taskSegregated)) {
-            tabList.push({
-                name: key,
-                length: value.length,
-                icon: value[0].icon,
-                colorStyle: value[0].colorStyle,
-                uuid: value[0].uuid,
-            })
-        }
-        return tabList
+        const tab = Object.values(taskSegregated).map((task) => {
+            return {
+                name: task[0].category,
+                length: task.length,
+                icon: task[0].icon,
+                colorStyle: task[0].colorStyle,
+                uuid: task[0].uuid,
+            }
+        })
+        return [defaultCategory, ...tab]
     }, [taskList.length])
 
     const value = useMemo(

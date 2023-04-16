@@ -1,12 +1,12 @@
 import { TaskType } from '../../Contexts/TaskContext'
 
-export default function DeadlineDetails({
+const DeadlineDetails = ({
     date,
     task,
 }: {
     task: TaskType
     date: string
-}): JSX.Element {
+}): JSX.Element => {
     const calculateDaysLeft = () => {
         const deadlineDate = new Date(`${task.deadline}`)
         const todayDate = new Date()
@@ -34,41 +34,42 @@ export default function DeadlineDetails({
         </div>
     )
 }
+export default DeadlineDetails
 
-function PastDeadline({ daysLeft, date }: { daysLeft: number; date: string }) {
-    return (
-        <>
-            <div className="stat-title text-slate-700">{`${Math.abs(
-                daysLeft
-            )} days after the`}</div>
-            <div className="stat-value text-error">Deadline</div>
-            <div className="stat-desc">{`Deadline: ${date}`}</div>
-        </>
-    )
-}
-
-function TodaysDeadline({ date }: { date: string }) {
-    return (
-        <>
-            <div className="stat-title text-slate-700">Due to:</div>
-            <div className="stat-value text-slate-500">Today</div>
-            <div className="stat-desc">{`Deadline: ${date}`}</div>
-        </>
-    )
-}
-
-function FutureDeadline({
+const PastDeadline = ({
     daysLeft,
     date,
 }: {
     daysLeft: number
     date: string
-}) {
-    return (
-        <>
-            <div className="stat-title">Days left:</div>
-            <div className="stat-value text-slate-500">{daysLeft}</div>
-            <div className="stat-desc">{`Deadline: ${date}`}</div>
-        </>
-    )
-}
+}) => (
+    <>
+        <div className="stat-title text-slate-700">{`${Math.abs(
+            daysLeft
+        )} days after the`}</div>
+        <div className="stat-value text-error">Deadline</div>
+        <div className="stat-desc">{`Deadline: ${date}`}</div>
+    </>
+)
+
+const TodaysDeadline = ({ date }: { date: string }) => (
+    <>
+        <div className="stat-title text-slate-700">Due to:</div>
+        <div className="stat-value text-slate-500">Today</div>
+        <div className="stat-desc">{`Deadline: ${date}`}</div>
+    </>
+)
+
+const FutureDeadline = ({
+    daysLeft,
+    date,
+}: {
+    daysLeft: number
+    date: string
+}) => (
+    <>
+        <div className="stat-title">Days left:</div>
+        <div className="stat-value text-slate-500">{daysLeft}</div>
+        <div className="stat-desc">{`Deadline: ${date}`}</div>
+    </>
+)

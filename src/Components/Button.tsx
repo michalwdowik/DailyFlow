@@ -6,13 +6,13 @@ type ButtonProps = {
     className: string
     title: React.ReactNode | string
 }
-export default function Button({
+const Button = ({
     toolTipClass,
     toolTipText,
     action,
     className,
     title,
-}: ButtonProps) {
+}: ButtonProps) => {
     return (
         <div className={toolTipClass} data-tip={toolTipText}>
             <button type="button" onClick={action} className={className}>
@@ -21,3 +21,5 @@ export default function Button({
         </div>
     )
 }
+
+export default Button

@@ -9,18 +9,18 @@ import {
 } from '../../Contexts/CategoryContext'
 
 type CategoryPickerProps = {
-    colorStyle: string
+    categoryColor: string
     selectedCategoryName: string
     onChangeCategory: (category: CategoryType) => void
     resetCategorySelection: () => void
 }
 
-export default function CategoryPicker({
-    colorStyle,
+const CategoryPicker = ({
+    categoryColor,
     selectedCategoryName,
     onChangeCategory,
     resetCategorySelection,
-}: CategoryPickerProps) {
+}: CategoryPickerProps) => {
     const { categories } = useCategoryContext()
 
     const selectedCategory = useMemo(
@@ -39,18 +39,18 @@ export default function CategoryPicker({
             <div className="bg-transparent collapse-arrow collapse rounded-xl">
                 <input type="checkbox" className="peer" />
                 <CategoryDropdownMenu
-                    pickedCategory={selectedCategoryName}
-                    color={colorStyle}
+                    selectedCategoryName={selectedCategoryName}
+                    categoryColor={categoryColor}
                 />
                 <div className="flex flex-row flex-wrap content-center justify-center gap-2 mt-3 bg-transparent rounded-lg collapse-content text-primary-content peer-checked:bg-transparent peer-checked:text-secondary-content">
                     {categories.map((category) => (
                         <Category
-                            onChange={() => onChangeCategory(category)}
+                            changeCategory={() => onChangeCategory(category)}
                             key={category.uuid}
                             categoryName={category.name}
-                            color={category.colorStyle}
-                            isAddedByUser={category.isAddedByUser}
-                            uuid={category.uuid}
+                            categoryColor={category.colorStyle}
+                            isCategoryAddedByUser={category.isAddedByUser}
+                            categoryUUID={category.uuid}
                             selectedCategoryUUID={
                                 selectedCategory ? selectedCategory.uuid : ''
                             }
@@ -63,22 +63,21 @@ export default function CategoryPicker({
         </div>
     )
 }
+export default CategoryPicker
 
 type CategoryDropdownMenuProps = {
-    pickedCategory: ReactNode
-    color: string
+    selectedCategoryName: ReactNode
+    categoryColor: string
 }
-function CategoryDropdownMenu({
-    pickedCategory,
-    color,
-}: CategoryDropdownMenuProps) {
-    return (
-        <div
-            className={`${colorStyleBgHandler(
-                color
-            )} collapse-title rounded-3xl text-primary-content transition duration-150 ease-in-out peer-checked:text-secondary-content peer-checked:opacity-75`}
-        >
-            {pickedCategory}
-        </div>
-    )
-}
+const CategoryDropdownMenu = ({
+    selectedCategoryName,
+    categoryColor,
+}: CategoryDropdownMenuProps) => (
+    <div
+        className={`${colorStyleBgHandler(
+            categoryColor
+        )} collapse-title rounded-3xl text-primary-content transition duration-150 ease-in-out peer-checked:text-secondary-content peer-checked:opacity-75`}
+    >
+        {selectedCategoryName}
+    </div>
+)

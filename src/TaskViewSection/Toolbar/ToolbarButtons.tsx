@@ -2,7 +2,7 @@
 /* eslint-disable no-param-reassign */
 import { useContext } from 'react'
 import Button from '../../Components/Button'
-import { TaskViewSectionContext } from '../../Contexts/Contexts'
+import TaskViewSectionContext from '../../Contexts/TaskViewSectionContext'
 import { useTaskContext } from '../../Contexts/TaskContext'
 import Alert, {
     showAlert,
@@ -10,7 +10,7 @@ import Alert, {
     useAlertState,
 } from '../../Components/Alert'
 
-export default function ToolbarButtons() {
+const ToolbarButtons = () => {
     const { alertState, setAlertState } = useAlertState()
     const { taskList, setTaskList } = useTaskContext()
     const { selectedCategoryTab, setSelectedCategoryTab } = useContext(
@@ -18,66 +18,61 @@ export default function ToolbarButtons() {
     )
     const allTabIsSelected = selectedCategoryTab === 'all'
 
-    const removeTaskFromList = () =>
-        setTaskList(taskList.filter((item) => item.done !== true))
-
-    const isAnyDone = taskList.some((task) => task.done)
+    const removeDoneTasksFromList = () =>
+        setTaskList(taskList.filter((item) => !item.done))
 
     const removeTasksHandler = () => {
-        for (const task of taskList) {
-            const belongsToActiveTab = task.category === selectedCategoryTab
-            const isDone = task.done === true
-            const tabEmpty = taskList.some(
-                (item) => item.category === selectedCategoryTab
-            )
-            if (
-                (allTabIsSelected && isAnyDone) ||
-                (belongsToActiveTab && isDone)
-            ) {
-                removeTaskFromList()
+        const anyTaskIsDone = taskList.some((task) => task.done)
+        const doneTasksInActiveTab = taskList.filter(
+            (task) => task.category === selectedCategoryTab && task.done
+        )
 
-                if (tabEmpty) {
-                    setSelectedCategoryTab('all')
-                }
+        if (
+            (allTabIsSelected && anyTaskIsDone) ||
+            doneTasksInActiveTab.length > 0
+        ) {
+            removeDoneTasksFromList()
 
-                showAlert(
-                    AlertVariant.SUCCESS_DONE_TASKS_REMOVED,
-                    setAlertState
-                )
-            } else {
-                showAlert(AlertVariant.ERROR_NO_DONE_TASKS, setAlertState)
+            if (!allTabIsSelected && doneTasksInActiveTab.length === 0) {
+                setSelectedCategoryTab('all')
             }
+
+            showAlert(AlertVariant.SUCCESS_DONE_TASKS_REMOVED, setAlertState)
+        } else {
+            showAlert(AlertVariant.ERROR_NO_DONE_TASKS, setAlertState)
         }
     }
 
-    const giveAllTasks = (status: TaskStatus) => {
-        const newList = [...taskList]
-        taskList.forEach((task) => {
-            const belongsToActiveTab = task.category === selectedCategoryTab
-            if (status === 'done')
-                if (belongsToActiveTab || allTabIsSelected) task.done = true
-            if (status === 'notDone')
-                if (belongsToActiveTab || allTabIsSelected) task.done = false
+    const makeAllTasks = (status: TaskStatus) => {
+        const updatedList = taskList.map((task) => {
+            const taskBelongsToActiveTab =
+                task.category === selectedCategoryTab || allTabIsSelected
+            const isDone =
+                (status === 'done' && taskBelongsToActiveTab) ||
+                (status === 'notDone' && !taskBelongsToActiveTab)
+            return { ...task, done: isDone }
         })
-        setTaskList(newList)
+        setTaskList(updatedList)
     }
 
     return (
         <div className="flex self-center gap-1 ">
             <Alert alert={alertState} />
             <RemoveDoneTasksButton action={removeTasksHandler} />
-            <MakeAllTasksDoneButton action={() => giveAllTasks('done')} />
-            <UndoneAllTasksButton action={() => giveAllTasks('notDone')} />
+            <MakeAllTasksDoneButton action={() => makeAllTasks('done')} />
+            <UndoneAllTasksButton action={() => makeAllTasks('notDone')} />
         </div>
     )
 }
+export default ToolbarButtons
+
 type TaskStatus = 'done' | 'notDone'
 
 type ActionType = {
     action: (all: TaskStatus) => void
 }
 
-function RemoveDoneTasksButton({ action }: ActionType) {
+const RemoveDoneTasksButton = ({ action }: ActionType) => {
     const { taskList } = useTaskContext()
 
     return (
@@ -107,7 +102,7 @@ function RemoveDoneTasksButton({ action }: ActionType) {
         />
     )
 }
-function MakeAllTasksDoneButton({ action }: ActionType) {
+const MakeAllTasksDoneButton = ({ action }: ActionType) => {
     const { taskList } = useTaskContext()
 
     return (
@@ -134,7 +129,7 @@ function MakeAllTasksDoneButton({ action }: ActionType) {
     )
 }
 
-function UndoneAllTasksButton({ action }: ActionType) {
+const UndoneAllTasksButton = ({ action }: ActionType) => {
     const { taskList } = useTaskContext()
 
     return (

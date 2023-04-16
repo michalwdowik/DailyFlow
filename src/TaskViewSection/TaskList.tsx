@@ -1,12 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { ChangeEvent, useMemo, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import Task from './Task'
-import { ToolbarContext } from '../Contexts/Contexts'
 import ToolBar from './Toolbar/ToolBar'
 import { useTaskContext } from '../Contexts/TaskContext'
 
-export default function TaskList() {
+const TaskList = () => {
     const { taskList, setTaskList } = useTaskContext()
     const [searchInput, setSearchInput] = useState('')
 
@@ -18,42 +17,38 @@ export default function TaskList() {
         easing: 'ease-out',
     })
 
-    const updateStatusHandler = (
+    const updateTasksStatus = (
         e: React.ChangeEvent<HTMLInputElement>,
-        index: number
+        taskId: string
     ) => {
-        const newList = [...taskList]
-        newList[index].done = e.target.checked
-        setTaskList(newList)
+        const taskIndex = taskList.findIndex((task) => task.uuid === taskId)
+        if (taskIndex !== -1) {
+            const newList = [...taskList]
+            newList[taskIndex] = {
+                ...newList[taskIndex],
+                done: e.target.checked,
+            }
+            setTaskList(newList)
+        }
     }
-
-    const value = useMemo(
-        () => ({
-            onInput,
-            searchInput,
-        }),
-        [searchInput, onInput]
-    )
 
     const scrollIfOverflow = taskList.length > 8 && 'overflow-y-scroll'
     return (
         <div className="w-5/6 pb-5 sm:w-4/6 md:w-1/2 lg:w-5/6">
-            <ToolbarContext.Provider value={value}>
-                <ToolBar />
-            </ToolbarContext.Provider>
+            <ToolBar searchInput={searchInput} onInput={onInput} />
             <div className="flow-root ">
                 <ul
                     ref={animationParent}
                     className={`mt-3 max-h-[550px] ${scrollIfOverflow} p-0`}
                 >
-                    <CallToActionLabel taskListLength={taskList.length} />
-                    {taskList.map((task, index) => (
+                    {taskList.length === 0 && <CallToActionLabel />}
+                    {taskList.map((task) => (
                         <Task
                             searchInput={searchInput}
                             key={task.uuid}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                                updateStatusHandler(e, index)
-                            }
+                            updateTaskStatus={(
+                                e: ChangeEvent<HTMLInputElement>
+                            ) => updateTasksStatus(e, task.uuid)}
                             task={task}
                         />
                     ))}
@@ -62,19 +57,14 @@ export default function TaskList() {
         </div>
     )
 }
+export default TaskList
 
-type CallToActionLabelProps = {
-    taskListLength: number
-}
+const CallToActionLabel = () => {
+    return (
+        <h1 className="mt-10 text-3xl text-center duration-500 loop-scale transition-color animate-pulse opacity-70 hover:text-success">
+            Add some tasks...
+        </h1>
+    )
 
-function CallToActionLabel({ taskListLength }: CallToActionLabelProps) {
-    const noTasksAdded = taskListLength === 0
-    if (noTasksAdded) {
-        return (
-            <h1 className="mt-10 text-3xl text-center duration-500 loop-scale transition-color animate-pulse opacity-70 hover:text-success">
-                Add some tasks...
-            </h1>
-        )
-    }
     return null
 }

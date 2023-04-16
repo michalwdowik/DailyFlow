@@ -4,16 +4,16 @@ import { ChangeEvent, useContext } from 'react'
 import { v4 as uuid } from 'uuid'
 import TaskModal from './TaskModal/TaskModal'
 import { colorStyleCheckboxHandler } from '../Helpers/colorStyleClassHandler'
-import { TaskViewSectionContext } from '../Contexts/Contexts'
+import TaskViewSectionContext from '../Contexts/TaskViewSectionContext'
 import { TaskType } from '../Contexts/TaskContext'
 
 type TaskProps = {
     task: TaskType
-    onChange: (e: ChangeEvent<HTMLInputElement>) => void
+    updateTaskStatus: (e: ChangeEvent<HTMLInputElement>) => void
     searchInput: string
 }
 
-export default function Task({ task, onChange, searchInput }: TaskProps) {
+const Task = ({ task, updateTaskStatus, searchInput }: TaskProps) => {
     const { selectedCategoryTab } = useContext(TaskViewSectionContext)
     const correctCategory =
         selectedCategoryTab === 'all' || task.category === selectedCategoryTab
@@ -22,48 +22,71 @@ export default function Task({ task, onChange, searchInput }: TaskProps) {
         task.name.toLowerCase().includes(searchInput.toLowerCase())
     const shouldDisplay = correctCategory && correctName
 
-    return shouldDisplay ? <NewTask task={task} action={onChange} /> : null
+    return shouldDisplay ? (
+        <label>
+            <li className="py-1 mx-3 border-b border-solid border-slate-200 sm:py-3">
+                <div className="flex items-center space-x-4 ">
+                    <TaskCheckbox
+                        isTaskDone={task.done}
+                        taskColorStyle={task.colorStyle}
+                        updateTaskStatus={updateTaskStatus}
+                    />
+                    <TaskDescription
+                        taskName={task.name}
+                        taskCategory={task.category}
+                    />
+                    <TaskImportance taskRate={task.rate} />
+                    <TaskModal task={task} />
+                </div>
+            </li>
+        </label>
+    ) : null
 }
+export default Task
 
 type TaskCheckBoxProps = {
-    done: boolean
-    colorStyle: string
-    action: (e: ChangeEvent<HTMLInputElement>) => void
+    isTaskDone: boolean
+    taskColorStyle: string
+    updateTaskStatus: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-function TaskCheckbox({ done, colorStyle, action }: TaskCheckBoxProps) {
+const TaskCheckbox = ({
+    isTaskDone,
+    taskColorStyle,
+    updateTaskStatus,
+}: TaskCheckBoxProps) => {
     return (
         <input
-            className={`${colorStyleCheckboxHandler(colorStyle)} checkbox `}
+            className={`${colorStyleCheckboxHandler(taskColorStyle)} checkbox `}
             id={uuid()}
             type="checkbox"
-            onChange={action}
-            checked={done}
+            onChange={updateTaskStatus}
+            checked={isTaskDone}
         />
     )
 }
 
 type TaskDescriptionProps = {
-    name: string
-    category: string
+    taskName: string
+    taskCategory: string
 }
-function TaskDescription({ name, category }: TaskDescriptionProps) {
+const TaskDescription = ({ taskName, taskCategory }: TaskDescriptionProps) => {
     return (
         <div className="flex-1 min-w-0">
             <p className="text-sm font-medium truncate transition transition-delay-50 text-slate-700 hover:text-gray-400">
-                {name}
+                {taskName}
             </p>
-            <p className="text-sm text-gray-500 truncate ">{category}</p>
+            <p className="text-sm text-gray-500 truncate ">{taskCategory}</p>
         </div>
     )
 }
 type TaskImportanceProps = {
-    rate: number
+    taskRate: number
 }
-function TaskImportance({ rate }: TaskImportanceProps) {
+const TaskImportance = ({ taskRate }: TaskImportanceProps) => {
     return (
         <div className="inline-flex items-center text-base font-semibold text-slate-700 ">
-            {[...Array(rate)].map((e, i) => (
+            {[...Array(taskRate)].map((e, i) => (
                 <span key={i}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -80,30 +103,5 @@ function TaskImportance({ rate }: TaskImportanceProps) {
                 </span>
             ))}
         </div>
-    )
-}
-type NewTaskProps = {
-    task: TaskType
-    action: (e: ChangeEvent<HTMLInputElement>) => void
-}
-function NewTask({ task, action }: NewTaskProps) {
-    return (
-        <label>
-            <li className="py-1 mx-3 border-b border-solid border-slate-200 sm:py-3">
-                <div className="flex items-center space-x-4 ">
-                    <TaskCheckbox
-                        done={task.done}
-                        colorStyle={task.colorStyle}
-                        action={action}
-                    />
-                    <TaskDescription
-                        name={task.name}
-                        category={task.category}
-                    />
-                    <TaskImportance rate={task.rate} />
-                    <TaskModal task={task} />
-                </div>
-            </li>
-        </label>
     )
 }

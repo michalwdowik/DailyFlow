@@ -14,7 +14,9 @@ interface ThemeContextProviderProps {
     children: ReactNode
 }
 
-export function ThemeContextProvider({ children }: ThemeContextProviderProps) {
+export const ThemeContextProvider = ({
+    children,
+}: ThemeContextProviderProps) => {
     const [colorStyle, setColorStyle] = useState('info')
     const value = useMemo(
         () => ({

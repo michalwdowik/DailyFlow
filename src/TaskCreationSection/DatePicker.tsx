@@ -72,12 +72,12 @@ type DatePickerProps = {
     setIsSelectDateChecked: (isChecked: boolean) => void
     colorStyle: string
 }
-export default function DatePicker({
+const DatePicker = ({
     setTaskDeadline,
     isSelectDateChecked,
     setIsSelectDateChecked,
     colorStyle,
-}: DatePickerProps) {
+}: DatePickerProps) => {
     const [show, setShow] = useState(false)
 
     const handleClose = () => {
@@ -89,6 +89,7 @@ export default function DatePicker({
         const month = selectedDate.getMonth() + 1
         const year = selectedDate.getFullYear()
         const formatDate = `${month}/${day}/${year}`
+
         setTaskDeadline(formatDate)
         handleClose()
     }
@@ -99,9 +100,9 @@ export default function DatePicker({
         const month = today.getMonth() + 1
         const year = today.getFullYear()
         const formatDate = `${month}/${day}/${year}`
+
         setTaskDeadline(formatDate)
     }
-
     return (
         <div className="relative flex flex-col gap-2 mb-2">
             <label className="relative inline-flex gap-3 cursor-pointer label-text ">
@@ -118,6 +119,7 @@ export default function DatePicker({
 
                 <TogglerLabel isToggled={isSelectDateChecked} />
             </label>
+
             {isSelectDateChecked && (
                 <Datepicker
                     options={options}
@@ -129,35 +131,30 @@ export default function DatePicker({
         </div>
     )
 }
+export default DatePicker
 
 type TogglerLabelProps = {
     isToggled: boolean
 }
-function TogglerLabel({ isToggled }: TogglerLabelProps) {
-    return (
-        <span
-            className={`text-slate-700 ${
-                isToggled ? 'opacity-50' : 'opacity-100'
-            }`}
-        >
-            Set Deadline
-        </span>
-    )
-}
+const TogglerLabel = ({ isToggled }: TogglerLabelProps) => (
+    <span
+        className={`text-slate-700 ${isToggled ? 'opacity-50' : 'opacity-100'}`}
+    >
+        Set Deadline
+    </span>
+)
 
 type TogglerInputProps = {
     isChecked: boolean
     action: () => void
 }
 
-function TogglerInput({ isChecked, action }: TogglerInputProps) {
-    return (
-        <input
-            type="checkbox"
-            value=""
-            className="sr-only peer "
-            checked={isChecked}
-            onChange={action}
-        />
-    )
-}
+const TogglerInput = ({ isChecked, action }: TogglerInputProps) => (
+    <input
+        type="checkbox"
+        value=""
+        className="sr-only peer "
+        checked={isChecked}
+        onChange={action}
+    />
+)

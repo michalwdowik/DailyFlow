@@ -66,9 +66,9 @@ type CategoryContextProviderType = {
     children: ReactNode
 }
 
-export function CategoryContextProvider({
+export const CategoryContextProvider = ({
     children,
-}: CategoryContextProviderType): JSX.Element {
+}: CategoryContextProviderType): JSX.Element => {
     const [categories, setCategories] =
         useState<CategoryType[]>(defaultCategories)
 

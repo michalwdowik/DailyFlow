@@ -48,7 +48,7 @@ export type AlertType = {
     background?: string
 }
 
-const showTime = 3000
+const ALERT_DURATION = 3000
 export const showAlert = (
     alertData: AlertType,
     setAlertState: (alert: AlertType) => void
@@ -59,9 +59,10 @@ export const showAlert = (
         background: alertData.background,
         isShowed: alertData.isShowed,
     })
-    setTimeout(() => {
+    const timer = setTimeout(() => {
         setAlertState({ isShowed: false })
-    }, showTime)
+    }, ALERT_DURATION)
+    return () => clearTimeout(timer)
 }
 type AlertProps = {
     alert: AlertType
@@ -73,7 +74,7 @@ export const useAlertState = () => {
     return { alertState, setAlertState }
 }
 
-export default function Alert({ alert }: AlertProps): JSX.Element {
+const Alert = ({ alert }: AlertProps): JSX.Element => {
     const isAlertDeclared = alert.type && alert.title
     return (
         <div>
@@ -96,11 +97,13 @@ export default function Alert({ alert }: AlertProps): JSX.Element {
     )
 }
 
+export default Alert
+
 type AlertIconProps = {
     type: string
 }
 
-function AlertIcon({ type }: AlertIconProps): JSX.Element {
+const AlertIcon = ({ type }: AlertIconProps): JSX.Element => {
     return type === 'success' ? <SuccessIcon /> : <ErrorIcon />
 }
 
@@ -108,11 +111,11 @@ type AlertMessageProps = {
     message: string
 }
 
-function AlertMessage({ message }: AlertMessageProps): JSX.Element {
+const AlertMessage = ({ message }: AlertMessageProps): JSX.Element => {
     return <span className="text-black">{message}</span>
 }
 
-function SuccessIcon(): JSX.Element {
+const SuccessIcon = (): JSX.Element => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +133,7 @@ function SuccessIcon(): JSX.Element {
     )
 }
 
-function ErrorIcon(): JSX.Element {
+const ErrorIcon = (): JSX.Element => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"

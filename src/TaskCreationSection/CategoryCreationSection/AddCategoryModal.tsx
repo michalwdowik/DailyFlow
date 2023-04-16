@@ -24,7 +24,7 @@ import Portal from '../../Components/Portal'
 import useCloseOnEscapeKey from '../../Helpers/useCloseOnEscapeKey'
 import useModalLogic from '../../Helpers/useModalLogic'
 
-export default function AddCategoryModal() {
+const AddCategoryModal = () => {
     const { categories, addCategory } = useCategoryContext()
     const { showModal, openModal, closeModal } = useModalLogic()
     const [isCorrectTyped, setIsCorrectTyped] = useState(true)
@@ -88,10 +88,6 @@ export default function AddCategoryModal() {
         setNewCategory({ ...newCategory, icon })
     }
 
-    const addOnEnterPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') createNewCategory()
-    }
-
     return (
         <div>
             <OpenModalButton openModal={openModal} />
@@ -118,7 +114,7 @@ export default function AddCategoryModal() {
                                         inputRef={inputRef}
                                         onInput={onInput}
                                         isInputCorrect={isCorrectTyped}
-                                        addOnEnterPress={addOnEnterPress}
+                                        createNewCategory={createNewCategory}
                                     />
                                     <CreateNewTaskButton
                                         color={newCategory.colorStyle}
@@ -148,93 +144,91 @@ export default function AddCategoryModal() {
         </div>
     )
 }
+export default AddCategoryModal
 
 type NewCategoryInputProps = {
     maxChars: number
     onInput: (e: ChangeEvent<HTMLInputElement>) => void
     isInputCorrect: boolean
     inputRef: React.RefObject<HTMLInputElement>
-    addOnEnterPress: (e: React.KeyboardEvent<HTMLInputElement>) => void
+    createNewCategory: (e: React.KeyboardEvent<HTMLInputElement>) => void
 }
 
-function NewCategoryInput({
+const NewCategoryInput = ({
     maxChars,
     onInput,
     isInputCorrect,
     inputRef,
-    addOnEnterPress,
-}: NewCategoryInputProps) {
-    const inputBorderColor = () => {
-        return isInputCorrect ? 'input focus:input' : 'input-error'
-    }
-    return (
-        <input
-            onKeyDown={addOnEnterPress}
-            ref={inputRef}
-            maxLength={maxChars}
-            onInput={onInput}
-            type="text"
-            placeholder="Type here..."
-            id="taskInput"
-            className={`input mb-5 mr-5 w-full max-w-xs input-bordered ${inputBorderColor}`}
-        />
-    )
-}
+    createNewCategory,
+}: NewCategoryInputProps) => (
+    <input
+        onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+                createNewCategory(e)
+            }
+        }}
+        ref={inputRef}
+        maxLength={maxChars}
+        onInput={onInput}
+        type="text"
+        placeholder="Type here..."
+        id="taskInput"
+        className={`input mb-5 mr-5 w-full max-w-xs input-bordered ${
+            isInputCorrect ? 'input-success' : 'input-error'
+        }`}
+    />
+)
 
 type OpenModalButtonProps = {
     openModal: () => void
 }
-function OpenModalButton({ openModal }: OpenModalButtonProps) {
-    return (
-        <label
-            onClick={openModal}
-            htmlFor="addCategoryModal"
-            className="p-1 m-0 font-normal bg-transparent border-0 dark:bg:transparent btn-xs btn text-slate-700 hover:scale-110 hover:bg-transparent"
+const OpenModalButton = ({ openModal }: OpenModalButtonProps) => (
+    <label
+        onClick={openModal}
+        htmlFor="addCategoryModal"
+        className="p-1 m-0 font-normal bg-transparent border-0 dark:bg:transparent btn-xs btn text-slate-700 hover:scale-110 hover:bg-transparent"
+    >
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24"
+            viewBox="0 96 960 960"
+            width="24"
         >
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="24"
-                viewBox="0 96 960 960"
-                width="24"
-            >
-                <path
-                    fill="#6366f1"
-                    d="M440 856V616H200v-80h240V296h80v240h240v80H520v240h-80Z"
-                />
-            </svg>
-            <span>Add</span>
-        </label>
-    )
-}
+            <path
+                fill="#6366f1"
+                d="M440 856V616H200v-80h240V296h80v240h240v80H520v240h-80Z"
+            />
+        </svg>
+        <span>Add</span>
+    </label>
+)
 
 type CreateNewTaskButtonProps = {
     color: string
     action: () => void
 }
 
-function CreateNewTaskButton({ color, action }: CreateNewTaskButtonProps) {
-    return (
-        <Button
-            action={action}
-            className={`text-white ${colorStyleBgHandler(
-                color
-            )} btn-circle transition-all active:scale-90`}
-            title={
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 h-6"
-                >
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M12 4.5v15m7.5-7.5h-15"
-                    />
-                </svg>
-            }
-        />
-    )
-}
+const CreateNewTaskButton = ({ color, action }: CreateNewTaskButtonProps) => (
+    <Button
+        action={action}
+        className={`text-white ${colorStyleBgHandler(
+            color
+        )} btn-circle transition-all active:scale-90`}
+        title={
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+            >
+                <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 4.5v15m7.5-7.5h-15"
+                />
+            </svg>
+        }
+    />
+)
