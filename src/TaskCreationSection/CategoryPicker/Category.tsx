@@ -1,4 +1,4 @@
-import { IoIosRemoveCircle } from 'react-icons/io'
+import { IoRemoveCircle } from 'react-icons/io5'
 import { colorStyleRadioHandler } from '../../Helpers/colorStyleClassHandler'
 import { useCategoryContext } from '../../Contexts/CategoryContext'
 
@@ -84,7 +84,7 @@ const RemoveCategoryButton = ({
         type="button"
         className="transition active:scale-125"
     >
-        <IoIosRemoveCircle className="text-error opacity-90" />
+        <IoRemoveCircle className="text-error opacity-90" />
     </button>
 )
 type CategoryLabelProps = {

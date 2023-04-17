@@ -2,23 +2,22 @@ const options = {
     title: 'Select Deadline',
     autoHide: false,
     todayBtn: true,
-    clearBtn: true,
+    clearBtn: false,
     maxDate: new Date('2030-01-01'),
     minDate: new Date('2000-01-01'),
     theme: {
-        background:
-            ' bg-gray-300 dark:bg-base-300 rounded-3xl m-0 overflow-auto',
+        background: 'dark:bg-base-300 rounded-3xl m-0 overflow-auto',
         todayBtn:
-            'transition active:scale-90 active:dark:scale-90  bg-success dark:bg-success  hover:bg-success hover:dark:bg-success',
+            'transition active:scale-90 dark:bg-success hover:dark:bg-success',
         clearBtn:
             'transition active:scale-90 active:dark:scale-90 focus:dark:outline-0 focus:outline-0',
         icons: 'active:scale-125 transition duration-100 dark:bg-transparent',
-        text: ' hover:bg-transparent hover:dark:bg-transparent hover:text-slate-300 transition',
-        disabledText: 'blur pointer-events-none ',
+        text: 'hover:dark:bg-transparent transition',
+        disabledText: 'pointer-events-none blur ',
         input: 'rounded-3xl dark:bg-base-300',
         inputIcon: '',
         selected:
-            'hover:bg-transparent hover:dark:bg-transparent bg-transparent scale-150 duration-100 text-success dark:text-success transition ease-in-out',
+            'bg-transparent scale-150 duration-100 dark:text-success transition',
     },
     icons: {
         prev: () => (

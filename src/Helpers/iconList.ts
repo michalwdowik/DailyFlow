@@ -18,6 +18,11 @@ import {
     IoPaw,
     IoMedkit,
     IoMoon,
+    IoDocuments,
+    IoHeart,
+    IoPulse,
+    IoLaptop,
+    IoSchool,
 } from 'react-icons/io5'
 
 const iconList: { [key: string]: IconType } = {
@@ -39,6 +44,11 @@ const iconList: { [key: string]: IconType } = {
     IoPaw,
     IoMedkit,
     IoMoon,
+    IoDocuments,
+    IoHeart,
+    IoPulse,
+    IoLaptop,
+    IoSchool,
 }
 
 export default iconList

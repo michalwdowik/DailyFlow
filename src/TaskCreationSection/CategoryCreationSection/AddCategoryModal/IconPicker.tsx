@@ -43,9 +43,19 @@ type IconsProps = {
     setNewCategoryIcon: (iconName: string) => void
 }
 
+const defaultIcons = [
+    'IoDocuments',
+    'IoHeart',
+    'IoPulse',
+    'IoLaptop',
+    'IoSchool',
+]
+
 const Icons = memo(({ setNewCategoryIcon }: IconsProps): JSX.Element => {
     const memoizedIcons = useMemo(() => {
-        return Object.entries(iconList)
+        return Object.entries(iconList).filter(([name]) => {
+            return !defaultIcons.includes(name)
+        })
     }, [])
 
     return (
