@@ -22,20 +22,21 @@ const ToolbarButtons = () => {
         setTaskList(taskList.filter((item) => !item.done))
 
     const removeTasksHandler = () => {
+        const tabIsEmpty = taskList.some(
+            (item) => item.category === selectedCategoryTab
+        )
         const anyTaskIsDone = taskList.some((task) => task.done)
         const doneTasksInActiveTab = taskList.filter(
             (task) => task.category === selectedCategoryTab && task.done
         )
+
+        if (tabIsEmpty) setSelectedCategoryTab('all')
 
         if (
             (allTabIsSelected && anyTaskIsDone) ||
             doneTasksInActiveTab.length > 0
         ) {
             removeDoneTasksFromList()
-
-            // if (!allTabIsSelected && selectedCategoryTab) {
-            //     setSelectedCategoryTab('all')
-            // }
 
             showAlert(AlertVariant.SUCCESS_DONE_TASKS_REMOVED, setAlertState)
         } else {

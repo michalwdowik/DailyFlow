@@ -4,7 +4,7 @@
 
 import { memo, useMemo } from 'react'
 import { IconContext } from 'react-icons'
-import * as ImportedIcons from 'react-icons/io5'
+import { IoHappy } from 'react-icons/io5'
 import iconList from '../../../Helpers/iconList'
 
 type IconPickerProps = {
@@ -13,19 +13,18 @@ type IconPickerProps = {
 }
 const IconPicker = memo(
     ({ newCategoryIcon, setNewCategoryIcon }: IconPickerProps): JSX.Element => {
-        const value = useMemo(
+        const iconContextValue = useMemo(
             () => ({
                 size: '3em',
-                overflow: 'x-scroll',
                 display: 'flex',
                 color: '#334155',
             }),
             []
         )
         return (
-            <IconContext.Provider value={value}>
+            <IconContext.Provider value={iconContextValue}>
                 <div className="flex-none collapse max-h-60 rounded-3xl">
-                    <input type="checkbox" className="peer" />
+                    <input type="checkbox" className="peer " />
                     <SelectedIcon iconName={newCategoryIcon} />
                     <div className="relative p-0 m-0 overflow-auto collapse-content place-items-center accent-slate-700">
                         <div className="flex flex-wrap justify-center mt-3 ">
@@ -38,13 +37,13 @@ const IconPicker = memo(
     }
 )
 
-type IconType = keyof typeof ImportedIcons
+type IconType = keyof typeof iconList
 
 type IconsProps = {
     setNewCategoryIcon: (iconName: string) => void
 }
 
-const Icons = ({ setNewCategoryIcon }: IconsProps): JSX.Element => {
+const Icons = memo(({ setNewCategoryIcon }: IconsProps): JSX.Element => {
     const memoizedIcons = useMemo(() => {
         return Object.entries(iconList)
     }, [])
@@ -53,7 +52,7 @@ const Icons = ({ setNewCategoryIcon }: IconsProps): JSX.Element => {
         <>
             {memoizedIcons.map(([name, Icon]) => (
                 <button
-                    className="transition-all ease-in-out hover:opacity-75 focus:scale-125"
+                    className="px-3 transition-all ease-in-out hover:opacity-75 focus:scale-125"
                     type="button"
                     key={name}
                     onClick={() => setNewCategoryIcon(name)}
@@ -63,7 +62,7 @@ const Icons = ({ setNewCategoryIcon }: IconsProps): JSX.Element => {
             ))}
         </>
     )
-}
+})
 
 type SelectedIconProps = {
     iconName: string
@@ -83,10 +82,10 @@ type DynamicIconProps = {
 }
 
 export const DynamicIcon = ({ name }: DynamicIconProps): JSX.Element => {
-    const Icon = ImportedIcons[name as IconType]
+    const Icon = iconList[name as IconType]
 
     if (!Icon) {
-        return <ImportedIcons.IoHappy />
+        return <IoHappy />
     }
     return <Icon />
 }

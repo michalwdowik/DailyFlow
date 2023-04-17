@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { ChangeEvent, Suspense, lazy, useRef, useState } from 'react'
+import { ChangeEvent, useRef, useState } from 'react'
 import { v4 as uuid } from 'uuid'
 import { ColorResult } from 'react-color'
 import { colorPickerColorHandler } from '../../../Helpers/colorStyleClassHandler'
@@ -21,6 +21,7 @@ import CreateNewTaskButton from './CreateNewTaskButton'
 import NewCategoryInput from './NewCategoryInput'
 import OpenModalButton from './OpenModalButton'
 import ColorPicker from './ColorPicker'
+import IconPicker from './IconPicker'
 
 const AddCategoryModal = () => {
     const { categories, addCategory } = useCategoryContext()
@@ -84,8 +85,6 @@ const AddCategoryModal = () => {
         setNewCategory({ ...newCategory, icon })
     }
 
-    const IconPicker = lazy(() => import('./IconPicker'))
-
     return (
         <div>
             <OpenModalButton openModal={openModal} />
@@ -123,20 +122,15 @@ const AddCategoryModal = () => {
                                     changeColorHandler={changeColorHandler}
                                     color={newCategory.color}
                                 />
-                                <Suspense
-                                    fallback={<div>Loading icon picker...</div>}
-                                >
-                                    <IconPicker
-                                        newCategoryIcon={newCategory.icon}
-                                        setNewCategoryIcon={(
-                                            categoryIcon: string
-                                        ) =>
-                                            changeCategoryIconHandler(
-                                                categoryIcon
-                                            )
-                                        }
-                                    />
-                                </Suspense>
+
+                                <IconPicker
+                                    newCategoryIcon={newCategory.icon}
+                                    setNewCategoryIcon={(
+                                        categoryIcon: string
+                                    ) =>
+                                        changeCategoryIconHandler(categoryIcon)
+                                    }
+                                />
                             </label>
                         </label>
                     </div>
