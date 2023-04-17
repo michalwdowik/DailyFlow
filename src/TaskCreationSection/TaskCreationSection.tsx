@@ -17,6 +17,7 @@ import {
 } from '../Contexts/CategoryContext'
 import { useTaskContext, defaultTask } from '../Contexts/TaskContext'
 import TaskInput from './CategoryCreationSection/TaskInput'
+import scrollToBottom from '../Helpers/scrollToBottom'
 
 type InputRefType = MutableRefObject<HTMLInputElement | null>
 
@@ -34,6 +35,7 @@ const TaskCreationSection = () => {
     const resetInput = () => {
         inputRef.current!.value = ''
     }
+
     const resetDeadline = () => {
         setNewTask({ ...newTask, deadline: 'Not specified' })
     }
@@ -58,6 +60,7 @@ const TaskCreationSection = () => {
                 uuid: uuid(),
             },
         ])
+        scrollToBottom()
         resetDeadline()
         setIsSelectDateChecked(false)
         setIsCorrectTyped(true)
@@ -80,7 +83,7 @@ const TaskCreationSection = () => {
     }
 
     return (
-        <div className="relative flex flex-col w-full p-5 glassmorphismCard gap-7 ">
+        <div className="relative flex flex-col self-start w-full p-5 glassmorphismCard gap-7">
             <span className="mt-2 -mb-6 label-text text-slate-700">
                 Add Task:
             </span>

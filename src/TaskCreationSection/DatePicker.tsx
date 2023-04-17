@@ -25,7 +25,6 @@ const DatePicker = ({
     const handleDateChange = (selectedDate: Date) => {
         const formattedDate = selectedDate.toLocaleDateString('en-US')
         setTaskDeadline(formattedDate)
-        // handleClose()
     }
 
     const setTodaysDate = () => {

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-redeclare */
 
-import { useContext } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import { IoListOutline } from 'react-icons/io5'
 import TaskViewSectionContext from '../../Contexts/TaskViewSectionContext'
 import { DynamicIcon } from '../../TaskCreationSection/CategoryCreationSection/AddCategoryModal/IconPicker'
@@ -37,12 +37,21 @@ const CategoryTab = ({ categoryTab, categoryTabsLength }: CategoryTabProps) => {
         categoryTab.name === 'all' ? taskList.length : categoryTab.length
     const animateIndicatorOnSelectedTab =
         categoryTab.name === selectedCategoryTab && 'animate-bounce'
-
+    const contentRef = useRef<HTMLDivElement>(null)
     const taskListEmpty = taskList.length === 0
+
+    useEffect(() => {
+        if (contentRef.current) {
+            contentRef.current.scrollIntoView({
+                behavior: 'smooth',
+            })
+        }
+    }, [selectedCategoryTab])
 
     return (
         <li>
             <div
+                ref={contentRef}
                 className={`${paddingClassName} ${
                     taskListEmpty && 'rounded-2xl'
                 } indicator relative mt-4 bg-base-300 shadow-xl transition delay-150 ease-in-out hover:bg-base-200`}

@@ -52,7 +52,7 @@ const options = {
         ),
     },
     datepickerClassNames:
-        'fixed inset-0 flex items-center justify-center w-72 h-96',
+        'fixed inset-5 flex items-center justify-center w-72 h-96',
     defaultDate: new Date(),
     language: 'en',
 }

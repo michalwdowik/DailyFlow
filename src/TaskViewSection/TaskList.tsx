@@ -39,7 +39,7 @@ const TaskList = () => {
             <div className="flow-root ">
                 <ul
                     ref={animationParent}
-                    className={`mt-3 max-h-[550px] ${scrollIfOverflow} p-0`}
+                    className={`mt-3 max-h-[500px] ${scrollIfOverflow} p-0`}
                 >
                     {taskList.length === 0 && <CallToActionLabel />}
                     {taskList.map((task) => (
