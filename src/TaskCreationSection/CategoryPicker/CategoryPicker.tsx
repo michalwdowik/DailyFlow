@@ -36,13 +36,13 @@ const CategoryPicker = ({
             <span className="mb-1 label-text text-slate-700">
                 Select category:
             </span>
-            <div className="bg-transparent collapse-arrow collapse rounded-xl">
+            <div className="bg-transparent rounded-lg collapse-arrow collapse">
                 <input type="checkbox" className="peer" />
                 <CategoryDropdownMenu
                     selectedCategoryName={selectedCategoryName}
                     categoryColor={categoryColor}
                 />
-                <div className="flex flex-row flex-wrap content-center justify-center gap-2 mt-3 bg-transparent rounded-lg collapse-content text-primary-content peer-checked:bg-transparent peer-checked:text-secondary-content">
+                <div className="flex flex-row flex-wrap gap-2 mt-3 rounded-lg collapse-content ">
                     {categories.map((category) => (
                         <Category
                             changeCategory={() => onChangeCategory(category)}
@@ -76,7 +76,7 @@ const CategoryDropdownMenu = ({
     <div
         className={`${colorStyleBgHandler(
             categoryColor
-        )} collapse-title rounded-3xl text-primary-content transition duration-150 ease-in-out peer-checked:text-secondary-content peer-checked:opacity-75`}
+        )} collapse-title text-white rounded-3xl transition duration-500 ease-in-out peer-checked:opacity-50`}
     >
         {selectedCategoryName}
     </div>

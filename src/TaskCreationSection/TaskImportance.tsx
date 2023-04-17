@@ -66,7 +66,7 @@ const Star = ({
             key={index}
             className={` p-1
       transition
-      ease-in-out
+      ease-in-out hover:scale-125
       ${colorStar}`}
             onClick={() => setTaskRate(index)}
             onMouseEnter={() => setHoveredStars(index)}

@@ -13,9 +13,9 @@ const options = {
             'transition active:scale-90 active:dark:scale-90 focus:dark:outline-0 focus:outline-0',
         icons: 'active:scale-125 transition duration-100 dark:bg-transparent',
         text: 'hover:dark:bg-transparent transition',
-        disabledText: 'pointer-events-none blur ',
-        input: 'rounded-3xl dark:bg-base-300',
-        inputIcon: '',
+        disabledText: 'pointer-events-none blur  ',
+        input: 'rounded-3xl fade-in dark:bg-base-300',
+        inputIcon: 'fade-in z-50',
         selected:
             'bg-transparent scale-150 duration-100 dark:text-success transition',
     },
@@ -52,7 +52,7 @@ const options = {
         ),
     },
     datepickerClassNames:
-        'fixed inset-5 flex items-center justify-center w-72 h-96',
+        'fixed inset-0 flex items-center justify-center w-72 h-96',
     defaultDate: new Date(),
     language: 'en',
 }

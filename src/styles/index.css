@@ -36,3 +36,10 @@ body {
   animation-duration: 2s;
   animation-iteration-count: infinite;
 }
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+

@@ -34,7 +34,7 @@ const DatePicker = ({
     }
 
     return (
-        <div className="relative flex flex-col gap-2 mb-2">
+        <div className="relative flex flex-col gap-2 mb-2 ">
             <label className="relative inline-flex gap-3 cursor-pointer label-text ">
                 <TogglerInput
                     isChecked={isSelectDateChecked}
@@ -68,7 +68,9 @@ type TogglerLabelProps = {
 }
 const TogglerLabel = ({ isToggled }: TogglerLabelProps) => (
     <span
-        className={`text-slate-700 ${isToggled ? 'opacity-50' : 'opacity-100'}`}
+        className={`transition-all duration-200 text-slate-700 ${
+            isToggled ? 'opacity-30' : 'opacity-100'
+        }`}
     >
         Set Deadline
     </span>

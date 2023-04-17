@@ -13,8 +13,8 @@ const TaskList = () => {
         setSearchInput(e.target.value)
     }
     const [animationParent] = useAutoAnimate({
-        duration: 150,
-        easing: 'ease-out',
+        duration: 200,
+        easing: 'ease-in-out',
     })
 
     const updateTasksStatus = (

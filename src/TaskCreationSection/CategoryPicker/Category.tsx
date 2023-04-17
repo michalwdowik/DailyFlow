@@ -29,7 +29,7 @@ const Category = ({
     }
 
     return (
-        <div className="flex gap-1 p-1 ">
+        <div className="flex gap-1 p-1">
             <CategoryRadio
                 categoryUUID={categoryUUID}
                 isCategoryChecked={categoryIsChecked}
