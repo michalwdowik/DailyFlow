@@ -4,7 +4,7 @@
 import { useContext } from 'react'
 import { IoListOutline } from 'react-icons/io5'
 import TaskViewSectionContext from '../../Contexts/TaskViewSectionContext'
-import { DynamicIcon } from '../../TaskCreationSection/CategoryCreationSection/IconPicker'
+import { DynamicIcon } from '../../TaskCreationSection/CategoryCreationSection/AddCategoryModal/IconPicker'
 import { CategoryTabType, useTaskContext } from '../../Contexts/TaskContext'
 import {
     colorStyleBgHandler,

@@ -65,6 +65,4 @@ const CallToActionLabel = () => {
             Add some tasks...
         </h1>
     )
-
-    return null
 }

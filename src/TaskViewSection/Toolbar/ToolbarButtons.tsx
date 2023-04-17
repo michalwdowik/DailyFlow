@@ -33,9 +33,9 @@ const ToolbarButtons = () => {
         ) {
             removeDoneTasksFromList()
 
-            if (!allTabIsSelected && doneTasksInActiveTab.length === 0) {
-                setSelectedCategoryTab('all')
-            }
+            // if (!allTabIsSelected && selectedCategoryTab) {
+            //     setSelectedCategoryTab('all')
+            // }
 
             showAlert(AlertVariant.SUCCESS_DONE_TASKS_REMOVED, setAlertState)
         } else {

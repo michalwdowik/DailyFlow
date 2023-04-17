@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useState, useRef, MutableRefObject } from 'react'
 import { v4 as uuid } from 'uuid'
-import Button from '../Components/Button'
+import AddTaskButton from './CategoryCreationSection/AddTaskButton'
 import CategoryPicker from './CategoryPicker/CategoryPicker'
 import DatePicker from './DatePicker'
 import TaskImportance from './TaskImportance'
@@ -16,6 +16,7 @@ import {
     CategoryType,
 } from '../Contexts/CategoryContext'
 import { useTaskContext, defaultTask } from '../Contexts/TaskContext'
+import TaskInput from './CategoryCreationSection/TaskInput'
 
 type InputRefType = MutableRefObject<HTMLInputElement | null>
 
@@ -124,71 +125,3 @@ const TaskCreationSection = () => {
 }
 
 export default TaskCreationSection
-
-type TaskInputProps = {
-    maxInputLength: number
-    inputRef: InputRefType
-    isCorrectTyped: boolean
-    submitHandler: (e: React.KeyboardEvent<HTMLInputElement>) => void
-}
-
-const TaskInput = ({
-    submitHandler,
-    maxInputLength,
-    inputRef,
-    isCorrectTyped,
-}: TaskInputProps) => (
-    <input
-        onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-                submitHandler(e)
-            }
-        }}
-        maxLength={maxInputLength}
-        ref={inputRef}
-        type="text"
-        placeholder="Type here..."
-        id="taskInput"
-        className={`input ${
-            isCorrectTyped
-                ? 'input-success focus:input-success'
-                : 'input-error focus:input-error'
-        } w-full rounded-3xl bg-base-300  
-      `}
-    />
-)
-
-type AddTaskButtonProps = {
-    submitHandler: (e: React.KeyboardEvent<HTMLInputElement>) => void
-    isCorrectTyped: boolean
-}
-const AddTaskButton = ({
-    submitHandler,
-    isCorrectTyped,
-}: AddTaskButtonProps) => {
-    const buzzIfTaskNotValid = () => {
-        return !isCorrectTyped && 'buzz-effect'
-    }
-    return (
-        <Button
-            className={`btn-m btn-circle btn ${buzzIfTaskNotValid()}`}
-            action={submitHandler}
-            title={
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 h-6"
-                >
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M12 4.5v15m7.5-7.5h-15"
-                    />
-                </svg>
-            }
-        />
-    )
-}
