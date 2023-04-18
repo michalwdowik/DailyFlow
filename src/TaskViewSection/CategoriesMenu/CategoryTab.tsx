@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-redeclare */
 
 import { useContext, useEffect, useRef } from 'react'
-import { IoListOutline } from 'react-icons/io5'
+import { IoListOutline } from '@react-icons/all-files/io5/IoListOutline'
 import TaskViewSectionContext from '../../Contexts/TaskViewSectionContext'
 import { DynamicIcon } from '../../TaskCreationSection/CategoryCreationSection/AddCategoryModal/IconPicker'
 import { CategoryTabType, useTaskContext } from '../../Contexts/TaskContext'

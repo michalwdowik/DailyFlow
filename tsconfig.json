@@ -19,3 +19,4 @@
   "include": [".eslintrc.cjs", "src", "vite-env.d.ts", "prettier.config.js", "postcss.config.js", "vite.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
+

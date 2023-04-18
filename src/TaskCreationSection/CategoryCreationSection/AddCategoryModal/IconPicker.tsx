@@ -3,8 +3,8 @@
 /* eslint-disable react/require-default-props */
 
 import { memo, useMemo } from 'react'
-import { IconContext } from 'react-icons'
-import { IoHappy } from 'react-icons/io5'
+import { IconContext } from '@react-icons/all-files'
+import { IoHappy } from '@react-icons/all-files/io5/IoHappy'
 import iconList from '../../../Helpers/iconList'
 
 type IconPickerProps = {
@@ -62,7 +62,7 @@ const Icons = memo(({ setNewCategoryIcon }: IconsProps): JSX.Element => {
         <>
             {memoizedIcons.map(([name, Icon]) => (
                 <button
-                    className="px-3 transition-all ease-in-out hover:opacity-75 focus:scale-125"
+                    className="px-3 text-5xl transition-all ease-in-out text-slate-600 hover:opacity-75 focus:scale-125"
                     type="button"
                     key={name}
                     onClick={() => setNewCategoryIcon(name)}
@@ -80,7 +80,7 @@ type SelectedIconProps = {
 
 const SelectedIcon = ({ iconName }: SelectedIconProps): JSX.Element => (
     <button
-        className="self-center p-0 m-0 transition ease-in-out collapse-title peer-checked:scale-75 peer-checked:overflow-scroll"
+        className="self-center p-0 m-0 text-5xl transition ease-in-out text-slate-600 collapse-title peer-checked:scale-75 peer-checked:overflow-scroll"
         type="button"
     >
         <DynamicIcon name={iconName} />

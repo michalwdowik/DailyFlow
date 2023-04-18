@@ -114,6 +114,7 @@ const TaskCreationSection = () => {
                 taskRate={newTask.rate}
                 setTaskRate={(rate) => setNewTask({ ...newTask, rate })}
             />
+
             <DatePicker
                 colorStyle={colorStyle}
                 setTaskDeadline={(deadline) =>
@@ -122,6 +123,7 @@ const TaskCreationSection = () => {
                 isSelectDateChecked={isSelectDateChecked}
                 setIsSelectDateChecked={setIsSelectDateChecked}
             />
+
             <Alert alert={alertState} />
         </div>
     )
