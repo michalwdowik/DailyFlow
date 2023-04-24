@@ -1,4 +1,4 @@
-import onEnterPressed from '../Helpers/onEnterPressed'
+import onEnterPressed from '../helpers/onEnterPressed'
 
 type CommonInputProps = {
     maxChars: number

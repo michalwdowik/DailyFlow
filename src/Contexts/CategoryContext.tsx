@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, useMemo, useState, useContext, ReactNode } from 'react'
 import { v4 as uuid } from 'uuid'
+import { IconType } from '../types/IconTypes'
 
 type CategoryContextType = {
     categories: CategoryType[]
@@ -16,7 +17,7 @@ const CategoryContext = createContext<CategoryContextType>({
 
 export interface CategoryType {
     name: string
-    icon: string
+    icon: IconType
     colorStyle: string
     uuid: string
     isAddedByUser: boolean

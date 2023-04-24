@@ -4,7 +4,7 @@
 import { ChangeEvent, useRef, useState } from 'react'
 import { v4 as uuid } from 'uuid'
 import { ColorResult } from 'react-color'
-import { colorPickerColorHandler } from '../../../Helpers/colorStyleClassHandler'
+import { colorPickerColorHandler } from '../../../helpers/colorStyleClassHandler'
 import Alert, {
     AlertVariant,
     showAlert,
@@ -15,13 +15,14 @@ import {
     defaultCategoryParams,
 } from '../../../Contexts/CategoryContext'
 import Portal from '../../../Components/Portal'
-import useCloseOnEscapeKey from '../../../Helpers/useCloseOnEscapeKey'
-import useModalLogic from '../../../Helpers/useModalLogic'
+import useCloseOnEscapeKey from '../../../hooks/useCloseOnEscapeKey'
+import useModalLogic from '../../../hooks/useModalLogic'
 import CreateNewTaskButton from './CreateNewTaskButton'
 import OpenModalButton from './OpenModalButton'
 import ColorPicker from './ColorPicker'
 import IconPicker from './IconPicker'
 import TextInput from '../../../Components/TextInput'
+import { IconType } from '../../../types/IconTypes'
 
 const AddCategoryModal = () => {
     const { categories, addCategory } = useCategoryContext()
@@ -30,7 +31,6 @@ const AddCategoryModal = () => {
     const { alertState, setAlertState } = useAlertState()
     const [newCategory, setNewCategory] = useState(defaultCategoryParams)
     const inputRef = useRef<HTMLInputElement>(null)
-    const maxCategoriesReached = categories.length >= 12
     useCloseOnEscapeKey({ id: 'addCategoryModal', closeModal })
 
     const onInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -51,7 +51,7 @@ const AddCategoryModal = () => {
             ({ name }) => inputRef.current?.value === name
         )
         const isCategoryValid = hasValidName && isUnique
-
+        const maxCategoriesReached = categories.length >= 12
         if (maxCategoriesReached) {
             showAlert(AlertVariant.ERROR_UP_TO_7_CATEGORIES, setAlertState)
             return
@@ -81,7 +81,7 @@ const AddCategoryModal = () => {
         })
     }
 
-    const changeCategoryIconHandler = (icon: string) => {
+    const changeCategoryIconHandler = (icon: IconType) => {
         setNewCategory({ ...newCategory, icon })
     }
 
@@ -127,7 +127,7 @@ const AddCategoryModal = () => {
                                 <IconPicker
                                     newCategoryIcon={newCategory.icon}
                                     setNewCategoryIcon={(
-                                        categoryIcon: string
+                                        categoryIcon: IconType
                                     ) =>
                                         changeCategoryIconHandler(categoryIcon)
                                     }

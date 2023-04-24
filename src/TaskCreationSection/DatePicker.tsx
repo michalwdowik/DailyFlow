@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useState } from 'react'
 import Datepicker from 'tailwind-datepicker-react'
-import { colorStyleTogglerHandler } from '../Helpers/colorStyleClassHandler'
-import options from '../Helpers/datePickerOptions'
+import { colorStyleTogglerHandler } from '../helpers/colorStyleClassHandler'
+import options from '../helpers/datePickerOptions'
 
 type DatePickerProps = {
     setTaskDeadline: (date: string) => void

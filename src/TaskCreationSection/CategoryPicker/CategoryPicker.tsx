@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-redeclare */
 import { ReactNode, useMemo } from 'react'
-import { colorStyleBgHandler } from '../../Helpers/colorStyleClassHandler'
+import { colorStyleBgHandler } from '../../helpers/colorStyleClassHandler'
 import AddCategoryModal from '../CategoryCreationSection/AddCategoryModal/AddCategoryModal'
 import Category from './Category'
 import {

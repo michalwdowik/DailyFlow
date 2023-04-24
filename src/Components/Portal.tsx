@@ -12,7 +12,7 @@ export default function Portal({ rootId, children }: PortalProps) {
     useEffect(() => {
         return () => {
             window.requestAnimationFrame(() => {
-                if (target.current?.childNodes.length === 0) {
+                if (target.current && target.current.childNodes.length === 0) {
                     target.current.remove()
                     target.current = null
                 }

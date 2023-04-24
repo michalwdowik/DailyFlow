@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid'
 import { TaskType } from '../../Contexts/TaskContext'
-import { colorStyleTextHandler } from '../../Helpers/colorStyleClassHandler'
+import { colorStyleTextHandler } from '../../helpers/colorStyleClassHandler'
 
 const Stars = ({ task }: { task: TaskType }) => (
     <div className="inline-flex">

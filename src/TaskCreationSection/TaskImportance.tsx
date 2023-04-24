@@ -2,7 +2,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/no-array-index-key */
 import { Dispatch, SetStateAction, useState } from 'react'
-import { colorStyleTextHandler } from '../Helpers/colorStyleClassHandler'
+import { colorStyleTextHandler } from '../helpers/colorStyleClassHandler'
 
 type TaskImportanceProps = {
     taskRate: number

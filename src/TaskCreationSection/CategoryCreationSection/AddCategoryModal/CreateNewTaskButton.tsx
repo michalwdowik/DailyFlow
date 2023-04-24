@@ -1,5 +1,5 @@
 import Button from '../../../Components/Button'
-import { colorStyleBgHandler } from '../../../Helpers/colorStyleClassHandler'
+import { colorStyleBgHandler } from '../../../helpers/colorStyleClassHandler'
 
 type CreateNewTaskButtonProps = {
     color: string

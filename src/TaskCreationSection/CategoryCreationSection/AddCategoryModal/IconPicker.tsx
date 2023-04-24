@@ -1,47 +1,28 @@
 /* eslint-disable react/display-name */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/require-default-props */
 
 import { memo, useMemo } from 'react'
-import { IconContext } from '@react-icons/all-files'
-import { IoHappy } from '@react-icons/all-files/io5/IoHappy'
-import iconList from '../../../Helpers/iconList'
+import iconList from '../../../helpers/iconList'
+import {
+    IconPickerProps,
+    IconProps,
+    IconsProps,
+} from '../../../types/IconTypes'
 
-type IconPickerProps = {
-    newCategoryIcon: string
-    setNewCategoryIcon: (categoryIcon: string) => void
-}
 const IconPicker = memo(
     ({ newCategoryIcon, setNewCategoryIcon }: IconPickerProps): JSX.Element => {
-        const iconContextValue = useMemo(
-            () => ({
-                size: '3em',
-                display: 'flex',
-                color: '#334155',
-            }),
-            []
-        )
         return (
-            <IconContext.Provider value={iconContextValue}>
-                <div className="flex-none collapse max-h-60 rounded-3xl">
-                    <input type="checkbox" className="peer " />
-                    <SelectedIcon iconName={newCategoryIcon} />
-                    <div className="relative p-0 m-0 overflow-auto collapse-content place-items-center accent-slate-700">
-                        <div className="flex flex-wrap justify-center mt-3 ">
-                            <Icons setNewCategoryIcon={setNewCategoryIcon} />
-                        </div>
+            <div className="flex-none collapse max-h-60 rounded-3xl">
+                <input type="checkbox" className="peer " />
+                <SelectedIcon name={newCategoryIcon} />
+                <div className="relative p-0 m-0 overflow-auto collapse-content place-items-center accent-slate-700">
+                    <div className="flex flex-wrap justify-center mt-3 ">
+                        <Icons setNewCategoryIcon={setNewCategoryIcon} />
                     </div>
                 </div>
-            </IconContext.Provider>
+            </div>
         )
     }
 )
-
-type IconType = keyof typeof iconList
-
-type IconsProps = {
-    setNewCategoryIcon: (iconName: string) => void
-}
 
 const defaultIcons = [
     'IoDocuments',
@@ -74,28 +55,24 @@ const Icons = memo(({ setNewCategoryIcon }: IconsProps): JSX.Element => {
     )
 })
 
-type SelectedIconProps = {
-    iconName: string
-}
-
-const SelectedIcon = ({ iconName }: SelectedIconProps): JSX.Element => (
+const SelectedIcon = ({ name }: IconProps): JSX.Element => (
     <button
         className="self-center p-0 m-0 text-5xl transition ease-in-out text-slate-600 collapse-title peer-checked:scale-75 peer-checked:overflow-scroll"
         type="button"
     >
-        <DynamicIcon name={iconName} />
+        <DynamicIcon name={name} />
     </button>
 )
 
-type DynamicIconProps = {
-    name: string
-}
-
-export const DynamicIcon = ({ name }: DynamicIconProps): JSX.Element => {
-    const Icon = iconList[name as IconType]
+export const DynamicIcon = ({ name }: IconProps): JSX.Element => {
+    const Icon = iconList[name]
 
     if (!Icon) {
-        return <IoHappy />
+        const DefaultIcon = iconList.IoHappy
+        if (DefaultIcon) {
+            return <DefaultIcon />
+        }
+        throw new Error('Default icon not found')
     }
     return <Icon />
 }

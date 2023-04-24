@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from 'react'
 import { ColorResult } from 'react-color'
+import colors from '../../../helpers/colors'
 
 type ColorPickerProps = {
     changeColorHandler: (color: ColorResult) => void
@@ -16,7 +17,7 @@ const ColorPicker = ({ color, changeColorHandler }: ColorPickerProps) => (
             key={color}
             className="self-center p-0 m-0"
             color={color}
-            colors={['#38bdf8', '#f87171', '#10b981', '#7e22ce', '#eab308']}
+            colors={colors}
             onChangeComplete={changeColorHandler}
         />
     </Suspense>

@@ -1,48 +1,20 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-param-reassign */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {
-    createContext,
-    useMemo,
-    useState,
-    useContext,
-    ReactNode,
-} from 'react'
+import React, { createContext, useMemo, useState, useContext } from 'react'
 import { v4 as uuid } from 'uuid'
+import {
+    CategoryTabType,
+    TaskContextProviderType,
+    TaskContextType,
+    TaskType,
+} from '../types/TaskTypes'
 
-export type TaskType = {
-    uuid: string
-    name: string
-    category: string
-    done: boolean
-    rate: number
-    deadline: string
-    icon: string
-    colorStyle: string
-}
-
-type TaskContextType = {
-    taskList: TaskType[]
-    categoryTabs: CategoryTabType[]
-    setTaskList: React.Dispatch<React.SetStateAction<TaskType[]>>
-}
 const TaskContext = createContext<TaskContextType>({
     taskList: [],
     categoryTabs: [],
     setTaskList: () => {},
 })
-
-export type CategoryTabType = {
-    name: string
-    length: number
-    icon: string
-    uuid: string
-    colorStyle?: string
-}
-
-type TaskContextProviderType = {
-    children: ReactNode
-}
 
 export const defaultTask = {
     name: '',

@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { colorStyleBlobHandler } from '../../Helpers/colorStyleClassHandler'
-import { TaskType } from '../../Contexts/TaskContext'
+import { colorStyleBlobHandler } from '../../helpers/colorStyleClassHandler'
+import { TaskType } from '../../types/TaskTypes'
 import Portal from '../../Components/Portal'
-import useCloseOnEscapeKey from '../../Helpers/useCloseOnEscapeKey'
-import useModalLogic from '../../Helpers/useModalLogic'
+import useCloseOnEscapeKey from '../../hooks/useCloseOnEscapeKey'
+import useModalLogic from '../../hooks/useModalLogic'
 import ModalBackground from './ModalBackground'
 import ModalDetails from './ModalDetails'
 

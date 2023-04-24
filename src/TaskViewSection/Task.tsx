@@ -3,7 +3,10 @@
 import { ChangeEvent, useContext } from 'react'
 import { v4 as uuid } from 'uuid'
 import TaskModal from './TaskModal/TaskModal'
-import { colorStyleCheckboxHandler } from '../Helpers/colorStyleClassHandler'
+import {
+    ColorStyleState,
+    colorStyleCheckboxHandler,
+} from '../helpers/colorStyleClassHandler'
 import TaskViewSectionContext from '../Contexts/TaskViewSectionContext'
 import { TaskType } from '../Contexts/TaskContext'
 
@@ -46,7 +49,7 @@ export default Task
 
 type TaskCheckBoxProps = {
     isTaskDone: boolean
-    taskColorStyle: string
+    taskColorStyle: ColorStyleState
     updateTaskStatus: (e: ChangeEvent<HTMLInputElement>) => void
 }
 

@@ -5,21 +5,18 @@ import { useContext, useEffect, useRef } from 'react'
 import { IoListOutline } from '@react-icons/all-files/io5/IoListOutline'
 import TaskViewSectionContext from '../../Contexts/TaskViewSectionContext'
 import { DynamicIcon } from '../../TaskCreationSection/CategoryCreationSection/AddCategoryModal/IconPicker'
-import { CategoryTabType, useTaskContext } from '../../Contexts/TaskContext'
+import { useTaskContext } from '../../Contexts/TaskContext'
 import {
     colorStyleBgHandler,
     colorStyleTooltipHandler,
-} from '../../Helpers/colorStyleClassHandler'
-
-type CategoryTabProps = {
-    categoryTab: CategoryTabType
-    categoryTabsLength: number
-}
-
-type ContextType = {
-    selectedCategoryTab: string
-    setSelectedCategoryTab: (category: string) => void
-}
+} from '../../helpers/colorStyleClassHandler'
+import {
+    CategoryTabProps,
+    TabIconProps,
+    TabIndicatorProps,
+    TabProps,
+    ContextType,
+} from '../../types/TabTypes'
 
 const calculatePadding = (categoryTabsLength: number): string => {
     if (categoryTabsLength > 8) return 'p-0'
@@ -74,12 +71,6 @@ const CategoryTab = ({ categoryTab, categoryTabsLength }: CategoryTabProps) => {
 }
 export default CategoryTab
 
-type TabIndicatorProps = {
-    color: string
-    categoryLength: number
-    animate: string | boolean
-}
-
 const TabIndicator = ({
     color,
     categoryLength,
@@ -94,21 +85,8 @@ const TabIndicator = ({
     </span>
 )
 
-type TabIconProps = {
-    iconName: string
-    categoryName: string
-}
-
 const TabIcon = ({ iconName, categoryName }: TabIconProps) =>
     categoryName === 'all' ? <IoListOutline /> : <DynamicIcon name={iconName} />
-
-type TabProps = {
-    color: string
-    name: string
-    isTabSelected: boolean
-    setSelectedCategoryTab: (category: string) => void
-    icon: string
-}
 
 const Tab = ({
     color,
