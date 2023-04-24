@@ -9,12 +9,11 @@ const AddTaskButton = ({
     submitHandler,
     isCorrectTyped,
 }: AddTaskButtonProps) => {
-    const buzzIfTaskNotValid = () => {
-        return !isCorrectTyped && 'buzz-effect'
-    }
+    const buzzIfTaskNotValid = !isCorrectTyped && 'buzz-effect'
+
     return (
         <Button
-            className={`btn-m btn-circle btn ${buzzIfTaskNotValid()}`}
+            className={`btn-m btn-circle btn ${buzzIfTaskNotValid}`}
             action={submitHandler}
             title={
                 <svg

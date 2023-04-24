@@ -50,12 +50,10 @@ const Category = ({
 }
 export default Category
 
-type CategoryRadioProps = {
-    isCategoryChecked: boolean
-    changeCategory: () => void
-    radioColor: string
-    categoryUUID: string
-}
+type CategoryRadioProps = Pick<
+    CategoryProps,
+    'changeCategory' | 'categoryUUID'
+> & { isCategoryChecked: boolean; radioColor: string }
 
 const CategoryRadio = ({
     isCategoryChecked,
@@ -87,10 +85,7 @@ const RemoveCategoryButton = ({
         <IoRemoveCircle className="text-error opacity-90" />
     </button>
 )
-type CategoryLabelProps = {
-    categoryName: string
-    categoryUUID: string
-}
+type CategoryLabelProps = Pick<CategoryProps, 'categoryName' | 'categoryUUID'>
 
 const CategoryLabel = ({ categoryName, categoryUUID }: CategoryLabelProps) => (
     <label

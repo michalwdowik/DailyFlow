@@ -18,10 +18,10 @@ import Portal from '../../../Components/Portal'
 import useCloseOnEscapeKey from '../../../Helpers/useCloseOnEscapeKey'
 import useModalLogic from '../../../Helpers/useModalLogic'
 import CreateNewTaskButton from './CreateNewTaskButton'
-import NewCategoryInput from './NewCategoryInput'
 import OpenModalButton from './OpenModalButton'
 import ColorPicker from './ColorPicker'
 import IconPicker from './IconPicker'
+import TextInput from '../../../Components/TextInput'
 
 const AddCategoryModal = () => {
     const { categories, addCategory } = useCategoryContext()
@@ -106,12 +106,13 @@ const AddCategoryModal = () => {
                                 onClick={(e) => e.stopPropagation()}
                             >
                                 <div className="indicator">
-                                    <NewCategoryInput
+                                    <TextInput
+                                        darkBackground={false}
                                         maxChars={17}
                                         inputRef={inputRef}
                                         onInput={onInput}
                                         isInputCorrect={isCorrectTyped}
-                                        createNewCategory={createNewCategory}
+                                        action={createNewCategory}
                                     />
                                     <CreateNewTaskButton
                                         color={newCategory.colorStyle}

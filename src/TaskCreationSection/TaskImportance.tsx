@@ -21,11 +21,10 @@ const TaskImportance = ({
             <span className="label-text text-slate-700">How Important?:</span>
             <div className="star-rating">
                 {[...Array(3)].map((_, index) => {
-                    index += 1
                     return (
                         <Star
                             key={index}
-                            index={index}
+                            index={index + 1}
                             setTaskRate={setTaskRate}
                             setHoveredStars={setHoveredStars}
                             taskRate={taskRate}

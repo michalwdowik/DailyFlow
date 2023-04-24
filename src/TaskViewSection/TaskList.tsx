@@ -21,15 +21,13 @@ const TaskList = () => {
         e: React.ChangeEvent<HTMLInputElement>,
         taskId: string
     ) => {
-        const taskIndex = taskList.findIndex((task) => task.uuid === taskId)
-        if (taskIndex !== -1) {
-            const newList = [...taskList]
-            newList[taskIndex] = {
-                ...newList[taskIndex],
-                done: e.target.checked,
-            }
-            setTaskList(newList)
-        }
+        setTaskList((prevList) =>
+            prevList.map((task) =>
+                task.uuid === taskId
+                    ? { ...task, done: e.target.checked }
+                    : task
+            )
+        )
     }
 
     const scrollIfOverflow = taskList.length > 8 && 'overflow-y-scroll'

@@ -16,8 +16,8 @@ import {
     CategoryType,
 } from '../Contexts/CategoryContext'
 import { useTaskContext, defaultTask } from '../Contexts/TaskContext'
-import TaskInput from './CategoryCreationSection/TaskInput'
 import scrollToBottom from '../Helpers/scrollToBottom'
+import TextInput from '../Components/TextInput'
 
 type InputRefType = MutableRefObject<HTMLInputElement | null>
 
@@ -88,11 +88,12 @@ const TaskCreationSection = () => {
                 Add Task:
             </span>
             <div className="flex w-5/6 gap-5 sm:w-4/6 md:w-4/6">
-                <TaskInput
-                    maxInputLength={30}
+                <TextInput
+                    darkBackground
+                    maxChars={30}
                     inputRef={inputRef}
-                    isCorrectTyped={isCorrectTyped}
-                    submitHandler={submitHandler}
+                    isInputCorrect={isCorrectTyped}
+                    action={submitHandler}
                 />
                 <AddTaskButton
                     submitHandler={submitHandler}

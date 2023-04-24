@@ -1,4 +1,5 @@
 import { TaskType } from '../../Contexts/TaskContext'
+import calculateDaysLeft from '../../Helpers/calculateDaysLeft'
 
 const DeadlineDetails = ({
     date,
@@ -7,21 +8,13 @@ const DeadlineDetails = ({
     task: TaskType
     date: string
 }): JSX.Element => {
-    const calculateDaysLeft = () => {
-        const deadlineDate = new Date(`${task.deadline}`)
-        const todayDate = new Date()
-        const difference = deadlineDate.getTime() - todayDate.getTime()
-        const totalDays = Math.ceil(difference / (1000 * 3600 * 24))
-        return totalDays
-    }
-
-    const daysLeft = calculateDaysLeft()
+    const daysLeft = calculateDaysLeft(task.deadline)
     const pastDeadline = daysLeft <= -1
     const todayIsTheDeadline = daysLeft === 0
     const deadlineInFuture = daysLeft > 0
 
     return (
-        <div className="bg-transparent stats ">
+        <div className="bg-transparent stats">
             <div className="stat">
                 {pastDeadline && (
                     <PastDeadline daysLeft={daysLeft} date={date} />
