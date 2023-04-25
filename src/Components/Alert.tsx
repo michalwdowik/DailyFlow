@@ -8,11 +8,11 @@ import {
     PartialAlertType,
 } from '../types/AlertTypes'
 
-const ALERT_DURATION = 3000
 export const showAlert = (
     alertData: AlertType,
     setAlertState: (alert: AlertType) => void
 ) => {
+    const ALERT_DURATION = 3000
     setAlertState({
         title: alertData.title,
         type: alertData.type,
@@ -30,7 +30,6 @@ export const showAlert = (
 
 export const useAlertState = () => {
     const [alertState, setAlertState] = useState<PartialAlertType>({})
-
     return { alertState, setAlertState }
 }
 

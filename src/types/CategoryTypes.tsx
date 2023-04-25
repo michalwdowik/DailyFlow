@@ -48,14 +48,14 @@ export type CategoryProps = {
     resetCategorySelection: () => void
 }
 
-export type CategoryPickerProps = Pick<CategoryProps, 'categoryColor'> & {
+export type CategoryPickerProps = Pick<
+    CategoryProps,
+    'categoryColor' | 'resetCategorySelection'
+> & {
     selectedCategoryName: string
     onChangeCategory: (category: CategoryType) => void
 }
 
-export type CategoryDropdownMenuProps = Pick<
-    CategoryProps,
-    'categoryName' | 'categoryColor'
-> & {
+export type CategoryDropdownMenuProps = Pick<CategoryProps, 'categoryColor'> & {
     selectedCategoryName: ReactNode
 }

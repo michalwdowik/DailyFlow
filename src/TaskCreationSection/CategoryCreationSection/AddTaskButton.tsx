@@ -1,5 +1,9 @@
+import { KeyboardEvent, MouseEvent } from 'react'
+
 type AddTaskButtonProps = {
-    submitHandler: React.MouseEventHandler<HTMLButtonElement>
+    submitHandler: (
+        e: MouseEvent<HTMLButtonElement> | KeyboardEvent<HTMLInputElement>
+    ) => void
     isCorrectTyped: boolean
 }
 

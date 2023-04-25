@@ -1,4 +1,10 @@
-import { useState, useRef, MutableRefObject } from 'react'
+import {
+    useState,
+    useRef,
+    MutableRefObject,
+    KeyboardEvent,
+    MouseEvent,
+} from 'react'
 import { v4 as uuid } from 'uuid'
 import AddTaskButton from './CategoryCreationSection/AddTaskButton'
 import CategoryPicker from './CategoryPicker/CategoryPicker'
@@ -35,7 +41,9 @@ const TaskCreationSection = () => {
     const resetDeadline = () => {
         setNewTask({ ...newTask, deadline: 'Not specified' })
     }
-    const submitHandler: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    const submitHandler = (
+        e: MouseEvent<HTMLButtonElement> | KeyboardEvent<HTMLInputElement>
+    ) => {
         e.preventDefault()
         const inputIsEmpty = inputRef.current?.value === ''
         if (inputIsEmpty) {
