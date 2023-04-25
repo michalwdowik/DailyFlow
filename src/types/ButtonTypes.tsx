@@ -1,10 +1,13 @@
-import { AlertType } from '../Components/Alert'
+import { AlertType } from './AlertTypes'
 
 export type TaskStatus = 'done' | 'notDone'
-export type MakeAllTasksDoneButtonProps = {
-    allTabIsSelected: boolean
-}
+
 export type RemoveDoneTasksButtonProps = {
     allTabIsSelected: boolean
-    setAlertState: React.Dispatch<React.SetStateAction<AlertType>>
+    setAlertState: React.Dispatch<React.SetStateAction<Partial<AlertType>>>
 }
+
+export type MakeAllTasksDoneButtonProps = Pick<
+    RemoveDoneTasksButtonProps,
+    'allTabIsSelected'
+>

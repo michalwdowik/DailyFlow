@@ -1,16 +1,12 @@
 import { IoRemoveCircle } from '@react-icons/all-files/io5/IoRemoveCircle'
 import { colorStyleRadioHandler } from '../../helpers/colorStyleClassHandler'
 import { useCategoryContext } from '../../Contexts/CategoryContext'
-
-type CategoryProps = {
-    selectedCategoryUUID: string
-    categoryName: string
-    categoryColor: string
-    isCategoryAddedByUser: boolean
-    categoryUUID: string
-    changeCategory: () => void
-    resetCategorySelection: () => void
-}
+import {
+    CategoryLabelProps,
+    CategoryProps,
+    CategoryRadioProps,
+    RemoveCategoryButtonProps,
+} from '../../types/CategoryTypes'
 
 const Category = ({
     selectedCategoryUUID,
@@ -50,11 +46,6 @@ const Category = ({
 }
 export default Category
 
-type CategoryRadioProps = Pick<
-    CategoryProps,
-    'changeCategory' | 'categoryUUID'
-> & { isCategoryChecked: boolean; radioColor: string }
-
 const CategoryRadio = ({
     isCategoryChecked,
     changeCategory,
@@ -71,9 +62,6 @@ const CategoryRadio = ({
     />
 )
 
-type RemoveCategoryButtonProps = {
-    removeCategoryHandler: () => void
-}
 const RemoveCategoryButton = ({
     removeCategoryHandler,
 }: RemoveCategoryButtonProps) => (
@@ -85,7 +73,6 @@ const RemoveCategoryButton = ({
         <IoRemoveCircle className="text-error opacity-90" />
     </button>
 )
-type CategoryLabelProps = Pick<CategoryProps, 'categoryName' | 'categoryUUID'>
 
 const CategoryLabel = ({ categoryName, categoryUUID }: CategoryLabelProps) => (
     <label

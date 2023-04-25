@@ -1,19 +1,12 @@
-/* eslint-disable @typescript-eslint/no-redeclare */
-import { ReactNode, useMemo } from 'react'
+import { useMemo } from 'react'
 import { colorStyleBgHandler } from '../../helpers/colorStyleClassHandler'
 import AddCategoryModal from '../CategoryCreationSection/AddCategoryModal/AddCategoryModal'
 import Category from './Category'
+import { useCategoryContext } from '../../Contexts/CategoryContext'
 import {
-    useCategoryContext,
-    CategoryType,
-} from '../../Contexts/CategoryContext'
-
-type CategoryPickerProps = {
-    categoryColor: string
-    selectedCategoryName: string
-    onChangeCategory: (category: CategoryType) => void
-    resetCategorySelection: () => void
-}
+    CategoryDropdownMenuProps,
+    CategoryPickerProps,
+} from '../../types/CategoryTypes'
 
 const CategoryPicker = ({
     categoryColor,
@@ -65,10 +58,6 @@ const CategoryPicker = ({
 }
 export default CategoryPicker
 
-type CategoryDropdownMenuProps = {
-    selectedCategoryName: ReactNode
-    categoryColor: string
-}
 const CategoryDropdownMenu = ({
     selectedCategoryName,
     categoryColor,

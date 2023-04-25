@@ -1,4 +1,4 @@
-import { TaskType } from '../../Contexts/TaskContext'
+import { TaskType } from '../../types/TaskTypes'
 import calculateDaysLeft from '../../helpers/calculateDaysLeft'
 
 const DeadlineDetails = ({

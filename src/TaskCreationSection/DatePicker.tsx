@@ -3,13 +3,12 @@ import { useState } from 'react'
 import Datepicker from 'tailwind-datepicker-react'
 import { colorStyleTogglerHandler } from '../helpers/colorStyleClassHandler'
 import options from '../helpers/datePickerOptions'
+import {
+    DatePickerProps,
+    TogglerInputProps,
+    TogglerLabelProps,
+} from '../types/DatePickerTypes'
 
-type DatePickerProps = {
-    setTaskDeadline: (date: string) => void
-    isSelectDateChecked: boolean
-    setIsSelectDateChecked: (isChecked: boolean) => void
-    colorStyle: string
-}
 const DatePicker = ({
     setTaskDeadline,
     isSelectDateChecked,
@@ -63,9 +62,6 @@ const DatePicker = ({
 }
 export default DatePicker
 
-type TogglerLabelProps = {
-    isToggled: boolean
-}
 const TogglerLabel = ({ isToggled }: TogglerLabelProps) => (
     <span
         className={`transition-all duration-200 text-slate-700 ${
@@ -75,11 +71,6 @@ const TogglerLabel = ({ isToggled }: TogglerLabelProps) => (
         Set Deadline
     </span>
 )
-
-type TogglerInputProps = {
-    isChecked: boolean
-    action: () => void
-}
 
 const TogglerInput = ({ isChecked, action }: TogglerInputProps) => (
     <input

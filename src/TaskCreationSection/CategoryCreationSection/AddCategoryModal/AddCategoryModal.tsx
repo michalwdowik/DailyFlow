@@ -5,11 +5,8 @@ import { ChangeEvent, useRef, useState } from 'react'
 import { v4 as uuid } from 'uuid'
 import { ColorResult } from 'react-color'
 import { colorPickerColorHandler } from '../../../helpers/colorStyleClassHandler'
-import Alert, {
-    AlertVariant,
-    showAlert,
-    useAlertState,
-} from '../../../Components/Alert'
+import AlertVariant from '../../../helpers/AlertVariant'
+import Alert, { showAlert, useAlertState } from '../../../Components/Alert'
 import {
     useCategoryContext,
     defaultCategoryParams,
@@ -17,12 +14,12 @@ import {
 import Portal from '../../../Components/Portal'
 import useCloseOnEscapeKey from '../../../hooks/useCloseOnEscapeKey'
 import useModalLogic from '../../../hooks/useModalLogic'
-import CreateNewTaskButton from './CreateNewTaskButton'
 import OpenModalButton from './OpenModalButton'
 import ColorPicker from './ColorPicker'
 import IconPicker from './IconPicker'
 import TextInput from '../../../Components/TextInput'
 import { IconType } from '../../../types/IconTypes'
+import CreateCategoryButton from './CreateCategoryButton'
 
 const AddCategoryModal = () => {
     const { categories, addCategory } = useCategoryContext()
@@ -114,7 +111,7 @@ const AddCategoryModal = () => {
                                         isInputCorrect={isCorrectTyped}
                                         action={createNewCategory}
                                     />
-                                    <CreateNewTaskButton
+                                    <CreateCategoryButton
                                         color={newCategory.colorStyle}
                                         action={createNewCategory}
                                     />

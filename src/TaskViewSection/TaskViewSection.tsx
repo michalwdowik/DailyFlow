@@ -2,11 +2,7 @@ import { useMemo, useState } from 'react'
 import TaskViewSectionContext from '../Contexts/TaskViewSectionContext'
 import TaskList from './TaskList'
 import CategoriesMenu from './CategoriesMenu/CategoriesMenu'
-
-interface ContextType {
-    selectedCategoryTab: string
-    setSelectedCategoryTab: (category: string) => void
-}
+import { ContextType } from '../types/ContextTypes'
 
 const TaskViewSection = () => {
     const [selectedCategoryTab, setSelectedCategoryTab] =

@@ -23,6 +23,7 @@ import { IoHeart } from '@react-icons/all-files/io5/IoHeart'
 import { IoPulse } from '@react-icons/all-files/io5/IoPulse'
 import { IoLaptop } from '@react-icons/all-files/io5/IoLaptop'
 import { IoSchool } from '@react-icons/all-files/io5/IoSchool'
+import { IoListOutline } from '@react-icons/all-files/io5/IoListOutline'
 
 const iconList: { [key: string]: IconType } = {
     IoAirplane,
@@ -48,6 +49,7 @@ const iconList: { [key: string]: IconType } = {
     IoPulse,
     IoLaptop,
     IoSchool,
+    IoListOutline,
 }
 
 export default iconList

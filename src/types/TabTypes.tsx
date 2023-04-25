@@ -1,8 +1,9 @@
-import { CategoryTabType } from '../Contexts/TaskContext'
 import { IconType } from './IconTypes'
+import { ColorStyleState } from '../helpers/colorStyleClassHandler'
+import { CategoryTabType } from './TaskTypes'
 
 export type TabProps = {
-    color: string
+    color: ColorStyleState
     name: string
     isTabSelected: boolean
     setSelectedCategoryTab: (category: string) => void
@@ -15,7 +16,7 @@ export type TabIconProps = {
 }
 
 export type TabIndicatorProps = {
-    color: string
+    color: ColorStyleState
     categoryLength: number
     animate: string | boolean
 }
@@ -25,7 +26,6 @@ export type CategoryTabProps = {
     categoryTabsLength: number
 }
 
-export type ContextType = {
+export type ContextType = Pick<TabProps, 'setSelectedCategoryTab'> & {
     selectedCategoryTab: string
-    setSelectedCategoryTab: (category: string) => void
 }

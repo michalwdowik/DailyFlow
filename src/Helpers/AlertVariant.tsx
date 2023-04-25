@@ -1,13 +1,4 @@
-import { AlertType } from '../types/AlertTypes'
-
-type AlertVariantType = {
-    ERROR_UP_TO_7_CATEGORIES: AlertType
-    ERROR_WRONG_NAME: AlertType
-    ERROR_NO_DONE_TASKS: AlertType
-    SUCCESS_DONE_TASKS_REMOVED: AlertType
-    SUCCESS_NEW_CATEGORY_ADDED: AlertType
-    ERROR_MAX_CATEGORIES_REACHED: AlertType
-}
+import { AlertVariantType } from '../types/AlertTypes'
 
 const AlertVariant: AlertVariantType = {
     ERROR_UP_TO_7_CATEGORIES: {

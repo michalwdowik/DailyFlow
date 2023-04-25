@@ -1,23 +1,17 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useState, useRef, MutableRefObject } from 'react'
 import { v4 as uuid } from 'uuid'
 import AddTaskButton from './CategoryCreationSection/AddTaskButton'
 import CategoryPicker from './CategoryPicker/CategoryPicker'
 import DatePicker from './DatePicker'
 import TaskImportance from './TaskImportance'
-import Alert, {
-    AlertVariant,
-    showAlert,
-    useAlertState,
-} from '../Components/Alert'
+import AlertVariant from '../helpers/AlertVariant'
+import Alert, { showAlert, useAlertState } from '../Components/Alert'
 import { useThemeContext } from '../Contexts/ThemeContext'
-import {
-    CategoryContextProvider,
-    CategoryType,
-} from '../Contexts/CategoryContext'
+import { CategoryContextProvider } from '../Contexts/CategoryContext'
 import { useTaskContext, defaultTask } from '../Contexts/TaskContext'
 import scrollToBottom from '../helpers/scrollToBottom'
 import TextInput from '../Components/TextInput'
+import { CategoryType } from '../types/CategoryTypes'
 
 type InputRefType = MutableRefObject<HTMLInputElement | null>
 
@@ -33,13 +27,15 @@ const TaskCreationSection = () => {
     const { alertState, setAlertState } = useAlertState()
     const maxCategoriesReached = categoryTabs.length >= 8
     const resetInput = () => {
-        inputRef.current!.value = ''
+        if (inputRef.current) {
+            inputRef.current.value = ''
+        }
     }
 
     const resetDeadline = () => {
         setNewTask({ ...newTask, deadline: 'Not specified' })
     }
-    const submitHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const submitHandler: React.MouseEventHandler<HTMLButtonElement> = (e) => {
         e.preventDefault()
         const inputIsEmpty = inputRef.current?.value === ''
         if (inputIsEmpty) {
@@ -56,7 +52,7 @@ const TaskCreationSection = () => {
             ...taskList,
             {
                 ...newTask,
-                name: inputRef.current!.value,
+                name: inputRef.current ? inputRef.current.value : '',
                 uuid: uuid(),
             },
         ])

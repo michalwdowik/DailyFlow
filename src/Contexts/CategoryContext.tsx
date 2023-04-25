@@ -1,27 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { createContext, useMemo, useState, useContext, ReactNode } from 'react'
+import { createContext, useMemo, useState, useContext } from 'react'
 import { v4 as uuid } from 'uuid'
-import { IconType } from '../types/IconTypes'
-
-type CategoryContextType = {
-    categories: CategoryType[]
-    removeCategory: (id: string) => void
-    addCategory: (category: CategoryType) => void
-}
+import {
+    CategoryContextProviderType,
+    CategoryContextType,
+    CategoryType,
+    DefaultCategory,
+} from '../types/CategoryTypes'
+import { ColorStyleState } from '../helpers/colorStyleClassHandler'
 
 const CategoryContext = createContext<CategoryContextType>({
     categories: [],
     addCategory: () => {},
     removeCategory: () => {},
 })
-
-export interface CategoryType {
-    name: string
-    icon: IconType
-    colorStyle: string
-    uuid: string
-    isAddedByUser: boolean
-}
 
 const defaultCategories: CategoryType[] = [
     {
@@ -49,11 +41,12 @@ const defaultCategories: CategoryType[] = [
         icon: 'IoSchool',
         colorStyle: 'warning',
     },
-].map((category) => ({ ...category, uuid: uuid(), isAddedByUser: false }))
-
-export interface DefaultCategory extends Omit<CategoryType, 'uuid'> {
-    color: string
-}
+].map((category) => ({
+    ...category,
+    uuid: uuid(),
+    isAddedByUser: false,
+    colorStyle: category.colorStyle as ColorStyleState,
+}))
 
 export const defaultCategoryParams: DefaultCategory = {
     name: '',
@@ -61,10 +54,6 @@ export const defaultCategoryParams: DefaultCategory = {
     color: '#38bdf8',
     icon: 'IoIosHappy',
     isAddedByUser: true,
-}
-
-type CategoryContextProviderType = {
-    children: ReactNode
 }
 
 export const CategoryContextProvider = ({

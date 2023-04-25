@@ -1,20 +1,15 @@
-/* eslint-disable react/no-array-index-key */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { ChangeEvent, useContext } from 'react'
+import { useContext } from 'react'
 import { v4 as uuid } from 'uuid'
 import TaskModal from './TaskModal/TaskModal'
-import {
-    ColorStyleState,
-    colorStyleCheckboxHandler,
-} from '../helpers/colorStyleClassHandler'
+import { colorStyleCheckboxHandler } from '../helpers/colorStyleClassHandler'
 import TaskViewSectionContext from '../Contexts/TaskViewSectionContext'
-import { TaskType } from '../Contexts/TaskContext'
-
-type TaskProps = {
-    task: TaskType
-    updateTaskStatus: (e: ChangeEvent<HTMLInputElement>) => void
-    searchInput: string
-}
+import {
+    TaskCheckBoxProps,
+    TaskDescriptionProps,
+    TaskModalImportanceProps,
+    TaskProps,
+} from '../types/TaskTypes'
 
 const Task = ({ task, updateTaskStatus, searchInput }: TaskProps) => {
     const { selectedCategoryTab } = useContext(TaskViewSectionContext)
@@ -38,7 +33,7 @@ const Task = ({ task, updateTaskStatus, searchInput }: TaskProps) => {
                         taskName={task.name}
                         taskCategory={task.category}
                     />
-                    <TaskImportance taskRate={task.rate} />
+                    <TaskModalImportance taskRate={task.rate} />
                     <TaskModal task={task} />
                 </div>
             </li>
@@ -46,12 +41,6 @@ const Task = ({ task, updateTaskStatus, searchInput }: TaskProps) => {
     ) : null
 }
 export default Task
-
-type TaskCheckBoxProps = {
-    isTaskDone: boolean
-    taskColorStyle: ColorStyleState
-    updateTaskStatus: (e: ChangeEvent<HTMLInputElement>) => void
-}
 
 const TaskCheckbox = ({
     isTaskDone,
@@ -69,10 +58,6 @@ const TaskCheckbox = ({
     )
 }
 
-type TaskDescriptionProps = {
-    taskName: string
-    taskCategory: string
-}
 const TaskDescription = ({ taskName, taskCategory }: TaskDescriptionProps) => {
     return (
         <div className="flex-1 min-w-0">
@@ -83,14 +68,12 @@ const TaskDescription = ({ taskName, taskCategory }: TaskDescriptionProps) => {
         </div>
     )
 }
-type TaskImportanceProps = {
-    taskRate: number
-}
-const TaskImportance = ({ taskRate }: TaskImportanceProps) => {
+
+const TaskModalImportance = ({ taskRate }: TaskModalImportanceProps) => {
     return (
         <div className="inline-flex items-center text-base font-semibold text-slate-700 ">
-            {[...Array(taskRate)].map((e, i) => (
-                <span key={i}>
+            {[...Array(taskRate)].map(() => (
+                <span key={uuid()}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"

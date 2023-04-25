@@ -1,23 +1,19 @@
-import { createContext, useMemo, useState, useContext, ReactNode } from 'react'
-
-type ThemeContextType = {
-    colorStyle: string
-    setColorStyle: (color: string) => void
-}
+import { createContext, useMemo, useState, useContext } from 'react'
+import { ColorStyleState } from '../helpers/colorStyleClassHandler'
+import {
+    ThemeContextProviderProps,
+    ThemeContextType,
+} from '../types/ContextTypes'
 
 const ThemeContext = createContext<ThemeContextType>({
     colorStyle: 'info',
     setColorStyle: () => {},
 })
 
-interface ThemeContextProviderProps {
-    children: ReactNode
-}
-
 export const ThemeContextProvider = ({
     children,
 }: ThemeContextProviderProps) => {
-    const [colorStyle, setColorStyle] = useState('info')
+    const [colorStyle, setColorStyle] = useState<ColorStyleState>('info')
     const value = useMemo(
         () => ({
             colorStyle,

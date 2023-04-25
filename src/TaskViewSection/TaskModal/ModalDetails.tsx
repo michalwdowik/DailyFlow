@@ -1,4 +1,4 @@
-import { TaskType } from '../../Contexts/TaskContext'
+import { TaskType } from '../../types/TaskTypes'
 import { DynamicIcon } from '../../TaskCreationSection/CategoryCreationSection/AddCategoryModal/IconPicker'
 import DeadlineDetails from './DeadlineDetails'
 import Stars from './Stars'

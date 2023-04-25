@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useState } from 'react'
 import Portal from './Portal'
 import {
@@ -6,6 +5,7 @@ import {
     AlertMessageProps,
     AlertProps,
     AlertType,
+    PartialAlertType,
 } from '../types/AlertTypes'
 
 const ALERT_DURATION = 3000
@@ -20,13 +20,16 @@ export const showAlert = (
         isShowed: alertData.isShowed,
     })
     const timer = setTimeout(() => {
-        setAlertState({ isShowed: false })
+        setAlertState({
+            ...alertData,
+            isShowed: false,
+        })
     }, ALERT_DURATION)
     return () => clearTimeout(timer)
 }
 
 export const useAlertState = () => {
-    const [alertState, setAlertState] = useState<AlertType>({})
+    const [alertState, setAlertState] = useState<PartialAlertType>({})
 
     return { alertState, setAlertState }
 }
@@ -39,12 +42,14 @@ const Alert = ({ alert }: AlertProps): JSX.Element => {
                 <Portal rootId="portal">
                     <div
                         className={`alert absolute inset-x-0 top-0 w-4/6 ${alert.background} transition`}
-                        style={{ zIndex: 9999 }}
+                        style={{ zIndex: 3 }}
                     >
                         {isAlertDeclared && (
                             <div>
-                                <AlertIcon type={alert.type!} />
-                                <AlertMessage message={alert.title!} />
+                                <AlertIcon type={alert.type ?? 'error'} />
+                                <AlertMessage
+                                    message={alert.title ?? 'no message'}
+                                />
                             </div>
                         )}
                     </div>

@@ -1,5 +1,4 @@
 /* eslint-disable react/display-name */
-
 import { memo, useMemo } from 'react'
 import iconList from '../../../helpers/iconList'
 import {
@@ -30,6 +29,7 @@ const defaultIcons = [
     'IoPulse',
     'IoLaptop',
     'IoSchool',
+    'IoListOutline',
 ]
 
 const Icons = memo(({ setNewCategoryIcon }: IconsProps): JSX.Element => {

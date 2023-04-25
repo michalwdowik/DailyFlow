@@ -1,19 +1,21 @@
-type AddTaskButtonProps = {
-    submitHandler: React.MouseEventHandler<HTMLButtonElement>
-    isCorrectTyped: boolean
+import {
+    ColorStyleState,
+    colorStyleBgHandler,
+} from '../../../helpers/colorStyleClassHandler'
+
+type CreateCategoryButtonProps = {
+    color: ColorStyleState
+    action: () => void
 }
 
-const AddTaskButton = ({
-    submitHandler,
-    isCorrectTyped,
-}: AddTaskButtonProps) => {
-    const buzzIfTaskNotValid = !isCorrectTyped && 'buzz-effect'
-
-    return (
+const CreateCategoryButton = ({ color, action }: CreateCategoryButtonProps) => (
+    <div>
         <button
             type="button"
-            onClick={submitHandler}
-            className={`btn-m btn-circle btn ${buzzIfTaskNotValid}`}
+            onClick={action}
+            className={`text-white ${colorStyleBgHandler(
+                color
+            )} btn-circle transition-all active:scale-90`}
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -30,6 +32,6 @@ const AddTaskButton = ({
                 />
             </svg>
         </button>
-    )
-}
-export default AddTaskButton
+    </div>
+)
+export default CreateCategoryButton

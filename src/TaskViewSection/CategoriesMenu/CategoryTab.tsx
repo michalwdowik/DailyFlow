@@ -1,6 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-redeclare */
-
 import { useContext, useEffect, useRef } from 'react'
 import { IoListOutline } from '@react-icons/all-files/io5/IoListOutline'
 import TaskViewSectionContext from '../../Contexts/TaskViewSectionContext'
@@ -54,12 +51,12 @@ const CategoryTab = ({ categoryTab, categoryTabsLength }: CategoryTabProps) => {
                 } indicator relative mt-4 bg-base-300 shadow-xl transition delay-150 ease-in-out hover:bg-base-200`}
             >
                 <TabIndicator
-                    color={categoryTab.colorStyle ?? ''}
+                    color={categoryTab.colorStyle}
                     categoryLength={categoryTabLength}
                     animate={animateIndicatorOnSelectedTab}
                 />
                 <Tab
-                    color={categoryTab.colorStyle ?? ''}
+                    color={categoryTab.colorStyle}
                     name={categoryTab.name}
                     isTabSelected={isTabSelected}
                     setSelectedCategoryTab={setSelectedCategoryTab}

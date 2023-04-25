@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { ChangeEvent, useState } from 'react'
 import { useAutoAnimate } from '@formkit/auto-animate/react'
 import Task from './Task'
@@ -59,8 +58,8 @@ export default TaskList
 
 const CallToActionLabel = () => {
     return (
-        <h1 className="mt-10 text-3xl text-center duration-500 loop-scale transition-color animate-pulse opacity-70 hover:text-success">
+        <h2 className="mt-10 text-3xl text-center duration-500 loop-scale transition-color animate-pulse opacity-70 hover:text-success">
             Add some tasks...
-        </h1>
+        </h2>
     )
 }

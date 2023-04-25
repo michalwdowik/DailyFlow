@@ -1,14 +1,8 @@
-/* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable no-param-reassign */
-/* eslint-disable react/no-array-index-key */
-import { Dispatch, SetStateAction, useState } from 'react'
+import { useState } from 'react'
+import { v4 as uuid } from 'uuid'
 import { colorStyleTextHandler } from '../helpers/colorStyleClassHandler'
+import { StarProps, TaskImportanceProps } from '../types/TaskTypes'
 
-type TaskImportanceProps = {
-    taskRate: number
-    setTaskRate: (rate: number) => void
-    categoryColor: string
-}
 const TaskImportance = ({
     taskRate,
     setTaskRate,
@@ -23,7 +17,7 @@ const TaskImportance = ({
                 {[...Array(3)].map((_, index) => {
                     return (
                         <Star
-                            key={index}
+                            key={uuid()}
                             index={index + 1}
                             setTaskRate={setTaskRate}
                             setHoveredStars={setHoveredStars}
@@ -39,14 +33,6 @@ const TaskImportance = ({
 }
 export default TaskImportance
 
-type StarProps = {
-    index: number
-    setTaskRate: (rate: number) => void
-    setHoveredStars: Dispatch<SetStateAction<number>>
-    taskRate: number
-    hoveredStars: number
-    categoryColor: string
-}
 const Star = ({
     index,
     setTaskRate,

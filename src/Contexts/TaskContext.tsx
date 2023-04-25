@@ -1,5 +1,3 @@
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-param-reassign */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { createContext, useMemo, useState, useContext } from 'react'
 import { v4 as uuid } from 'uuid'
@@ -16,7 +14,7 @@ const TaskContext = createContext<TaskContextType>({
     setTaskList: () => {},
 })
 
-export const defaultTask = {
+export const defaultTask: TaskType = {
     name: '',
     category: 'general',
     done: false,
@@ -24,6 +22,7 @@ export const defaultTask = {
     deadline: 'Not specified',
     icon: 'IoDocuments',
     colorStyle: 'info',
+    uuid: uuid(),
 }
 
 export const TaskContextProvider = ({ children }: TaskContextProviderType) => {
@@ -33,18 +32,19 @@ export const TaskContextProvider = ({ children }: TaskContextProviderType) => {
         length: 0,
         icon: 'IoListOutline',
         uuid: uuid(),
+        colorStyle: 'info',
     }
 
     const taskSegregated = taskList.reduce<{ [key: string]: TaskType[] }>(
         (group, arr) => {
             const { category } = arr
-            group[category] = group[category] ?? []
-            group[category].push(arr)
-            return group
+            return {
+                ...group,
+                [category]: [...(group[category] || []), arr],
+            }
         },
         {}
     )
-
     const categoryTabs = useMemo(() => {
         const tab = Object.values(taskSegregated).map((task) => {
             return {
