@@ -1,5 +1,3 @@
-/* ------------------ BLOBS ------------------- */
-
 .container {
     overflow: hidden;
       position: relative;
@@ -20,8 +18,6 @@
   }
 }
 
-
-  
   .shape-blob.one{
       height: 500px;
       width: 500px;

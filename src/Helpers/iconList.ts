@@ -1,5 +1,3 @@
-import { IconType } from '@react-icons/all-files'
-
 import { IoAirplane } from '@react-icons/all-files/io5/IoAirplane'
 import { IoAlarm } from '@react-icons/all-files/io5/IoAlarm'
 import { IoBagHandle } from '@react-icons/all-files/io5/IoBagHandle'
@@ -24,6 +22,7 @@ import { IoPulse } from '@react-icons/all-files/io5/IoPulse'
 import { IoLaptop } from '@react-icons/all-files/io5/IoLaptop'
 import { IoSchool } from '@react-icons/all-files/io5/IoSchool'
 import { IoListOutline } from '@react-icons/all-files/io5/IoListOutline'
+import { IconType } from '@react-icons/all-files'
 
 const iconList: { [key: string]: IconType } = {
     IoAirplane,

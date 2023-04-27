@@ -8,7 +8,7 @@ const TaskList = () => {
     const { taskList, setTaskList } = useTaskContext()
     const [searchInput, setSearchInput] = useState('')
 
-    const onInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const searchTasksOnInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchInput(e.target.value)
     }
     const [animationParent] = useAutoAnimate({
@@ -32,7 +32,10 @@ const TaskList = () => {
     const scrollIfOverflow = taskList.length > 8 && 'overflow-y-scroll'
     return (
         <div className="w-5/6 pb-5 sm:w-4/6 md:w-1/2 lg:w-5/6">
-            <ToolBar searchInput={searchInput} onInput={onInput} />
+            <ToolBar
+                searchInput={searchInput}
+                searchTasksOnInput={searchTasksOnInput}
+            />
             <div className="flow-root ">
                 <ul
                     ref={animationParent}

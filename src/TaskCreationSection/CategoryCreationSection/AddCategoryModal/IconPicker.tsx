@@ -11,7 +11,7 @@ const IconPicker = memo(
         return (
             <div className="flex-none collapse max-h-60 rounded-3xl">
                 <input type="checkbox" className="peer " />
-                <SelectedIcon name={newCategoryIcon} />
+                <SelectedIcon iconName={newCategoryIcon} />
                 <div className="relative p-0 m-0 overflow-auto collapse-content place-items-center accent-slate-700">
                     <div className="flex flex-wrap justify-center mt-3 ">
                         <Icons
@@ -57,17 +57,17 @@ const Icons = memo(({ changeCategoryIconHandler }: IconsProps): JSX.Element => {
     )
 })
 
-const SelectedIcon = ({ name }: IconProps): JSX.Element => (
+const SelectedIcon = ({ iconName }: IconProps): JSX.Element => (
     <button
         className="self-center p-0 m-0 text-5xl transition ease-in-out text-slate-600 collapse-title peer-checked:scale-75 peer-checked:overflow-scroll"
         type="button"
     >
-        <DynamicIcon name={name} />
+        <DynamicIcon iconName={iconName} />
     </button>
 )
 
-export const DynamicIcon = ({ name }: IconProps): JSX.Element => {
-    const Icon = iconList[name]
+export const DynamicIcon = ({ iconName }: IconProps): JSX.Element => {
+    const Icon = iconList[iconName]
 
     if (!Icon) {
         const DefaultIcon = iconList.IoHappy
@@ -87,7 +87,7 @@ type IconPickerProps = {
 }
 
 type IconProps = {
-    name: IconType
+    iconName: IconType
 }
 
 type IconsProps = {

@@ -4,7 +4,7 @@ import {
 } from '../../../helpers/colorStyleClassHandler'
 
 const CreateCategoryButton = ({
-    color,
+    buttonColor,
     createNewCategory,
 }: CreateCategoryButtonProps) => (
     <div>
@@ -12,7 +12,7 @@ const CreateCategoryButton = ({
             type="button"
             onClick={createNewCategory}
             className={`text-white ${colorStyleBgHandler(
-                color
+                buttonColor
             )} btn-circle transition-all active:scale-90`}
         >
             <svg
@@ -35,6 +35,6 @@ const CreateCategoryButton = ({
 export default CreateCategoryButton
 
 type CreateCategoryButtonProps = {
-    color: ColorStyleState
+    buttonColor: ColorStyleState
     createNewCategory: () => void
 }

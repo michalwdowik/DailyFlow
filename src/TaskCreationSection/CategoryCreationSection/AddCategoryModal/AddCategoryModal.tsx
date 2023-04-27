@@ -26,6 +26,7 @@ const AddCategoryModal = () => {
     const { alertState, setAlertState } = useAlertState()
     const [newCategory, setNewCategory] = useState(defaultCategoryParams)
     const inputRef = useRef<HTMLInputElement>(null)
+
     useCloseOnEscapeKey({ id: 'addCategoryModal' })
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -81,7 +82,7 @@ const AddCategoryModal = () => {
     }
 
     return (
-        <div>
+        <>
             <OpenModalButton openModal={openModal} />
             {showModal && (
                 <Portal rootId="portal">
@@ -106,7 +107,7 @@ const AddCategoryModal = () => {
                                         createNewCategory={createNewCategory}
                                     />
                                     <CreateCategoryButton
-                                        color={newCategory.colorStyle}
+                                        buttonColor={newCategory.colorStyle}
                                         createNewCategory={createNewCategory}
                                     />
                                 </div>
@@ -129,7 +130,7 @@ const AddCategoryModal = () => {
                 </Portal>
             )}
             <Alert alert={alertState} />
-        </div>
+        </>
     )
 }
 export default AddCategoryModal

@@ -9,8 +9,9 @@ import useModalLogic from '../../hooks/useModalLogic'
 import ModalBackground from './ModalBackground'
 import ModalDetails from './ModalDetails'
 
-const TaskModal = ({ task }: { task: TaskType }) => {
+const TaskModal = ({ task }: TaskModalProps) => {
     const { showModal, openModal } = useModalLogic()
+
     useCloseOnEscapeKey({ id: task.uuid })
 
     return (
@@ -22,13 +23,7 @@ const TaskModal = ({ task }: { task: TaskType }) => {
 }
 export default TaskModal
 
-const ShowModalButton = ({
-    id,
-    openModal,
-}: {
-    id: string
-    openModal: () => void
-}) => (
+const ShowModalButton = ({ id, openModal }: ShowModalButtonProps) => (
     <label
         onClick={openModal}
         htmlFor={id}
@@ -47,7 +42,7 @@ const ShowModalButton = ({
     </label>
 )
 
-const Modal = ({ task, showModal }: { task: TaskType; showModal: boolean }) => (
+const Modal = ({ task, showModal }: ModalProps) => (
     <div>
         {showModal && (
             <Portal rootId="portal">
@@ -67,7 +62,9 @@ const Modal = ({ task, showModal }: { task: TaskType; showModal: boolean }) => (
                         >
                             <ModalDetails task={task} />
                             <ModalBackground
-                                color={colorStyleBlobHandler(task.colorStyle)}
+                                backgroundColor={colorStyleBlobHandler(
+                                    task.colorStyle
+                                )}
                             />
                         </label>
                     </label>
@@ -76,3 +73,14 @@ const Modal = ({ task, showModal }: { task: TaskType; showModal: boolean }) => (
         )}
     </div>
 )
+
+type TaskModalProps = {
+    task: TaskType
+}
+
+type ShowModalButtonProps = {
+    id: string
+    openModal: () => void
+}
+
+type ModalProps = { task: TaskType; showModal: boolean }

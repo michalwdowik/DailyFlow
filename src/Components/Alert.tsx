@@ -2,17 +2,12 @@ import { useState } from 'react'
 import Portal from './Portal'
 import { AlertType, SuccessOrErrorType } from '../types/types'
 
+const ALERT_DURATION = 3000
 export const showAlert = (
     alertData: AlertType,
     setAlertState: (alert: AlertType) => void
 ) => {
-    const ALERT_DURATION = 3000
-    setAlertState({
-        title: alertData.title,
-        type: alertData.type,
-        background: alertData.background,
-        isShowed: alertData.isShowed,
-    })
+    setAlertState(alertData)
 
     const timer = setTimeout(() => {
         setAlertState({
@@ -35,14 +30,14 @@ const Alert = ({ alert }: AlertProps): JSX.Element => {
             {alert?.isShowed && (
                 <Portal rootId="portal">
                     <div
-                        className={`alert absolute inset-x-0 top-0 w-4/6 ${alert.background} transition`}
-                        style={{ zIndex: 3 }}
+                        className={`alert absolute inset-x-0 top-0 w-4/6 ${alert.background} portalStyle transition`}
+                        style={{ zIndex: 1000 }}
                     >
                         {isAlertDeclared && (
                             <div>
-                                <AlertIcon type={alert.type ?? 'error'} />
+                                <AlertIcon alertType={alert.type ?? 'error'} />
                                 <AlertMessage
-                                    message={alert.title ?? 'no message'}
+                                    alertMessage={alert.title ?? 'no message'}
                                 />
                             </div>
                         )}
@@ -55,12 +50,12 @@ const Alert = ({ alert }: AlertProps): JSX.Element => {
 
 export default Alert
 
-const AlertIcon = ({ type }: AlertIconProps): JSX.Element => {
-    return type === 'success' ? <SuccessIcon /> : <ErrorIcon />
+const AlertIcon = ({ alertType }: AlertIconProps): JSX.Element => {
+    return alertType === 'success' ? <SuccessIcon /> : <ErrorIcon />
 }
 
-const AlertMessage = ({ message }: AlertMessageProps): JSX.Element => {
-    return <span className="text-black">{message}</span>
+const AlertMessage = ({ alertMessage }: AlertMessageProps): JSX.Element => {
+    return <span className="text-black">{alertMessage}</span>
 }
 
 const SuccessIcon = (): JSX.Element => {
@@ -101,8 +96,8 @@ type AlertProps = {
 }
 
 type AlertIconProps = {
-    type: SuccessOrErrorType
+    alertType: SuccessOrErrorType
 }
 type AlertMessageProps = {
-    message: string
+    alertMessage: string
 }

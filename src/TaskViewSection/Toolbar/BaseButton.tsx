@@ -1,5 +1,9 @@
 import { ReactNode } from 'react'
 import { useTaskContext } from '../../Contexts/TaskContext'
+import {
+    buttonColorClass,
+    tooltipColorClass,
+} from '../../helpers/colorStyleClassHandler'
 
 const BaseButton = ({
     action,
@@ -9,25 +13,19 @@ const BaseButton = ({
 }: BaseButtonProps) => {
     const { taskList } = useTaskContext()
 
-    const buttonColorClass =
-        (buttonStyle === 'success' && 'btn-success') ||
-        (buttonStyle === 'error' && 'btn-error') ||
-        (buttonStyle === 'primary' && 'btn-primary')
-
-    const tooltipColorClass =
-        (buttonStyle === 'success' && 'hover:tooltip-success') ||
-        (buttonStyle === 'error' && 'hover:tooltip-error') ||
-        (buttonStyle === 'primary' && 'hover:tooltip-primary')
-
     return (
         <div
-            className={`tooltip hover:tooltip hover:tooltip-open ${tooltipColorClass} `}
+            className={`tooltip hover:tooltip hover:tooltip-open ${tooltipColorClass(
+                buttonStyle
+            )} `}
             data-tip={tooltipInfo}
         >
             <button
                 type="button"
                 onClick={action}
-                className={`${buttonColorClass} btn-sm btn-circle btn ${
+                className={`${buttonColorClass(
+                    buttonStyle
+                )} btn-sm btn-circle btn ${
                     taskList.length === 0 && 'btn-disabled'
                 }`}
             >

@@ -4,7 +4,7 @@ import { useThemeContext } from '../Contexts/ThemeContext'
 const BackgroundBlobs = (): JSX.Element => {
     const { colorStyle } = useThemeContext()
     return (
-        <div>
+        <>
             <div
                 className={`shape-blob one transition-colors duration-500 ease-in-out ${colorStyleBgHandler(
                     colorStyle
@@ -15,7 +15,7 @@ const BackgroundBlobs = (): JSX.Element => {
                     colorStyle
                 )}`}
             />
-        </div>
+        </>
     )
 }
 

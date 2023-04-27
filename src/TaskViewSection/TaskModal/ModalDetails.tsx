@@ -9,29 +9,37 @@ const ModalDetails = ({ task }: { task: TaskType }) => {
     return (
         <div className="p-6 ">
             <div className="flex flex-col content-start gap-2">
-                <TaskName task={task} />
-                <TaskCategory task={task} />
+                <TaskName taskName={task.name} />
+                <TaskCategory taskCategory={task.category} />
                 <p className="p-0 m-3 text-8xl text-slate-700">
-                    <DynamicIcon name={task.icon} />
+                    <DynamicIcon iconName={task.icon} />
                 </p>
-                <Stars task={task} />
+                <Stars taskRate={task.rate} colorStyle={task.colorStyle} />
 
                 {taskHasDeadline && (
-                    <DeadlineDetails date={task.deadline} task={task} />
+                    <DeadlineDetails taskDeadline={task.deadline} />
                 )}
             </div>
         </div>
     )
 }
 
-const TaskName = ({ task }: { task: TaskType }) => (
+const TaskName = ({ taskName }: TaskNameProps) => (
     <h1 className="m-0 font-bold text-center break-all text-slate-700">
-        {task.name}
+        {taskName}
     </h1>
 )
 
-const TaskCategory = ({ task }: { task: TaskType }) => (
-    <h2 className="self-center p-0 m-0 font-extralight">{task.category}</h2>
+const TaskCategory = ({ taskCategory }: TaskCategoryProps) => (
+    <h2 className="self-center p-0 m-0 font-extralight">{taskCategory}</h2>
 )
 
 export default ModalDetails
+
+type TaskNameProps = {
+    taskName: string
+}
+
+type TaskCategoryProps = {
+    taskCategory: string
+}

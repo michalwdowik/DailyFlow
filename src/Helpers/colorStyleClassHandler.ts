@@ -134,6 +134,20 @@ export const colorStyleTooltipHandler = (state: ColorStyleState) => {
     }
 }
 
+export const buttonColorClass = (buttonStyle: string) => {
+    if (buttonStyle === 'success') return 'btn-success'
+    if (buttonStyle === 'error') return 'btn-error'
+    if (buttonStyle === 'primary') return 'btn-primary'
+    return ''
+}
+
+export const tooltipColorClass = (buttonStyle: string) => {
+    if (buttonStyle === 'success') return 'hover:tooltip-success'
+    if (buttonStyle === 'error') return 'hover:tooltip-error'
+    if (buttonStyle === 'primary') return 'hover:tooltip-primary'
+    return ''
+}
+
 export type ColorStyleState =
     | 'info'
     | 'error'

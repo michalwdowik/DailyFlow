@@ -43,16 +43,16 @@ const CategoryTab = ({ categoryTab, categoryTabsLength }: CategoryTabProps) => {
                 } indicator relative mt-4 bg-base-300 shadow-xl transition delay-150 ease-in-out hover:bg-base-200`}
             >
                 <TabIndicator
-                    color={categoryTab.colorStyle}
+                    categoryColor={categoryTab.colorStyle}
                     categoryLength={categoryTabLength}
                     animate={animateIndicatorOnSelectedTab}
                 />
                 <Tab
-                    color={categoryTab.colorStyle}
-                    name={categoryTab.name}
+                    tabColor={categoryTab.colorStyle}
+                    tabName={categoryTab.name}
                     isTabSelected={isTabSelected}
                     setSelectedCategoryTab={setSelectedCategoryTab}
-                    icon={categoryTab.icon}
+                    tabIcon={categoryTab.icon}
                 />
             </div>
         </li>
@@ -61,51 +61,53 @@ const CategoryTab = ({ categoryTab, categoryTabsLength }: CategoryTabProps) => {
 export default CategoryTab
 
 const TabIndicator = ({
-    color,
+    categoryColor,
     categoryLength,
     animate,
 }: TabIndicatorProps): JSX.Element => (
     <span
         className={`badge badge-sm indicator-item absolute left-5 translate-x-0 border-0 shadow-xl md:badge-md lg:badge-sm ${colorStyleBgHandler(
-            color
+            categoryColor
         )} text-white ${animate}`}
     >
         {categoryLength}
     </span>
 )
 
-const TabIcon = ({ iconName, categoryName }: TabIconProps) =>
-    categoryName === 'all' ? <IoListOutline /> : <DynamicIcon name={iconName} />
+const TabIcon = ({ iconName, tabName }: TabIconProps) =>
+    tabName === 'all' ? <IoListOutline /> : <DynamicIcon iconName={iconName} />
 
 const Tab = ({
-    color,
-    name,
+    tabColor,
+    tabName,
     isTabSelected,
     setSelectedCategoryTab,
-    icon,
+    tabIcon,
 }: TabProps) => (
     <div
-        className={`tooltip tooltip-bottom ${colorStyleTooltipHandler(color)}`}
-        data-tip={name}
+        className={`tooltip tooltip-bottom ${colorStyleTooltipHandler(
+            tabColor
+        )}`}
+        data-tip={tabName}
     >
         <button
             type="button"
-            onClick={() => setSelectedCategoryTab(name)}
+            onClick={() => setSelectedCategoryTab(tabName)}
             className={`focus:scale-150 transition-transform bg-opacity-100 p-3 text-white hover:text-white hover:opacity-60 sm:text-2xl md:text-3xl lg:text-xl 
         ${isTabSelected && 'scale-150'}`}
         >
-            <TabIcon categoryName={name} iconName={icon} />
+            <TabIcon tabName={tabName} iconName={tabIcon} />
         </button>
     </div>
 )
 
 type TabIconProps = {
     iconName: IconType
-    categoryName: string
+    tabName: string
 }
 
 type TabIndicatorProps = {
-    color: ColorStyleState
+    categoryColor: ColorStyleState
     categoryLength: number
     animate: string | boolean
 }
@@ -120,9 +122,9 @@ type TaskViewSectionContextType = Pick<TabProps, 'setSelectedCategoryTab'> & {
 }
 
 type TabProps = {
-    color: ColorStyleState
-    name: string
+    tabColor: ColorStyleState
+    tabName: string
     isTabSelected: boolean
     setSelectedCategoryTab: (category: string) => void
-    icon: IconType
+    tabIcon: IconType
 }

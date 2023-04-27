@@ -1,18 +1,18 @@
 import { v4 as uuid } from 'uuid'
-import { TaskType } from '../../types/types'
-import { colorStyleTextHandler } from '../../helpers/colorStyleClassHandler'
+import {
+    ColorStyleState,
+    colorStyleTextHandler,
+} from '../../helpers/colorStyleClassHandler'
 
-const Stars = ({ task }: { task: TaskType }) => (
+const Stars = ({ taskRate, colorStyle }: StarsProps) => (
     <div className="inline-flex">
-        {[...Array(task.rate)].map(() => (
+        {[...Array(taskRate)].map(() => (
             <span key={uuid()}>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
-                    className={`h-4 w-4 ${colorStyleTextHandler(
-                        task.colorStyle
-                    )}`}
+                    className={`h-4 w-4 ${colorStyleTextHandler(colorStyle)}`}
                 >
                     <path
                         fillRule="evenodd"
@@ -26,3 +26,8 @@ const Stars = ({ task }: { task: TaskType }) => (
 )
 
 export default Stars
+
+type StarsProps = {
+    taskRate: number
+    colorStyle: ColorStyleState
+}

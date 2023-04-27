@@ -1,8 +1,11 @@
 import ToolbarButtons from './ToolbarButtons'
 
-const ToolBar = ({ searchInput, onInput }: ToolbarType) => (
+const ToolBar = ({ searchInput, searchTasksOnInput }: ToolbarType) => (
     <div className="relative flex gap-5 border-error">
-        <TaskSearchBar searchInput={searchInput} onInput={onInput} />
+        <TaskSearchBar
+            searchInput={searchInput}
+            searchTasksOnInput={searchTasksOnInput}
+        />
         <ToolbarButtons />
     </div>
 )
@@ -26,24 +29,30 @@ const TaskSearchBarIcon = () => (
     </div>
 )
 
-const TaskSearchBarInput = ({ searchInput, onInput }: ToolbarType) => (
+const TaskSearchBarInput = ({
+    searchInput,
+    searchTasksOnInput,
+}: ToolbarType) => (
     <input
         value={searchInput}
-        onInput={onInput}
+        onInput={searchTasksOnInput}
         type="text"
         id="simple-search"
         className={`   input block w-full rounded-3xl border-0 bg-base-300 pl-10 text-xs placeholder-transparent dark:text-white sm:text-sm sm:placeholder-gray-400`}
         placeholder="Search task"
     />
 )
-const TaskSearchBar = ({ searchInput, onInput }: ToolbarType) => (
+const TaskSearchBar = ({ searchInput, searchTasksOnInput }: ToolbarType) => (
     <>
         <TaskSearchBarIcon />
-        <TaskSearchBarInput searchInput={searchInput} onInput={onInput} />
+        <TaskSearchBarInput
+            searchInput={searchInput}
+            searchTasksOnInput={searchTasksOnInput}
+        />
     </>
 )
 
 type ToolbarType = {
     searchInput: string
-    onInput: (value: React.ChangeEvent<HTMLInputElement>) => void
+    searchTasksOnInput: (value: React.ChangeEvent<HTMLInputElement>) => void
 }

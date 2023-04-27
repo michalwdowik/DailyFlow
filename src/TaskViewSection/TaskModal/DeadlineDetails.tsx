@@ -1,27 +1,30 @@
-import { TaskType } from '../../types/types'
 import calculateDaysLeft from '../../helpers/calculateDaysLeft'
 
 const DeadlineDetails = ({
-    date,
-    task,
-}: {
-    task: TaskType
-    date: string
-}): JSX.Element => {
-    const daysLeft = calculateDaysLeft(task.deadline)
-    const pastDeadline = daysLeft <= -1
-    const todayIsTheDeadline = daysLeft === 0
-    const deadlineInFuture = daysLeft > 0
+    taskDeadline,
+}: DeadlineDetailsProps): JSX.Element => {
+    const daysToDeadline = calculateDaysLeft(taskDeadline)
+    const pastDeadline = daysToDeadline <= -1
+    const todayIsTheDeadline = daysToDeadline === 0
+    const deadlineInFuture = daysToDeadline > 0
 
     return (
         <div className="bg-transparent stats">
             <div className="stat">
                 {pastDeadline && (
-                    <PastDeadline daysLeft={daysLeft} date={date} />
+                    <PastDeadline
+                        taskDeadline={taskDeadline}
+                        daysToDeadline={daysToDeadline}
+                    />
                 )}
-                {todayIsTheDeadline && <TodaysDeadline date={date} />}
+                {todayIsTheDeadline && (
+                    <TodaysDeadline taskDeadline={taskDeadline} />
+                )}
                 {deadlineInFuture && (
-                    <FutureDeadline date={date} daysLeft={daysLeft} />
+                    <FutureDeadline
+                        taskDeadline={taskDeadline}
+                        daysToDeadline={daysToDeadline}
+                    />
                 )}
             </div>
         </div>
@@ -30,39 +33,41 @@ const DeadlineDetails = ({
 export default DeadlineDetails
 
 const PastDeadline = ({
-    daysLeft,
-    date,
-}: {
-    daysLeft: number
-    date: string
-}) => (
+    daysToDeadline,
+    taskDeadline,
+}: DeadlineDetailsExtendedProps) => (
     <>
         <div className="stat-title text-slate-700">{`${Math.abs(
-            daysLeft
+            daysToDeadline
         )} days after the`}</div>
         <div className="stat-value text-error">Deadline</div>
-        <div className="stat-desc">{`Deadline: ${date}`}</div>
+        <div className="stat-desc">{`Deadline: ${taskDeadline}`}</div>
     </>
 )
 
-const TodaysDeadline = ({ date }: { date: string }) => (
+const TodaysDeadline = ({ taskDeadline }: DeadlineDetailsProps) => (
     <>
         <div className="stat-title text-slate-700">Due to:</div>
         <div className="stat-value text-slate-500">Today</div>
-        <div className="stat-desc">{`Deadline: ${date}`}</div>
+        <div className="stat-desc">{`Deadline: ${taskDeadline}`}</div>
     </>
 )
 
 const FutureDeadline = ({
-    daysLeft,
-    date,
-}: {
-    daysLeft: number
-    date: string
-}) => (
+    daysToDeadline,
+    taskDeadline,
+}: DeadlineDetailsExtendedProps) => (
     <>
         <div className="stat-title">Days left:</div>
-        <div className="stat-value text-slate-500">{daysLeft}</div>
-        <div className="stat-desc">{`Deadline: ${date}`}</div>
+        <div className="stat-value text-slate-500">{daysToDeadline}</div>
+        <div className="stat-desc">{`Deadline: ${taskDeadline}`}</div>
     </>
 )
+
+type DeadlineDetailsProps = {
+    taskDeadline: string
+}
+
+type DeadlineDetailsExtendedProps = DeadlineDetailsProps & {
+    daysToDeadline: number
+}
