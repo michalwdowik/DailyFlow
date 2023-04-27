@@ -10,18 +10,15 @@ import {
 } from '../../helpers/colorStyleClassHandler'
 import { CategoryTabType, IconType } from '../../types/types'
 
-const calculatePadding = (categoryTabsLength: number): string => {
-    if (categoryTabsLength > 8) return 'p-0'
-    if (categoryTabsLength > 6) return 'p-1'
-    return 'p-2'
-}
-
 const CategoryTab = ({ categoryTab, categoryTabsLength }: CategoryTabProps) => {
     const { selectedCategoryTab, setSelectedCategoryTab } =
         useContext<TaskViewSectionContextType>(TaskViewSectionContext)
     const { taskList } = useTaskContext()
     const isTabSelected = categoryTab.name === selectedCategoryTab
-    const paddingClassName = calculatePadding(categoryTabsLength)
+    const paddingClassName =
+        (categoryTabsLength > 8 && 'p-0') ||
+        (categoryTabsLength > 6 && 'p-1') ||
+        'p-2'
     const categoryTabLength =
         categoryTab.name === 'all' ? taskList.length : categoryTab.length
     const animateIndicatorOnSelectedTab =

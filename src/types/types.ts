@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from 'react'
 import { ColorStyleState } from '../helpers/colorStyleClassHandler'
 import iconList from '../helpers/iconList'
 
@@ -39,8 +38,8 @@ export type TaskStatus = 'done' | 'notDone'
 
 export type StarType = {
     index: number
-    setTaskRate: (rate: number) => void
-    setHoveredStars: Dispatch<SetStateAction<number>>
+    changeTaskRate: (rate: number) => void
+    hoverStars: (stars: number) => void
     taskRate: number
     hoveredStars: number
     categoryColor: ColorStyleState

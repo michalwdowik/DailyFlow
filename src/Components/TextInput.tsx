@@ -5,18 +5,18 @@ const TextInput = ({
     maxChars,
     inputRef,
     isInputCorrect,
-    action,
-    onInput,
+    createNewCategory,
+    handleInputChange,
 }: TextInputProps) => {
     const handleEnterPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        action(e)
+        createNewCategory(e)
     }
     return (
         <input
             onKeyDown={onEnterPressed(handleEnterPress)}
             maxLength={maxChars}
             ref={inputRef}
-            onInput={onInput}
+            onInput={handleInputChange}
             type="text"
             placeholder="Type here..."
             id="taskInput"
@@ -33,7 +33,7 @@ type TextInputProps = {
     maxChars: number
     inputRef: React.RefObject<HTMLInputElement>
     isInputCorrect: boolean
-    action: (e: React.KeyboardEvent<HTMLInputElement>) => void
-    onInput?: (e: React.ChangeEvent<HTMLInputElement>) => void
+    createNewCategory: (e: React.KeyboardEvent<HTMLInputElement>) => void
+    handleInputChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
     darkBackground: boolean
 }

@@ -5,11 +5,13 @@ import { StarType } from '../types/types'
 
 const TaskImportance = ({
     taskRate,
-    setTaskRate,
+    changeTaskRate,
     categoryColor,
 }: TaskImportanceProps) => {
     const [hoveredStars, setHoveredStars] = useState<number>(2)
-
+    const hoverStars = (stars: number) => {
+        setHoveredStars(stars)
+    }
     return (
         <div className="flex items-baseline gap-3 ">
             <span className="label-text text-slate-700">How Important?:</span>
@@ -19,8 +21,8 @@ const TaskImportance = ({
                         <Star
                             key={uuid()}
                             index={index + 1}
-                            setTaskRate={setTaskRate}
-                            setHoveredStars={setHoveredStars}
+                            changeTaskRate={changeTaskRate}
+                            hoverStars={hoverStars}
                             taskRate={taskRate}
                             categoryColor={categoryColor}
                             hoveredStars={hoveredStars}
@@ -35,8 +37,8 @@ export default TaskImportance
 
 const Star = ({
     index,
-    setTaskRate,
-    setHoveredStars,
+    changeTaskRate,
+    hoverStars,
     taskRate,
     hoveredStars,
     categoryColor,
@@ -53,9 +55,9 @@ const Star = ({
       transition
       ease-in-out hover:scale-125
       ${colorStar}`}
-            onClick={() => setTaskRate(index)}
-            onMouseEnter={() => setHoveredStars(index)}
-            onMouseLeave={() => setHoveredStars(taskRate)}
+            onClick={() => changeTaskRate(index)}
+            onMouseEnter={() => hoverStars(index)}
+            onMouseLeave={() => hoverStars(taskRate)}
         >
             <span className="star ">&#9733;</span>
         </button>
@@ -64,5 +66,5 @@ const Star = ({
 
 type TaskImportanceProps = Pick<
     StarType,
-    'taskRate' | 'setTaskRate' | 'categoryColor'
+    'taskRate' | 'changeTaskRate' | 'categoryColor'
 >

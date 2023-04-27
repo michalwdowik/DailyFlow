@@ -9,15 +9,25 @@ const BaseButton = ({
 }: BaseButtonProps) => {
     const { taskList } = useTaskContext()
 
+    const buttonColorClass =
+        (buttonStyle === 'success' && 'btn-success') ||
+        (buttonStyle === 'error' && 'btn-error') ||
+        (buttonStyle === 'primary' && 'btn-primary')
+
+    const tooltipColorClass =
+        (buttonStyle === 'success' && 'hover:tooltip-success') ||
+        (buttonStyle === 'error' && 'hover:tooltip-error') ||
+        (buttonStyle === 'primary' && 'hover:tooltip-primary')
+
     return (
         <div
-            className={`tooltip hover:tooltip hover:tooltip-open hover:tooltip-${buttonStyle} `}
+            className={`tooltip hover:tooltip hover:tooltip-open ${tooltipColorClass} `}
             data-tip={tooltipInfo}
         >
             <button
                 type="button"
                 onClick={action}
-                className={`btn-${buttonStyle} btn-sm btn-circle btn ${
+                className={`${buttonColorClass} btn-sm btn-circle btn ${
                     taskList.length === 0 && 'btn-disabled'
                 }`}
             >

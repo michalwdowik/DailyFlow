@@ -86,6 +86,17 @@ const TaskCreationSection = () => {
         setNewTask(defaultTask)
     }
 
+    const changeTaskRate = (rate: number) => {
+        setNewTask({ ...newTask, rate })
+    }
+
+    const toggleSetDeadline = () => {
+        setIsSelectDateChecked(!isSelectDateChecked)
+    }
+
+    const changeDeadline = (deadline: string) => {
+        setNewTask({ ...newTask, deadline })
+    }
     return (
         <div className="relative flex flex-col self-start w-full p-5 glassmorphismCard gap-7">
             <span className="mt-2 -mb-6 label-text text-slate-700">
@@ -97,7 +108,7 @@ const TaskCreationSection = () => {
                     maxChars={30}
                     inputRef={inputRef}
                     isInputCorrect={isCorrectTyped}
-                    action={submitHandler}
+                    createNewCategory={submitHandler}
                 />
                 <AddTaskButton
                     submitHandler={submitHandler}
@@ -117,16 +128,14 @@ const TaskCreationSection = () => {
             <TaskImportance
                 categoryColor={colorStyle}
                 taskRate={newTask.rate}
-                setTaskRate={(rate) => setNewTask({ ...newTask, rate })}
+                changeTaskRate={changeTaskRate}
             />
 
             <DatePicker
                 colorStyle={colorStyle}
-                setTaskDeadline={(deadline) =>
-                    setNewTask({ ...newTask, deadline })
-                }
+                changeDeadline={(deadline) => changeDeadline(deadline)}
                 isSelectDateChecked={isSelectDateChecked}
-                setIsSelectDateChecked={setIsSelectDateChecked}
+                toggleSetDeadline={toggleSetDeadline}
             />
 
             <Alert alert={alertState} />

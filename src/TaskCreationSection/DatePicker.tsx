@@ -8,9 +8,9 @@ import {
 import options from '../helpers/datePickerOptions'
 
 const DatePicker = ({
-    setTaskDeadline,
+    changeDeadline,
     isSelectDateChecked,
-    setIsSelectDateChecked,
+    toggleSetDeadline,
     colorStyle,
 }: DatePickerProps) => {
     const today = new Date()
@@ -21,13 +21,13 @@ const DatePicker = ({
 
     const handleDateChange = (selectedDate: Date) => {
         const formattedDate = selectedDate.toLocaleDateString('en-US')
-        setTaskDeadline(formattedDate)
+        changeDeadline(formattedDate)
     }
 
     const setTodaysDate = () => {
-        setIsSelectDateChecked(!isSelectDateChecked)
+        toggleSetDeadline()
         const formattedDate = today.toLocaleDateString('en-US')
-        setTaskDeadline(formattedDate)
+        changeDeadline(formattedDate)
     }
 
     return (
@@ -81,9 +81,9 @@ const TogglerInput = ({ isChecked, action }: TogglerInputProps) => (
 )
 
 type DatePickerProps = {
-    setTaskDeadline: (date: string) => void
+    changeDeadline: (date: string) => void
     isSelectDateChecked: boolean
-    setIsSelectDateChecked: (isChecked: boolean) => void
+    toggleSetDeadline: () => void
     colorStyle: ColorStyleState
 }
 

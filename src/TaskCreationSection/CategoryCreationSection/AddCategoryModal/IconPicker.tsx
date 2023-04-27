@@ -4,14 +4,21 @@ import iconList from '../../../helpers/iconList'
 import { IconType } from '../../../types/types'
 
 const IconPicker = memo(
-    ({ newCategoryIcon, setNewCategoryIcon }: IconPickerProps): JSX.Element => {
+    ({
+        newCategoryIcon,
+        changeCategoryIconHandler,
+    }: IconPickerProps): JSX.Element => {
         return (
             <div className="flex-none collapse max-h-60 rounded-3xl">
                 <input type="checkbox" className="peer " />
                 <SelectedIcon name={newCategoryIcon} />
                 <div className="relative p-0 m-0 overflow-auto collapse-content place-items-center accent-slate-700">
                     <div className="flex flex-wrap justify-center mt-3 ">
-                        <Icons setNewCategoryIcon={setNewCategoryIcon} />
+                        <Icons
+                            changeCategoryIconHandler={
+                                changeCategoryIconHandler
+                            }
+                        />
                     </div>
                 </div>
             </div>
@@ -19,7 +26,7 @@ const IconPicker = memo(
     }
 )
 
-const Icons = memo(({ setNewCategoryIcon }: IconsProps): JSX.Element => {
+const Icons = memo(({ changeCategoryIconHandler }: IconsProps): JSX.Element => {
     const memoizedIcons = useMemo(() => {
         const defaultIcons = [
             'IoDocuments',
@@ -41,7 +48,7 @@ const Icons = memo(({ setNewCategoryIcon }: IconsProps): JSX.Element => {
                     className="px-3 text-5xl transition-all ease-in-out text-slate-600 hover:opacity-75 focus:scale-125"
                     type="button"
                     key={name}
-                    onClick={() => setNewCategoryIcon(name)}
+                    onClick={() => changeCategoryIconHandler(name)}
                 >
                     <Icon />
                 </button>
@@ -76,7 +83,7 @@ export default memo(IconPicker)
 
 type IconPickerProps = {
     newCategoryIcon: IconType
-    setNewCategoryIcon: (categoryIcon: IconType) => void
+    changeCategoryIconHandler: (categoryIcon: IconType) => void
 }
 
 type IconProps = {
@@ -84,5 +91,5 @@ type IconProps = {
 }
 
 type IconsProps = {
-    setNewCategoryIcon: (iconName: IconType) => void
+    changeCategoryIconHandler: (iconName: IconType) => void
 }

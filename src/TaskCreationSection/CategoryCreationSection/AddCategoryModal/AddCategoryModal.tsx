@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { ChangeEvent, useRef, useState } from 'react'
 import { v4 as uuid } from 'uuid'
@@ -30,7 +28,7 @@ const AddCategoryModal = () => {
     const inputRef = useRef<HTMLInputElement>(null)
     useCloseOnEscapeKey({ id: 'addCategoryModal' })
 
-    const onInput = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         setIsCorrectTyped(e.target.value !== '')
     }
     const resetInput = () => {
@@ -103,13 +101,13 @@ const AddCategoryModal = () => {
                                         darkBackground={false}
                                         maxChars={17}
                                         inputRef={inputRef}
-                                        onInput={onInput}
+                                        handleInputChange={handleInputChange}
                                         isInputCorrect={isCorrectTyped}
-                                        action={createNewCategory}
+                                        createNewCategory={createNewCategory}
                                     />
                                     <CreateCategoryButton
                                         color={newCategory.colorStyle}
-                                        action={createNewCategory}
+                                        createNewCategory={createNewCategory}
                                     />
                                 </div>
                                 <ColorPicker
@@ -119,7 +117,7 @@ const AddCategoryModal = () => {
 
                                 <IconPicker
                                     newCategoryIcon={newCategory.icon}
-                                    setNewCategoryIcon={(
+                                    changeCategoryIconHandler={(
                                         categoryIcon: IconType
                                     ) =>
                                         changeCategoryIconHandler(categoryIcon)

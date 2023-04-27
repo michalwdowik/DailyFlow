@@ -3,11 +3,14 @@ import {
     colorStyleBgHandler,
 } from '../../../helpers/colorStyleClassHandler'
 
-const CreateCategoryButton = ({ color, action }: CreateCategoryButtonProps) => (
+const CreateCategoryButton = ({
+    color,
+    createNewCategory,
+}: CreateCategoryButtonProps) => (
     <div>
         <button
             type="button"
-            onClick={action}
+            onClick={createNewCategory}
             className={`text-white ${colorStyleBgHandler(
                 color
             )} btn-circle transition-all active:scale-90`}
@@ -33,5 +36,5 @@ export default CreateCategoryButton
 
 type CreateCategoryButtonProps = {
     color: ColorStyleState
-    action: () => void
+    createNewCategory: () => void
 }
