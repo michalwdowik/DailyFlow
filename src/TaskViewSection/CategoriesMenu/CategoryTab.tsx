@@ -8,7 +8,7 @@ import {
     colorStyleBgHandler,
     colorStyleTooltipHandler,
 } from '../../helpers/colorStyleClassHandler'
-import { CategoryTabType, IconType, TabProps } from '../../types/types'
+import { CategoryTabType, IconType } from '../../types/types'
 
 const calculatePadding = (categoryTabsLength: number): string => {
     if (categoryTabsLength > 8) return 'p-0'
@@ -120,4 +120,12 @@ type CategoryTabProps = {
 
 type TaskViewSectionContextType = Pick<TabProps, 'setSelectedCategoryTab'> & {
     selectedCategoryTab: string
+}
+
+type TabProps = {
+    color: ColorStyleState
+    name: string
+    isTabSelected: boolean
+    setSelectedCategoryTab: (category: string) => void
+    icon: IconType
 }

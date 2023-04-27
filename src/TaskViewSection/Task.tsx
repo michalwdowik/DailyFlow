@@ -7,7 +7,7 @@ import {
     colorStyleCheckboxHandler,
 } from '../helpers/colorStyleClassHandler'
 import TaskViewSectionContext from '../Contexts/TaskViewSectionContext'
-import { StarProps, TaskType } from '../types/types'
+import { StarType, TaskType } from '../types/types'
 
 const Task = ({ task, updateTaskStatus, searchInput }: TaskProps) => {
     const { selectedCategoryTab } = useContext(TaskViewSectionContext)
@@ -90,7 +90,7 @@ const TaskModalImportance = ({ taskRate }: TaskModalImportanceProps) => {
     )
 }
 
-type TaskModalImportanceProps = Pick<StarProps, 'taskRate'>
+type TaskModalImportanceProps = Pick<StarType, 'taskRate'>
 
 type TaskCheckBoxProps = {
     isTaskDone: boolean

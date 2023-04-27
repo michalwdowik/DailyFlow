@@ -1,38 +1,12 @@
-import { useContext } from 'react'
-import { useTaskContext } from '../../Contexts/TaskContext'
-import TaskViewSectionContext from '../../Contexts/TaskViewSectionContext'
-import { TaskStatus, ToolbarButtonsProps } from '../../types/types'
+import BaseButton from './BaseButton'
 
-const MakeAllTasksDoneButton = ({
-    allTabIsSelected,
-}: MakeAllTasksDoneButtonProps) => {
-    const { taskList, setTaskList } = useTaskContext()
-    const { selectedCategoryTab } = useContext(TaskViewSectionContext)
-
-    const makeAllTasks = (status: TaskStatus) => {
-        const updatedList = taskList.map((task) => {
-            const taskBelongsToActiveTab =
-                task.category === selectedCategoryTab || allTabIsSelected
-            const isDone =
-                (status === 'done' && taskBelongsToActiveTab) ||
-                (status === 'notDone' && !taskBelongsToActiveTab)
-            return { ...task, done: isDone }
-        })
-        setTaskList(updatedList)
-    }
-
+const MakeAllTasksDoneButton = ({ action }: MakeAllTasksDoneButtonType) => {
     return (
-        <div
-            className="tooltip hover:tooltip hover:tooltip-open hover:tooltip-success"
-            data-tip="Mark all as done"
-        >
-            <button
-                type="button"
-                onClick={() => makeAllTasks('done')}
-                className={`btn-success btn-sm btn-circle btn ${
-                    taskList.length === 0 && 'btn-disabled'
-                }`}
-            >
+        <BaseButton
+            action={action}
+            tooltipInfo="Mark all as done"
+            buttonStyle="success"
+            buttonIcon={
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     height="24px"
@@ -43,11 +17,11 @@ const MakeAllTasksDoneButton = ({
                     <path d="M0 0h24v24H0z" fill="none" />
                     <path d="M18 7l-1.41-1.41-6.34 6.34 1.41 1.41L18 7zm4.24-1.41L11.66 16.17 7.48 12l-1.41 1.41L11.66 19l12-12-1.42-1.41zM.41 13.41L6 19l1.41-1.41L1.83 12 .41 13.41z" />
                 </svg>
-            </button>
-        </div>
+            }
+        />
     )
 }
 
 export default MakeAllTasksDoneButton
 
-type MakeAllTasksDoneButtonProps = Pick<ToolbarButtonsProps, 'allTabIsSelected'>
+type MakeAllTasksDoneButtonType = { action: () => void }

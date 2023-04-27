@@ -23,7 +23,6 @@ export default function Portal({ rootId, children }: PortalProps) {
 
     return createPortal(children, target.current)
 }
-
 type PortalProps = {
     rootId: string
     children: ReactNode

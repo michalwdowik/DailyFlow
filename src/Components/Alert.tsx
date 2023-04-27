@@ -13,6 +13,7 @@ export const showAlert = (
         background: alertData.background,
         isShowed: alertData.isShowed,
     })
+
     const timer = setTimeout(() => {
         setAlertState({
             ...alertData,

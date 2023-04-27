@@ -7,7 +7,20 @@
     --b1: 360, 100%, 100%;
   }
 }
+
+
+/* ------------ Reset CSS ------------ */
+/* * {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+} */
+
+
 * {
+  box-sizing: border-box;
+
   margin: 0 auto;
 }
 

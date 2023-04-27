@@ -4,7 +4,7 @@ import iconList from '../helpers/iconList'
 
 export type IconType = keyof typeof iconList
 
-export type ToolbarButtonsProps = {
+export type ToolbarButtonsType = {
     allTabIsSelected: boolean
     setAlertState: React.Dispatch<React.SetStateAction<Partial<AlertType>>>
 }
@@ -24,14 +24,6 @@ export type CategoryTabType = Pick<
     length: number
 }
 
-export type TabProps = {
-    color: ColorStyleState
-    name: string
-    isTabSelected: boolean
-    setSelectedCategoryTab: (category: string) => void
-    icon: IconType
-}
-
 export type TaskType = {
     uuid: string
     name: string
@@ -45,7 +37,7 @@ export type TaskType = {
 
 export type TaskStatus = 'done' | 'notDone'
 
-export type StarProps = {
+export type StarType = {
     index: number
     setTaskRate: (rate: number) => void
     setHoveredStars: Dispatch<SetStateAction<number>>

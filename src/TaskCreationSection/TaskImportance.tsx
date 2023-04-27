@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { v4 as uuid } from 'uuid'
 import { colorStyleTextHandler } from '../helpers/colorStyleClassHandler'
-import { StarProps } from '../types/types'
+import { StarType } from '../types/types'
 
 const TaskImportance = ({
     taskRate,
@@ -40,7 +40,7 @@ const Star = ({
     taskRate,
     hoveredStars,
     categoryColor,
-}: StarProps) => {
+}: StarType) => {
     const colorStar =
         index <= (hoveredStars || taskRate) &&
         `${colorStyleTextHandler(categoryColor)}`
@@ -63,6 +63,6 @@ const Star = ({
 }
 
 type TaskImportanceProps = Pick<
-    StarProps,
+    StarType,
     'taskRate' | 'setTaskRate' | 'categoryColor'
 >
