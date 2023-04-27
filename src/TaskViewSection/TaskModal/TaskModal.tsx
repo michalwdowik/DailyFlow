@@ -8,11 +8,13 @@ import useCloseOnEscapeKey from '../../hooks/useCloseOnEscapeKey'
 import useModalLogic from '../../hooks/useModalLogic'
 import ModalBackground from './ModalBackground'
 import ModalDetails from './ModalDetails'
+import useCloseOnOutsideClick from '../../hooks/useCloseOnOutsideClick'
 
 const TaskModal = ({ task }: TaskModalProps) => {
-    const { showModal, openModal } = useModalLogic()
+    const { showModal, openModal, closeModal } = useModalLogic()
 
-    useCloseOnEscapeKey({ id: task.uuid })
+    useCloseOnEscapeKey({ id: task.uuid, closeModal })
+    useCloseOnOutsideClick({ closeModal })
 
     return (
         <div>

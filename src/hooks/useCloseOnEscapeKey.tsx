@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react'
 
-const useCloseOnEscapeKey = ({ id }: UseCloseOnEscapeKeyProps) => {
+const useCloseOnEscapeKey = ({ id, closeModal }: UseCloseOnEscapeKeyProps) => {
     useEffect(() => {
         const closeModalOnEscapeKey = (event: KeyboardEvent) => {
             const escapeClicked = event.key === 'Escape'
@@ -9,6 +9,7 @@ const useCloseOnEscapeKey = ({ id }: UseCloseOnEscapeKeyProps) => {
                 const modal = document.getElementById(
                     id
                 ) as HTMLInputElement | null
+                closeModal()
                 if (modal) modal.checked = false
             }
         }
@@ -23,4 +24,5 @@ export default useCloseOnEscapeKey
 
 type UseCloseOnEscapeKeyProps = {
     id: string
+    closeModal: () => void
 }

@@ -18,6 +18,7 @@ import IconPicker from './IconPicker'
 import TextInput from '../../../Components/TextInput'
 import { IconType } from '../../../types/types'
 import CreateCategoryButton from './CreateCategoryButton'
+import useCloseOnOutsideClick from '../../../hooks/useCloseOnOutsideClick'
 
 const AddCategoryModal = () => {
     const { categories, addCategory } = useCategoryContext()
@@ -27,7 +28,8 @@ const AddCategoryModal = () => {
     const [newCategory, setNewCategory] = useState(defaultCategoryParams)
     const inputRef = useRef<HTMLInputElement>(null)
 
-    useCloseOnEscapeKey({ id: 'addCategoryModal' })
+    useCloseOnEscapeKey({ id: 'addCategoryModal', closeModal })
+    useCloseOnOutsideClick({ closeModal })
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         setIsCorrectTyped(e.target.value !== '')
