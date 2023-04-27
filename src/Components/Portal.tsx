@@ -1,11 +1,6 @@
 import { useEffect, useRef, ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 
-type PortalProps = {
-    rootId: string
-    children: ReactNode
-}
-
 export default function Portal({ rootId, children }: PortalProps) {
     const target = useRef<HTMLElement | null>(document.getElementById(rootId))
 
@@ -27,4 +22,9 @@ export default function Portal({ rootId, children }: PortalProps) {
     }
 
     return createPortal(children, target.current)
+}
+
+type PortalProps = {
+    rootId: string
+    children: ReactNode
 }

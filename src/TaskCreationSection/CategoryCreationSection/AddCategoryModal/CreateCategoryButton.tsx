@@ -3,11 +3,6 @@ import {
     colorStyleBgHandler,
 } from '../../../helpers/colorStyleClassHandler'
 
-type CreateCategoryButtonProps = {
-    color: ColorStyleState
-    action: () => void
-}
-
 const CreateCategoryButton = ({ color, action }: CreateCategoryButtonProps) => (
     <div>
         <button
@@ -35,3 +30,8 @@ const CreateCategoryButton = ({ color, action }: CreateCategoryButtonProps) => (
     </div>
 )
 export default CreateCategoryButton
+
+type CreateCategoryButtonProps = {
+    color: ColorStyleState
+    action: () => void
+}

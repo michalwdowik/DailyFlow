@@ -1,12 +1,5 @@
 import { KeyboardEvent, MouseEvent } from 'react'
 
-type AddTaskButtonProps = {
-    submitHandler: (
-        e: MouseEvent<HTMLButtonElement> | KeyboardEvent<HTMLInputElement>
-    ) => void
-    isCorrectTyped: boolean
-}
-
 const AddTaskButton = ({
     submitHandler,
     isCorrectTyped,
@@ -37,3 +30,10 @@ const AddTaskButton = ({
     )
 }
 export default AddTaskButton
+
+type AddTaskButtonProps = {
+    submitHandler: (
+        e: MouseEvent<HTMLButtonElement> | KeyboardEvent<HTMLInputElement>
+    ) => void
+    isCorrectTyped: boolean
+}

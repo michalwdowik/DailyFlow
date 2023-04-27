@@ -1,12 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { createContext, useMemo, useState, useContext } from 'react'
+import React, {
+    createContext,
+    useMemo,
+    useState,
+    useContext,
+    ReactNode,
+} from 'react'
 import { v4 as uuid } from 'uuid'
-import {
-    CategoryTabType,
-    TaskContextProviderType,
-    TaskContextType,
-    TaskType,
-} from '../types/TaskTypes'
+import { CategoryTabType, TaskType } from '../types/types'
 
 const TaskContext = createContext<TaskContextType>({
     taskList: [],
@@ -74,4 +75,14 @@ export const useTaskContext = () => {
     const context = useContext(TaskContext)
     if (!context) throw Error('You`re missing TaskContextProvider')
     return context
+}
+
+type TaskContextProviderType = {
+    children: ReactNode
+}
+
+type TaskContextType = {
+    taskList: TaskType[]
+    categoryTabs: CategoryTabType[]
+    setTaskList: React.Dispatch<React.SetStateAction<TaskType[]>>
 }

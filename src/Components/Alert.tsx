@@ -1,12 +1,6 @@
 import { useState } from 'react'
 import Portal from './Portal'
-import {
-    AlertIconProps,
-    AlertMessageProps,
-    AlertProps,
-    AlertType,
-    PartialAlertType,
-} from '../types/AlertTypes'
+import { AlertType, SuccessOrErrorType } from '../types/types'
 
 export const showAlert = (
     alertData: AlertType,
@@ -97,4 +91,17 @@ const ErrorIcon = (): JSX.Element => {
             <path d="M480 756q15 0 25.5-10.5T516 720q0-15-10.5-25.5T480 684q-15 0-25.5 10.5T444 720q0 15 10.5 25.5T480 756Zm-36-132h72V384h-72v240ZM341 912 144 714V437l197-197h278l197 197v278L618 912H341Zm30-72h218l155-155V467L588 312H371L216 467v218l155 155Zm109-264Z" />
         </svg>
     )
+}
+
+type PartialAlertType = Partial<AlertType>
+
+type AlertProps = {
+    alert: PartialAlertType
+}
+
+type AlertIconProps = {
+    type: SuccessOrErrorType
+}
+type AlertMessageProps = {
+    message: string
 }

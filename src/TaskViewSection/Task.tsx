@@ -1,15 +1,13 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { useContext } from 'react'
+import { ChangeEvent, useContext } from 'react'
 import { v4 as uuid } from 'uuid'
 import TaskModal from './TaskModal/TaskModal'
-import { colorStyleCheckboxHandler } from '../helpers/colorStyleClassHandler'
-import TaskViewSectionContext from '../Contexts/TaskViewSectionContext'
 import {
-    TaskCheckBoxProps,
-    TaskDescriptionProps,
-    TaskModalImportanceProps,
-    TaskProps,
-} from '../types/TaskTypes'
+    ColorStyleState,
+    colorStyleCheckboxHandler,
+} from '../helpers/colorStyleClassHandler'
+import TaskViewSectionContext from '../Contexts/TaskViewSectionContext'
+import { StarProps, TaskType } from '../types/types'
 
 const Task = ({ task, updateTaskStatus, searchInput }: TaskProps) => {
     const { selectedCategoryTab } = useContext(TaskViewSectionContext)
@@ -90,4 +88,23 @@ const TaskModalImportance = ({ taskRate }: TaskModalImportanceProps) => {
             ))}
         </div>
     )
+}
+
+type TaskModalImportanceProps = Pick<StarProps, 'taskRate'>
+
+type TaskCheckBoxProps = {
+    isTaskDone: boolean
+    taskColorStyle: ColorStyleState
+    updateTaskStatus: (e: ChangeEvent<HTMLInputElement>) => void
+}
+
+type TaskDescriptionProps = {
+    taskName: string
+    taskCategory: string
+}
+
+export type TaskProps = {
+    task: TaskType
+    updateTaskStatus: (e: ChangeEvent<HTMLInputElement>) => void
+    searchInput: string
 }

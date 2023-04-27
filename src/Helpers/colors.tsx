@@ -1,5 +1,3 @@
-type ColorList = string[]
-
 const colors: ColorList = [
     '#38bdf8',
     '#f87171',
@@ -9,3 +7,5 @@ const colors: ColorList = [
 ]
 
 export default colors
+
+type ColorList = string[]

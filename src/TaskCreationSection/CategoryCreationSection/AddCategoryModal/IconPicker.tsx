@@ -1,11 +1,7 @@
 /* eslint-disable react/display-name */
 import { memo, useMemo } from 'react'
 import iconList from '../../../helpers/iconList'
-import {
-    IconPickerProps,
-    IconProps,
-    IconsProps,
-} from '../../../types/IconTypes'
+import { IconType } from '../../../types/types'
 
 const IconPicker = memo(
     ({ newCategoryIcon, setNewCategoryIcon }: IconPickerProps): JSX.Element => {
@@ -23,17 +19,16 @@ const IconPicker = memo(
     }
 )
 
-const defaultIcons = [
-    'IoDocuments',
-    'IoHeart',
-    'IoPulse',
-    'IoLaptop',
-    'IoSchool',
-    'IoListOutline',
-]
-
 const Icons = memo(({ setNewCategoryIcon }: IconsProps): JSX.Element => {
     const memoizedIcons = useMemo(() => {
+        const defaultIcons = [
+            'IoDocuments',
+            'IoHeart',
+            'IoPulse',
+            'IoLaptop',
+            'IoSchool',
+            'IoListOutline',
+        ]
         return Object.entries(iconList).filter(([name]) => {
             return !defaultIcons.includes(name)
         })
@@ -78,3 +73,16 @@ export const DynamicIcon = ({ name }: IconProps): JSX.Element => {
 }
 
 export default memo(IconPicker)
+
+type IconPickerProps = {
+    newCategoryIcon: IconType
+    setNewCategoryIcon: (categoryIcon: IconType) => void
+}
+
+type IconProps = {
+    name: IconType
+}
+
+type IconsProps = {
+    setNewCategoryIcon: (iconName: IconType) => void
+}

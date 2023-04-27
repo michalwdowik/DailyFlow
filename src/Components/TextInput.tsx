@@ -1,13 +1,5 @@
 import onEnterPressed from '../helpers/onEnterPressed'
 
-type TextInputProps = {
-    maxChars: number
-    inputRef: React.RefObject<HTMLInputElement>
-    isInputCorrect: boolean
-    action: (e: React.KeyboardEvent<HTMLInputElement>) => void
-    onInput?: (e: React.ChangeEvent<HTMLInputElement>) => void
-    darkBackground: boolean
-}
 const TextInput = ({
     darkBackground,
     maxChars,
@@ -36,3 +28,12 @@ const TextInput = ({
 }
 
 export default TextInput
+
+type TextInputProps = {
+    maxChars: number
+    inputRef: React.RefObject<HTMLInputElement>
+    isInputCorrect: boolean
+    action: (e: React.KeyboardEvent<HTMLInputElement>) => void
+    onInput?: (e: React.ChangeEvent<HTMLInputElement>) => void
+    darkBackground: boolean
+}

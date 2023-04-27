@@ -1,11 +1,6 @@
-import React, { lazy, Suspense } from 'react'
+import { lazy, Suspense } from 'react'
 import { ColorResult } from 'react-color'
 import colors from '../../../helpers/colors'
-
-type ColorPickerProps = {
-    changeColorHandler: (color: ColorResult) => void
-    color: string
-}
 
 const LazyCirclePicker = lazy(() =>
     import('react-color').then((module) => ({ default: module.CirclePicker }))
@@ -24,3 +19,8 @@ const ColorPicker = ({ color, changeColorHandler }: ColorPickerProps) => (
 )
 
 export default ColorPicker
+
+type ColorPickerProps = {
+    changeColorHandler: (color: ColorResult) => void
+    color: string
+}

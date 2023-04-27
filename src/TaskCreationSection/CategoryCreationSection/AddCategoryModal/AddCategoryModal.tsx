@@ -18,7 +18,7 @@ import OpenModalButton from './OpenModalButton'
 import ColorPicker from './ColorPicker'
 import IconPicker from './IconPicker'
 import TextInput from '../../../Components/TextInput'
-import { IconType } from '../../../types/IconTypes'
+import { IconType } from '../../../types/types'
 import CreateCategoryButton from './CreateCategoryButton'
 
 const AddCategoryModal = () => {
@@ -28,7 +28,7 @@ const AddCategoryModal = () => {
     const { alertState, setAlertState } = useAlertState()
     const [newCategory, setNewCategory] = useState(defaultCategoryParams)
     const inputRef = useRef<HTMLInputElement>(null)
-    useCloseOnEscapeKey({ id: 'addCategoryModal', closeModal })
+    useCloseOnEscapeKey({ id: 'addCategoryModal' })
 
     const onInput = (e: ChangeEvent<HTMLInputElement>) => {
         setIsCorrectTyped(e.target.value !== '')
@@ -96,12 +96,8 @@ const AddCategoryModal = () => {
                         <label
                             htmlFor="addCategoryModal"
                             className="backdrop-blur-md modal"
-                            onClick={closeModal}
                         >
-                            <label
-                                className="flex flex-col content-center justify-center gap-3 p-5 pt-10 mt-5 modal-box rounded-3xl bg-slate-100"
-                                onClick={(e) => e.stopPropagation()}
-                            >
+                            <label className="flex flex-col content-center justify-center gap-3 p-5 pt-10 mt-5 modal-box rounded-3xl bg-slate-100">
                                 <div className="indicator">
                                     <TextInput
                                         darkBackground={false}

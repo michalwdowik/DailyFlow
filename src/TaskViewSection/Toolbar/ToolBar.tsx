@@ -1,9 +1,5 @@
 import ToolbarButtons from './ToolbarButtons'
 
-type ToolbarType = {
-    searchInput: string
-    onInput: (value: React.ChangeEvent<HTMLInputElement>) => void
-}
 const ToolBar = ({ searchInput, onInput }: ToolbarType) => (
     <div className="relative flex gap-5 border-error">
         <TaskSearchBar searchInput={searchInput} onInput={onInput} />
@@ -46,3 +42,8 @@ const TaskSearchBar = ({ searchInput, onInput }: ToolbarType) => (
         <TaskSearchBarInput searchInput={searchInput} onInput={onInput} />
     </>
 )
+
+type ToolbarType = {
+    searchInput: string
+    onInput: (value: React.ChangeEvent<HTMLInputElement>) => void
+}

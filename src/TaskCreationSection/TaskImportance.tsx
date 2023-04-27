@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { v4 as uuid } from 'uuid'
 import { colorStyleTextHandler } from '../helpers/colorStyleClassHandler'
-import { StarProps, TaskImportanceProps } from '../types/TaskTypes'
+import { StarProps } from '../types/types'
 
 const TaskImportance = ({
     taskRate,
@@ -61,3 +61,8 @@ const Star = ({
         </button>
     )
 }
+
+type TaskImportanceProps = Pick<
+    StarProps,
+    'taskRate' | 'setTaskRate' | 'categoryColor'
+>

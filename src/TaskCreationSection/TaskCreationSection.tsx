@@ -17,7 +17,7 @@ import { CategoryContextProvider } from '../Contexts/CategoryContext'
 import { useTaskContext, defaultTask } from '../Contexts/TaskContext'
 import scrollToBottom from '../helpers/scrollToBottom'
 import TextInput from '../Components/TextInput'
-import { CategoryType } from '../types/CategoryTypes'
+import { CategoryType } from '../types/types'
 
 type InputRefType = MutableRefObject<HTMLInputElement | null>
 

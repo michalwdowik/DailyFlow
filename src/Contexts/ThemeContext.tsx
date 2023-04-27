@@ -1,9 +1,5 @@
-import { createContext, useMemo, useState, useContext } from 'react'
+import { createContext, useMemo, useState, useContext, ReactNode } from 'react'
 import { ColorStyleState } from '../helpers/colorStyleClassHandler'
-import {
-    ThemeContextProviderProps,
-    ThemeContextType,
-} from '../types/ContextTypes'
 
 const ThemeContext = createContext<ThemeContextType>({
     colorStyle: 'info',
@@ -31,4 +27,13 @@ export const useThemeContext = () => {
     const context = useContext(ThemeContext)
     if (!context) throw Error('You`re missing ThemeContextProvider')
     return context
+}
+
+type ThemeContextProviderProps = {
+    children: ReactNode
+}
+
+type ThemeContextType = {
+    colorStyle: ColorStyleState
+    setColorStyle: (color: ColorStyleState) => void
 }

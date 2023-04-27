@@ -4,16 +4,11 @@ import TaskViewSectionContext from '../../Contexts/TaskViewSectionContext'
 import { DynamicIcon } from '../../TaskCreationSection/CategoryCreationSection/AddCategoryModal/IconPicker'
 import { useTaskContext } from '../../Contexts/TaskContext'
 import {
+    ColorStyleState,
     colorStyleBgHandler,
     colorStyleTooltipHandler,
 } from '../../helpers/colorStyleClassHandler'
-import {
-    CategoryTabProps,
-    TabIconProps,
-    TabIndicatorProps,
-    TabProps,
-    ContextType,
-} from '../../types/TabTypes'
+import { CategoryTabType, IconType, TabProps } from '../../types/types'
 
 const calculatePadding = (categoryTabsLength: number): string => {
     if (categoryTabsLength > 8) return 'p-0'
@@ -23,7 +18,7 @@ const calculatePadding = (categoryTabsLength: number): string => {
 
 const CategoryTab = ({ categoryTab, categoryTabsLength }: CategoryTabProps) => {
     const { selectedCategoryTab, setSelectedCategoryTab } =
-        useContext<ContextType>(TaskViewSectionContext)
+        useContext<TaskViewSectionContextType>(TaskViewSectionContext)
     const { taskList } = useTaskContext()
     const isTabSelected = categoryTab.name === selectedCategoryTab
     const paddingClassName = calculatePadding(categoryTabsLength)
@@ -106,3 +101,23 @@ const Tab = ({
         </button>
     </div>
 )
+
+type TabIconProps = {
+    iconName: IconType
+    categoryName: string
+}
+
+type TabIndicatorProps = {
+    color: ColorStyleState
+    categoryLength: number
+    animate: string | boolean
+}
+
+type CategoryTabProps = {
+    categoryTab: CategoryTabType
+    categoryTabsLength: number
+}
+
+type TaskViewSectionContextType = Pick<TabProps, 'setSelectedCategoryTab'> & {
+    selectedCategoryTab: string
+}

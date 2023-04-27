@@ -1,14 +1,9 @@
 import { useContext } from 'react'
 import { useTaskContext } from '../../Contexts/TaskContext'
 import TaskViewSectionContext from '../../Contexts/TaskViewSectionContext'
-import {
-    MakeAllTasksDoneButtonProps,
-    TaskStatus,
-} from '../../types/ButtonTypes'
+import { TaskStatus, ToolbarButtonsProps } from '../../types/types'
 
-const UndoneAllTasksButton = ({
-    allTabIsSelected,
-}: MakeAllTasksDoneButtonProps) => {
+const UndoneAllTasksButton = ({ allTabIsSelected }: UndoneAllTasksButtonProps) => {
     const { taskList, setTaskList } = useTaskContext()
     const { selectedCategoryTab } = useContext(TaskViewSectionContext)
 
@@ -52,3 +47,5 @@ const UndoneAllTasksButton = ({
 }
 
 export default UndoneAllTasksButton
+
+type UndoneAllTasksButtonProps = Pick<ToolbarButtonsProps, 'allTabIsSelected'>

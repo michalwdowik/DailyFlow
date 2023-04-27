@@ -1,4 +1,4 @@
-import { AlertVariantType } from '../types/AlertTypes'
+import { AlertVariantType } from '../types/types'
 
 const AlertVariant: AlertVariantType = {
     ERROR_UP_TO_7_CATEGORIES: {

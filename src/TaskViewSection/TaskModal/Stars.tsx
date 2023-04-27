@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid'
-import { TaskType } from '../../types/TaskTypes'
+import { TaskType } from '../../types/types'
 import { colorStyleTextHandler } from '../../helpers/colorStyleClassHandler'
 
 const Stars = ({ task }: { task: TaskType }) => (

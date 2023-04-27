@@ -2,9 +2,6 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
-type OpenModalButtonProps = {
-    openModal: () => void
-}
 const OpenModalButton = ({ openModal }: OpenModalButtonProps) => (
     <label
         onClick={openModal}
@@ -27,3 +24,7 @@ const OpenModalButton = ({ openModal }: OpenModalButtonProps) => (
 )
 
 export default OpenModalButton
+
+type OpenModalButtonProps = {
+    openModal: () => void
+}

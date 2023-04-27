@@ -1,12 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { createContext, useMemo, useState, useContext } from 'react'
+import { createContext, useMemo, useState, useContext, ReactNode } from 'react'
 import { v4 as uuid } from 'uuid'
-import {
-    CategoryContextProviderType,
-    CategoryContextType,
-    CategoryType,
-    DefaultCategory,
-} from '../types/CategoryTypes'
+import { CategoryType } from '../types/types'
 import { ColorStyleState } from '../helpers/colorStyleClassHandler'
 
 const CategoryContext = createContext<CategoryContextType>({
@@ -94,4 +89,18 @@ export const useCategoryContext = () => {
     const context = useContext(CategoryContext)
     if (!context) throw Error('You`re missing CategoryContextProvider')
     return context
+}
+
+type CategoryContextProviderType = {
+    children: ReactNode
+}
+
+type CategoryContextType = {
+    categories: CategoryType[]
+    removeCategory: (id: string) => void
+    addCategory: (category: CategoryType) => void
+}
+
+interface DefaultCategory extends Omit<CategoryType, 'uuid'> {
+    color: string
 }

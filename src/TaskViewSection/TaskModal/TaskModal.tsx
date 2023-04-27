@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { colorStyleBlobHandler } from '../../helpers/colorStyleClassHandler'
-import { TaskType } from '../../types/TaskTypes'
+import { TaskType } from '../../types/types'
 import Portal from '../../Components/Portal'
 import useCloseOnEscapeKey from '../../hooks/useCloseOnEscapeKey'
 import useModalLogic from '../../hooks/useModalLogic'
@@ -10,13 +10,13 @@ import ModalBackground from './ModalBackground'
 import ModalDetails from './ModalDetails'
 
 const TaskModal = ({ task }: { task: TaskType }) => {
-    const { showModal, openModal, closeModal } = useModalLogic()
-    useCloseOnEscapeKey({ id: task.uuid, closeModal })
+    const { showModal, openModal } = useModalLogic()
+    useCloseOnEscapeKey({ id: task.uuid })
 
     return (
         <div>
             <ShowModalButton id={task.uuid} openModal={openModal} />
-            <Modal task={task} showModal={showModal} closeModal={closeModal} />
+            <Modal task={task} showModal={showModal} />
         </div>
     )
 }
@@ -47,15 +47,7 @@ const ShowModalButton = ({
     </label>
 )
 
-const Modal = ({
-    task,
-    showModal,
-    closeModal,
-}: {
-    task: TaskType
-    showModal: boolean
-    closeModal: () => void
-}) => (
+const Modal = ({ task, showModal }: { task: TaskType; showModal: boolean }) => (
     <div>
         {showModal && (
             <Portal rootId="portal">
@@ -68,10 +60,8 @@ const Modal = ({
                     <label
                         htmlFor={task.uuid}
                         className="backdrop-blur-md modal"
-                        onClick={closeModal}
                     >
                         <label
-                            onClick={(e) => e.stopPropagation()}
                             htmlFor=""
                             className="p-0 m-0 modalStyle modal-box rounded-3xl bg-slate-100"
                         >

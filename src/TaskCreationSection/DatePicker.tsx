@@ -1,13 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useState } from 'react'
 import Datepicker from 'tailwind-datepicker-react'
-import { colorStyleTogglerHandler } from '../helpers/colorStyleClassHandler'
-import options from '../helpers/datePickerOptions'
 import {
-    DatePickerProps,
-    TogglerInputProps,
-    TogglerLabelProps,
-} from '../types/DatePickerTypes'
+    ColorStyleState,
+    colorStyleTogglerHandler,
+} from '../helpers/colorStyleClassHandler'
+import options from '../helpers/datePickerOptions'
 
 const DatePicker = ({
     setTaskDeadline,
@@ -81,3 +79,19 @@ const TogglerInput = ({ isChecked, action }: TogglerInputProps) => (
         onChange={action}
     />
 )
+
+type DatePickerProps = {
+    setTaskDeadline: (date: string) => void
+    isSelectDateChecked: boolean
+    setIsSelectDateChecked: (isChecked: boolean) => void
+    colorStyle: ColorStyleState
+}
+
+type TogglerLabelProps = {
+    isToggled: boolean
+}
+
+type TogglerInputProps = {
+    isChecked: boolean
+    action: () => void
+}

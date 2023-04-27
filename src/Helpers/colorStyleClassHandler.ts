@@ -1,11 +1,3 @@
-export type ColorStyleState =
-    | 'info'
-    | 'error'
-    | 'success'
-    | 'primary'
-    | 'warning'
-    | 'default'
-
 export const colorStyleBgHandler = (state: ColorStyleState) => {
     switch (state) {
         case 'info':
@@ -141,3 +133,11 @@ export const colorStyleTooltipHandler = (state: ColorStyleState) => {
             return `tooltip-black`
     }
 }
+
+export type ColorStyleState =
+    | 'info'
+    | 'error'
+    | 'success'
+    | 'primary'
+    | 'warning'
+    | 'default'

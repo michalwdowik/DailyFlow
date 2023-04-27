@@ -1,10 +1,7 @@
 import { useContext } from 'react'
 import { useTaskContext } from '../../Contexts/TaskContext'
 import TaskViewSectionContext from '../../Contexts/TaskViewSectionContext'
-import {
-    MakeAllTasksDoneButtonProps,
-    TaskStatus,
-} from '../../types/ButtonTypes'
+import { TaskStatus, ToolbarButtonsProps } from '../../types/types'
 
 const MakeAllTasksDoneButton = ({
     allTabIsSelected,
@@ -52,3 +49,5 @@ const MakeAllTasksDoneButton = ({
 }
 
 export default MakeAllTasksDoneButton
+
+type MakeAllTasksDoneButtonProps = Pick<ToolbarButtonsProps, 'allTabIsSelected'>

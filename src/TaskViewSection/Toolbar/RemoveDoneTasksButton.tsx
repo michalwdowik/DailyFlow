@@ -3,12 +3,12 @@ import { showAlert } from '../../Components/Alert'
 import AlertVariant from '../../helpers/AlertVariant'
 import { useTaskContext } from '../../Contexts/TaskContext'
 import TaskViewSectionContext from '../../Contexts/TaskViewSectionContext'
-import { RemoveDoneTasksButtonProps } from '../../types/ButtonTypes'
+import { ToolbarButtonsProps } from '../../types/types'
 
 const RemoveDoneTasksButton = ({
     allTabIsSelected,
     setAlertState,
-}: RemoveDoneTasksButtonProps) => {
+}: ToolbarButtonsProps) => {
     const { taskList, setTaskList } = useTaskContext()
     const { selectedCategoryTab, setSelectedCategoryTab } = useContext(
         TaskViewSectionContext

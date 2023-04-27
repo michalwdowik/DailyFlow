@@ -1,8 +1,8 @@
 import TaskCreationSection from './TaskCreationSection/TaskCreationSection'
 import TaskViewSection from './TaskViewSection/TaskViewSection'
 import BackgroundBlobs from './Components/BackgroundBlobs'
-import { ThemeContextProvider } from './Contexts/ThemeContext'
 import { TaskContextProvider } from './Contexts/TaskContext'
+import { ThemeContextProvider } from './Contexts/ThemeContext'
 
 const App = () => (
     <div className="container min-w-full min-h-screen">

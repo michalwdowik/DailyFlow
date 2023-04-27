@@ -1,12 +1,12 @@
 import { useMemo } from 'react'
-import { colorStyleBgHandler } from '../../helpers/colorStyleClassHandler'
+import {
+    ColorStyleState,
+    colorStyleBgHandler,
+} from '../../helpers/colorStyleClassHandler'
 import AddCategoryModal from '../CategoryCreationSection/AddCategoryModal/AddCategoryModal'
 import Category from './Category'
 import { useCategoryContext } from '../../Contexts/CategoryContext'
-import {
-    CategoryDropdownMenuProps,
-    CategoryPickerProps,
-} from '../../types/CategoryTypes'
+import { CategoryType } from '../../types/types'
 
 const CategoryPicker = ({
     categoryColor,
@@ -70,3 +70,15 @@ const CategoryDropdownMenu = ({
         {selectedCategoryName}
     </div>
 )
+
+type CategoryPickerProps = {
+    categoryColor: ColorStyleState
+    resetCategorySelection: () => void
+    selectedCategoryName: string
+    onChangeCategory: (category: CategoryType) => void
+}
+
+type CategoryDropdownMenuProps = Pick<
+    CategoryPickerProps,
+    'categoryColor' | 'selectedCategoryName'
+>
