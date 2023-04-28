@@ -1,27 +1,38 @@
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
+import viteCompression from 'vite-plugin-compression';
+import { ViteMinifyPlugin } from 'vite-plugin-minify'
+import preact from "@preact/preset-vite";
 
-import { compression } from 'vite-plugin-compression2'
 
 export default defineConfig({
     plugins: [
-        compression({
-            include: [/\.(js|mjs|json|css|html)$/],
-            exclude: [/\.(br)$/, /\.(gz)$/],
-            algorithm: 'brotliCompress',
-        }),
+        viteCompression(),
+        ViteMinifyPlugin({}),
+        preact({ devtoolsInProd: true }),
         VitePWA({
+          strategies: "generateSW",
+          registerType: "autoUpdate",
+          workbox: {
+            globPatterns: ["**/*.{js,css}"],
+            navigateFallback: null,
+          },
             devOptions: {
                 enabled: true,
-                // type: 'module',
+                type: 'module',
+                navigateFallback: "index.html",
             },
-            registerType: 'autoUpdate',
+  
 
             manifest: {
+                id: '/',
+                start_url: "./",
+                name: 'To Do App',
+                short_name: 'ToDo',
                 theme_color: '#ffffff',
                 icons: [
                     {
-                        src: '/icons/icon.png',
+                        src: '/icon.png',
                         sizes: '512x512',
                         type: 'image/png',
                         purpose: 'any maskable',
@@ -31,3 +42,4 @@ export default defineConfig({
         }),
     ],
 })
+

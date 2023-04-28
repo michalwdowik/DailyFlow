@@ -12,11 +12,14 @@
   position: absolute;
   left: 70%;
   top: 35%; 
+}
 
-  @media screen and (min-width: 768px) {
+@media screen and (min-width: 768px) {
+  .shape-blob {
     top: 30%;
   }
 }
+
 
   .shape-blob.one{
       height: 500px;

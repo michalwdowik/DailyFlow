@@ -16,10 +16,8 @@ module.exports = {
     parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
-        tsconfigRootDir: __dirname,
-        project: 'tsconfig.json',
     },
-    plugins: ['react', '@typescript-eslint', 'prefer-arrow', 'prettier'],
+    plugins: ['react', "html", '@typescript-eslint', 'prefer-arrow', 'prettier'],
     rules: {
         'react/react-in-jsx-scope': 0,
         'react/function-component-definition': [
