@@ -37,11 +37,11 @@ const TaskList = () => {
                 searchTasksOnInput={searchTasksOnInput}
             />
             <div className="flow-root ">
+                {taskList.length === 0 && <CallToActionLabel />}
                 <ul
                     ref={animationParent}
                     className={`mt-3 max-h-[500px] ${scrollIfOverflow} p-0`}
                 >
-                    {taskList.length === 0 && <CallToActionLabel />}
                     {taskList.map((task) => (
                         <Task
                             searchInput={searchInput}
@@ -61,7 +61,7 @@ export default TaskList
 
 const CallToActionLabel = () => {
     return (
-        <h2 className="mt-10 text-3xl text-center duration-500 loop-scale transition-color animate-pulse opacity-70 hover:text-success">
+        <h2 className="mt-10 text-3xl text-center duration-500 text-slate-600 loop-scale transition-color animate-pulse opacity-70 hover:text-success">
             Add some tasks...
         </h2>
     )

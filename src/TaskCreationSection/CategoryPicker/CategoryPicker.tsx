@@ -30,7 +30,12 @@ const CategoryPicker = ({
                 Select category:
             </span>
             <div className="bg-transparent rounded-lg collapse-arrow collapse">
-                <input type="checkbox" className="peer" />
+                <input
+                    id="allCategories"
+                    aria-label="Unwind all categories"
+                    type="checkbox"
+                    className="peer"
+                />
                 <CategoryDropdownMenu
                     selectedCategoryName={selectedCategoryName}
                     categoryColor={categoryColor}
@@ -65,7 +70,7 @@ const CategoryDropdownMenu = ({
     <div
         className={`${colorStyleBgHandler(
             categoryColor
-        )} collapse-title text-white rounded-3xl transition duration-500 ease-in-out peer-checked:opacity-50`}
+        )} collapse-title text-slate-700 rounded-3xl transition duration-500 ease-in-out peer-checked:opacity-50 `}
     >
         {selectedCategoryName}
     </div>

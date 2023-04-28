@@ -6,7 +6,7 @@ type Options = {
 
 const useCloseOnOutsideClick = ({ closeModal }: Options, delay = 300) => {
     useEffect(() => {
-        let timer: number
+        let timer: NodeJS.Timeout
         const handleMouseDown = (event: MouseEvent) => {
             const target = event.target as HTMLElement
             if (!target.closest('.modal-box')) {

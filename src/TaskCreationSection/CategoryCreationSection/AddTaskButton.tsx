@@ -8,6 +8,8 @@ const AddTaskButton = ({
 
     return (
         <button
+            id="addTaskButton"
+            aria-label="Add Task Button"
             type="button"
             onClick={submitHandler}
             className={`btn-m btn-circle btn ${buzzIfTaskNotValid}`}

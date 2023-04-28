@@ -91,6 +91,8 @@ const Tab = ({
         data-tip={tabName}
     >
         <button
+            id="categoryTab"
+            aria-label="Category Tab"
             type="button"
             onClick={() => setSelectedCategoryTab(tabName)}
             className={`focus:scale-150 transition-transform bg-opacity-100 p-3 text-white hover:text-white hover:opacity-60 sm:text-2xl md:text-3xl lg:text-xl 
