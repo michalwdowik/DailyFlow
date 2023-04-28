@@ -1,9 +1,10 @@
 import { IoRemoveCircle } from '@react-icons/all-files/io5/IoRemoveCircle'
+
+import { useCategoryContext } from '../../Contexts/CategoryContext'
 import {
     ColorStyleState,
     colorStyleRadioHandler,
-} from '../../helpers/colorStyleClassHandler'
-import { useCategoryContext } from '../../Contexts/CategoryContext'
+} from '../../Helpers/colorStyleClassHandler'
 
 const Category = ({
     selectedCategoryUUID,

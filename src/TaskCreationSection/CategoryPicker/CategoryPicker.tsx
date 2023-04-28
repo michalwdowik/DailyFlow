@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import {
     ColorStyleState,
     colorStyleBgHandler,
-} from '../../helpers/colorStyleClassHandler'
+} from '../../Helpers/colorStyleClassHandler'
 import AddCategoryModal from '../CategoryCreationSection/AddCategoryModal/AddCategoryModal'
 import Category from './Category'
 import { useCategoryContext } from '../../Contexts/CategoryContext'

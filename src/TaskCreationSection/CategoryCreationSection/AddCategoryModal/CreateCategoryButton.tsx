@@ -1,7 +1,7 @@
 import {
     ColorStyleState,
     colorStyleBgHandler,
-} from '../../../helpers/colorStyleClassHandler'
+} from '../../../Helpers/colorStyleClassHandler'
 
 const CreateCategoryButton = ({
     buttonColor,

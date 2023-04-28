@@ -16,7 +16,7 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["dist/assets/index-ee60a69a.js", ".eslintrc.cjs", "src", "vite-env.d.ts", "prettier.config.js", "postcss.config.js", "vite.config.ts"],
+  "include": ["dist/assets/index-ee60a69a.js", ".eslintrc.cjs", "src", "vite-env.d.ts", "prettier.config.js", "postcss.config.cjs", "vite.config.ts", "tailwind.config.cjs"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
 

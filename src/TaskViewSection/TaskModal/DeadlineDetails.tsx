@@ -1,4 +1,4 @@
-import calculateDaysLeft from '../../helpers/calculateDaysLeft'
+import calculateDaysLeft from '../../Helpers/calculateDaysLeft'
 
 const DeadlineDetails = ({
     taskDeadline,

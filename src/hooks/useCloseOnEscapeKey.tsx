@@ -5,15 +5,13 @@ const useCloseOnEscapeKey = ({ id, closeModal }: UseCloseOnEscapeKeyProps) => {
     useEffect(() => {
         const closeModalOnEscapeKey = (event: KeyboardEvent) => {
             const escapeClicked = event.key === 'Escape'
-            let timer: NodeJS.Timeout
-
             if (escapeClicked) {
                 const modal = document.getElementById(
                     id
                 ) as HTMLInputElement | null
 
                 if (modal) modal.checked = false
-                timer = setTimeout(() => {
+                setTimeout(() => {
                     closeModal()
                 }, 300)
             }

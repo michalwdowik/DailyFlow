@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { ColorResult } from 'react-color'
-import colors from '../../../helpers/colors'
+import colors from '../../../Helpers/colors'
 
 const LazyCirclePicker = lazy(() =>
     import('react-color').then((module) => ({ default: module.CirclePicker }))

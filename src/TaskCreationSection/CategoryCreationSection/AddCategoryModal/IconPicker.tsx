@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import { memo, useMemo } from 'react'
-import iconList from '../../../helpers/iconList'
+import iconList from '../../../Helpers/iconList'
 import { IconType } from '../../../types/types'
 
 const IconPicker = memo(

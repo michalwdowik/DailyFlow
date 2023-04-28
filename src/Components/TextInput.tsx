@@ -1,4 +1,4 @@
-import onEnterPressed from '../helpers/onEnterPressed'
+import onEnterPressed from '../Helpers/onEnterPressed'
 
 const TextInput = ({
     darkBackground,

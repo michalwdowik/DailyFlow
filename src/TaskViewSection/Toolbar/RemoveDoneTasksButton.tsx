@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { showAlert } from '../../Components/Alert'
-import AlertVariant from '../../helpers/AlertVariant'
+import AlertVariant from '../../Helpers/AlertVariant'
 import { useTaskContext } from '../../Contexts/TaskContext'
 import TaskViewSectionContext from '../../Contexts/TaskViewSectionContext'
 import { ToolbarButtonsType } from '../../types/types'

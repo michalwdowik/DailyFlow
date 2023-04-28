@@ -3,7 +3,7 @@ import { useTaskContext } from '../../Contexts/TaskContext'
 import {
     buttonColorClass,
     tooltipColorClass,
-} from '../../helpers/colorStyleClassHandler'
+} from '../../Helpers/colorStyleClassHandler'
 
 const BaseButton = ({
     action,

@@ -3,12 +3,12 @@ import { IoListOutline } from '@react-icons/all-files/io5/IoListOutline'
 import TaskViewSectionContext from '../../Contexts/TaskViewSectionContext'
 import { DynamicIcon } from '../../TaskCreationSection/CategoryCreationSection/AddCategoryModal/IconPicker'
 import { useTaskContext } from '../../Contexts/TaskContext'
+import { CategoryTabType, IconType } from '../../types/types'
 import {
     ColorStyleState,
     colorStyleBgHandler,
     colorStyleTooltipHandler,
-} from '../../helpers/colorStyleClassHandler'
-import { CategoryTabType, IconType } from '../../types/types'
+} from '../../Helpers/colorStyleClassHandler'
 
 const CategoryTab = ({ categoryTab, categoryTabsLength }: CategoryTabProps) => {
     const { selectedCategoryTab, setSelectedCategoryTab } =

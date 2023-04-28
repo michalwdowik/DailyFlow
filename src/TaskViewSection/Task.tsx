@@ -2,12 +2,12 @@
 import { ChangeEvent, useContext } from 'react'
 import { v4 as uuid } from 'uuid'
 import TaskModal from './TaskModal/TaskModal'
+import TaskViewSectionContext from '../Contexts/TaskViewSectionContext'
+import { StarType, TaskType } from '../types/types'
 import {
     ColorStyleState,
     colorStyleCheckboxHandler,
-} from '../helpers/colorStyleClassHandler'
-import TaskViewSectionContext from '../Contexts/TaskViewSectionContext'
-import { StarType, TaskType } from '../types/types'
+} from '../Helpers/colorStyleClassHandler'
 
 const Task = ({ task, updateTaskStatus, searchInput }: TaskProps) => {
     const { selectedCategoryTab } = useContext(TaskViewSectionContext)

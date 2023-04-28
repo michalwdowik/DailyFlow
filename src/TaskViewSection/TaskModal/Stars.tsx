@@ -2,7 +2,7 @@ import { v4 as uuid } from 'uuid'
 import {
     ColorStyleState,
     colorStyleTextHandler,
-} from '../../helpers/colorStyleClassHandler'
+} from '../../Helpers/colorStyleClassHandler'
 
 const Stars = ({ taskRate, colorStyle }: StarsProps) => (
     <div className="inline-flex">

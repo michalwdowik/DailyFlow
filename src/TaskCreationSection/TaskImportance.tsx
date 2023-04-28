@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { v4 as uuid } from 'uuid'
-import { colorStyleTextHandler } from '../helpers/colorStyleClassHandler'
+import { colorStyleTextHandler } from '../Helpers/colorStyleClassHandler'
 import { StarType } from '../types/types'
 
 const TaskImportance = ({

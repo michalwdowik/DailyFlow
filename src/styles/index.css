@@ -28,7 +28,6 @@ body {
   z-index: 1;
 }
 
-
 .buzz-effect {
   animation: buzz 0.2s ease-in-out;
 }
@@ -52,14 +51,3 @@ body {
   animation-iteration-count: 2;
 }
 
-@keyframes flash {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.3;
-  }
-  100% {
-    opacity: 1;
-  }
-}

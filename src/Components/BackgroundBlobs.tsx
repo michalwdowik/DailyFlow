@@ -1,5 +1,5 @@
-import { colorStyleBgHandler } from '../helpers/colorStyleClassHandler'
 import { useThemeContext } from '../Contexts/ThemeContext'
+import { colorStyleBgHandler } from '../Helpers/colorStyleClassHandler'
 
 const BackgroundBlobs = (): JSX.Element => {
     const { colorStyle } = useThemeContext()

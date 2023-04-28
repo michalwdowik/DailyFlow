@@ -1,5 +1,5 @@
-import { ColorStyleState } from '../helpers/colorStyleClassHandler'
-import iconList from '../helpers/iconList'
+import { ColorStyleState } from '../Helpers/colorStyleClassHandler'
+import iconList from '../Helpers/iconList'
 
 export type IconType = keyof typeof iconList
 

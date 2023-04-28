@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { colorStyleBlobHandler } from '../../helpers/colorStyleClassHandler'
+import { colorStyleBlobHandler } from '../../Helpers/colorStyleClassHandler'
 import { TaskType } from '../../types/types'
 import Portal from '../../Components/Portal'
 import useCloseOnEscapeKey from '../../hooks/useCloseOnEscapeKey'

@@ -2,8 +2,7 @@
 import { ChangeEvent, useRef, useState } from 'react'
 import { v4 as uuid } from 'uuid'
 import { ColorResult } from 'react-color'
-import { colorPickerColorHandler } from '../../../helpers/colorStyleClassHandler'
-import AlertVariant from '../../../helpers/AlertVariant'
+import { colorPickerColorHandler } from '../../../Helpers/colorStyleClassHandler'
 import Alert, { showAlert, useAlertState } from '../../../Components/Alert'
 import {
     useCategoryContext,
@@ -19,6 +18,7 @@ import TextInput from '../../../Components/TextInput'
 import { IconType } from '../../../types/types'
 import CreateCategoryButton from './CreateCategoryButton'
 import useCloseOnOutsideClick from '../../../hooks/useCloseOnOutsideClick'
+import AlertVariant from '../../../Helpers/AlertVariant'
 
 const AddCategoryModal = () => {
     const { categories, addCategory } = useCategoryContext()

@@ -1,5 +1,5 @@
 import { createContext, useMemo, useState, useContext, ReactNode } from 'react'
-import { ColorStyleState } from '../helpers/colorStyleClassHandler'
+import { ColorStyleState } from '../Helpers/colorStyleClassHandler'
 
 const ThemeContext = createContext<ThemeContextType>({
     colorStyle: 'info',

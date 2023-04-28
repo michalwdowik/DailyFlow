@@ -1,7 +1,7 @@
 module.exports = {
-  arrowParens: 'avoid',
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
-  },
-};
+    arrowParens: 'avoid',
+    plugins: {
+        tailwindcss: {},
+        autoprefixer: {},
+    },
+}

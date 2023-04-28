@@ -2,7 +2,7 @@
 import { createContext, useMemo, useState, useContext, ReactNode } from 'react'
 import { v4 as uuid } from 'uuid'
 import { CategoryType } from '../types/types'
-import { ColorStyleState } from '../helpers/colorStyleClassHandler'
+import { ColorStyleState } from '../Helpers/colorStyleClassHandler'
 
 const CategoryContext = createContext<CategoryContextType>({
     categories: [],
