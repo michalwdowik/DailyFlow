@@ -1,6 +1,5 @@
 /* eslint-disable global-require */
 module.exports = {
-
   darkMode: "class",
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",

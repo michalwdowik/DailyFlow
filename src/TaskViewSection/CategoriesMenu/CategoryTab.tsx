@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from 'react'
+import { useContext, useRef } from 'react'
 import { IoListOutline } from '@react-icons/all-files/io5/IoListOutline'
 import TaskViewSectionContext from '../../Contexts/TaskViewSectionContext'
 import { DynamicIcon } from '../../TaskCreationSection/CategoryCreationSection/AddCategoryModal/IconPicker'
@@ -25,14 +25,6 @@ const CategoryTab = ({ categoryTab, categoryTabsLength }: CategoryTabProps) => {
         categoryTab.name === selectedCategoryTab && 'animate-bounce'
     const contentRef = useRef<HTMLDivElement>(null)
     const taskListEmpty = taskList.length === 0
-
-    useEffect(() => {
-        if (contentRef.current) {
-            contentRef.current.scrollIntoView({
-                behavior: 'smooth',
-            })
-        }
-    }, [selectedCategoryTab])
 
     return (
         <li>
@@ -76,7 +68,6 @@ const TabIndicator = ({
 
 const TabIcon = ({ iconName, tabName }: TabIconProps) =>
     tabName === 'all' ? <IoListOutline /> : <DynamicIcon iconName={iconName} />
-
 const Tab = ({
     tabColor,
     tabName,
