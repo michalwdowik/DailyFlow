@@ -25,9 +25,9 @@ const ModalDetails = ({ task }: { task: TaskType }) => {
 }
 
 const TaskName = ({ taskName }: TaskNameProps) => (
-    <h1 className="m-0 font-bold text-center break-all text-slate-700">
+    <h2 className="m-0 text-4xl font-bold text-center break-all text-slate-600">
         {taskName}
-    </h1>
+    </h2>
 )
 
 const TaskCategory = ({ taskCategory }: TaskCategoryProps) => (
