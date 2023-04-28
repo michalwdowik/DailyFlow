@@ -67,7 +67,6 @@ const AddCategoryModal = () => {
             uuid: uuid(),
         })
         resetNewCategorySettings()
-        closeModal()
         showAlert(AlertVariant.SUCCESS_NEW_CATEGORY_ADDED, setAlertState)
     }
 

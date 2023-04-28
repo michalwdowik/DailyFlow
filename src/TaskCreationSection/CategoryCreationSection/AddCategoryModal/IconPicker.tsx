@@ -59,7 +59,7 @@ const Icons = memo(({ changeCategoryIconHandler }: IconsProps): JSX.Element => {
 
 const SelectedIcon = ({ iconName }: IconProps): JSX.Element => (
     <button
-        className="self-center p-0 m-0 text-5xl transition ease-in-out text-slate-600 collapse-title peer-checked:scale-75 peer-checked:overflow-scroll"
+        className="self-center p-0 m-0 text-5xl transition duration-300 ease-in-out bounced flash text-slate-600 collapse-title peer-checked:scale-75 peer-checked:overflow-scroll"
         type="button"
     >
         <DynamicIcon iconName={iconName} />

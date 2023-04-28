@@ -44,3 +44,22 @@ body {
   animation: fadeIn 0.3s ease-out forwards;
 }
 
+
+.flash {
+  animation-name: flash;
+  animation-duration: 0.6s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 2;
+}
+
+@keyframes flash {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+  }
+}
