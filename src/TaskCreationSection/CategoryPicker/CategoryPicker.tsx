@@ -70,7 +70,9 @@ const CategoryDropdownMenu = ({
     <div
         className={`${colorStyleBgHandler(
             categoryColor
-        )} collapse-title text-white  rounded-3xl transition duration-500 ease-in-out peer-checked:opacity-50 `}
+        )} collapse-title bg-blend-hard-light ${
+            categoryColor === 'primary' ? 'text-white' : 'text-slate-800'
+        } rounded-3xl transition duration-500 ease-in-out peer-checked:opacity-50 `}
     >
         {selectedCategoryName}
     </div>
