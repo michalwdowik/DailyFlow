@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --b1: 360, 100%, 100%;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+body {
+  font-family: sans-serif;
+  background-color: #fff ;
+}
+
+.glassmorphismCard {
+  background: #ffffff99;
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 20px );
+  -webkit-backdrop-filter: blur( 20px );
+  border-radius: 50px;
+  max-height: 700px;
+  z-index: 1;
+}
+
+
+.buzz-effect {
+  animation: buzz 0.2s ease-in-out;
+}
+
+.loop-scale {
+  animation-name: loop-scale;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+
+.flash {
+  animation-name: flash;
+  animation-duration: 0.6s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 2;
+}
+
+@keyframes flash {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
+  }
+}
