@@ -97,7 +97,7 @@ const AddCategoryModal = () => {
                             htmlFor="addCategoryModal"
                             className="backdrop-blur-md modal"
                         >
-                            <label className="flex flex-col content-center justify-center gap-3 p-5 pt-10 mt-5 modal-box rounded-3xl bg-slate-100">
+                            <label className="flex flex-col content-center justify-center gap-3 p-5 pt-10 mt-5 border-0 modal-box rounded-3xl bg-slate-100">
                                 <div className="indicator">
                                     <TextInput
                                         darkBackground={false}

@@ -60,7 +60,7 @@ const Modal = ({ task, showModal }: ModalProps) => (
                     >
                         <label
                             htmlFor=""
-                            className="p-0 m-0 modalStyle modal-box rounded-3xl bg-slate-100"
+                            className="p-0 m-0 border-0 modalStyle modal-box rounded-3xl bg-slate-100"
                         >
                             <ModalDetails task={task} />
                             <ModalBackground

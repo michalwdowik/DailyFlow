@@ -16,7 +16,7 @@ const TaskViewSection = () => {
     )
 
     return (
-        <div className=" z-50 self-start flex flex-col w-full p-0 glassmorphismCard gap-7 transition-[100px]">
+        <div className="self-start flex flex-col w-full p-0 glassmorphismCard gap-7 transition-[100px]">
             <TaskViewSectionContext.Provider value={value}>
                 <CategoriesMenu />
                 <TaskList />
