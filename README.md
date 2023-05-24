@@ -1,7 +1,7 @@
 
 # ToDoApp
 
-The ToDoApp is a web application built using React, Typescript, Vite, Tailwind CSS, Eslint, and Prettier. The app allows users to create and manage their to-do lists by adding, editing, and deleting tasks. Users can also create custom categories by inputting a name and selecting an icon and the color of the category. Every task has a "details" button that shows a modal with details of a task ie. "days to deadline of a task". The application is responsive to user errors and successes and displays relevant alerts. The React framework is used for building the user interface, while Tailwind CSS is used for styling the components. The project is designed to provide a simple and intuitive user experience, with a clean and modern interface that is easy to use and navigate. ToDoApp has been optimized for performance and accessibility. It has achieved a full score and PWA status on Lighthouse.
+The ToDoApp is a web application built using React, Typescript, Vite, Tailwind CSS, Eslint, and Prettier. To Do App utilizes Cypress for end-to-end testing. The app allows users to create and manage their to-do lists by adding, editing, and deleting tasks. Users can also create custom categories by inputting a name and selecting an icon and the color of the category. Every task has a "details" button that shows a modal with details of a task ie. "days to deadline of a task". The application is responsive to user errors and successes and displays relevant alerts. The React framework is used for building the user interface, while Tailwind CSS is used for styling the components. The project is designed to provide a simple and intuitive user experience, with a clean and modern interface that is easy to use and navigate. ToDoApp has been optimized for performance and accessibility. It has achieved a full score and PWA status on Lighthouse.
 
 
 ## 📸 Screenshots
@@ -18,6 +18,8 @@ The ToDoApp is a web application built using React, Typescript, Vite, Tailwind C
 ![Eslint](https://img.shields.io/badge/eslint-3A33D1?style=for-the-badge&logo=eslint&logoColor=white)
 ![Tailwind](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![Prettier](https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E)
+![cypress](https://img.shields.io/badge/-cypress-%23E5E5E5?style=for-the-badge&logo=cypress&logoColor=058a5e)
+
 
 
 
@@ -36,6 +38,11 @@ Start the server
   npm run dev
 ```
 
+Run cypress tests
+
+```bash
+  npx cypress run
+```
 
 
 ## 🕹️ Features
@@ -51,6 +58,7 @@ Start the server
 - Responsive alerts depending on user error/success
 - Responsive design
 - Search task by input
+- Cypress end-to-end testing
 - PWA 
 
 ## 🛠️ Contributions
