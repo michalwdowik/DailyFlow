@@ -27,9 +27,10 @@ export default TaskModal
 
 const ShowModalButton = ({ id, openModal }: ShowModalButtonProps) => (
     <label
+        id="showModalButton"
         onClick={openModal}
         htmlFor={id}
-        className="p-0 ml-5 bg-transparent border-0 btn-xs btn bg-slate-700 dark:bg-slate-700 "
+        className="p-0 ml-5 bg-transparent border-0 testClass btn-xs btn bg-slate-700 dark:bg-slate-700 "
     >
         <svg
             xmlns="http://www.w3.org/2000/svg"

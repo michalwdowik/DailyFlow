@@ -14,9 +14,11 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": "./",
+    "types": ["cypress"],    
   },
-  "include": ["dist/assets/index-ee60a69a.js", ".eslintrc.cjs", "src", "vite-env.d.ts", "prettier.config.js", "postcss.config.cjs", "vite.config.ts", "tailwind.config.cjs"],
+  "include": ["cypress/**/*.ts","cypress.config.ts", "dist/assets/index-ee60a69a.js", ".eslintrc.cjs", "src", "vite-env.d.ts", "prettier.config.js", "postcss.config.cjs", "vite.config.ts", "tailwind.config.cjs"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
 

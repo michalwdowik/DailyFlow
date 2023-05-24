@@ -10,6 +10,7 @@ const CreateCategoryButton = ({
     <div>
         <button
             type="button"
+            id="addCategoryButton"
             onClick={createNewCategory}
             className={`text-white ${colorStyleBgHandler(
                 buttonColor

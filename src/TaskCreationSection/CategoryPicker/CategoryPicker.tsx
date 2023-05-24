@@ -40,7 +40,10 @@ const CategoryPicker = ({
                     selectedCategoryName={selectedCategoryName}
                     categoryColor={categoryColor}
                 />
-                <div className="flex flex-row flex-wrap gap-2 mt-3 rounded-lg collapse-content ">
+                <div
+                    id="categoryDropdownMenu"
+                    className="flex flex-row flex-wrap gap-2 mt-3 rounded-lg collapse-content "
+                >
                     {categories.map((category) => (
                         <Category
                             changeCategory={() => onChangeCategory(category)}
@@ -55,7 +58,9 @@ const CategoryPicker = ({
                             resetCategorySelection={resetCategorySelection}
                         />
                     ))}
-                    <AddCategoryModal />
+                    <div id="addCategory">
+                        <AddCategoryModal />
+                    </div>
                 </div>
             </div>
         </div>
