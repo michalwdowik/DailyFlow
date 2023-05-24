@@ -61,7 +61,10 @@ export default TaskList
 
 const CallToActionLabel = () => {
     return (
-        <h2 className="mt-10 text-3xl text-center duration-500 text-slate-600 loop-scale transition-color animate-pulse opacity-70 hover:text-success">
+        <h2
+            id="addSomeTasks"
+            className="mt-10 text-3xl text-center duration-500 text-slate-600 loop-scale transition-color animate-pulse opacity-70 hover:text-success"
+        >
             Add some tasks...
         </h2>
     )

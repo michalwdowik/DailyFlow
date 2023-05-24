@@ -32,7 +32,7 @@ const AlertVariant: AlertVariantType = {
         isShowed: true,
     },
     ERROR_MAX_CATEGORIES_REACHED: {
-        title: 'You can add tasks of 8 different categories at a time',
+        title: 'You can add tasks of 7 different categories at a time',
         type: 'error',
         background: 'bg-error',
         isShowed: true,
