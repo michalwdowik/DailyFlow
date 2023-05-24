@@ -20,11 +20,11 @@ body {
 
 .glassmorphismCard {
   background: #ffffff99;
-  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-  backdrop-filter: blur( 20px );
-  -webkit-backdrop-filter: blur( 20px );
-  border-radius: 50px;
-  max-height: 700px;
+  box-shadow: 0 0.5rem 2rem 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 1.25rem );
+  -webkit-backdrop-filter: blur( 1.25rem );
+  border-radius: 3.125rem;
+  max-height: 43.75rem;
   z-index: 1;
 }
 
