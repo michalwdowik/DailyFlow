@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { v4 as uuid } from 'uuid'
+import { useId, useState } from 'react'
 import { colorStyleTextHandler } from '../Helpers/colorStyleClassHandler'
 import { StarType } from '../types/types'
 
@@ -12,14 +11,16 @@ const TaskImportance = ({
     const hoverStars = (stars: number) => {
         setHoveredStars(stars)
     }
+    const id = useId()
     return (
         <div className="flex items-baseline gap-3 ">
             <span className="label-text text-slate-700">How Important?:</span>
             <div className="star-rating">
                 {[...Array(3)].map((_, index) => {
+                    const number = index
                     return (
                         <Star
-                            key={uuid()}
+                            key={`${id}-${number}`}
                             index={index + 1}
                             changeTaskRate={changeTaskRate}
                             hoverStars={hoverStars}

@@ -61,7 +61,7 @@ const TaskCreationSection = () => {
             {
                 ...newTask,
                 name: inputRef.current ? inputRef.current.value : '',
-                uuid: uuid(),
+                id: uuid(),
             },
         ])
         scrollToBottom()

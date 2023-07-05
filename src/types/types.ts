@@ -12,19 +12,19 @@ export interface CategoryType {
     name: string
     icon: IconType
     colorStyle: ColorStyleState
-    uuid: string
+    id: string
     isAddedByUser: boolean
 }
 
 export type CategoryTabType = Pick<
     TaskType,
-    'name' | 'icon' | 'uuid' | 'colorStyle'
+    'name' | 'icon' | 'id' | 'colorStyle'
 > & {
     length: number
 }
 
 export type TaskType = {
-    uuid: string
+    id: string
     name: string
     category: string
     done: boolean

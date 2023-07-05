@@ -47,13 +47,13 @@ const CategoryPicker = ({
                     {categories.map((category) => (
                         <Category
                             changeCategory={() => onChangeCategory(category)}
-                            key={category.uuid}
+                            key={category.id}
                             categoryName={category.name}
                             categoryColor={category.colorStyle}
                             isCategoryAddedByUser={category.isAddedByUser}
-                            categoryUUID={category.uuid}
+                            categoryUUID={category.id}
                             selectedCategoryUUID={
-                                selectedCategory ? selectedCategory.uuid : ''
+                                selectedCategory ? selectedCategory.id : ''
                             }
                             resetCategorySelection={resetCategorySelection}
                         />

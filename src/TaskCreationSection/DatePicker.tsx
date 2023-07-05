@@ -78,7 +78,7 @@ const TogglerInput = ({
     <input
         type="checkbox"
         value=""
-        className="sr-only peer "
+        className="sr-only peer"
         checked={isSelectDateChecked}
         onChange={setTodaysDate}
     />

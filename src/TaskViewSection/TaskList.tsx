@@ -22,9 +22,7 @@ const TaskList = () => {
     ) => {
         setTaskList((prevList) =>
             prevList.map((task) =>
-                task.uuid === taskId
-                    ? { ...task, done: e.target.checked }
-                    : task
+                task.id === taskId ? { ...task, done: e.target.checked } : task
             )
         )
     }
@@ -45,10 +43,10 @@ const TaskList = () => {
                     {taskList.map((task) => (
                         <Task
                             searchInput={searchInput}
-                            key={task.uuid}
+                            key={task.id}
                             updateTaskStatus={(
                                 e: ChangeEvent<HTMLInputElement>
-                            ) => updateTasksStatus(e, task.uuid)}
+                            ) => updateTasksStatus(e, task.id)}
                             task={task}
                         />
                     ))}

@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, useMemo, useState, useContext, ReactNode } from 'react'
-import { v4 as uuid } from 'uuid'
 import { CategoryType } from '../types/types'
 import { ColorStyleState } from '../Helpers/colorStyleClassHandler'
 
@@ -15,30 +14,34 @@ const defaultCategories: CategoryType[] = [
         name: 'general',
         icon: 'IoDocuments',
         colorStyle: 'info',
+        id: 'general',
     },
     {
         name: 'hobby',
         icon: 'IoHeart',
         colorStyle: 'error',
+        id: 'hobby',
     },
     {
         name: 'activities',
         icon: 'IoPulse',
         colorStyle: 'success',
+        id: 'activities',
     },
     {
         name: 'work',
         icon: 'IoLaptop',
         colorStyle: 'primary',
+        id: 'work',
     },
     {
         name: 'school',
         icon: 'IoSchool',
         colorStyle: 'warning',
+        id: 'school',
     },
 ].map((category) => ({
     ...category,
-    uuid: uuid(),
     isAddedByUser: false,
     colorStyle: category.colorStyle as ColorStyleState,
 }))
@@ -60,7 +63,7 @@ export const CategoryContextProvider = ({
     const removeCategory = (id: string) => {
         setCategories(
             categories.filter(
-                (category) => !category.isAddedByUser || category.uuid !== id
+                (category) => !category.isAddedByUser || category.id !== id
             )
         )
     }
@@ -101,6 +104,6 @@ type CategoryContextType = {
     addCategory: (category: CategoryType) => void
 }
 
-interface DefaultCategory extends Omit<CategoryType, 'uuid'> {
+interface DefaultCategory extends Omit<CategoryType, 'id'> {
     color: string
 }

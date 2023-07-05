@@ -64,7 +64,7 @@ const AddCategoryModal = () => {
         addCategory({
             ...newCategory,
             name: inputRef.current.value,
-            uuid: uuid(),
+            id: uuid(),
         })
         resetNewCategorySettings()
         showAlert(AlertVariant.SUCCESS_NEW_CATEGORY_ADDED, setAlertState)

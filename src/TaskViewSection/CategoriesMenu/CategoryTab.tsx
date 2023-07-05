@@ -68,6 +68,7 @@ const TabIndicator = ({
 
 const TabIcon = ({ iconName, tabName }: TabIconProps) =>
     tabName === 'all' ? <IoListOutline /> : <DynamicIcon iconName={iconName} />
+
 const Tab = ({
     tabColor,
     tabName,

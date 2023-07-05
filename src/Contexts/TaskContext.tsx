@@ -5,8 +5,8 @@ import React, {
     useState,
     useContext,
     ReactNode,
+    useId,
 } from 'react'
-import { v4 as uuid } from 'uuid'
 import { CategoryTabType, TaskType } from '../types/types'
 
 const TaskContext = createContext<TaskContextType>({
@@ -23,17 +23,18 @@ export const defaultTask: TaskType = {
     deadline: 'Not specified',
     icon: 'IoDocuments',
     colorStyle: 'info',
-    uuid: uuid(),
+    id: '',
 }
 
 export const TaskContextProvider = ({ children }: TaskContextProviderType) => {
     const [taskList, setTaskList] = useState<TaskType[]>([])
+    const id = useId()
     const defaultCategory: CategoryTabType = {
         name: 'all',
         length: 0,
         icon: 'IoListOutline',
-        uuid: uuid(),
-        colorStyle: 'info',
+        id,
+        colorStyle: 'default',
     }
 
     const taskSegregated = taskList.reduce<{ [key: string]: TaskType[] }>(
@@ -53,7 +54,7 @@ export const TaskContextProvider = ({ children }: TaskContextProviderType) => {
                 length: task.length,
                 icon: task[0].icon,
                 colorStyle: task[0].colorStyle,
-                uuid: task[0].uuid,
+                id: task[0].id,
             }
         })
         return [defaultCategory, ...tab]
