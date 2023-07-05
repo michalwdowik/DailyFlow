@@ -13,12 +13,12 @@ import useCloseOnOutsideClick from '../../hooks/useCloseOnOutsideClick'
 const TaskModal = ({ task }: TaskModalProps) => {
     const { showModal, openModal, closeModal } = useModalLogic()
 
-    useCloseOnEscapeKey({ id: task.uuid, closeModal })
+    useCloseOnEscapeKey({ id: task.id, closeModal })
     useCloseOnOutsideClick({ closeModal })
 
     return (
         <div>
-            <ShowModalButton id={task.uuid} openModal={openModal} />
+            <ShowModalButton id={task.id} openModal={openModal} />
             <Modal task={task} showModal={showModal} />
         </div>
     )
@@ -52,13 +52,10 @@ const Modal = ({ task, showModal }: ModalProps) => (
                 <div>
                     <input
                         type="checkbox"
-                        id={task.uuid}
+                        id={task.id}
                         className="modal-toggle"
                     />
-                    <label
-                        htmlFor={task.uuid}
-                        className="backdrop-blur-md modal"
-                    >
+                    <label htmlFor={task.id} className="backdrop-blur-md modal">
                         <label
                             htmlFor=""
                             className="p-0 m-0 border-0 modalStyle modal-box rounded-3xl bg-slate-100"

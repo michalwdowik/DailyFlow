@@ -2,12 +2,13 @@ import { useState } from 'react'
 import Portal from './Portal'
 import { AlertType, SuccessOrErrorType } from '../types/types'
 
-const ALERT_DURATION = 3000
 export const showAlert = (
     alertData: AlertType,
     setAlertState: (alert: AlertType) => void
 ) => {
     setAlertState(alertData)
+
+    const ALERT_DURATION = 3000
 
     const timer = setTimeout(() => {
         setAlertState({
@@ -30,8 +31,7 @@ const Alert = ({ alert }: AlertProps): JSX.Element => {
             {alert?.isShowed && (
                 <Portal rootId="portal">
                     <div
-                        className={`alert absolute inset-x-0 top-0 w-4/6 ${alert.background} portalStyle transition`}
-                        style={{ zIndex: 1000 }}
+                        className={`alert absolute inset-x-0 top-0 w-4/6 ${alert.background} z-30 transition`}
                     >
                         {isAlertDeclared && (
                             <div>

@@ -6,24 +6,61 @@
   :root {
     --b1: 360, 100%, 100%;
   }
+  body {
+    font-family: sans-serif;
+    background-color: white;
+  }
+
+  * {
+    margin-top: 0;
+    margin-right: auto;
+    margin-bottom: 0;
+    margin-left: auto;
+    box-sizing: border-box;
+  }
 }
-* {
-  box-sizing: border-box;
-  margin: 0 auto;
+
+@layer components {
+  .container {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glassmorphism-card {
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+    border-radius: 1.5rem;
+    max-height: 43.75rem;
+    z-index: 10;
+  }
+
+  .shape-blob {
+    height: 25rem;
+    width: 25rem;
+    border-radius: 30% 50% 20% 40%;
+    animation: transform 20s ease-in-out infinite both alternate, movement_one 40s ease-in-out infinite both;
+    opacity: 0.7;
+    position: absolute;
+    left: 70%;
+    top: 35%; 
+  }
+
+  .shape-blob.one{
+    height: 31.25rem;
+    width: 31.25rem;
+    left: -12.5rem;
+    top: -9.375rem;
+    position: absolute;
+    transform: rotate(-180deg);
+    animation: transform 30s ease-in-out infinite both alternate, movement_two 60s ease-in-out infinite both;
+  }
 }
-body {
-  font-family: sans-serif;
-  background-color: #fff ;
-}
-.glassmorphism-card {
-  background: #ffffff99;
-  box-shadow: 0 0.5rem 2rem 0 rgba( 31, 38, 135, 0.37 );
-  backdrop-filter: blur( 1.25rem );
-  -webkit-backdrop-filter: blur( 1.25rem );
-  border-radius: 3.125rem;
-  max-height: 43.75rem;
-  z-index: 1;
-}
+
+
+
+
+
 .buzz-effect {
   animation: buzz 0.2s ease-in-out;
 }
@@ -43,3 +80,93 @@ body {
   animation-iteration-count: 2;
 }
 
+@media screen and (min-width: 768px) {
+  .shape-blob {
+    top: 30%;
+  }
+}
+
+@keyframes buzz {
+  0% {
+    transform: rotate(15deg);
+  }
+
+  25% {
+    transform: rotate(-15deg);
+  }
+
+  50% {
+    transform: rotate(15deg);
+  }
+  100% {
+    transform: rotate(-15deg);
+  }
+}
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-50%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(0%);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+@keyframes loop-scale {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+@keyframes flash {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.3;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+@keyframes transform
+  {
+    0%,
+    100% { border-radius: 33% 67% 70% 30% / 30% 30% 70% 70%; } 
+    20% { border-radius: 37% 63% 51% 49% / 37% 65% 35% 63%; } 
+    40% { border-radius: 36% 64% 64% 36% / 64% 48% 52% 36%; } 
+    60% { border-radius: 37% 63% 51% 49% / 30% 30% 70% 70%; } 
+    80% { border-radius: 40% 60% 42% 58% / 41% 51% 49% 59%; } 
+  }
+  
+  
+@keyframes movement_one
+  {
+    0%,
+    100% { transform: none; }
+    50% { transform: translate(50%, 20%) rotateY(10deg) scale(1.2); }
+  }
+@keyframes movement_two
+  {
+    0%,
+    500% { transform: none; }
+    50% { transform: translate(50%, 20%) rotate(-200deg) scale(1.2);}
+  }
+  

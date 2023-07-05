@@ -12,7 +12,7 @@ describe('Add Tasks with 3 different dates, importance, deadline, name, category
         cy.get('.star-rating button').eq(1).click()
         cy.get('#set-deadline-button').click()
         cy.get('#date').click()
-        cy.contains('span', '28').click();
+        cy.contains('span', '28').click({force: true});
         cy.get('#addTaskButton').click()
         cy.get('#showModalButton').click()
         cy.get('.backdrop-blur-md').click({force: true})
