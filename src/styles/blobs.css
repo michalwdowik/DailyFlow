@@ -1,8 +1,7 @@
 .container {
-    overflow: hidden;
-      position: relative;
-}
-  
+  overflow: hidden;
+  position: relative;
+}  
 .shape-blob {
   height: 25rem;
   width: 25rem;
@@ -13,21 +12,18 @@
   left: 70%;
   top: 35%; 
 }
-
 @media screen and (min-width: 768px) {
   .shape-blob {
     top: 30%;
   }
 }
-
-
-  .shape-blob.one{
-      height: 31.25rem;
-      width: 31.25rem;
-      left: -12.5rem;
-      top: -9.375rem;
-    position: absolute;
-      transform: rotate(-180deg);
-      animation: transform 30s ease-in-out infinite both alternate, movement_two 60s ease-in-out infinite both;
+.shape-blob.one{
+  height: 31.25rem;
+  width: 31.25rem;
+  left: -12.5rem;
+  top: -9.375rem;
+  position: absolute;
+  transform: rotate(-180deg);
+  animation: transform 30s ease-in-out infinite both alternate, movement_two 60s ease-in-out infinite both;
   }
   

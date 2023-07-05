@@ -1,6 +1,3 @@
-
-/* ------------------ KEYFRAMES ------------------- */
-
 @keyframes buzz {
     0% {
       transform: rotate(15deg);
@@ -17,8 +14,7 @@
       transform: rotate(-15deg);
     }
   }
-  
-  @keyframes bounce {
+@keyframes bounce {
     0%, 100% {
       transform: translateY(-50%);
       animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
@@ -29,7 +25,7 @@
     }
   }
   
-  @keyframes loop-scale {
+@keyframes loop-scale {
     0% {
       transform: scale(1);
     }
@@ -41,7 +37,7 @@
     }
   }
   
-  @keyframes fadeIn {
+@keyframes fadeIn {
     0% {
       opacity: 0;
     }
@@ -50,7 +46,7 @@
     }
   }
   
-  @keyframes flash {
+@keyframes flash {
     0% {
       opacity: 1;
     }
@@ -62,28 +58,27 @@
     }
   }
   
-  @keyframes transform
+@keyframes transform
   {
-      0%,
+    0%,
     100% { border-radius: 33% 67% 70% 30% / 30% 30% 70% 70%; } 
-     20% { border-radius: 37% 63% 51% 49% / 37% 65% 35% 63%; } 
-     40% { border-radius: 36% 64% 64% 36% / 64% 48% 52% 36%; } 
-     60% { border-radius: 37% 63% 51% 49% / 30% 30% 70% 70%; } 
-     80% { border-radius: 40% 60% 42% 58% / 41% 51% 49% 59%; } 
+    20% { border-radius: 37% 63% 51% 49% / 37% 65% 35% 63%; } 
+    40% { border-radius: 36% 64% 64% 36% / 64% 48% 52% 36%; } 
+    60% { border-radius: 37% 63% 51% 49% / 30% 30% 70% 70%; } 
+    80% { border-radius: 40% 60% 42% 58% / 41% 51% 49% 59%; } 
   }
   
   
-  @keyframes movement_one
+@keyframes movement_one
   {
-      0%,
+    0%,
     100% { transform: none; }
-     50% { transform: translate(50%, 20%) rotateY(10deg) scale(1.2); }
+    50% { transform: translate(50%, 20%) rotateY(10deg) scale(1.2); }
   }
-  
-  @keyframes movement_two
+@keyframes movement_two
   {
-      0%,
+    0%,
     500% { transform: none; }
-     50% { transform: translate(50%, 20%) rotate(-200deg) scale(1.2);}
+    50% { transform: translate(50%, 20%) rotate(-200deg) scale(1.2);}
   }
   

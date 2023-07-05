@@ -98,7 +98,7 @@ const TaskCreationSection = () => {
         setNewTask({ ...newTask, deadline })
     }
     return (
-        <div className="relative flex flex-col self-start w-full p-5 glassmorphismCard gap-7">
+        <div className="relative flex flex-col self-start w-full p-5 glassmorphism-card gap-7">
             <span className="mt-2 -mb-6 label-text text-slate-700">
                 Add Task:
             </span>
