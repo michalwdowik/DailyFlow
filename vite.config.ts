@@ -22,8 +22,8 @@ export default defineConfig({
             manifest: {
                 id: '/',
                 start_url: './',
-                name: 'To Do App',
-                short_name: 'ToDo',
+                name: 'DailyFlow',
+                short_name: 'DailyFlow',
                 theme_color: '#ffffff',
                 icons: [
                     {
